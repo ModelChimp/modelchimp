@@ -1,6 +1,4 @@
-<div style="text-align:center;">
-  <img src="http://www.modelchimp.com/assets/img/logo.png"  style="height:200px !important;"/>
-</div>
+![modelchimp-logo](https://docs.modelchimp.com/logo.png)
 
 ## What is ModelChimp?
 ModelChimp is an experiment tracker for Deep Learning and Machine Learning experiments.
@@ -19,16 +17,24 @@ ModelChimp provides the following features:
 
 
 ## Why ModelChimp?
-The idea for ModelChimp came up when I was working on building a recommendation algorithm for a large retail company out of India. We were a 7 member team and we were storing the meta information related to each model building experiment in an excel sheet. Sometimes, we would miss out on logging the details, mostly due to fine-tuning and analysing the model at that moment. Sharing these sheets were over email and it was cumbersome to consolidate this data and share it with our client.
+The idea for ModelChimp came up when I was building a recommendation algorithm for a large retail company based in India. Along with my 6 member team, we would store the meta information related to each experiment in an excel sheet. Two of the biggest problems we encountered while using this approach were:
+1. Sometimes, we would miss out on logging the details while fine-tuning and analysing the model
+2. Sharing these excel sheets over email amongst the team members and the client was a cumbersome process
 
 ModelChimp is a solution to this problem faced by data scientists and machine learning engineers/enthusiasts. They can spend more time on experiments and not on managing the data related to the experiments.
 
 ## Installation
-### Docker based
+Choose either Docker based installation or the manual approach.
+
+- Docker
+- Manual
+- Production Deployment
+
+### Docker
 1. Docker is a prerequisite. You can download it from here - https://docs.docker.com/install/
 
 ```sh
-$ git clone ....
+$ git clone https://github.com/samzer/modelchimp-server
 $ cd modelchimp-server
 $ bash docker.sh --load-data
 ```
@@ -78,7 +84,7 @@ PONG
 3. Clone and cd to the repository
 
 ```sh
-$ git clone ...
+$ git clone https://github.com/samzer/modelchimp-server
 $ cd modelchimp-server
 ```
 
