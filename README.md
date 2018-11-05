@@ -34,8 +34,8 @@ Choose either Docker based installation or the manual approach.
 1. Docker is a prerequisite. You can download it from here - https://docs.docker.com/install/
 
 ```sh
-$ git clone https://github.com/samzer/modelchimp-server
-$ cd modelchimp-server
+$ git clone https://github.com/ModelChimp/modelchimp
+$ cd modelchimp
 $ bash docker.sh --load-data
 ```
 
@@ -84,8 +84,8 @@ PONG
 3. Clone and cd to the repository
 
 ```sh
-$ git clone https://github.com/samzer/modelchimp-server
-$ cd modelchimp-server
+$ git clone https://github.com/ModelChimp/modelchimp
+$ cd modelchimp
 ```
 
 4. Copy .env-dev into .env and fill the db details
