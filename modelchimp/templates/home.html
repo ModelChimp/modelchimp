@@ -1,0 +1,89 @@
+{% extends 'base.html' %} {% block pagecontent %}
+{% include "navigation.html" %}
+
+{% block cssstyle %}
+<link href="/assets/css/project.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+<div class="container">
+        <div class="row shift-down">
+            <div class="col-md-12 menu-divider">
+                <button type="button"
+                        class="btn btn-modelchimp"
+                        data-toggle="modal"
+                        data-target="#exampleModalLong">
+                        New Project
+                </button>
+                <a href="/assets/docs/index.html">
+                  <button type="button"
+                          class="btn btn-modelchimp"
+                          style="float:right;">
+                          Get Started
+                  </button>
+                </a>
+            </div>
+        </div>
+
+        <div id="project-container" class="row">
+        </div>
+</div>
+
+<!-- Project Create Modal -->
+<div class="modal fade"
+      id="exampleModalLong"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    id="exampleModalLongTitle">
+                    New Project
+                </h5>
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                      <div class="form-group">
+                        <label for="exampleFormControlInput1">Name</label>
+                        <input type="text"
+                                class="form-control"
+                                id="form-project-name"
+                                placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">
+                          Description
+                        </label>
+                        <textarea class="form-control"
+                                  id="form-project-description"
+                                  rows="3">
+                        </textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-modelchimp"
+                        data-dismiss="modal">Close</button>
+                <button type="button"
+                        class="btn btn-modelchimp"
+                        data-dismiss="modal"
+                        onclick="postProject()">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "component/footer.html" %}
+{% endblock %} {% block jscontent %} {% load compress %} {% compress js %}
+{% load static %}
+<script src="{% static "/js/home.js" %}" type="text/javascript"></script>
+{% endcompress %} {% endblock %}

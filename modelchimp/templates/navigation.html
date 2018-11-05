@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light ">
+  <a class="navbar-brand" href="/project">
+    <img src="/assets/img/logo.png" style="height:10vh" />
+    <span id="version-block"></span>
+  </a>
+  <button class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end"
+       id="navbarSupportedContent">
+    <ul class="navbar-nav mr-4">
+      <li class="nav-item" style="">
+        <a class="nav-link" href="/project">
+          Home <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/assets/docs/index.html" target="_blank">Docs</a>
+      </li>
+    </ul>
+    <div class="dropdown">
+      <img id="profile-image"
+           class="dropdown-toggle"
+           src="{{ profile_pic }}"
+           data-toggle="dropdown"
+           aria-haspopup="true"
+           aria-expanded="false" />
+      <div class="dropdown-menu " aria-labelledby="profile-image">
+        <b style="padding: .25rem 1.5rem;"> {{ name }}</b>
+        <a class="dropdown-item" href="/profile"> 👤 Profile</a>
+        <a class="dropdown-item" h
+            ref="mailto:admin@modelchimp.com"
+            target="_top"> 💬 Contact</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/logout">
+          🚪 Sign Out <span class="sr-only">(current)</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

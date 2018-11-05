@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+  web:
+    build: .
+    restart: always
+    command: ["bash", "runserver_dev.sh", "--load-data"]
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=db
+      - REDIS_HOST=redis
+      - MODELCHIMP_PATH=/code
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+  celery:
+    build: .
+    command: celery -A settings worker -l info -B
+    environment:
+      - REDIS_HOST=redis
+      - DB_HOST=db
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - redis
+      - web

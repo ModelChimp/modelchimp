@@ -1,0 +1,137 @@
+body {
+	/* background-color: #3bbbcf; */
+}
+
+h1,h2 {
+	color:white;
+	font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+	color: #5e4f4f;
+}
+
+label,h5,p {
+	color: #5e4f4f;
+}
+
+video {
+	margin-bottom:20px;
+	border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+	width: 70%;
+	margin-top: 10px;
+}
+
+#top-box {
+	background: #11998e;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #38ef7d, #11998e);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#top-box h1 {
+	color: white;
+}
+
+
+
+.nav-link {
+  color:#f2f2f2 !important;
+
+}
+
+.nav-link:hover {
+  color:white !important;
+
+}
+
+.nav-item button {
+	background:rgba(0,0,0,0);
+	border-color:white;
+}
+
+.white-row {
+	padding-top:40px;
+	padding-bottom:40px;
+}
+
+.grey-row {
+	background-color:#f8f8f8;
+	padding-top:40px;
+	padding-bottom:40px;
+}
+
+
+.why-icons {
+	font-size:50px;
+	color: #3bbbcf;
+}
+
+.why-item-heading {
+	color: #3bbbcf;
+}
+
+.why-item-text {
+	font-size:20px;
+}
+
+
+li {
+	list-style-type: none;
+	padding-top:20px;
+	padding-bottom:20px;
+	cursor: pointer;
+}
+
+li h5 {
+	text-align: center;
+}
+
+.grey-background {
+	background-color: #ececec;
+}
+
+#features p {
+	text-align: center;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+}
+
+footer {
+	background-color: #5e4f4f;
+}
+
+footer p,footer h5 {
+	margin-top:0px;
+	color:white;
+}
+
+footer li {
+	display: inline;
+	margin-left:30px;
+}
+
+footer a{
+	color:white;
+}
+
+footer a:hover{
+	color:#3bbbcf;
+}
+
+.footer-copyright {
+	color:white;
+}
+#mc_embed_signup {
+	/* background-color:#3bbbcf; */
+}
+
+div.clear #mc-embedded-subscribe {
+	background-color:#5e4f4f ;
+}

@@ -1,0 +1,42 @@
+<style>
+  #param-field-list {
+    height: 30vh;
+    overflow-y: scroll;
+  }
+</style>
+
+<!-- Modal -->
+<div class="modal fade"
+      id="customiseTable"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="customiseTable"
+      aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Customise Table</h5>
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="customise-table-modal-body" class="modal-body">
+              <div class="form-group">
+                <ul id="param-field-list" class="list-group">
+                </ul>
+              </div>
+            </div>
+            <div class="modal-footer">
+                <div>
+                    <button type="button"
+                            class="btn btn-modelchimp"
+                            onClick="applyCustomization()">Apply
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

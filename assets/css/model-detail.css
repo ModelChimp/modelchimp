@@ -1,0 +1,25 @@
+#project-title {
+	text-decoration: none;
+
+}
+#project-title h5:hover {
+	color:#3bbbcf;
+}
+
+#code {
+	background-color: #fff;
+}
+
+h5 {
+	display: inline;
+	margin-left: 5px;
+}
+
+.metric-block {
+		overflow-x: auto;
+}
+
+
+.project-meta-info {
+	font-size:18px;
+}

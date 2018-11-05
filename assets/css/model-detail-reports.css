@@ -1,0 +1,56 @@
+.multiselect {
+  width: 200px;
+  display: inline-block;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+  z-index: 99;
+  position: absolute;
+  background-color: #fff;
+  /* width: 200px; */
+  padding: 10px;
+}
+
+.checkboxes label {
+  display: block;
+}
+
+.checkboxes label:hover {
+  background-color: #1e90ff;
+}
+
+.chart-block {
+  margin-top: 30px;
+}
+
+.error-content {
+  display:none;
+  text-align:center;
+  font-size:20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .chart-container  {
+  	height: 300px;
+
+  }
+}

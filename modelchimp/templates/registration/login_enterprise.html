@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% include "navigation.html" %}
+{% block pagecontent %}
+<div class="container">
+  <div style="text-align:center;margin-top: 80px;margin-bottom:30px">
+    <a href="/">
+      <img class="logo" src="/assets/img/logo.png" style="height:120px"/>
+    </a>
+  </div>
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <div class="login-panel panel panel-default">
+        <div class="panel-body">
+
+          <form role="form" method='post' action="/login/">
+            {% csrf_token %}
+            <fieldset style="text-align:center;">
+              <div class="form-group">
+                <input id="id_username"
+                        class="form-control"
+                        placeholder="Email"
+                        name="username"
+                        type="text" autofocus>
+              </div>
+              <div class="form-group">
+                <input id="id_password"
+                        class="form-control"
+                        placeholder="Password"
+                        name="password"
+                        type="password" autofocus>
+              </div>
+              {% if form.errors %}
+              <p class=" label label-danger">
+                Your username and password didn't match. Please try again.
+              </p>
+              {% endif %}
+              <button class="btn btn-modelchimp"
+                      type="submit"
+                      class="btn btn-default">Login</button>
+            </fieldset>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

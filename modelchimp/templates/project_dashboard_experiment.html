@@ -1,0 +1,322 @@
+{% extends 'base.html' %}
+
+{% block cssstyle %}
+  <link href="/assets/css/project-dashboard.css"
+        rel="stylesheet"
+        type="text/css">
+{% endblock %}
+
+{% block pagecontent %}
+{% include "navigation.html" %}
+
+<div class="container">
+  <div class="row shift-down">
+
+    <div class="col-md-12">
+      <a id="project-title"
+          href="/project/{{project.id}}"
+          data-project-id="{{ project.id}}">
+        <h3>{{ project.name }}</h3>
+      </a>
+      <h4>Dashboard</h4>
+    </div>
+
+    <div class="col-md-12 text-left menu-divider">
+        <a href="/project/{{project.id}}/dashboard/experiment">
+          <button type="button"
+                  class="btn btn-modelchimp btn-modelchimp-active">
+                  Experiment
+          </button>
+        </a>
+        <a href="/project/{{project.id}}/dashboard/parameter">
+          <button type="button" class="btn btn-modelchimp">Parameter</button>
+        </a>
+    </div>
+
+    <div class="col-md-12">
+      <!-- START: METRIC CHART -->
+      <div id="metric-report" class="chart-block">
+        <h5>Experiment Metric Report </h5>
+        <span class="divider"></span>
+
+        <div class="report-content">
+          <form class="form-group">
+            <div id="metric-orderby" class="multiselect">
+              <label class="filter-label">Order By Metric</label>
+
+              <div class="selectBox" onclick="showMetricRadio()">
+                <select class="form-control">
+                  <option class="select-option" value="1">
+                    Select an option
+                  </option>
+                </select>
+                <div class="overSelect"></div>
+              </div>
+
+              <div id="metric-orderby-radio"
+                    class="checkboxes"
+                    data-expanded="false">
+                <div class="row">
+                  <div class="col-8">
+                    <label for="accuracy">
+                      accuracy
+                    </label>
+                  </div>
+                  <div class="col-4">
+                    <span>
+                      max <input type="radio"
+                                  id="accuracy"
+                                  value="accuracy"
+                                  checked="">
+                    </span>
+                    <span>
+                      min <input type="radio"
+                                  id="accuracy"
+                                  value="accuracy"
+                                  checked="">
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="metric-filters" class="multiselect">
+              <label class="filter-label">Choose Metrics</label>
+              <div class="selectBox" onclick="showMetricCheckBox()">
+                <select class="form-control">
+                  <option class="select-option"
+                          value="1">
+                          Select an option
+                  </option>
+                </select>
+                <div class="overSelect"></div>
+              </div>
+              <div id="metric-filters-checkboxes"
+                    class="checkboxes"
+                    data-expanded="false">
+                <label for="accuracy">
+                  accuracy:
+                  <span>max</span><input type="checkbox"
+                                          id="accuracy"
+                                          value="accuracy"
+                                          checked="">
+                  <span>min</span><input type="checkbox"
+                                          id="accuracy"
+                                          value="accuracy"
+                                          checked="">
+                </label>
+              </div>
+            </div>
+
+            <!-- Normal switch -->
+            <div class="form-group float-md-right">
+              <label class="filter-label">Ascending</label>
+              <label class="switch">
+                <input id='asc-flag' type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </form>
+
+          <div class="chart-container">
+            <p style="float:left;">
+              <div class="popup">
+              <i class="fa fa-edit" style="color:#3bbbcf;"></i></div>
+              <div style="position:relative; display:inline;">
+                <span class="popuptext" id="meta-experiment-count-popup">
+                  <input type="number" />
+                  <button id="button-experiment-count">Apply</button>
+                  </span>
+                </div>
+
+                Showing
+                <span id="meta-metric-showing-count">20</span>
+              of <span id="meta-metric-total-count"> 100</span>
+              experiments with metric:
+              <span id="meta-metric-orderby-name">precision</span>
+            </p>
+            <canvas id="metric-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="error-content" style="text-align:center; font-size:20px;">
+          No Metric data recorded
+        </div>
+        {% include "component/goto_experiment_modal.html" %}
+      </div>
+      <!-- END: METRIC CHART -->
+
+      <!-- START: DURATION CHART -->
+      <div id="duration-report" class="chart-block">
+        <h5>Experiment Duration Report </h5>
+        <span class="divider"></span>
+
+        <div class="report-content">
+          <form class="form-group">
+            <div id="duration-orderby" class="multiselect">
+              <label class="filter-label">Order By Duration</label>
+
+              <div class="selectBox" onclick="showDurationRadio()">
+                <select class="form-control">
+                  <option class="select-option" value="1">
+                    Select an option
+                  </option>
+                </select>
+                <div class="overSelect"></div>
+              </div>
+              <div id="duration-orderby-radio"
+                    class="checkboxes"
+                    data-expanded="false">
+                <div class="row">
+                  <div class="col-8">
+                    <label for="train">
+                      train
+                    </label>
+                  </div>
+                  <div class="col-4">
+                    <span>total <input type="radio"
+                                        id="train"
+                                        value="train"
+                                        checked=""> </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="duration-filters" class="multiselect">
+              <label class="filter-label">Choose Metrics</label>
+              <div class="selectBox" onclick="showDurationCheckBox()">
+                <select class="form-control">
+                  <option class="select-option" value="1">
+                    Select an option
+                  </option>
+                </select>
+                <div class="overSelect"></div>
+              </div>
+              <div id="duration-filters-checkboxes"
+                    class="checkboxes"
+                    data-expanded="false">
+                <label for="train">
+                  train:
+                  <span>max</span><input type="checkbox"
+                                          id="train"
+                                          value="train"
+                                          checked="">
+                  <span>min</span><input type="checkbox"
+                                          id="train"
+                                          value="train"
+                                          checked="">
+                </label>
+              </div>
+            </div>
+
+            <div id="time-filter" class="multiselect">
+              <div class="selectBox">
+                <select id="time-filter-select" class="form-control">
+                  <option class="select-option"
+                          value="s"
+                          selected>
+                          second
+                  </option>
+                  <option class="select-option" value="m">minute</option>
+                  <option class="select-option" value="h">hour</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Normal switch -->
+            <div class="form-group float-md-right">
+              <label class="filter-label">Ascending</label>
+              <label class="switch">
+                <input id='asc-flag-duration' type="checkbox" checked>
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </form>
+
+          <div class="chart-container">
+            <p style="float:left;">
+
+              <div class="popup">
+              <i class="fa fa-edit" style="color:#3bbbcf;"></i></div>
+              <div style="position:relative; display:inline;">
+                <span class="popuptext"
+                      id="meta-duration-experiment-count-popup">
+                  <input type="number" />
+                  <button id="button-duration-experiment-count">Apply</button>
+                  </span>
+                </div>·
+
+                Showing
+                <span id="meta-duration-showing-count">20</span>
+              of <span id="meta-duration-total-count"> 100</span>
+              experiments with duration name:
+              <span id="meta-duration-orderby-name">precision</span>
+            </p>
+            <canvas id="duration-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="error-content" style="text-align:center; font-size:20px;">
+          No Duration data recorded
+        </div>
+        {% include "component/goto_experiment_modal.html" %}
+
+      </div>
+      <!-- END: DURATION CHART -->
+    </div>
+  </div>
+</div>
+
+{% include "component/footer.html" %}
+{% endblock %}
+
+{% block jscontent %}
+{% load static %}
+{% load compress %}
+<!-- Some meta information -->
+<script>
+var projectId = '{{ project.id }}';
+</script>
+
+<!-- magic for select checkboxes -->
+<script>
+function getCheckBoxFunc(id){
+  var expanded = false;
+
+  return function showCheckboxes() {
+    var checkboxes = document.getElementById(id),
+    elementId = id,
+    checkBoxesList = document.getElementsByClassName('checkboxes');
+
+    if (checkboxes.dataset.expanded == 'false') {
+      checkboxes.style.display = "block";
+      checkboxes.dataset.expanded = true;
+    } else {
+      checkboxes.style.display = "none";
+      checkboxes.dataset.expanded = false;
+    }
+
+    for(var i in checkBoxesList){
+      if( checkboxes !== checkBoxesList[i]){
+        if(checkBoxesList[i].style){
+          checkBoxesList[i].style.display = "none";
+          checkBoxesList[i].dataset.expanded = false;
+        }
+      }
+    }
+  }
+}
+
+showMetricCheckBox = getCheckBoxFunc('metric-filters-checkboxes');
+showDurationCheckBox = getCheckBoxFunc('duration-filters-checkboxes');
+showMetricRadio= getCheckBoxFunc('metric-orderby-radio');
+showDurationRadio = getCheckBoxFunc('duration-orderby-radio');
+</script>
+<script src="{% static "/js/project_dashboard_metric.js" %}"
+        type="text/javascript"></script>
+<script src="{% static "/js/project_dashboard_duration.js" %}"
+        type="text/javascript"></script>
+{% compress js %}
+{% endcompress %}
+{% endblock %}

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>TensorFlow Example - ModelChimp Docs</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../extra.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "TensorFlow Example";
+    var mkdocs_page_input_path = "tensorflow.md";
+    var mkdocs_page_url = "/tensorflow/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> ModelChimp Docs</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../track/">Python API</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">TensorFlow Example</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#tensorflow-example">Tensorflow Example</a></li>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../keras/">Keras Example</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../pytorch/">PyTorch Example</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../pyspark/">PySpark Example</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../scikit/">SciKit Example</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">ModelChimp Docs</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>TensorFlow Example</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h4 id="tensorflow-example">Tensorflow Example</h4>
+<p><a href="https://github.com/ModelChimp/tensorflow_example">https://github.com/ModelChimp/tensorflow_example</a></p>
+<pre><code>from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
+import argparse
+import sys
+import math
+import timeit
+
+from tensorflow.examples.tutorials.mnist import input_data
+import tensorflow as tf
+
+FLAGS = None
+
+# MODELCHIMP tracker
+from modelchimp import Tracker
+
+def deepnn(x):
+  x_image = tf.reshape(x, [-1, 28, 28, 1])
+  W_conv1 = weight_variable([5, 5, 1, 32])
+  b_conv1 = bias_variable([32])
+  h_conv1 = tf.nn.relu(conv2d(x_image, W_conv1) + b_conv1)
+  h_pool1 = max_pool_2x2(h_conv1)
+  W_conv2 = weight_variable([5, 5, 32, 64])
+  b_conv2 = bias_variable([64])
+  h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
+  h_pool2 = max_pool_2x2(h_conv2)
+  W_fc1 = weight_variable([7 * 7 * 64, 1024])
+  b_fc1 = bias_variable([1024])
+  h_pool2_flat = tf.reshape(h_pool2, [-1, 7*7*64])
+  h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
+  keep_prob = tf.placeholder(tf.float32)
+  h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
+  W_fc2 = weight_variable([1024, 10])
+  b_fc2 = bias_variable([10])
+  y_conv = tf.matmul(h_fc1_drop, W_fc2) + b_fc2
+
+  return y_conv, keep_prob
+
+
+def conv2d(x, W):
+  return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
+
+
+def max_pool_2x2(x):
+  return tf.nn.max_pool(x, ksize=[1, 2, 2, 1],
+                        strides=[1, 2, 2, 1], padding='SAME')
+
+
+def weight_variable(shape):
+  initial = tf.truncated_normal(shape, stddev=0.1)
+  return tf.Variable(initial)
+
+
+def bias_variable(shape):
+  initial = tf.constant(0.1, shape=shape)
+  return tf.Variable(initial)
+
+
+def main(_):
+  # Import data
+  mnist = input_data.read_data_sets(FLAGS.data_dir, one_hot=True)
+  param = {}
+
+  param['data_length'] = mnist.train._num_examples
+  param['batch_size'] = 200
+  param['epoch_num'] = 10
+  param['steps_num'] = math.floor(param['data_length'] / param['batch_size']) - 1
+  param['optimzer'] = 'Adam'
+  param['cost_function'] = 'cross entropy'
+  param['learning_rate'] = 0.01
+
+  # Create the model
+  x = tf.placeholder(tf.float32, [None, 784])
+
+  # Define loss and optimizer
+  y_ = tf.placeholder(tf.float32, [None, 10])
+
+  # Build the graph for the deep net
+  y_conv, keep_prob = deepnn(x)
+
+  cross_entropy = tf.reduce_mean(
+      tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y_conv))
+  train_step = tf.train.AdamOptimizer(param['learning_rate']).minimize(cross_entropy)
+  correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
+  accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+
+  tracker = Tracker('&lt;PROJECT KEY&gt;', host='demo.modelchimp.com', experiment_name='MNIST Classification') #MODELCHIMP
+  tracker.add_multiple_params(param) #MODELCHIMP
+
+  with tf.Session() as sess:
+      sess.run(tf.global_variables_initializer())
+
+      for i in range(param['epoch_num']):
+        # snapshot start time
+        start_time = timeit.default_timer()
+
+        for j in range(param['steps_num']):
+          batch = mnist.train.next_batch(50)
+          train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
+
+        # snapshot start time
+        end_time = timeit.default_timer()
+
+        train_accuracy = accuracy.eval(feed_dict={
+            x: batch[0], y_: batch[1], keep_prob: 1.0})
+
+        test_accuracy = accuracy.eval(feed_dict={
+            x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0})
+        tracker.add_metric("accuracy_train", float(train_accuracy), i) #MODELCHIMP
+        tracker.add_metric("accuracy_test", float(test_accuracy), i) #MODELCHIMP
+        tracker.add_duration_at_epoch("Train", end_time - start_time, i) #MODELCHIMP
+
+        print("Epoch %s: train_accuracy = %s, test_accuracy = %s" % (i, train_accuracy, test_accuracy))
+
+if __name__ == '__main__':
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--data_dir', type=str,
+                      default='/tmp/tensorflow/mnist/input_data',
+                      help='Directory for storing input data')
+  FLAGS, unparsed = parser.parse_known_args()
+  tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../keras/" class="btn btn-neutral float-right" title="Keras Example">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../track/" class="btn btn-neutral" title="Python API"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../track/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../keras/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>

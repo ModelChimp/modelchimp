@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% include "navigation.html" %}
+
+<style>
+  form input {
+  	width: 300px;
+  }
+</style>
+
+{% block pagecontent %}
+<div class="container">
+    <div style="text-align:center;margin-top: 80px;margin-bottom:30px">
+        <a href="/">
+          <img class="logo"
+          src="/assets/img/logo.png"
+          style="height:120px"/>
+        </a>
+    </div>
+    <div class="row" style="text-align:center;">
+        <div class="col-md-12">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Register</h3>
+                </div>
+                <div class="panel-body">
+                    <form method="post">
+                    {% csrf_token %}
+                      {% for field in form %}
+                      <p>
+                        {{ field.label_tag }}<br>
+                        {{ field }}
+                        {% if field.help_text %}
+                          <small style="display: none">
+                            {{ field.help_text }}
+                          </small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                          <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                      </p>
+                      {% endfor %}
+                    <button class="btn btn-modelchimp"
+                            type="submit">
+                      Sign up
+                    </button>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

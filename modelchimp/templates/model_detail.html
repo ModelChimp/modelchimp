@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+
+{% block cssstyle %}
+<link href="/assets/css/model-detail.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block pagecontent %}
+{% include "navigation.html" %}
+<div class="container">
+  <div class="row shift-down">
+
+    <div class="col-md-12">
+      <a id="project-title" href="/project/{{ml_model.project.id}}">
+        <h5>{{ ml_model.project.name }} > </h5>
+      </a>
+      <h5 id="model-name"
+          data-model-id="{{ ml_model.id }}"
+          data-project-id="{{ ml_model.project.id}}">{{ experiment_name }}
+        {% if owner_flag %}
+          <i class="fa fa-trash trash"
+              data-toggle="modal"
+              data-target="#deleteModelModal">
+          </i>
+        {% endif %}
+      </h5>
+      <div id="experiment-meta-information">
+        <p>
+          <h5 class="project-meta-info">Experiment ID:</h5>
+          <button id="experiment-id-copy"
+                  data-clipboard-text="{{ ml_model.experiment_id}}">
+                  <i class="fa fa-copy"></i>
+          </button>
+          {{ ml_model.experiment_id }}
+        </p>
+        <p>
+          <h5 class="project-meta-info">Dataset ID: </h5>
+          {{ ml_model.dataset_id }}
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-12 text-left menu-divider">
+      {% include "component/model_detail_navigation.html" %}
+    </div>
+
+    <div class="col-md-12">
+      <div class="metric-block">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Evaluation</h5>
+          </div>
+          <div class="col-md-6 text-right">
+            <i id="evaluation-arrow"
+                class="fa fa-chevron-down"
+                data-toggle="collapse"
+                data-target="#evaluation-table"
+                aria-expanded="true"
+                aria-controls="evaluation-table">
+            </i>
+          </div>
+        </div>
+        <span class="divider"></span>
+        <div class="collapse show" id="evaluation-table">
+          <table class="table text-color experiment-table">
+            <tbody >
+              {% for e in ml_model.evaluation_parameters %}
+              <tr>
+                <td class="w-50">
+                  {% if e.display_key %}
+                    {{ e.display_key }}
+                  {% else %}
+                    {{ e.key }}
+                  {% endif %}
+                </td>
+                <td class="w-50">{{ e.value }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="metric-block">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Model</h5>
+          </div>
+          <div class="col-md-6 text-right">
+            <i id="model-arrow"
+                class="fa fa-chevron-down"
+                data-toggle="collapse"
+                data-target="#model-table"
+                aria-expanded="true"
+                aria-controls="model-table">
+            </i>
+          </div>
+        </div>
+        <span class="divider"></span>
+        <div class="collapse show" id="model-table">
+          <table class="table text-color">
+            <tbody>
+              {% for m in ml_model.model_parameters %}
+              <tr>
+                <td class="w-50"> {{ m.key }}</td>
+                <td class="w-50">{{ m.value }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {% if deep_learning_flag %}
+      <div class="metric-block">
+        <div class="row">
+          <div class="col-md-6">
+            <h5>Deep Learning Layers</h5>
+          </div>
+          <div class="col-md-6 text-right">
+            <i id="deep-learning-arrow"
+                class="fa fa-chevron-down"
+                data-toggle="collapse"
+                data-target="#deep-learning-table"
+                aria-expanded="true"
+                aria-controls="deep-learning-table">
+            </i>
+          </div>
+        </div>
+        <span class="divider"></span>
+        <div class="collapse show" id="deep-learning-table">
+          <table class="table text-color experiment-table">
+            <thead>
+              <th>
+                Layer (type)
+              </th>
+              <th>
+                Output Shape
+              </th>
+              <th>
+                Param #
+              </th>
+              <th>
+                Tag
+              </th>
+            </thead>
+            <tbody>
+              {% for layer in ml_model.deep_learning_parameters %}
+              <tr>
+                {% for cell in layer %}
+                <td> {{ cell }}</td>
+                {% endfor %}
+              </tr>
+
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Experiment delete modal -->
+<div class="modal fade"
+      id="deleteModelModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Model Permanently</h5>
+        <button type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="delete-model-modal-body" class="modal-body">
+        <p> Are you sure you want to delete this experiment?</p>
+      </div>
+      <div class="modal-footer">
+        <div>
+          <button type="button"
+                  class="btn btn-danger"
+                  id="delete-model-button">
+                  Delete
+          </button>
+          <button type="button"
+                  class="btn btn-modelchimp"
+                  data-dismiss="modal">
+                  Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include "component/footer.html" %}
+{% include "component/label_modal.html" %}
+
+{% include "component/comment_modal.html" %}
+{% endblock %}
+
+{% block jscontent %}
+{% load compress %}
+{% compress js %}
+<script>
+var model_id = '{{ ml_model.id }}',
+    experimentName = '{{ experiment_name}}';
+</script>
+{% load static %}
+<script src="{% static "/js/model_detail.js" %}" type="text/javascript"></script>
+{% endcompress %}
+{% endblock %}

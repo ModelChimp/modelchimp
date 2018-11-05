@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block pagecontent %}
+{% include "navigation.html" %}
+<style>
+  form input {
+  	width: 300px;
+  }
+</style>
+
+<div class="container">
+    <div class="row" style="text-align:center;">
+        <div class="col-md-12">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Profile</h3>
+                    <h5> {{ email}}</h5>
+                </div>
+                <div class="panel-body">
+                  <img src="{{ profile_pic }}"
+                      style="height:200px; border-radius:30px;" />
+                  <br />
+                  <span id="profile-msg" style="color:red;">{{ msg }}</span>
+                  <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                    {% for field in form %}
+                    <p>
+                      {{ field.label_tag }}<br>
+                      {{ field }}
+                      {% if field.help_text %}
+                        <small style="display: none">
+                          {{ field.help_text }}
+                        </small>
+                      {% endif %}
+                      {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                      {% endfor %}
+                    </p>
+                    {% endfor %}
+                  <button class="btn btn-modelchimp" type="submit">
+                    Update
+                  </button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "component/footer.html" %}
+
+{% endblock %}
+{% block jscontent %}
+{% load static %}
+<script src="{% static "/js/profile.js" %}" type="text/javascript"></script>
+{% load compress %} {% compress js %}
+{% endcompress %} {% endblock %}

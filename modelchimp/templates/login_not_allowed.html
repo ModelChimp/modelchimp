@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% include "navigation.html" %}
+
+{% block pagecontent %}
+<div class="container">
+
+  <div style="text-align:center;margin-top: 80px;margin-bottom:30px">
+    <a href="/">
+      <img class="logo" src="/assets/img/logo.png" style="height:120px"/>
+    </a>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <div class="login-panel panel panel-default">
+        <div class="panel-body" style="text-align:center;">
+          {% load socialaccount %}
+          <h5> {{ domain }} domain users don't have access.</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

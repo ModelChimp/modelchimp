@@ -1,0 +1,5 @@
+version: '3'
+
+services:
+  web:
+      command: ["bash", "runserver_prod.sh"]

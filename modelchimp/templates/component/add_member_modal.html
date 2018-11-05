@@ -1,0 +1,38 @@
+<!-- Modal -->
+<div class="modal fade"
+      id="addMemberModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Member</h5>
+                <button type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="add-member-modal-body" class="modal-body">
+              <div class="form-group">
+                <input type="email"
+                        class="form-control"
+                        id="addMemberEmail"
+                        aria-describedby="emailHelp"
+                        placeholder="Enter email">
+              </div>
+              <span id="add-member-msg"> </span>
+            </div>
+            <div class="modal-footer">
+                <div>
+                    <button type="button"
+                            class="btn btn-modelchimp"
+                            onClick="sendInvite()">Send Invite</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

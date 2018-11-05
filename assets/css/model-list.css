@@ -1,0 +1,40 @@
+
+#ml-model-table-main_wrapper {
+		overflow-x: auto;
+}
+
+#model-list {
+	margin-top: 30px;
+}
+
+#ml-model-table-main_filter {
+	float:left;
+	margin-top:10px;
+}
+
+table.dataTable thead th, table.dataTable thead td, table.dataTable.no-footer {
+	border-bottom: 1px solid #c2c2c2;
+}
+
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+	background: #3bbbcf;
+	color: white !important;
+	border-color: #3bbbcf;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+	background: white;
+	color: #3bbbcf !important;
+	border-color: #3bbbcf;
+}
+
+@media only screen and (max-width: 600px) {
+	#customise-table-modal-body {
+		height:200px;
+	}
+
+	#customise-table-modal-body ul{
+		height:150px;
+	}
+}

@@ -1,0 +1,15 @@
+#project-title {
+	text-decoration: none;
+}
+
+#project-title h3:hover {
+	color:#3bbbcf;
+}
+
+.eval-red {
+	color: #ff5050;
+}
+
+.eval-green {
+	color: #37bc37;
+}

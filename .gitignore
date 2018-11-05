@@ -1,0 +1,66 @@
+*.py[cod]
+
+#folders
+media
+assets/js
+assets/silk
+assets/channels
+
+#settings files
+CACHE
+
+# Ignore logs folder
+logs
+
+# C extensions
+*.so
+
+# Packages
+.installed.cfg
+*.egg
+*.egg-info
+develop-eggs
+eggs
+bin
+build
+dist
+include
+lib
+lib64
+parts
+sdist
+var
+wheelhouse
+
+# Installer logs
+pip-log.txt
+
+# Python virtual envs
+mcenv
+venv
+Pipfile.lock
+
+# Emacs clutter
+TAGS
+TAGS~
+*~
+\#*#
+.#*
+www/uploads
+
+#Mac Clutter
+.DS_Store
+
+#Pycharm
+.idea
+
+#Environment
+.env
+
+#Production files to be ignored
+assets/admin/
+assets/rest_framework/
+
+#Celery files
+celerybeat-schedule*
+celerybeat.pid

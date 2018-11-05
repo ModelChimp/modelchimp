@@ -1,0 +1,122 @@
+.multiselect {
+  width: 200px;
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.filter-label {
+  display: block;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+  z-index: 99;
+  position: absolute;
+  background-color: #fff;
+  width: 400px;
+  padding: 10px;
+  overflow-y: scroll;
+  _height: expression( this.scrollHeight > 400 ? "400px" : "auto" ); /* sets max-height for IE6 */
+  max-height: 400px; /* sets max-height value for all standards-compliant browsers */
+  overflow:scroll;
+}
+
+.checkboxes label {
+  display: inline;
+   word-wrap:break-word;
+}
+
+.checkboxes label:hover {
+  background-color: #1e90ff;
+}
+
+.checkboxes input {
+  margin-left: 5px;
+  margin-right: 5px;
+
+}
+
+.checkboxes span {
+  float:right;
+}
+
+
+.chart-block {
+  margin-top: 30px;
+}
+
+.error-content {
+  display:none;
+  text-align:center;
+  font-size:20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .chart-container {
+  	height: 300px;
+
+  }
+}
+
+
+/* Popup container - can be anything you want */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* The actual popup */
+.popuptext {
+    /* visibility: hidden; */
+    display:none;
+    width: 160px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 8%;
+    margin-left: -20px;
+}
+
+.popuptext input {
+    width:50%;
+}
+
+/* Popup arrow */
+.popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 60%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
