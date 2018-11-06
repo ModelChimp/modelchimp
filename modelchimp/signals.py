@@ -37,7 +37,8 @@ def update_profile(request, user, **kwargs):
 def check_allowed_domain(request, sociallogin, **kwargs):
     user_domain = sociallogin.user.email.split('@')[1]
 
-    if settings.OAUTH_RESTRICT_USER_HOSTS and \
+    if settings.OAUTH_RESTRICT_USER_HOSTS != [''] and \
         user_domain not in settings.OAUTH_RESTRICT_USER_HOSTS:
+
         raise ImmediateHttpResponse(render_to_response('login_not_allowed.html',
                                                         {'domain': user_domain}))
