@@ -55,7 +55,7 @@ password: modelchimp123
 ```
 
 ### Manual
-1. Create database and user in Postgres for keralarescue and give privileges.
+1. Create database and user in Postgres for ModelChimp and give privileges.
 
 ```sql
 $ psql user=postgres
