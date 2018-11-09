@@ -6,7 +6,7 @@ Django==2.0.6
 django-allauth==0.36.0
 django-compressor==2.2
 django-htmlmin==0.10.0
-django-storages==1.6.6
+django-storages==1.7.1
 djangorestframework==3.8.2
 furl==1.0.1
 future==0.16.0
@@ -17,3 +17,4 @@ pycrypto==2.6.1
 Pygments==2.2.0
 python-decouple==3.1
 redis==2.10.6
+azure===4.0.0

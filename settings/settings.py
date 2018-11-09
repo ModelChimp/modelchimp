@@ -194,7 +194,6 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='')
 #AMAZON S3 Credentials
 #################
 AWS_STORAGE_FLAG = config('AWS_STORAGE_FLAG', default=False, cast=bool)
-
 if AWS_STORAGE_FLAG:
     AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default='')
     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY', default='')
@@ -203,10 +202,16 @@ if AWS_STORAGE_FLAG:
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
     }
+    DEFAULT_FILE_STORAGE = 'settings.storage_backends.S3MediaStorage'
 
-    DEFAULT_FILE_STORAGE = 'settings.storage_backends.MediaStorage'
-
-
+AZURE_STORAGE_FLAG = config('AZURE_STORAGE_FLAG', default=False, cast=bool)
+if AZURE_STORAGE_FLAG:
+    AZURE_ACCOUNT_NAME = config('AZURE_ACCOUNT_NAME', default='')
+    AZURE_ACCOUNT_KEY = config('AZURE_ACCOUNT_KEY', default='')
+    AZURE_CONTAINER = config('AZURE_CONTAINER', default='')
+    AZURE_SSL= True
+    AZURE_URL_EXPIRATION_SECS = 1800
+    DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 
 #################
 #DEPRECATED
