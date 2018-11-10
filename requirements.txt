@@ -17,4 +17,3 @@ pycrypto==2.6.1
 Pygments==2.2.0
 python-decouple==3.1
 redis==2.10.6
-azure===4.0.0
