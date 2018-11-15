@@ -31,7 +31,7 @@ class MachineLearningModel(models.Model):
     labels = JSONField(null=True)
 
     features = JSONField(null=True)
-    model_parameters = JSONField(null=True, default={})
+    model_parameters = JSONField(null=True, default=dict)
     evaluation_parameters = JSONField(null=True)
     deep_learning_parameters = JSONField(default=list, null=True) #REMOVE
     epoch_durations = JSONField(null=True)
