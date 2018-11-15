@@ -4,7 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser
-from django.contrib.auth.views import login
+from django.contrib.auth import login
 
 from modelchimp.models.project import Project
 from modelchimp.models.membership import Membership

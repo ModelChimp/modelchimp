@@ -1,5 +1,4 @@
 from django.conf.urls import url
-from django.contrib.auth import views as auth_views
 from django.conf import settings
 
 from rest_framework.authtoken import views
@@ -16,7 +15,14 @@ from modelchimp.views.render import (common,
                                     model_detail_images,
                                     project_dashboard)
 from modelchimp.views.api import invitation
-
+from django.contrib.auth.views import (
+    PasswordResetView,
+    PasswordResetConfirmView,
+    PasswordResetDoneView,
+    PasswordResetCompleteView,
+    LoginView,
+    LogoutView
+)
 
 urlpatterns = [
     url(r'^project/$', common.HomePageView.as_view(), name='home'),
@@ -51,16 +57,16 @@ urlpatterns = [
     url(r'^evaluation/(?P<pk>\d+)/$',
         common.EvaluationDashboardView.as_view(),
         name='evaluation_dashboard'),
-    url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),
+    url(r'^password_reset/$', PasswordResetView.as_view(), name='password_reset'),
     url(r'^password_reset/done/$',
-        auth_views.password_reset_done,
+        PasswordResetDoneView.as_view(),
         name='password_reset_done'),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/'
     + '(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        auth_views.password_reset_confirm, name='password_reset_confirm'),
-    url(r'^reset/done/$', auth_views.password_reset_complete,
+        PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    url(r'^reset/done/$', PasswordResetCompleteView.as_view(),
         name='password_reset_complete'),
-    url(r'^logout/$', auth_views.logout, {'next_page': '/login'},name='logout'),
+    url(r'^logout/$', LogoutView.as_view(), {'next_page': '/login'},name='logout'),
     url(r'^api-token-auth/', views.obtain_auth_token),
     url(r'^special-invite/(?P<invite_name>[0-9A-Za-z_\-]+)/$', signup.signup,
         name='special_invite'),
@@ -83,19 +89,19 @@ if settings.OAUTH_LOGIN:
                     ]
 elif settings.ENTERPRISE_FLAG:
     urlpatterns += [
-            url(r'^$', auth_views.LoginView.as_view(template_name='registration/login_enterprise.html'),
+            url(r'^$', LoginView.as_view(template_name='registration/login_enterprise.html'),
                         name='landing_page'),
                     url(r'^login/$',
-                        auth_views.LoginView.as_view(template_name='registration/login_enterprise.html'),
+                        LoginView.as_view(template_name='registration/login_enterprise.html'),
                         name='login'),
                     url(r'^invitation/(?P<invite_id>[0-9A-Za-z_\-]+)/$',
                         invitation.invite_clicked, name='invitation'),
                         ]
 else:
-    urlpatterns += [url(r'^$', auth_views.LoginView.as_view(template_name='registration/login.html'),
+    urlpatterns += [url(r'^$', LoginView.as_view(template_name='registration/login.html'),
                         name='landing_page'),
                     url(r'^login/$',
-                        auth_views.LoginView.as_view(template_name='registration/login.html'),
+                        LoginView.as_view(template_name='registration/login.html'),
                         name='login'),
                     url(r'^invitation/(?P<invite_id>[0-9A-Za-z_\-]+)/$',
                         invitation.invite_clicked, name='invitation'),

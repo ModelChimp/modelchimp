@@ -21,6 +21,7 @@ AUTH_USER_MODEL = 'modelchimp.User'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = '/'
 
 # Application definition
 INSTALLED_APPS = [
