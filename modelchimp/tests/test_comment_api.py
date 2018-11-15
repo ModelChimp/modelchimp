@@ -1,7 +1,9 @@
 from django.test import TestCase, Client
 from django.urls import reverse
+
 from modelchimp.models.comment import Comment
 from modelchimp.models.user import User
+
 from rest_framework import status
 import json
 
@@ -17,7 +19,7 @@ class CommentApiTest(TestCase):
     def test_commet_post(self):
         login = self.client.login(username='admin@modelchimp.com', password='modelchimp123')
         response = self.client.post(
-                reverse('comment_api',kwargs={'model_pk': 16}),
+                reverse('comment_api',kwargs={'model_id': 73}),
                 data=json.dumps(self.valid_comment),
                 content_type='application/json',
             )
