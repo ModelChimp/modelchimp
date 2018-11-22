@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
     'compressor',
     'allauth',
     'allauth.account',
@@ -57,6 +58,7 @@ ENTERPRISE_NAME = config('ENTERPRISE_NAME')
 OAUTH_LOGIN=config('OAUTH_LOGIN', default=False, cast=bool) #DEPRECATED
 
 MIDDLEWARE = (
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -221,3 +223,11 @@ if not OAUTH_RESTRICT_USER_HOSTS:
     OAUTH_RESTRICT_USER_HOSTS = config('ALLOWED_USER_HOSTS',
                                         default='',
                                         cast=lambda v: [s.strip() for s in v.split(',')])
+
+#################
+# CORS
+#################
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = ()
