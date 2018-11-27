@@ -10,11 +10,11 @@ from modelchimp.views.api import (project,
                                   experiment_pull_params,
                                   experiment_image,
                                   experiment_label)
+from rest_framework.authtoken import views
 
 urlpatterns = [
+    url(r'^api-token-auth/', views.obtain_auth_token),
     url(r'project/$', project.ProjectAPI.as_view(), name='project'),
-    url(r'project/(?P<project_id>\d+)$', project.ProjectAPI.as_view(),
-        name='project'),
     url(r'project/(?P<project_id>\d+)$', project.ProjectAPI.as_view(),
         name='project'),
     url(r'project/(?P<project_id>\d+)/dashboard/experiment-metric/$',
