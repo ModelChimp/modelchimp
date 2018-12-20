@@ -2,4 +2,4 @@ version: '3'
 
 services:
   web:
-      command: ["bash", "runserver_dev.sh", "--load-data"]
+      command: ["bash", "wait-for-postgres.sh", "db", "bash", "runserver_dev.sh"]

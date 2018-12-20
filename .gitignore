@@ -64,3 +64,6 @@ assets/rest_framework/
 #Celery files
 celerybeat-schedule*
 celerybeat.pid
+
+# Docker Folders
+postgres-data

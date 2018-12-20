@@ -5,4 +5,7 @@ WORKDIR /code
 RUN pip install --upgrade setuptools
 RUN pip install -r requirements.txt
 ADD . /code/
+
+RUN apt-get update && apt-get install -y postgresql-client
+
 EXPOSE 8000
