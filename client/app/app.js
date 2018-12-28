@@ -19,6 +19,13 @@ import 'sanitize.css/sanitize.css';
 import ModelchimpClient from 'utils/modelchimpClient';
 import CookiesManager from 'utils/cookiesManager';
 
+// import font awesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+library.add(fas)
+
+
 // Import root app
 import App from 'containers/App';
 

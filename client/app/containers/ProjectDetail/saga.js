@@ -10,12 +10,15 @@ import CookiesManager from 'utils/cookiesManager';
 import ModelchimpClient from 'utils/modelchimpClient';
 
 export function* getProjectDetail({ projectId }) {
-  const requestURL = `project/${projectId}`;
+  const projectURL = `project/${projectId}`;
+  const projectKeyURL = `project/key/${projectId}/`;
+
 
   try {
-    const projectDetail = yield ModelchimpClient.get(requestURL);
+    const projectDetail = yield ModelchimpClient.get(projectURL);
+    const projectKey = yield ModelchimpClient.get(projectKeyURL);
 
-    yield put(loadProjectDetailSuccessAction(projectDetail[0]));
+    yield put(loadProjectDetailSuccessAction(projectDetail[0], projectKey.key));
   } catch (err) {
     yield put(loadProjectDetailErrorAction(err));
   }

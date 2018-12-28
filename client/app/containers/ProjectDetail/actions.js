@@ -17,10 +17,11 @@ export function loadProjectDetailAction(projectId) {
   };
 }
 
-export function loadProjectDetailSuccessAction(projectDetail) {
+export function loadProjectDetailSuccessAction(projectDetail, projectKey) {
   return {
     type: LOAD_PROJECT_DETAIL_SUCCESS,
     projectDetail,
+    projectKey
   };
 }
 

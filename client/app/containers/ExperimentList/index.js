@@ -94,6 +94,7 @@ export class ExperimentList extends React.Component {
           columns={this.columns}
           dataSource={this.props.experimentList}
           rowKey="id"
+          style={{ marginTop: '50px' }}
         />
       </div>
     );

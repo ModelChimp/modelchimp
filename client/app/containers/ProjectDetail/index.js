@@ -12,10 +12,12 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectProjectDetail from './selectors';
+import {makeSelectProjectDetail, makeSelectProjectKey} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { loadProjectDetailAction } from './actions';
+
+import ProjectKey from './ProjectKey';
 
 export class ProjectDetail extends React.Component {
   componentDidMount() {
@@ -27,6 +29,7 @@ export class ProjectDetail extends React.Component {
       <div>
         <h1>{this.props.projectDetail.name}</h1>
         <p>{this.props.projectDetail.description}</p>
+        <ProjectKey projectKey={this.props.projectKey} />
       </div>
     );
   }
@@ -36,10 +39,12 @@ ProjectDetail.propTypes = {
   projectDetail: PropTypes.object,
   getProjectDetailData: PropTypes.func,
   projectId: PropTypes.string,
+  projectKey: PropTypes.string
 };
 
 const mapStateToProps = createStructuredSelector({
   projectDetail: makeSelectProjectDetail(),
+  projectKey: makeSelectProjectKey()
 });
 
 function mapDispatchToProps(dispatch) {

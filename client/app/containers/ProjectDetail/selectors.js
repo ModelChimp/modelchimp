@@ -9,5 +9,10 @@ const makeSelectProjectDetail = () =>
     projectDetailState.get('projectDetail'),
   );
 
-export default makeSelectProjectDetail;
-export { selectProjectDetailDomain };
+const makeSelectProjectKey = () =>
+  createSelector(selectProjectDetailDomain, projectDetailState =>
+    projectDetailState.get('projectKey'),
+);
+
+
+export {makeSelectProjectDetail, makeSelectProjectKey};
