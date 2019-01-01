@@ -15,6 +15,7 @@ import injectReducer from 'utils/injectReducer';
 import {makeSelectProjectDetail, makeSelectProjectKey} from './selectors';
 import reducer from './reducer';
 import {projectDetailSaga} from './saga';
+import { Breadcrumb } from 'antd';
 
 import { loadProjectDetailAction } from './actions';
 
@@ -29,7 +30,11 @@ export class ProjectDetail extends React.Component {
   render() {
     return (
       <div>
-        <h1>{this.props.projectDetail.name}</h1>
+        <Breadcrumb separator=">">
+          <Breadcrumb.Item><a href="/projects">Projects</a></Breadcrumb.Item>
+          <Breadcrumb.Item><a href={`/experiment-list/${this.props.projectId}`}>{this.props.projectDetail.name}</a></Breadcrumb.Item>
+        </Breadcrumb>
+        <h1 style={{marginTop:"20px"}}>{this.props.projectDetail.name}</h1>
         <p>{this.props.projectDetail.description}</p>
         <div>
           <ProjectKey projectKey={this.props.projectKey} />

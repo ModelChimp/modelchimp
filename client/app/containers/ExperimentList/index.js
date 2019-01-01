@@ -14,7 +14,7 @@ import { makeSelectLoading } from 'containers/App/selectors';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { Table, Tag } from 'antd';
+import { Table, Tag, } from 'antd';
 import ProjectDetail from 'containers/ProjectDetail/Loadable';
 import Header from 'components/Header';
 import { makeSelectExperimentList } from './selectors';
@@ -87,6 +87,7 @@ export class ExperimentList extends React.Component {
           <meta name="description" content="Description of ExperimentList" />
         </Helmet>
         <Header />
+
         <div style={{ marginTop: '50px' }}>
           <ProjectDetail projectId={this.props.match.params.id} />
         </div>
