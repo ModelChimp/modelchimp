@@ -1,0 +1,3 @@
+export const LOAD_EXPERIMENT_DETAIL = 'app/ExperimentDetail/LOAD_EXPERIMENT_DETAIL';
+export const LOAD_EXPERIMENT_DETAIL_SUCCESS = 'app/ExperimentDetail/LOAD_EXPERIMENT_SUCCESS';
+export const LOAD_EXPERIMENT_DETAIL_ERROR = 'app/ExperimentDetail/LOAD_EXPERIMENT_ERROR';

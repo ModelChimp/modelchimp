@@ -12,7 +12,8 @@ from modelchimp.views.api import (project,
                                   experiment_image,
                                   experiment_label,
                                   experiment_param,
-                                  experiment_metric)
+                                  experiment_metric,
+                                  experiment_meta)
 from rest_framework.authtoken import views
 
 urlpatterns = [
@@ -86,6 +87,9 @@ urlpatterns = [
     url(r'experiment-detail/(?P<model_id>\d+)/metric$',
         experiment_metric.ExperimentMetricAPI.as_view({'get': 'retrieve'}),
          name='experiment_metric'),
+    url(r'experiment-detail/(?P<model_id>\d+)/meta$',
+        experiment_meta.ExperimentMetaAPI.as_view({'get': 'retrieve'}),
+         name='experiment_meta'),
     url(r'invite/(?P<project_id>\d+)/$', invitation.SendInviteAPI.as_view(),
          name='invite'),
 ]

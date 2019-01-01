@@ -6,6 +6,7 @@ class MachineLearningModelSerializer(serializers.ModelSerializer):
     date_created_epoch = serializers.SerializerMethodField('to_epoch_date')
     comment_count = serializers.SerializerMethodField()
     submitted_by = serializers.SerializerMethodField()
+    project_name = serializers.SerializerMethodField()
 
     class Meta:
         model = MachineLearningModel
@@ -26,3 +27,6 @@ class MachineLearningModelSerializer(serializers.ModelSerializer):
 
     def get_submitted_by(self, obj):
         return obj.user.profile.first_name + ' ' + obj.user.profile.last_name
+
+    def get_project_name(self, obj):
+        return obj.project.name
