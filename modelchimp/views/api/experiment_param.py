@@ -17,4 +17,6 @@ class ExperimentParamAPI(mixins.RetrieveModelMixin,
     def retrieve(self, request, model_id,  *args, **kwargs):
         instance = self.get_queryset().get(id=model_id)
 
+        print(instance.evaluation_parameters)
+
         return Response(instance.model_parameters, status=status.HTTP_200_OK)
