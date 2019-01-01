@@ -42,7 +42,7 @@ class TeamMember extends React.Component {
     const members = this.props.members;
 
     return (
-      <div style={{display:"inline", float:"right"}}>
+      <div style={this.props.style}>
         <Button type="primary" onClick={this.showModal}>
           <span>Team: <b>{members && members.length}</b></span>
         </Button>

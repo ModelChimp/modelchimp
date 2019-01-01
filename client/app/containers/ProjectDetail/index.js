@@ -33,7 +33,8 @@ export class ProjectDetail extends React.Component {
         <p>{this.props.projectDetail.description}</p>
         <div>
           <ProjectKey projectKey={this.props.projectKey} />
-          <TeamMember members={this.props.projectDetail.members} />
+          <TeamMember members={this.props.projectDetail.members}
+                      style={{display:"inline", float:"right"}} />
         </div>
 
       </div>
