@@ -14,10 +14,12 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {makeSelectProjectDetail, makeSelectProjectKey} from './selectors';
 import reducer from './reducer';
-import saga from './saga';
+import {projectDetailSaga} from './saga';
+
 import { loadProjectDetailAction } from './actions';
 
 import ProjectKey from './ProjectKey';
+import TeamMember from './TeamMember';
 
 export class ProjectDetail extends React.Component {
   componentDidMount() {
@@ -29,7 +31,11 @@ export class ProjectDetail extends React.Component {
       <div>
         <h1>{this.props.projectDetail.name}</h1>
         <p>{this.props.projectDetail.description}</p>
-        <ProjectKey projectKey={this.props.projectKey} />
+        <div>
+          <ProjectKey projectKey={this.props.projectKey} />
+          <TeamMember members={this.props.projectDetail.members} />
+        </div>
+
       </div>
     );
   }
@@ -60,7 +66,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'projectDetail', reducer });
-const withSaga = injectSaga({ key: 'projectDetail', saga });
+const withSaga = injectSaga({ key: 'projectDetail', saga: projectDetailSaga });
 
 export default compose(
   withReducer,

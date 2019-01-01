@@ -8,6 +8,7 @@ import { call } from 'redux-saga/effects';
 class ModelchimpClient {
     constructor(baseURL = '/') {
         this.tokenName = 'token';
+        this.apiURL = '/api/'
 
         if (!ModelchimpClient.instance) {
             this.defaultOptions = {
@@ -16,7 +17,7 @@ class ModelchimpClient {
                     'Content-Type': 'application/json',
                 },
             };
-            this.baseURL = '';
+            this.baseURL = baseURL;
             ModelchimpClient.instance = this;
         }
 
@@ -62,13 +63,12 @@ class ModelchimpClient {
       }
 
     get(url) {
-        let targetURL = this.baseURL + url;
+        let targetURL = this.baseURL + this.apiURL + url;
         return call(request, targetURL, { ...this.defaultOptions, method: 'GET',});
     }
 
     post(url, params = {}) {
-        let targetURL = this.baseURL + url;
-        console.log({ ...this.defaultOptions, method: 'POST', ...params});
+        let targetURL = this.baseURL + this.apiURL + url;
         return call(request, targetURL, { ...this.defaultOptions, method: 'POST', ...params});
     }
 
@@ -82,6 +82,11 @@ class ModelchimpClient {
 
     delete(url) {
         // return axios.delete(url, { ...this.defaultOptions });
+    }
+
+    getImageUrl(url) {
+      let targetURL = this.baseURL + url;
+      return targetURL;
     }
 }
 

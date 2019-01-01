@@ -18,7 +18,7 @@ export const initialState = fromJS({
     name: null,
     description: null,
   },
-  projectKey: null
+  projectKey: null,
 });
 
 function projectDetailReducer(state = initialState, action) {
@@ -29,15 +29,11 @@ function projectDetailReducer(state = initialState, action) {
         .set('error', false)
         .set('projectId', action.projectId);
     case LOAD_PROJECT_DETAIL_SUCCESS:
-
-      console.log(action);
       return state
         .set('loading', false)
         .set('error', false)
         .set('projectDetail', action.projectDetail)
         .set('projectKey', action.projectKey);
-    case LOAD_PROJECT_DETAIL_ERROR:
-      return state.set('loading', false).set('error', action.error);
     default:
       return state;
   }

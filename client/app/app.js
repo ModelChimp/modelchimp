@@ -104,5 +104,5 @@ if (!window.Intl) {
 if (process.env.NODE_ENV === 'production') {
   require('offline-plugin/runtime').install(); // eslint-disable-line global-require
 } else {
-  ModelchimpClient.setDefaultOptions('http://127.0.0.1:8000/api/');
+  ModelchimpClient.setDefaultOptions('http://127.0.0.1:8000');
 }
