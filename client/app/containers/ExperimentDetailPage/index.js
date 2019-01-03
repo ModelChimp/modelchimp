@@ -18,6 +18,8 @@ import Header from 'components/Header';
 import { Breadcrumb } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ExpIdBlock from 'components/ExpIdBlock';
+import { Layout } from 'antd';
+import Content from 'components/Content';
 
 import {loadExperimentDetailAction} from './actions';
 
@@ -30,13 +32,13 @@ export class ExperimentDetailPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <Layout>
         <Helmet>
           <title>ExperimentDetail</title>
           <meta name="description" content="Description of ExperimentDetail" />
         </Helmet>
         <Header />
-
+        <Content>
         <h1></h1>
         <div style={{marginTop:"50px"}}>
           <Breadcrumb separator=">">
@@ -49,7 +51,8 @@ export class ExperimentDetailPage extends React.Component {
             <ExpIdBlock expId={this.props.experimentId} sExpId={this.props.shortExperimentId} style={{float:"right"}} />
           </div>
         </div>
-      </div>
+        </Content>
+      </Layout>
     );
   }
 }

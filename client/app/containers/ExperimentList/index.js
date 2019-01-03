@@ -20,8 +20,10 @@ import Header from 'components/Header';
 import { makeSelectExperimentList } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-
 import { loadExperimentAction } from './actions';
+import { Layout } from 'antd';
+import ContentCentered from 'components/ContentCentered';
+import Content from 'components/Content';
 
 export class ExperimentList extends React.Component {
   componentDidMount() {
@@ -81,23 +83,25 @@ export class ExperimentList extends React.Component {
 
   render() {
     return (
-      <div>
+      <Layout className="layout">
         <Helmet>
           <title>ExperimentList</title>
           <meta name="description" content="Description of ExperimentList" />
         </Helmet>
         <Header />
 
-        <div style={{ marginTop: '50px' }}>
-          <ProjectDetail projectId={this.props.match.params.id} />
-        </div>
-        <Table
-          columns={this.columns}
-          dataSource={this.props.experimentList}
-          rowKey="id"
-          style={{ marginTop: '50px' }}
-        />
-      </div>
+        <Content>
+          <div style={{ marginTop: '50px' }}>
+            <ProjectDetail projectId={this.props.match.params.id} />
+          </div>
+          <Table
+            columns={this.columns}
+            dataSource={this.props.experimentList}
+            rowKey="id"
+            style={{ marginTop: '50px' }}
+          />
+      </Content>
+    </Layout>
     );
   }
 }

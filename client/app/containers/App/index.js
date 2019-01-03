@@ -24,18 +24,10 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import GlobalStyle from '../../global-styles';
 import PrivateRoute from './PrivateRoute';
 
-const AppWrapper = styled.div`
-  max-width: calc(768px + 16px * 2);
-  margin: 0 auto;
-  display: flex;
-  min-height: 100%;
-  padding: 0 16px;
-  flex-direction: column;
-`;
 
 export default function App() {
   return (
-    <AppWrapper>
+    <div>
       <Helmet
         titleTemplate="%s - React.js Boilerplate"
         defaultTitle="React.js Boilerplate"
@@ -47,7 +39,7 @@ export default function App() {
         <Route exact path="/" component={HomePage} />
         <Route path="/features" component={FeaturePage} />
         <PrivateRoute path="/projects" component={ProjectPage} />
-        <PrivateRoute path="/experiment-detail/:modelId" component={ExperimentDetailPage} />        
+        <PrivateRoute path="/experiment-detail/:modelId" component={ExperimentDetailPage} />
         <PrivateRoute path="/experiment-list/:id" component={ExperimentList} />
         <Route path="/login" component={LoginPage} />
         <Route path="/logout" component={Logout} />
@@ -55,6 +47,6 @@ export default function App() {
       </Switch>
       {/* <Footer /> */}
       <GlobalStyle />
-    </AppWrapper>
+    </div>
   );
 }

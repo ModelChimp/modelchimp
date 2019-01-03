@@ -15,6 +15,7 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectLoading } from 'containers/App/selectors';
 import Header from 'components/Header';
+import ContentCentered from 'components/ContentCentered';
 
 import styled from 'styled-components';
 import Section from './Section';
@@ -24,8 +25,9 @@ import reducer from './reducer';
 import saga from './saga';
 import ProjectList from './ProjectList';
 
-const TopPaddedDiv = styled.div`
-  padding-top: 50px;
+import { Layout } from 'antd';
+
+const AppWrapper = styled.div`
 `;
 
 export class ProjectPage extends React.PureComponent {
@@ -37,7 +39,7 @@ export class ProjectPage extends React.PureComponent {
     const { projects } = this.props;
 
     return (
-      <div>
+       <Layout className="layout">
         <Header />
         <article>
           <Helmet>
@@ -45,13 +47,12 @@ export class ProjectPage extends React.PureComponent {
             <meta name="description" content="PROJECT PAGE" />
           </Helmet>
 
-          <TopPaddedDiv>
-            <Section>
-              <ProjectList projects={projects} />
-            </Section>
-          </TopPaddedDiv>
+          <ContentCentered>
+              <ProjectList projects={projects} style={{ marginTop: '50px' }}/>
+          </ContentCentered>
+
         </article>
-      </div>
+      </Layout>
     );
   }
 }
