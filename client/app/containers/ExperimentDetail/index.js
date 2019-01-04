@@ -30,6 +30,7 @@ import {loadExperimentDetailAction} from './actions';
 
 const { SubMenu } = Menu;
 const {  Sider } = Layout;
+
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetail extends React.Component {
   componentDidMount() {

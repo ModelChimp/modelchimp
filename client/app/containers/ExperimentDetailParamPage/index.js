@@ -41,7 +41,7 @@ export class ExperimentDetailParamPage extends React.Component {
   }
 
   render() {
-    return <ExperimentDetail modelId={this.modelId} selectedKeys={'2'}>
+    return <ExperimentDetail modelId={this.props.match.params.modelId} selectedKeys={'2'}>
       <Section name="Parameters">
         <Table columns={this.columns} dataSource={this.props.paramData} />
       </Section>

@@ -24,6 +24,7 @@ import { loadExperimentAction } from './actions';
 import { Layout } from 'antd';
 import ContentCentered from 'components/ContentCentered';
 import Content from 'components/Content';
+import { Link } from "react-router-dom";
 
 export class ExperimentList extends React.Component {
   componentDidMount() {
@@ -40,8 +41,13 @@ export class ExperimentList extends React.Component {
         dataIndex: 'name',
         key: 'name',
         render: (text, record) => {
-          if (text === record.experiment_id) return text.substring(0, 7);
-          return text;
+          let result = text;
+
+          if (text === record.experiment_id) result = text.substring(0, 7);
+
+          return <Link to={`/experiment-detail/${record.id}`}>
+                  {result}
+                </Link>;
         },
       },
       {
