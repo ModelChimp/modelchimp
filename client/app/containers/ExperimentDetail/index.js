@@ -23,6 +23,7 @@ import ExpIdBlock from 'components/ExpIdBlock';
 import Content from 'components/Content';
 import ContentCentered from 'components/Content';
 import Section from 'components/Section';
+import { Link } from "react-router-dom";
 
 
 import {loadExperimentDetailAction} from './actions';
@@ -56,10 +57,10 @@ export class ExperimentDetail extends React.Component {
                     selectedKeys={selected}
                   >
                       <Menu.Item key="1">
-                        <a href={`/experiment-detail/${this.props.modelId}`}>Metrics</a>
+                        <Link to={`/experiment-detail/${this.props.modelId}`}>Metrics</Link>
                       </Menu.Item>
                       <Menu.Item key="2">
-                        <a href={`/experiment-detail/${this.props.modelId}/parameter`}>Parameters</a>
+                        <Link to={`/experiment-detail/${this.props.modelId}/parameter`}>Parameters</Link>
                       </Menu.Item>
                       <Menu.Item key="3">Code</Menu.Item>
                       <Menu.Item key="4">Charts</Menu.Item>
@@ -70,9 +71,9 @@ export class ExperimentDetail extends React.Component {
 
           <div style={{marginTop:"50px"}}>
             <Breadcrumb separator=">">
-              <Breadcrumb.Item><a href="/projects">Projects</a></Breadcrumb.Item>
-              <Breadcrumb.Item><a href={`/experiment-list/${this.props.experiment.project}`}>{this.props.experiment.project_name}</a></Breadcrumb.Item>
-              <Breadcrumb.Item><a href={`/experiment-detail/${this.props.experiment.id}`}>{this.props.experimentName}</a></Breadcrumb.Item>
+              <Breadcrumb.Item><Link to="/projects">Projects</Link></Breadcrumb.Item>
+              <Breadcrumb.Item><Link to={`/experiment-list/${this.props.experiment.project}`}>{this.props.experiment.project_name}</Link></Breadcrumb.Item>
+              <Breadcrumb.Item><Link to={`/experiment-detail/${this.props.experiment.id}`}>{this.props.experimentName}</Link></Breadcrumb.Item>
             </Breadcrumb>
             <div style={{marginTop:"20px"}}>
               <h2>Experiment Name: {this.props.experimentName}</h2>

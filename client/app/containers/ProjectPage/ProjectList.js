@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'antd';
+import { Link } from "react-router-dom";
 
 class ProjectList extends React.PureComponent {
   render() {
@@ -18,7 +19,7 @@ class ProjectList extends React.PureComponent {
         itemLayout="horizontal"
         dataSource={projects}
         renderItem={item => (
-          <a href={`/experiment-list/${item.id}`} style={{ color: 'inherit' }}>
+          <Link to={`/experiment-list/${item.id}`} style={{ color: 'inherit' }}>
             {' '}
             <List.Item>
               <List.Item.Meta
@@ -34,7 +35,7 @@ class ProjectList extends React.PureComponent {
                 </div>
               </div>
             </List.Item>
-          </a>
+          </Link>
         )}
       />
     );

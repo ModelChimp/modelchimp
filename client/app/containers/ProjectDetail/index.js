@@ -16,6 +16,7 @@ import {makeSelectProjectDetail, makeSelectProjectKey} from './selectors';
 import reducer from './reducer';
 import {projectDetailSaga} from './saga';
 import { Breadcrumb } from 'antd';
+import { Link } from "react-router-dom";
 
 import { loadProjectDetailAction } from './actions';
 
@@ -31,8 +32,8 @@ export class ProjectDetail extends React.Component {
     return (
       <div>
         <Breadcrumb separator=">">
-          <Breadcrumb.Item><a href="/projects">Projects</a></Breadcrumb.Item>
-          <Breadcrumb.Item><a href={`/experiment-list/${this.props.projectId}`}>{this.props.projectDetail.name}</a></Breadcrumb.Item>
+          <Breadcrumb.Item><Link to="/projects">Projects</Link></Breadcrumb.Item>
+          <Breadcrumb.Item><Link to={`/experiment-list/${this.props.projectId}`}>{this.props.projectDetail.name}</Link></Breadcrumb.Item>
         </Breadcrumb>
         <h1 style={{marginTop:"20px"}}>{this.props.projectDetail.name}</h1>
         <p>{this.props.projectDetail.description}</p>
