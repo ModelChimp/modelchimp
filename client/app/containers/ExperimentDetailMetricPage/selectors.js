@@ -8,12 +8,18 @@ const selectExperimentDetailMetricPageDomain = state =>
 const makeSelectExperimentDetailMetricPage = () =>
   createSelector(selectExperimentDetailMetricPageDomain, substate => {
     let metricData = substate.get('metricData');
-    return metricData.map((e,i) =>({
-        key:i,
-        metric: e.name,
-        max: e.max,
-        min: e.min
-    }))
+    let result = null;
+
+    if(metricData){
+      result = metricData.map((e,i) =>({
+          key:i,
+          metric: e.name,
+          max: e.max,
+          min: e.min
+      }));
+    }
+
+    return result;
   },
   );
 

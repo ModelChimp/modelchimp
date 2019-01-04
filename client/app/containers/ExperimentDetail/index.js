@@ -37,6 +37,8 @@ export class ExperimentDetail extends React.Component {
   }
 
   render() {
+    let selected = this.props.selectedKeys ? [this.props.selectedKeys] : ['1'];
+
     return (
       <Layout>
         <Helmet>
@@ -51,9 +53,14 @@ export class ExperimentDetail extends React.Component {
                     defaultSelectedKeys={['1']}
                     defaultOpenKeys={['sub1']}
                     style={{ height: '100%', borderRight: 0 }}
+                    selectedKeys={selected}
                   >
-                      <Menu.Item key="1">Metrics</Menu.Item>
-                      <Menu.Item key="2">Parameters</Menu.Item>
+                      <Menu.Item key="1">
+                        <a href={`/experiment-detail/${this.props.modelId}`}>Metrics</a>
+                      </Menu.Item>
+                      <Menu.Item key="2">
+                        <a href={`/experiment-detail/${this.props.modelId}/parameter`}>Parameters</a>
+                      </Menu.Item>
                       <Menu.Item key="3">Code</Menu.Item>
                       <Menu.Item key="4">Charts</Menu.Item>
                   </Menu>

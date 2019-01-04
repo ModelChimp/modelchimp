@@ -42,9 +42,7 @@ export class ExperimentDetailMetricPage extends React.Component {
   }
 
   render() {
-    console.log(this.props.metricData);
-
-    return <ExperimentDetail modelId={this.modelId}>
+    return <ExperimentDetail modelId={this.modelId} selectedKeys={'1'}>
       <Section name="Metrics">
         <Table columns={this.columns} dataSource={this.props.metricData} />
       </Section>
@@ -54,7 +52,7 @@ export class ExperimentDetailMetricPage extends React.Component {
 
 ExperimentDetailMetricPage.propTypes = {
   getExperimentMetricData: PropTypes.func.isRequired,
-  metricData: PropTypes.object
+  metricData: PropTypes.array
 };
 
 const mapStateToProps = createStructuredSelector({
