@@ -66,7 +66,8 @@ export class ExperimentDetail extends React.Component {
                           <FontAwesomeIcon icon="list-ol" /> Parameters</Link>
                       </Menu.Item>
                       <Menu.Item key="3">
-                        <FontAwesomeIcon icon="file-code" /> Code
+                        <Link to={`/experiment-detail/${this.props.modelId}/code`}>
+                        <FontAwesomeIcon icon="file-code" /> Code</Link>
                         </Menu.Item>
                       <Menu.Item key="4">
                         <FontAwesomeIcon icon="chart-line" /> Charts</Menu.Item>
