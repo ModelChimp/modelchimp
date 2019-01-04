@@ -5,13 +5,9 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-//
-// function ExpIdBlock() {
-//   return <div />;
-// }
+
 
 const ExpIdBlock = ({expId, sExpId, style, className}) => {
   const copyToClipboard = (e) => {
@@ -39,15 +35,17 @@ const StyledExpIdBlock = styled(ExpIdBlock)`
   border: 1px solid black;
 
   padding-left:2px;
+  padding-bottom:3px;
+  padding-top:2px;
   border-radius:3px;
 
   button {
     background-color:#41addd;
     color:white;
-    border-left:1px solid black;
+    border:1px solid black;
     border-bottom:1px solid black;
-    border-top-right-radius:2px;
-    border-bottom-right-radius:2px;
+    border-top-right-radius:3px;
+    border-bottom-right-radius:3px;
     margin-left:3px;
   }
 `;
