@@ -17,6 +17,7 @@ import LoginPage from 'containers/LoginPage/Loadable';
 import Logout from 'containers/Logout/Loadable';
 import ExperimentList from 'containers/ExperimentList/Loadable';
 import ExperimentDetailMetricPage from 'containers/ExperimentDetailMetricPage/Loadable';
+import ExperimentDetailParamPage from 'containers/ExperimentDetailParamPage/Loadable';
 
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -39,7 +40,8 @@ export default function App() {
         <Route exact path="/" component={HomePage} />
         <Route path="/features" component={FeaturePage} />
         <PrivateRoute path="/projects" component={ProjectPage} />
-        <PrivateRoute path="/experiment-detail/:modelId" component={ExperimentDetailMetricPage} />
+        {/* <PrivateRoute path="/experiment-detail/:modelId" component={ExperimentDetailMetricPage} /> */}
+        <PrivateRoute path="/experiment-detail/:modelId" component={ExperimentDetailParamPage} />
         <PrivateRoute path="/experiment-list/:id" component={ExperimentList} />
         <Route path="/login" component={LoginPage} />
         <Route path="/logout" component={Logout} />

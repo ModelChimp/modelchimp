@@ -1,6 +1,6 @@
 /**
  *
- * ExperimentDetailMetricPage
+ * ExperimentDetailParamPage
  *
  */
 
@@ -12,59 +12,56 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectExperimentDetailMetricPage from './selectors';
+import makeSelectExperimentDetailParamPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import {loadExperimentMetricAction} from './actions';
+import {loadExperimentParamAction} from './actions';
 
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
 import { Table, Divider, Tag } from 'antd';
 
 /* eslint-disable react/prefer-stateless-function */
-export class ExperimentDetailMetricPage extends React.Component {
+export class ExperimentDetailParamPage extends React.Component {
   componentDidMount() {
     this.modelId = this.props.match.params.modelId;
     this.columns = [{
-      title: 'Metric',
-      dataIndex: 'metric',
-      key: 'metric',
+      title: 'Parameter',
+      dataIndex: 'param',
+      key: 'param',
+      width: '20vw'
     }, {
-      title: 'Max',
-      dataIndex: 'max',
-      key: 'max',
-    }, {
-      title: 'Min',
-      dataIndex: 'min',
-    },];
+      title: 'Value',
+      dataIndex: 'value',
+      key: 'value',
+      width: '60vw'
+    }];
 
-    this.props.getExperimentMetricData(this.modelId);
+    this.props.getExperimentParamData(this.modelId);
   }
 
   render() {
-    console.log(this.props.metricData);
-
     return <ExperimentDetail modelId={this.modelId}>
-      <Section name="Metrics">
-        <Table columns={this.columns} dataSource={this.props.metricData} />
+      <Section name="Parameters">
+        <Table columns={this.columns} dataSource={this.props.paramData} />
       </Section>
     </ExperimentDetail>;
   }
 }
 
-ExperimentDetailMetricPage.propTypes = {
-  getExperimentMetricData: PropTypes.func.isRequired,
-  metricData: PropTypes.object
+ExperimentDetailParamPage.propTypes = {
+  getExperimentParamData: PropTypes.func.isRequired,
+  paramData: PropTypes.array
 };
 
 const mapStateToProps = createStructuredSelector({
-  metricData: makeSelectExperimentDetailMetricPage(),
+  paramData: makeSelectExperimentDetailParamPage(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getExperimentMetricData: modelId =>
-      dispatch(loadExperimentMetricAction(modelId)),
+    getExperimentParamData: modelId =>
+      dispatch(loadExperimentParamAction(modelId)),
   };
 }
 
@@ -74,13 +71,13 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({
-  key: 'experimentDetailMetricPage',
+  key: 'experimentDetailParamPage',
   reducer,
 });
-const withSaga = injectSaga({ key: 'experimentDetailMetricPage', saga });
+const withSaga = injectSaga({ key: 'experimentDetailParamPage', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(ExperimentDetailMetricPage);
+)(ExperimentDetailParamPage);
