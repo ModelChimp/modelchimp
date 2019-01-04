@@ -30,9 +30,9 @@ import {loadExperimentDetailAction} from './actions';
 const { SubMenu } = Menu;
 const {  Sider } = Layout;
 /* eslint-disable react/prefer-stateless-function */
-export class ExperimentDetailPage extends React.Component {
+export class ExperimentDetail extends React.Component {
   componentDidMount() {
-    const modelId = this.props.match.params.modelId;
+    const modelId = this.props.modelId;
     this.props.getExperimentMetaData(modelId);
   }
 
@@ -70,8 +70,7 @@ export class ExperimentDetailPage extends React.Component {
             <div style={{marginTop:"20px"}}>
               <h2>Experiment Name: {this.props.experimentName}</h2>
               <ExpIdBlock expId={this.props.experimentId} sExpId={this.props.shortExperimentId}  />
-
-              <Section name="Metrics">Metrics</Section>
+              {this.props.children}
             </div>
           </div>
         </Content>
@@ -82,7 +81,7 @@ export class ExperimentDetailPage extends React.Component {
   }
 }
 
-ExperimentDetailPage.propTypes = {
+ExperimentDetail.propTypes = {
   experiment: PropTypes.object,
   getExperimentMetaData: PropTypes.func,
   experimentName: PropTypes.string,
@@ -109,11 +108,11 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'experimentDetailPage', reducer });
-const withSaga = injectSaga({ key: 'experimentDetailPage', saga });
+const withReducer = injectReducer({ key: 'experimentDetail', reducer });
+const withSaga = injectSaga({ key: 'experimentDetail', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(ExperimentDetailPage);
+)(ExperimentDetail);

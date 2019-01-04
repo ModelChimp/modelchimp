@@ -3,7 +3,7 @@ import { initialState } from './reducer';
 
 
 const selectExperimentDetail = state =>
-  state.get('experimentDetailPage', initialState);
+  state.get('experimentDetail', initialState);
 
 const makeSelectExperimentDetail = () =>
   createSelector(selectExperimentDetail, experimentDetailState =>

@@ -7,7 +7,6 @@ import { LOAD_EXPERIMENT_DETAIL } from './constants';
 import { loadExperimentDetailSuccessAction, loadExperimentDetailErrorAction } from './actions';
 
 export function* getExperimentData({modelId}) {
-  console.log(modelId);
   const requestURL = `experiment-detail/${modelId}/meta`;
 
   try {
