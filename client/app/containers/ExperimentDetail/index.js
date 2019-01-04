@@ -58,13 +58,18 @@ export class ExperimentDetail extends React.Component {
                     selectedKeys={selected}
                   >
                       <Menu.Item key="1">
-                        <Link to={`/experiment-detail/${this.props.modelId}`}>Metrics</Link>
+                        <Link to={`/experiment-detail/${this.props.modelId}`}>
+                          <FontAwesomeIcon icon="greater-than-equal" />  Metrics</Link>
                       </Menu.Item>
                       <Menu.Item key="2">
-                        <Link to={`/experiment-detail/${this.props.modelId}/parameter`}>Parameters</Link>
+                        <Link to={`/experiment-detail/${this.props.modelId}/parameter`}>
+                          <FontAwesomeIcon icon="list-ol" /> Parameters</Link>
                       </Menu.Item>
-                      <Menu.Item key="3">Code</Menu.Item>
-                      <Menu.Item key="4">Charts</Menu.Item>
+                      <Menu.Item key="3">
+                        <FontAwesomeIcon icon="file-code" /> Code
+                        </Menu.Item>
+                      <Menu.Item key="4">
+                        <FontAwesomeIcon icon="chart-line" /> Charts</Menu.Item>
                   </Menu>
                 </Sider>
         <Content style={{marginLeft:200}}>
