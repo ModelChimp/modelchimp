@@ -20,7 +20,6 @@ export function* postLogin({ username, password }) {
 
     const data = yield ModelchimpClient.post(requestURL, params);
     const token = data.token;
-    console.log(data);
     ModelchimpClient.login(token);
 
     yield put(loginSuccess(token));

@@ -8,7 +8,8 @@ class UserSerializer(serializers.ModelSerializer):
     profile_detail = ProfileSerializer(source='profile', read_only=True)
     first_name = serializers.ReadOnlyField(source='user.profile.first_name')
     last_name = serializers.ReadOnlyField(source='user.profile.last_name')
+    avatar = serializers.ReadOnlyField(source='user.profile.avatar')
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'profile_detail')
+        fields = ('id', 'first_name', 'last_name', 'profile_detail','avatar')

@@ -14,7 +14,7 @@ import {makeSelectExperimentDetail,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import Header from 'components/Header';
+import HeaderWrapper from 'containers/HeaderWrapper';
 import {
   Layout, Menu, Breadcrumb, Icon,
 } from 'antd';
@@ -47,7 +47,7 @@ export class ExperimentDetail extends React.Component {
           <title>ExperimentDetail</title>
           <meta name="description" content="Description of ExperimentDetail" />
         </Helmet>
-        <Header />
+        <HeaderWrapper />
           <Layout>
           <Sider width={200} style={{ background: '#fff', position:'fixed',marginTop:64, zIndex:200, height:'100vh' }}>
                   <Menu

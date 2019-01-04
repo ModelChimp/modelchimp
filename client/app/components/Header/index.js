@@ -30,7 +30,7 @@ class Header extends React.Component {
             <a href='https://docs.modelchimp.com' target="_">Docs</a>
           </Menu.Item>
 
-          <Menu.SubMenu title={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}>
+          <Menu.SubMenu title={<Avatar src={this.props.avatar} />}>
             <Menu.Item key="setting:1">Profile</Menu.Item>
             <Menu.Item key="setting:2">
               <Link to='/logout'>Logout</Link>

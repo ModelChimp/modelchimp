@@ -16,7 +16,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { Table, Tag, } from 'antd';
 import ProjectDetail from 'containers/ProjectDetail/Loadable';
-import Header from 'components/Header';
+import HeaderWrapper from 'containers/HeaderWrapper';
 import { makeSelectExperimentList } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -94,7 +94,7 @@ export class ExperimentList extends React.Component {
           <title>ExperimentList</title>
           <meta name="description" content="Description of ExperimentList" />
         </Helmet>
-        <Header />
+        <HeaderWrapper />
 
         <Content>
           <div style={{ marginTop: '50px' }}>

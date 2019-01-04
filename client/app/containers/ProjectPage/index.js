@@ -14,7 +14,7 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectLoading } from 'containers/App/selectors';
-import Header from 'components/Header';
+import HeaderWrapper from 'containers/HeaderWrapper';
 import ContentCentered from 'components/ContentCentered';
 
 import styled from 'styled-components';
@@ -40,7 +40,7 @@ export class ProjectPage extends React.PureComponent {
 
     return (
        <Layout className="layout">
-        <Header />
+        <HeaderWrapper />
         <article>
           <Helmet>
             <title>Project Page</title>
