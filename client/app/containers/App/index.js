@@ -19,6 +19,7 @@ import ExperimentList from 'containers/ExperimentList/Loadable';
 import ExperimentDetailMetricPage from 'containers/ExperimentDetailMetricPage/Loadable';
 import ExperimentDetailParamPage from 'containers/ExperimentDetailParamPage/Loadable';
 import ExperimentDetailCodePage from 'containers/ExperimentDetailCodePage/Loadable';
+import ExperimentDetailChartPage from 'containers/ExperimentDetailChartPage/Loadable';
 
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -42,7 +43,8 @@ export default function App() {
         <Route path="/features" component={FeaturePage} />
         <PrivateRoute path="/projects" component={ProjectPage} />
         <PrivateRoute path="/experiment-detail/:modelId/parameter" component={ExperimentDetailParamPage} />
-          <PrivateRoute path="/experiment-detail/:modelId/code" component={ExperimentDetailCodePage} />        
+        <PrivateRoute path="/experiment-detail/:modelId/code" component={ExperimentDetailCodePage} />
+        <PrivateRoute path="/experiment-detail/:modelId/chart" component={ExperimentDetailChartPage} />
         <PrivateRoute path="/experiment-detail/:modelId/" component={ExperimentDetailMetricPage} />
         <PrivateRoute path="/experiment-list/:id" component={ExperimentList} />
         <Route path="/login" component={LoginPage} />

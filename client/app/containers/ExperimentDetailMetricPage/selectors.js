@@ -11,7 +11,7 @@ const makeSelectExperimentDetailMetricPage = () =>
     let result = null;
 
     if(metricData){
-      result = metricData.map((e,i) =>({
+      result = metricData.summary.map((e,i) =>({
           key:i,
           metric: e.name,
           max: e.max,

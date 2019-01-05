@@ -8,6 +8,7 @@ from modelchimp.models.machinelearning_model import MachineLearningModel
 from modelchimp.api_permissions import HasProjectMembership
 from rest_framework.permissions import IsAuthenticated
 
+from django.forms.models import model_to_dict
 
 class ExperimentMetricAPI(mixins.RetrieveModelMixin,
                                 viewsets.GenericViewSet):
@@ -15,14 +16,17 @@ class ExperimentMetricAPI(mixins.RetrieveModelMixin,
     permission_classes = (IsAuthenticated, HasProjectMembership)
 
     def retrieve(self, request, model_id,  *args, **kwargs):
-        result = []
-        instance = self.get_queryset().get(id=model_id)
+        result = dict()
+        result['summary'] = []
+        result['raw'] = self.get_queryset().get(id=model_id)
+        result['raw'] = result['raw'].evaluation_parameters
 
-        for metric in instance.evaluation_parameters['metric_list']:
+
+        for metric in result['raw']['metric_list']:
             # Get the max and min value
             max = 0
             min = 0
-            for i,m in enumerate(instance.evaluation_parameters['evaluation'][metric]):
+            for i,m in enumerate(result['raw']['evaluation'][metric]):
                 current_value = m['value']
 
                 if i == 0:
@@ -41,7 +45,6 @@ class ExperimentMetricAPI(mixins.RetrieveModelMixin,
             metric_dict['max'] = max
             metric_dict['min'] = min
 
-            result.append(metric_dict)
-
+            result['summary'].append(metric_dict)
 
         return Response(result, status=status.HTTP_200_OK)

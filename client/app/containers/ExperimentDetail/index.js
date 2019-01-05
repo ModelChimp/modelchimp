@@ -70,7 +70,9 @@ export class ExperimentDetail extends React.Component {
                         <FontAwesomeIcon icon="file-code" /> Code</Link>
                         </Menu.Item>
                       <Menu.Item key="4">
-                        <FontAwesomeIcon icon="chart-line" /> Charts</Menu.Item>
+                        <Link to={`/experiment-detail/${this.props.modelId}/chart`}>
+                        <FontAwesomeIcon icon="chart-line" /> Charts</Link>
+                        </Menu.Item>
                   </Menu>
                 </Sider>
         <Content style={{marginLeft:200}}>
