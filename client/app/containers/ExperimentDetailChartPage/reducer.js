@@ -13,8 +13,8 @@ import {   LOAD_EXPERIMENT_DETAIL_CHART,
 export const initialState = fromJS({
   loading: false,
   error: false,
-  chartData: null  
-});
+  chartData: null,
+  });
 
 function experimentDetailChartPageReducer(state = initialState, action) {
   switch (action.type) {

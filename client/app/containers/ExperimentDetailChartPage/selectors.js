@@ -11,10 +11,7 @@ const makeSelectExperimentDetailChartPage = () =>
     let result = null;
 
     if(chartData){
-      result = chartData.raw.evaluation.accuracy_test.map((e,i) =>({
-        x : e.epoch,
-        y : e.value
-      }));
+      result = chartData.raw;
     }
 
     return result;
