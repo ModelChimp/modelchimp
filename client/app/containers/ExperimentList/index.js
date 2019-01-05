@@ -63,7 +63,7 @@ export class ExperimentList extends React.Component {
         dataIndex: 'status',
         key: 'status',
         render: (text) => {
-          if(text === 1) return <Icon type="sync" spin />;
+          if(text === 1) return <Icon type="sync" spin style={{color:'orange'}}/>;
 
           return <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" />;
         }
