@@ -73,6 +73,10 @@ export class ExperimentDetail extends React.Component {
                         <Link to={`/experiment-detail/${this.props.modelId}/chart`}>
                         <FontAwesomeIcon icon="chart-line" /> Charts</Link>
                         </Menu.Item>
+                      <Menu.Item key="5">
+                        <Link to={`/experiment-detail/${this.props.modelId}/object`}>
+                        <FontAwesomeIcon icon="grip-horizontal" /> Objects</Link>
+                        </Menu.Item>
                   </Menu>
                 </Sider>
         <Content style={{marginLeft:200}}>

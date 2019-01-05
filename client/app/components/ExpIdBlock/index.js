@@ -38,6 +38,7 @@ const StyledExpIdBlock = styled(ExpIdBlock)`
   padding-bottom:3px;
   padding-top:2px;
   border-radius:3px;
+  line-height:19px;
 
   button {
     background-color:#41addd;
