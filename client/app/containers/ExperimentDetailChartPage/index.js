@@ -12,7 +12,8 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectExperimentDetailChartPage from './selectors';
+import { makeSelectExperimentDetailMetricChartPage,
+          makeSelectExperimentDetailDurationChartPage } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import {loadExperimentChartAction} from './actions';
@@ -38,17 +39,21 @@ export class ExperimentDetailChartPage extends React.Component {
   }
 
   render() {
-    const data = this.props.cData;
+    const mData = this.props.metricData;
+    const dData = this.props.durationData;
 
     return <ExperimentDetail modelId={this.props.match.params.modelId} selectedKeys={'4'}>
               <Section name="Metric Chart">
-                { data && data.metric_list.map((e, i) => this.createChart(e, i))}
+                { mData && mData.metric_list.map((e, i) => this.createMetricChart(e, i))}
+              </Section>
+              <Section name="Duration Chart">
+                { dData && dData.tag_list.map((e, i) => this.createDurationChart(e, i))}
               </Section>
            </ExperimentDetail>;
   }
 
-  createChart(metric, index) {
-    const data = this.props.cData.evaluation[metric].map((e)=>({
+  createMetricChart(metric, index) {
+    const data = this.props.metricData.evaluation[metric].map((e)=>({
       x: e.epoch,
       y: e.value
     }));
@@ -57,15 +62,29 @@ export class ExperimentDetailChartPage extends React.Component {
             <LineChart data={data} label={metric} xAxisLabel={'Epoch'} />
           </div>;
   }
+
+  createDurationChart(duration, index) {
+    const data = this.props.durationData.duration[duration].map((e)=>({
+      x: e.epoch,
+      y: e.value
+    }));
+
+    return <div key={index}  style={{marginBottom:20}}>
+            <LineChart data={data} label={`${duration} (seconds)`} xAxisLabel={'Epoch'} />
+          </div>;
+  }
 }
 
 ExperimentDetailChartPage.propTypes = {
   getExperimentChartData: PropTypes.func.isRequired,
-  cData: PropTypes.object
+  metricData: PropTypes.object,
+  durationData: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  cData: makeSelectExperimentDetailChartPage(),
+  metricData: makeSelectExperimentDetailMetricChartPage(),
+  durationData: makeSelectExperimentDetailDurationChartPage(),
+
 });
 
 function mapDispatchToProps(dispatch) {

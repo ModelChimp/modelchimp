@@ -5,18 +5,30 @@ import { initialState } from './reducer';
 const selectExperimentDetailChartPageDomain = state =>
   state.get('experimentDetailChartPage', initialState);
 
-const makeSelectExperimentDetailChartPage = () =>
+const makeSelectExperimentDetailMetricChartPage = () =>
   createSelector(selectExperimentDetailChartPageDomain, substate => {
     let chartData = substate.get('chartData');
     let result = null;
 
     if(chartData){
-      result = chartData.raw;
+      result = chartData.metric;
     }
 
     return result;
-  },
-  );
+  },);
 
-export default makeSelectExperimentDetailChartPage;
-export { selectExperimentDetailChartPageDomain };
+const makeSelectExperimentDetailDurationChartPage = () =>
+  createSelector(selectExperimentDetailChartPageDomain, substate => {
+    let chartData = substate.get('chartData');
+    let result = null;
+
+    if(chartData){
+      result = chartData.duration;
+    }
+
+    return result;
+  },);
+
+export { makeSelectExperimentDetailMetricChartPage,
+                  makeSelectExperimentDetailDurationChartPage,
+                 selectExperimentDetailChartPageDomain };

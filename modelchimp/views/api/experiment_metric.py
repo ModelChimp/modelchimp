@@ -16,17 +16,18 @@ class ExperimentMetricAPI(mixins.RetrieveModelMixin,
     permission_classes = (IsAuthenticated, HasProjectMembership)
 
     def retrieve(self, request, model_id,  *args, **kwargs):
+        instance= self.get_queryset().get(id=model_id)
+
         result = dict()
         result['summary'] = []
-        result['raw'] = self.get_queryset().get(id=model_id)
-        result['raw'] = result['raw'].evaluation_parameters
+        result['metric'] = instance.evaluation_parameters
+        result['duration'] = instance.epoch_durations
 
-
-        for metric in result['raw']['metric_list']:
+        for metric in result['metric']['metric_list']:
             # Get the max and min value
             max = 0
             min = 0
-            for i,m in enumerate(result['raw']['evaluation'][metric]):
+            for i,m in enumerate(result['metric']['evaluation'][metric]):
                 current_value = m['value']
 
                 if i == 0:
