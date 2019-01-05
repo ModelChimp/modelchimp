@@ -7,6 +7,7 @@ class MachineLearningModelSerializer(serializers.ModelSerializer):
     comment_count = serializers.SerializerMethodField()
     submitted_by = serializers.SerializerMethodField()
     project_name = serializers.SerializerMethodField()
+    param_fields = serializers.SerializerMethodField()
 
     class Meta:
         model = MachineLearningModel
@@ -15,6 +16,7 @@ class MachineLearningModelSerializer(serializers.ModelSerializer):
             'features': {'write_only': True},
             'model_parameters': {'write_only': True},
             'evaluation_parameters': {'write_only': True},
+            'epoch_durations': {'write_only': True},
             'deep_learning_parameters': {'write_only': True},
             'ml_model_file': {'write_only': True},
         }
@@ -30,3 +32,16 @@ class MachineLearningModelSerializer(serializers.ModelSerializer):
 
     def get_project_name(self, obj):
         return obj.project.name
+
+    def get_param_fields(self, obj):
+        param_list = self.context.get("param_fields", [])
+        result = dict()
+        if not isinstance(obj.model_parameters, dict):
+            return result
+
+        for param in param_list:
+            param_value = obj.model_parameters.get(param, None)
+            if param_value:
+                result[param] = param_value
+
+        return result

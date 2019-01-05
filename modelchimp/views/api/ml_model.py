@@ -25,7 +25,15 @@ class MLModelAPI(generics.ListAPIView):
 		else:
 			queryset = self.get_queryset().filter(project=project_id).order_by("-date_created")
 
-		serializer = MachineLearningModelSerializer(queryset, many=True)
+		# Get optional fields
+		try:
+			params = self.request.query_params
+			param_fields = params.getlist('param_fields[]')
+		except Exception as e:
+		   	pass
+
+		# Serialize the data
+		serializer = MachineLearningModelSerializer(queryset, many=True, context={'param_fields':param_fields})
 		if st is None:
 			st = status.HTTP_200_OK
 
