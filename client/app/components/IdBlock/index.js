@@ -1,6 +1,6 @@
 /**
  *
- * ExpIdBlock
+ * IdBlock
  *
  */
 
@@ -9,11 +9,11 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
-const ExpIdBlock = ({expId, sExpId, style, className}) => {
+const IdBlock = ({copy, display, style, className}) => {
   const copyToClipboard = (e) => {
     let textArea = document.createElement("textarea");
 
-    textArea.value = expId;
+    textArea.value = copy;
     document.body.appendChild(textArea);
     textArea.select();
     document.execCommand("Copy");
@@ -24,14 +24,14 @@ const ExpIdBlock = ({expId, sExpId, style, className}) => {
 
 
   return <span className={className} style={style}>
-      {sExpId}
+      {display}
     <button  onClick={copyToClipboard}>
         <FontAwesomeIcon icon="copy" />
     </button>
   </span>;
 }
 
-const StyledExpIdBlock = styled(ExpIdBlock)`
+const StyledIdBlock = styled(IdBlock)`
   border: 1px solid black;
 
   padding-left:2px;
@@ -51,4 +51,4 @@ const StyledExpIdBlock = styled(ExpIdBlock)`
   }
 `;
 
-export default StyledExpIdBlock;
+export default StyledIdBlock;

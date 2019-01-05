@@ -19,7 +19,7 @@ import {
   Layout, Menu, Breadcrumb, Icon,
 } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ExpIdBlock from 'components/ExpIdBlock';
+import IdBlock from 'components/IdBlock';
 import Content from 'components/Content';
 import ContentCentered from 'components/Content';
 import Section from 'components/Section';
@@ -90,7 +90,7 @@ export class ExperimentDetail extends React.Component {
             </Breadcrumb>
             <div style={{marginTop:"20px"}}>
               <h2>Experiment Name: {this.props.experimentName}</h2>
-              <ExpIdBlock expId={this.props.experimentId} sExpId={this.props.shortExperimentId}  />
+              <IdBlock copy={this.props.experimentId} display={this.props.shortExperimentId}  />
               {this.props.children}
             </div>
           </div>

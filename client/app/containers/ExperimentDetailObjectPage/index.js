@@ -20,7 +20,7 @@ import {loadExperimentObjectAction} from './actions';
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
 import { Table, Divider, Tag } from 'antd';
-import ExpIdBlock from 'components/ExpIdBlock';
+import IdBlock from 'components/IdBlock';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailObjectPage extends React.Component {
@@ -34,7 +34,7 @@ export class ExperimentDetailObjectPage extends React.Component {
       title: 'Id',
       dataIndex: 'custom_object_id',
       key: 'custom_object_id',
-      render: (text) => <ExpIdBlock expId={text} sExpId={text} />
+      render: (text) => <IdBlock copy={text} display={text} />
     },];
 
     this.props.getExperimentObjectData(this.modelId);
