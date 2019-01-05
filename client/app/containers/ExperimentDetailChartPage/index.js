@@ -27,13 +27,21 @@ export class ExperimentDetailChartPage extends React.Component {
   componentDidMount() {
     this.modelId = this.props.match.params.modelId;
     this.props.getExperimentChartData(this.modelId);
+
+    this.timer = setInterval(()=>{
+      this.props.getExperimentChartData(this.modelId);
+    },2000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   render() {
     const data = this.props.cData;
 
     return <ExperimentDetail modelId={this.props.match.params.modelId} selectedKeys={'4'}>
-              <Section name="Charts">
+              <Section name="Metric Chart">
                 { data && data.metric_list.map((e, i) => this.createChart(e, i))}
               </Section>
            </ExperimentDetail>;
@@ -45,8 +53,8 @@ export class ExperimentDetailChartPage extends React.Component {
       y: e.value
     }));
 
-    return <div style={{marginBottom:20}}>
-            <LineChart key={index} data={data} label={metric} xAxisLabel={'Epoch'} />
+    return <div key={index}  style={{marginBottom:20}}>
+            <LineChart data={data} label={metric} xAxisLabel={'Epoch'} />
           </div>;
   }
 }

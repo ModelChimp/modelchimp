@@ -29,7 +29,9 @@ function LineChart({data, label, xAxisLabel, style}) {
     data: data
   }]};
 
-  return <Line data={inputData} options={{
+  return <Line
+
+        data={inputData} options={{
           scales: {
               xAxes: [{
                   type: 'linear',
