@@ -14,7 +14,7 @@ import { makeSelectLoading } from 'containers/App/selectors';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { Table, Tag, } from 'antd';
+import { Table, Tag, Icon } from 'antd';
 import ProjectDetail from 'containers/ProjectDetail/Loadable';
 import HeaderWrapper from 'containers/HeaderWrapper';
 import { makeSelectExperimentList } from './selectors';
@@ -30,6 +30,14 @@ export class ExperimentList extends React.Component {
   componentDidMount() {
     const projectId = this.props.match.params.id;
     this.props.getExperimentData(projectId);
+
+    this.timer = setInterval(()=>{
+      this.props.getExperimentData(projectId);
+    },2000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   constructor(props) {
@@ -49,6 +57,16 @@ export class ExperimentList extends React.Component {
                   {result}
                 </Link>;
         },
+      },
+      {
+        title: 'Status',
+        dataIndex: 'status',
+        key: 'status',
+        render: (text) => {
+          if(text === 1) return <Icon type="sync" spin />;
+
+          return <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" />;
+        }
       },
       {
         title: 'Submitted By',
@@ -88,6 +106,7 @@ export class ExperimentList extends React.Component {
   }
 
   render() {
+    console.log(this.props.experimentList);
     return (
       <Layout className="layout">
         <Helmet>
