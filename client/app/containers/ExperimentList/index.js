@@ -25,6 +25,7 @@ import { Layout } from 'antd';
 import ContentCentered from 'components/ContentCentered';
 import Content from 'components/Content';
 import { Link } from "react-router-dom";
+import ExperimentMenu from './ExperimentMenu/index.js';
 
 export class ExperimentList extends React.Component {
   componentDidMount() {
@@ -118,6 +119,9 @@ export class ExperimentList extends React.Component {
           <div style={{ marginTop: '50px' }}>
             <ProjectDetail projectId={this.props.match.params.id} />
           </div>
+          <ExperimentMenu style={{ marginTop: '50px', background:'#F0F2F5' }}
+              projectId={this.props.match.params.id}
+              />
           <Table
             columns={this.columns}
             dataSource={this.props.experimentList}
