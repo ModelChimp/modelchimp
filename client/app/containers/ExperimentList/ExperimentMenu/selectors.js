@@ -16,7 +16,7 @@ const makeSelectExperimentMenuMetricPage = () =>
 
     for (let i = 0; i < menuParam.length; i++) {
       const data = {
-        key: i.toString(),
+        key: menuParam[i].parameter,
         title: menuParam[i].parameter,
         description: menuParam.parameter,
         chosen: 0,

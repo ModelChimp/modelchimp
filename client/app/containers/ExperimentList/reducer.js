@@ -9,6 +9,7 @@ import {
   LOAD_EXPERIMENT_DATA,
   LOAD_EXPERIMENT_DATA_SUCCESS,
   LOAD_EXPERIMENT_DATA_ERROR,
+  SET_EXPERIMENT_COLUMNS
 } from './constants';
 
 export const initialState = fromJS({
@@ -16,6 +17,7 @@ export const initialState = fromJS({
   error: false,
   experimentId: null,
   experiments: null,
+  columns: null
 });
 
 function experimentListReducer(state = initialState, action) {
@@ -24,7 +26,7 @@ function experimentListReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('error', false)
-        .set('experimentId', action.experimentId);
+        .set('experimentId', action.experimentId)
     case LOAD_EXPERIMENT_DATA_SUCCESS:
       return state
         .set('loading', false)
@@ -32,6 +34,9 @@ function experimentListReducer(state = initialState, action) {
         .set('experiments', action.experiments);
     case LOAD_EXPERIMENT_DATA_ERROR:
       return state.set('loading', false).set('error', action.error);
+    case SET_EXPERIMENT_COLUMNS:
+      return state
+        .set('columns', action.columns)
     default:
       return state;
   }

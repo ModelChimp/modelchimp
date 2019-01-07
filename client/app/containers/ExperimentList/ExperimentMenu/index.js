@@ -20,6 +20,7 @@ import {loadExperimentMetricAction} from './actions';
 import Section from 'components/Section';
 import { Modal, Menu, Icon, Button, Transfer } from 'antd';
 import {loadMenuParameterAction} from './actions';
+import {setExperimentColumnAction} from '../actions';
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -37,8 +38,6 @@ class ExperimentMenu extends React.Component {
   componentDidMount() {
     let projectId = this.props.projectId;
     this.props.getExperimentMenuParameterData(projectId);
-
-    // this.getMock();
   }
 
   handleClick = (e) => {
@@ -57,12 +56,15 @@ class ExperimentMenu extends React.Component {
     this.setState({
       visible: false,
     });
+
+    this.props.setExperimentColumn(this.state.targetKeys);
   }
 
   handleCancel = (e) => {
     this.setState({
       visible: false,
     });
+
   }
 
   getMock = () => {
@@ -157,6 +159,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getExperimentMenuParameterData: projectId => dispatch(loadMenuParameterAction(projectId)),
+    setExperimentColumn: columns => dispatch(setExperimentColumnAction(columns)),
+
   };
 }
 

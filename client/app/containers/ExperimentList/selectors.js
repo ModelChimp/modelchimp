@@ -21,4 +21,11 @@ const makeSelectExperimentList = () =>
     experimentListState.get('experiments'),
   );
 
-export { selectExperimentListDomain, makeSelectExperimentList };
+const makeSelectExperimentColumns = () =>
+  createSelector(selectExperimentListDomain, experimentListState =>
+    experimentListState.get('columns'),
+  );
+
+export { selectExperimentListDomain,
+          makeSelectExperimentList,
+          makeSelectExperimentColumns };
