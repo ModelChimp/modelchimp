@@ -24,7 +24,7 @@ export function* getExperimentList({ projectId, columns }) {
 
   try {
     const experiments = yield ModelchimpClient.get(requestURL);
-    console.log(experiments);
+
     yield put(loadExperimentSuccessAction(experiments));
   } catch (err) {
     yield put(loadExperimentErrorAction(err));
