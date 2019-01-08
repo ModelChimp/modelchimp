@@ -97,8 +97,9 @@ def get_param_fields(request, project_id):
 	except Membership.DoesNotExist:
 	    return Response(status=status.HTTP_403_FORBIDDEN)
 
+	result = dict()
 	query = '''
-	select distinct json_object_keys(model_parameters::json) as parameter
+	select distinct json_object_keys(model_parameters::json) as name
 	from modelchimp_machinelearningmodel ml
 	where json_typeof(model_parameters::json) = 'object'
 	and project_id = %s
@@ -107,9 +108,22 @@ def get_param_fields(request, project_id):
 	query = query % (
 	    project_id,
 	)
-	result_raw = execute_query(query)
+	result['parameter'] = execute_query(query)
 
-	return Response(result_raw, status=status.HTTP_200_OK)
+	query = '''
+	select distinct value as name
+	from modelchimp_machinelearningmodel ml,
+	jsonb_array_elements(ml.evaluation_parameters::jsonb -> 'metric_list')
+	where project_id = %s
+	order by name
+	'''
+
+	query = query % (
+	    project_id,
+	)
+	result['metric'] = execute_query(query)
+
+	return Response(result, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
