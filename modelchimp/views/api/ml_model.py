@@ -131,8 +131,8 @@ def get_param_fields(request, project_id):
 
 	result['metric'] = []
 	for metric in result_metric:
-		result['metric'].append({'name': f"{metric['name']}#0"})
-		result['metric'].append({'name': f"{metric['name']}#1"})
+		result['metric'].append({'name': f"{metric['name']}$0"})
+		result['metric'].append({'name': f"{metric['name']}$1"})
 
 	return Response(result, status=status.HTTP_200_OK)
 
