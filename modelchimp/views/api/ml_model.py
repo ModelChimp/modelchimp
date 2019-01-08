@@ -29,11 +29,17 @@ class MLModelAPI(generics.ListAPIView):
 		try:
 			params = self.request.query_params
 			param_fields = params.getlist('param_fields[]')
+			metric_fields = params.getlist('metric_fields[]')
 		except Exception as e:
 		   	pass
 
 		# Serialize the data
-		serializer = MachineLearningModelSerializer(queryset, many=True, context={'param_fields':param_fields})
+		serializer = MachineLearningModelSerializer(queryset,
+												many=True,
+												context={
+												'param_fields':param_fields,
+												'metric_fields':metric_fields,
+												})
 		if st is None:
 			st = status.HTTP_200_OK
 

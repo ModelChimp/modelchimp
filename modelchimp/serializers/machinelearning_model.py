@@ -8,6 +8,7 @@ class MachineLearningModelSerializer(serializers.ModelSerializer):
     submitted_by = serializers.SerializerMethodField()
     project_name = serializers.SerializerMethodField()
     param_fields = serializers.SerializerMethodField()
+    metric_fields = serializers.SerializerMethodField()
 
     class Meta:
         model = MachineLearningModel
@@ -43,5 +44,43 @@ class MachineLearningModelSerializer(serializers.ModelSerializer):
             param_value = obj.model_parameters.get(param, None)
             if param_value:
                 result[param] = param_value
+
+        return result
+
+    def get_metric_fields(self, obj):
+        metric_list = self.context.get("metric_fields", [])
+        result = dict()
+
+        if not isinstance(obj.evaluation_parameters, dict) or len(metric_list) == 0:
+            return result
+
+        for metric in metric_list:
+            metric_name = metric.split("$")[0]
+            max_flag = metric.split("$")[1]
+            print(metric_name)
+            if metric_name not in obj.evaluation_parameters['metric_list']:
+                continue
+
+            # Get the max and min value
+            max = 0
+            min = 0
+            for i,m in enumerate(obj.evaluation_parameters['evaluation'][metric_name]):
+                current_value = m['value']
+
+                if i == 0:
+                    max = current_value
+                    min = current_value
+                    continue
+
+                if current_value > max:
+                    max = current_value
+
+                if current_value < min:
+                    min = current_value
+
+            if max_flag == '1':
+                result[metric] = max
+            else:
+                result[metric] = min
 
         return result
