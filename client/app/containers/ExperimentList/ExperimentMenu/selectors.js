@@ -28,5 +28,15 @@ const makeSelectExperimentMenuMetricPage = () =>
     },
   );
 
-export default makeSelectExperimentMenuMetricPage;
-export { selectExperimentDetailMetricPageDomain };
+const makeSelectTargetKeys = () =>
+  createSelector(selectExperimentDetailMetricPageDomain, substate =>{
+    let tk = substate.get('targetKeys');
+    if(tk) return tk;
+
+    return [];
+  },
+);
+
+export { selectExperimentDetailMetricPageDomain,
+        makeSelectExperimentMenuMetricPage,
+        makeSelectTargetKeys };

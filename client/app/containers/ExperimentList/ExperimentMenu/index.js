@@ -12,15 +12,16 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectExperimentMenuMetricPage from './selectors';
+import {makeSelectExperimentMenuMetricPage, makeSelectTargetKeys} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import {loadExperimentMetricAction} from './actions';
 
 import Section from 'components/Section';
 import { Modal, Menu, Icon, Button, Transfer } from 'antd';
-import {loadMenuParameterAction} from './actions';
+import {loadMenuParameterAction, setTargetKeysAction} from './actions';
 import {setExperimentColumnAction} from '../actions';
+import { List } from 'immutable';
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -56,7 +57,7 @@ class ExperimentMenu extends React.Component {
     this.setState({
       visible: false,
     });
-    this.props.setExperimentColumn(this.state.targetKeys, this.props.projectId);
+    this.props.setExperimentColumn(this.props.targetKeys, this.props.projectId);
   }
 
   handleCancel = (e) => {
@@ -84,7 +85,7 @@ class ExperimentMenu extends React.Component {
   }
 
   handleChange = (targetKeys) => {
-    this.setState({ targetKeys });
+    this.props.setTargetKeys(targetKeys);
   }
 
   render() {
@@ -115,7 +116,7 @@ class ExperimentMenu extends React.Component {
           >
           <Transfer
              dataSource={this.props.menuParam}
-             targetKeys={this.state.targetKeys}
+             targetKeys={this.props.targetKeys}
              onChange={this.handleChange}
              onSearch={this.handleSearch}
              render={item => item.title}
@@ -131,17 +132,19 @@ class ExperimentMenu extends React.Component {
 ExperimentMenu.propTypes = {
   getExperimentMenuParameterData: PropTypes.func.isRequired,
   menuParam: PropTypes.array,
+  targetKeys: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
 };
 
 const mapStateToProps = createStructuredSelector({
   menuParam: makeSelectExperimentMenuMetricPage(),
+  targetKeys: makeSelectTargetKeys()
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getExperimentMenuParameterData: projectId => dispatch(loadMenuParameterAction(projectId)),
     setExperimentColumn: (columns, projectId) => dispatch(setExperimentColumnAction(columns, projectId)),
-
+    setTargetKeys: (targetKeys) => dispatch(setTargetKeysAction(targetKeys)),
   };
 }
 
