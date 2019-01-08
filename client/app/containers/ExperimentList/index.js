@@ -112,7 +112,6 @@ export class ExperimentList extends React.Component {
   }
 
   render() {
-    console.log(this.props.loading);
     return (
       <Layout className="layout">
         <Helmet>

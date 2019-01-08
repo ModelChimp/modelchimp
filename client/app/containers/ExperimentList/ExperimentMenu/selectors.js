@@ -7,8 +7,8 @@ const selectExperimentDetailMetricPageDomain = state =>
 
 const makeSelectExperimentMenuMetricPage = () =>
   createSelector(selectExperimentDetailMetricPageDomain, substate => {
-    let menuParam = substate.get('menuParam');
     let result = [];
+    let menuParam = substate.get('menuParam');
 
     if(menuParam.length === 0){
       return result;
@@ -16,9 +16,9 @@ const makeSelectExperimentMenuMetricPage = () =>
 
     for (let i = 0; i < menuParam.length; i++) {
       const data = {
-        key: menuParam[i].parameter,
-        title: menuParam[i].parameter,
-        description: menuParam.parameter,
+        key: menuParam[i].name,
+        title: menuParam[i].name,
+        description: menuParam.name,
         chosen: 0,
       };
       result.push(data);

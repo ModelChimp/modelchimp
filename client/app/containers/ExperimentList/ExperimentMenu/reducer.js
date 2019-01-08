@@ -14,7 +14,7 @@ import {     LOAD_MENU_PARAMETER,
 export const initialState = fromJS({
   loading: false,
   error: false,
-  menuParam: [],
+  menuParam: false,
   targetKeys: false
 });
 
@@ -29,7 +29,7 @@ function experimentDetailMetricPageReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('error', false)
-        .set('menuParam', action.menuParam);
+        .set('menuParam', action.menuParam.parameter);
     case LOAD_MENU_PARAMETER_ERROR:
       return state.set('loading', false).set('error', action.error);
     case SET_COLUMN_TARGET_KEY:
