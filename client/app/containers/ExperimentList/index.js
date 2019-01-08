@@ -17,7 +17,7 @@ import injectReducer from 'utils/injectReducer';
 import { Table, Tag, Icon } from 'antd';
 import ProjectDetail from 'containers/ProjectDetail/Loadable';
 import HeaderWrapper from 'containers/HeaderWrapper';
-import { makeSelectExperimentList } from './selectors';
+import { makeSelectExperimentList, makeSelectExperimentColumns } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { loadExperimentAction } from './actions';
@@ -123,7 +123,7 @@ export class ExperimentList extends React.Component {
               projectId={this.props.match.params.id}
               />
           <Table
-            columns={this.columns}
+            columns={this.addOptionalColumns(this.columns)}
             dataSource={this.props.experimentList}
             rowKey="id"
             style={{ marginTop: '50px' }}
@@ -131,6 +131,25 @@ export class ExperimentList extends React.Component {
       </Content>
     </Layout>
     );
+  }
+
+  addOptionalColumns(data) {
+    const opCol = this.props.optionalColumns;
+    let result = [];
+
+    if(opCol && opCol.length > 0) {
+        for(var i in opCol){
+          result.push({
+            title: opCol[i],
+            dataIndex: `param_fields.${opCol[i]}`,
+            key: opCol[i],
+          });
+        }
+    } else {
+      return data;
+    }
+
+    return [...data, ...result];
   }
 }
 
@@ -143,6 +162,7 @@ ExperimentList.propTypes = {
 const mapStateToProps = createStructuredSelector({
   experimentList: makeSelectExperimentList(),
   loading: makeSelectLoading(),
+  optionalColumns: makeSelectExperimentColumns()
 
 });
 
