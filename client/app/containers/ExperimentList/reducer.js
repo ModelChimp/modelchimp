@@ -20,7 +20,8 @@ export const initialState = fromJS({
   experiments: null,
   columns: {
     projectId: null,
-    list: null
+    list: null,
+    metricList: null
   }
 });
 
@@ -44,7 +45,8 @@ function experimentListReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .setIn(['columns', 'projectId'], action.projectId)
-        .setIn(['columns', 'list'], action.columnList);
+        .setIn(['columns', 'list'], action.columnList)
+        .setIn(['columns', 'metricList'], action.metricColumnList);
     default:
       return state;
   }

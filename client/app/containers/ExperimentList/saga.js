@@ -5,7 +5,8 @@ import {
   loadExperimentSuccessAction,
   loadExperimentErrorAction,
 } from './actions';
-import {makeSelectExperimentColumns} from './selectors';
+import { makeSelectExperimentColumns,
+         makeSelectExperimentMetricColumns } from './selectors';
 
 import CookiesManager from 'utils/cookiesManager';
 import ModelchimpClient from 'utils/modelchimpClient';
@@ -14,12 +15,15 @@ import ModelchimpClient from 'utils/modelchimpClient';
 export function* getExperimentList({ projectId, columns }) {
   let requestURL = `ml-model/${projectId}/`;
   let cols = yield select(makeSelectExperimentColumns());
+  let metricCols = yield select(makeSelectExperimentMetricColumns());
 
-  if(cols && cols.length>0){
+  if((cols && cols.length>0) || (metricCols && metricCols.length>0)){
     cols = cols.map((e) => `param_fields[]=${e}&`);
-    cols = cols.join("").slice(0,-1)
+    cols = cols.join("")
+    metricCols = metricCols.map((e) => `metric_fields[]=${e}&`);
+    metricCols = metricCols.join("")
 
-    requestURL =  `${requestURL}?${cols}`;
+    requestURL =  `${requestURL}?${cols}${metricCols}`;
   }
 
   try {

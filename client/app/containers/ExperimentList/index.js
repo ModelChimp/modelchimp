@@ -18,6 +18,7 @@ import ProjectDetail from 'containers/ProjectDetail/Loadable';
 import HeaderWrapper from 'containers/HeaderWrapper';
 import { makeSelectExperimentList,
           makeSelectExperimentColumns,
+          makeSelectExperimentMetricColumns,
           makeSelectExperimentColumnsPID,
           makeSelectLoading } from './selectors';
 import reducer from './reducer';
@@ -142,10 +143,28 @@ export class ExperimentList extends React.Component {
 
   addOptionalColumns(data) {
     const opCol = this.props.optionalColumns;
+    const opMCol = this.props.optionalMetricColumns;
+
     let result = [];
 
     if(this.props.match.params.id !== this.props.optionalColumnsPID) return data;
 
+    // Add metric columns
+    if(opMCol && opMCol.length > 0) {
+        for(var i in opMCol){
+          let metricName = opMCol[i].split('$');
+          metricName = metricName[1] === '1'? `${metricName[0]}(max)`
+                          : `${metricName[0]}(min)`;
+
+          result.push({
+            title: metricName,
+            dataIndex: `metric_fields.${opMCol[i]}`,
+            key: opMCol[i],
+          });
+        }
+    }
+
+    // Add parameter columns
     if(opCol && opCol.length > 0) {
         for(var i in opCol){
           result.push({
@@ -154,8 +173,6 @@ export class ExperimentList extends React.Component {
             key: opCol[i],
           });
         }
-    } else {
-      return data;
     }
 
     return [...data, ...result];
@@ -174,6 +191,7 @@ const mapStateToProps = createStructuredSelector({
   experimentList: makeSelectExperimentList(),
   loading: makeSelectLoading(),
   optionalColumns: makeSelectExperimentColumns(),
+  optionalMetricColumns: makeSelectExperimentMetricColumns(),
   optionalColumnsPID: makeSelectExperimentColumnsPID(),
 });
 

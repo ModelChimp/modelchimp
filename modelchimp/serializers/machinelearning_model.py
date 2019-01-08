@@ -57,7 +57,7 @@ class MachineLearningModelSerializer(serializers.ModelSerializer):
         for metric in metric_list:
             metric_name = metric.split("$")[0]
             max_flag = metric.split("$")[1]
-            print(metric_name)
+
             if metric_name not in obj.evaluation_parameters['metric_list']:
                 continue
 

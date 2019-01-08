@@ -28,6 +28,11 @@ const makeSelectExperimentColumns = () =>
     experimentListState.get('columns').get('list'),
   );
 
+const makeSelectExperimentMetricColumns = () =>
+  createSelector(selectExperimentListDomain, experimentListState =>
+    experimentListState.get('columns').get('metricList'),
+  );
+
 const makeSelectExperimentColumnsPID = () =>
   createSelector(selectExperimentListDomain, experimentListState =>
     experimentListState.get('columns').get('projectId'),
@@ -36,5 +41,6 @@ const makeSelectExperimentColumnsPID = () =>
 export { selectExperimentListDomain,
           makeSelectExperimentList,
           makeSelectExperimentColumns,
+          makeSelectExperimentMetricColumns,
           makeSelectExperimentColumnsPID,
           makeSelectLoading };

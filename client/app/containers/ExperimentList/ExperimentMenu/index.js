@@ -62,7 +62,10 @@ class ExperimentMenu extends React.Component {
     this.setState({
       visible: false,
     });
-    this.props.setExperimentColumn(this.props.targetKeys, this.props.projectId);
+
+    this.props.setExperimentColumn(this.props.targetKeys,
+      this.props.targetMetricKeys,
+      this.props.projectId);
   }
 
   handleCancel = (e) => {
@@ -93,7 +96,7 @@ class ExperimentMenu extends React.Component {
     this.props.setTargetKeys(targetKeys);
   }
 
-  handleMetricChange = (targetKeys) => {
+  handleMetricChange = (targetMetricKeys) => {
     this.props.setTargetMetricKeys(targetMetricKeys);
   }
 
@@ -126,16 +129,17 @@ class ExperimentMenu extends React.Component {
           <Section name="Metric">
             <Transfer
                dataSource={this.props.menuMetric}
-               targetKeys={this.props.targetKeys}
-               onChange={this.handleParamChange}
+               targetKeys={this.props.targetMetricKeys}
+               onChange={this.handleMetricChange}
+
                render={item => item.title}
              />
          </Section>
          <Section name="Parameter">
           <Transfer
              dataSource={this.props.menuParam}
-             targetKeys={this.props.targetMetricKeys}
-             onChange={this.handleMetricChange}
+             targetKeys={this.props.targetKeys}
+             onChange={this.handleParamChange}
              render={item => item.title}
            />
          </Section>
@@ -164,7 +168,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getExperimentMenuParameterData: projectId => dispatch(loadMenuParameterAction(projectId)),
-    setExperimentColumn: (columns, projectId) => dispatch(setExperimentColumnAction(columns, projectId)),
+    setExperimentColumn: (columns, metricColumns, projectId) =>
+          dispatch(setExperimentColumnAction(columns, metricColumns, projectId)),
     setTargetKeys: (targetKeys) => dispatch(setTargetKeysAction(targetKeys)),
     setTargetMetricKeys: (targetMetricKeys) => dispatch(setMetricTargetKeysAction(targetMetricKeys)),
   };
