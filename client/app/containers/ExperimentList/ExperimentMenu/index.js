@@ -12,14 +12,19 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import {makeSelectExperimentMenuMetricPage, makeSelectTargetKeys} from './selectors';
+import {makeSelectExperimentMenuParameter,
+        makeSelectExperimentMenuMetric,
+        makeSelectTargetKeys,
+        makeSelectTargetMetricKeys } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import {loadExperimentMetricAction} from './actions';
 
 import Section from 'components/Section';
 import { Modal, Menu, Icon, Button, Transfer } from 'antd';
-import {loadMenuParameterAction, setTargetKeysAction} from './actions';
+import {loadMenuParameterAction,
+        setTargetKeysAction,
+        setMetricTargetKeysAction} from './actions';
 import {setExperimentColumnAction} from '../actions';
 import { List } from 'immutable';
 
@@ -84,8 +89,12 @@ class ExperimentMenu extends React.Component {
     return paramData;
   }
 
-  handleChange = (targetKeys) => {
+  handleParamChange = (targetKeys) => {
     this.props.setTargetKeys(targetKeys);
+  }
+
+  handleMetricChange = (targetKeys) => {
+    this.props.setTargetMetricKeys(targetMetricKeys);
   }
 
   render() {
@@ -109,18 +118,27 @@ class ExperimentMenu extends React.Component {
             <span>Customize Table</span>
           </Button>
           <Modal
-            title="Members"
+            title="Columns"
             visible={this.state.visible}
             onOk={this.handleOk}
             onCancel={this.handleCancel}
           >
+          <Section name="Metric">
+            <Transfer
+               dataSource={this.props.menuMetric}
+               targetKeys={this.props.targetKeys}
+               onChange={this.handleParamChange}
+               render={item => item.title}
+             />
+         </Section>
+         <Section name="Parameter">
           <Transfer
              dataSource={this.props.menuParam}
-             targetKeys={this.props.targetKeys}
-             onChange={this.handleChange}
-             onSearch={this.handleSearch}
+             targetKeys={this.props.targetMetricKeys}
+             onChange={this.handleMetricChange}
              render={item => item.title}
            />
+         </Section>
           </Modal>
         </Menu.Item>
       </Menu>
@@ -128,16 +146,19 @@ class ExperimentMenu extends React.Component {
   }
 }
 
-
 ExperimentMenu.propTypes = {
   getExperimentMenuParameterData: PropTypes.func.isRequired,
   menuParam: PropTypes.array,
+  menuMetric: PropTypes.array,
   targetKeys: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
+  targetMetricKeys: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
 };
 
 const mapStateToProps = createStructuredSelector({
-  menuParam: makeSelectExperimentMenuMetricPage(),
-  targetKeys: makeSelectTargetKeys()
+  menuParam: makeSelectExperimentMenuParameter(),
+  menuMetric: makeSelectExperimentMenuMetric(),
+  targetKeys: makeSelectTargetKeys(),
+  targetMetricKeys : makeSelectTargetMetricKeys()
 });
 
 function mapDispatchToProps(dispatch) {
@@ -145,6 +166,7 @@ function mapDispatchToProps(dispatch) {
     getExperimentMenuParameterData: projectId => dispatch(loadMenuParameterAction(projectId)),
     setExperimentColumn: (columns, projectId) => dispatch(setExperimentColumnAction(columns, projectId)),
     setTargetKeys: (targetKeys) => dispatch(setTargetKeysAction(targetKeys)),
+    setTargetMetricKeys: (targetMetricKeys) => dispatch(setMetricTargetKeysAction(targetMetricKeys)),
   };
 }
 

@@ -2,7 +2,8 @@ import {
   LOAD_MENU_PARAMETER,
   LOAD_MENU_PARAMETER_SUCCESS,
   LOAD_MENU_PARAMETER_ERROR,
-  SET_COLUMN_TARGET_KEY
+  SET_COLUMN_TARGET_KEY,
+  SET_COLUMN_TARGET_METRIC_KEY
 } from './constants';
 
 
@@ -31,5 +32,12 @@ export function setTargetKeysAction(targetKeys) {
   return {
     type: SET_COLUMN_TARGET_KEY,
     targetKeys,
+  };
+}
+
+export function setMetricTargetKeysAction(targetMetricKeys) {
+  return {
+    type: SET_COLUMN_TARGET_METRIC_KEY,
+    targetMetricKeys,
   };
 }
