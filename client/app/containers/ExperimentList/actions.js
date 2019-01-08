@@ -33,9 +33,10 @@ export function loadExperimentErrorAction(error) {
   };
 }
 
-export function setExperimentColumnAction(columns) {
+export function setExperimentColumnAction(columnList, projectId) {
   return {
     type: SET_EXPERIMENT_COLUMNS,
-    columns
+    columnList,
+    projectId
   };
 }

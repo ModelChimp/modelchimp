@@ -23,9 +23,15 @@ const makeSelectExperimentList = () =>
 
 const makeSelectExperimentColumns = () =>
   createSelector(selectExperimentListDomain, experimentListState =>
-    experimentListState.get('columns'),
+    experimentListState.get('columns').get('list'),
+  );
+
+const makeSelectExperimentColumnsPID = () =>
+  createSelector(selectExperimentListDomain, experimentListState =>
+    experimentListState.get('columns').get('projectId'),
   );
 
 export { selectExperimentListDomain,
           makeSelectExperimentList,
-          makeSelectExperimentColumns };
+          makeSelectExperimentColumns,
+          makeSelectExperimentColumnsPID };

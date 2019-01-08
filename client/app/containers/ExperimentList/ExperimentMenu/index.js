@@ -56,8 +56,7 @@ class ExperimentMenu extends React.Component {
     this.setState({
       visible: false,
     });
-
-    this.props.setExperimentColumn(this.state.targetKeys);
+    this.props.setExperimentColumn(this.state.targetKeys, this.props.projectId);
   }
 
   handleCancel = (e) => {
@@ -141,7 +140,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getExperimentMenuParameterData: projectId => dispatch(loadMenuParameterAction(projectId)),
-    setExperimentColumn: columns => dispatch(setExperimentColumnAction(columns)),
+    setExperimentColumn: (columns, projectId) => dispatch(setExperimentColumnAction(columns, projectId)),
 
   };
 }

@@ -17,7 +17,9 @@ import injectReducer from 'utils/injectReducer';
 import { Table, Tag, Icon } from 'antd';
 import ProjectDetail from 'containers/ProjectDetail/Loadable';
 import HeaderWrapper from 'containers/HeaderWrapper';
-import { makeSelectExperimentList, makeSelectExperimentColumns } from './selectors';
+import { makeSelectExperimentList,
+          makeSelectExperimentColumns,
+          makeSelectExperimentColumnsPID } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { loadExperimentAction } from './actions';
@@ -137,6 +139,8 @@ export class ExperimentList extends React.Component {
     const opCol = this.props.optionalColumns;
     let result = [];
 
+    if(this.props.match.params.id !== this.props.optionalColumnsPID) return data;
+
     if(opCol && opCol.length > 0) {
         for(var i in opCol){
           result.push({
@@ -156,14 +160,15 @@ export class ExperimentList extends React.Component {
 ExperimentList.propTypes = {
   getExperimentData: PropTypes.func.isRequired,
   experimentList: PropTypes.array,
-  match: PropTypes.object,
+  optionalColumns:PropTypes.array,
+  optionalColumnsPID: PropTypes.string
 };
 
 const mapStateToProps = createStructuredSelector({
   experimentList: makeSelectExperimentList(),
   loading: makeSelectLoading(),
-  optionalColumns: makeSelectExperimentColumns()
-
+  optionalColumns: makeSelectExperimentColumns(),
+  optionalColumnsPID: makeSelectExperimentColumnsPID()
 });
 
 function mapDispatchToProps(dispatch) {
