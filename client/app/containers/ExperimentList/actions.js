@@ -5,12 +5,19 @@
  */
 
 import {
+  GET_DATA,
   LOAD_EXPERIMENT_DATA,
   LOAD_EXPERIMENT_DATA_SUCCESS,
   LOAD_EXPERIMENT_DATA_ERROR,
   SET_EXPERIMENT_COLUMNS
 } from './constants';
 
+
+export function getDataAction() {
+  return {
+    type: GET_DATA,
+  };
+}
 
 export function loadExperimentAction(projectId) {
   return {

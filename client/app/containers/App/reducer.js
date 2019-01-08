@@ -11,6 +11,11 @@ import {
   LOGOUT,
 } from './constants';
 
+import {
+  LOAD_EXPERIMENT_DATA,
+  LOAD_EXPERIMENT_DATA_SUCCESS,
+} from 'containers/ExperimentList/constants';
+
 // The initial state of the App
 const initialState = fromJS({
   loading: false,
@@ -50,6 +55,10 @@ function appReducer(state = initialState, action) {
       return state
         .setIn(['auth', 'token'], null)
         .setIn(['auth', 'logged'], false);
+    case LOAD_EXPERIMENT_DATA:
+      return state.set('loading', true);
+    case LOAD_EXPERIMENT_DATA_SUCCESS:
+      return state.set('loading', false);
     default:
       return state;
   }

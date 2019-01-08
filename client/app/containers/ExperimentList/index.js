@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { makeSelectLoading } from 'containers/App/selectors';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -19,19 +18,23 @@ import ProjectDetail from 'containers/ProjectDetail/Loadable';
 import HeaderWrapper from 'containers/HeaderWrapper';
 import { makeSelectExperimentList,
           makeSelectExperimentColumns,
-          makeSelectExperimentColumnsPID } from './selectors';
+          makeSelectExperimentColumnsPID,
+          makeSelectLoading } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { loadExperimentAction } from './actions';
+import { getDataAction, loadExperimentAction } from './actions';
 import { Layout } from 'antd';
 import ContentCentered from 'components/ContentCentered';
 import Content from 'components/Content';
 import { Link } from "react-router-dom";
 import ExperimentMenu from './ExperimentMenu/index.js';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 export class ExperimentList extends React.Component {
   componentDidMount() {
     const projectId = this.props.match.params.id;
+
+    this.props.initiateDataFetch();
     this.props.getExperimentData(projectId);
 
     this.timer = setInterval(()=>{
@@ -109,6 +112,7 @@ export class ExperimentList extends React.Component {
   }
 
   render() {
+    console.log(this.props.loading);
     return (
       <Layout className="layout">
         <Helmet>
@@ -124,12 +128,14 @@ export class ExperimentList extends React.Component {
           <ExperimentMenu style={{ marginTop: '50px', background:'#F0F2F5' }}
               projectId={this.props.match.params.id}
               />
-          <Table
-            columns={this.addOptionalColumns(this.columns)}
-            dataSource={this.props.experimentList}
-            rowKey="id"
-            style={{ marginTop: '50px' }}
-          />
+            { this.props.loading ? (<LoadingIndicator />):
+              (<Table
+                columns={this.addOptionalColumns(this.columns)}
+                dataSource={this.props.experimentList}
+                rowKey="id"
+                style={{ marginTop: '50px' }}
+              />)
+            }
       </Content>
     </Layout>
     );
@@ -161,20 +167,21 @@ ExperimentList.propTypes = {
   getExperimentData: PropTypes.func.isRequired,
   experimentList: PropTypes.array,
   optionalColumns:PropTypes.array,
-  optionalColumnsPID: PropTypes.string
+  optionalColumnsPID: PropTypes.string,
+  loading: PropTypes.bool
 };
 
 const mapStateToProps = createStructuredSelector({
   experimentList: makeSelectExperimentList(),
   loading: makeSelectLoading(),
   optionalColumns: makeSelectExperimentColumns(),
-  optionalColumnsPID: makeSelectExperimentColumnsPID()
+  optionalColumnsPID: makeSelectExperimentColumnsPID(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getExperimentData: projectId => dispatch(loadExperimentAction(projectId)),
-
+    initiateDataFetch: () => dispatch(getDataAction()),
   };
 }
 

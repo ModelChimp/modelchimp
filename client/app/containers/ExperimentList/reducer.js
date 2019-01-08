@@ -6,6 +6,7 @@
 
 import { fromJS } from 'immutable';
 import {
+  GET_DATA,
   LOAD_EXPERIMENT_DATA,
   LOAD_EXPERIMENT_DATA_SUCCESS,
   LOAD_EXPERIMENT_DATA_ERROR,
@@ -25,11 +26,13 @@ export const initialState = fromJS({
 
 function experimentListReducer(state = initialState, action) {
   switch (action.type) {
+    case GET_DATA:
+      return state
+        .set('loading', true);
     case LOAD_EXPERIMENT_DATA:
       return state
-        .set('loading', true)
         .set('error', false)
-        .set('projectId', action.projectId)
+        .set('projectId', action.projectId);
     case LOAD_EXPERIMENT_DATA_SUCCESS:
       return state
         .set('loading', false)
@@ -39,6 +42,7 @@ function experimentListReducer(state = initialState, action) {
       return state.set('loading', false).set('error', action.error);
     case SET_EXPERIMENT_COLUMNS:
       return state
+        .set('loading', true)
         .setIn(['columns', 'projectId'], action.projectId)
         .setIn(['columns', 'list'], action.columnList);
     default:
