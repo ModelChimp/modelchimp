@@ -160,6 +160,7 @@ export class ExperimentList extends React.Component {
             title: metricName,
             dataIndex: `metric_fields.${opMCol[i]}`,
             key: opMCol[i],
+            render: (text) => text ? Math.round(text * 100)/100 : null
           });
         }
     }
