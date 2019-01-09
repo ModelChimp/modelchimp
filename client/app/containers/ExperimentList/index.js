@@ -90,6 +90,7 @@ export class ExperimentList extends React.Component {
           const t = new Date(dt * 1000);
           return t.toString().split('GMT')[0];
         },
+        sorter: (a, b) => a.date_created_epoch - b.date_created_epoch,
       },
       {
         title: 'Tags',
@@ -152,15 +153,27 @@ export class ExperimentList extends React.Component {
     // Add metric columns
     if(opMCol && opMCol.length > 0) {
         for(var i in opMCol){
-          let metricName = opMCol[i].split('$');
+          let metric = opMCol[i];
+          let metricName = metric.split('$');
           metricName = metricName[1] === '1'? `${metricName[0]}(max)`
                           : `${metricName[0]}(min)`;
 
           result.push({
             title: metricName,
-            dataIndex: `metric_fields.${opMCol[i]}`,
+            dataIndex: `metric_fields.${metric}`,
             key: opMCol[i],
-            render: (text) => text ? Math.round(text * 100)/100 : null
+            render: (text) => text ? Math.round(text * 100)/100 : null,
+            // TODO: Improve the logic later
+            sorter: (a, b) => {
+              if (!(metric in a.metric_fields)) {
+                  return -999999999999;
+              }
+              else if (!(metric in b.metric_fields)) {
+                  return 999999999999;
+              }
+
+              return a.metric_fields[metric] - b.metric_fields[metric];
+            },
           });
         }
     }
