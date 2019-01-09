@@ -181,10 +181,23 @@ export class ExperimentList extends React.Component {
     // Add parameter columns
     if(opCol && opCol.length > 0) {
         for(var i in opCol){
+          let param = opCol[i];
+
           result.push({
-            title: opCol[i],
-            dataIndex: `param_fields.${opCol[i]}`,
-            key: opCol[i],
+            title: param,
+            dataIndex: `param_fields.${param}`,
+            key: param,
+            // TODO: Improve the logic later
+            sorter: (a, b) => {
+              if (!(param in a.param_fields)) {
+                  return -999999999999;
+              }
+              else if (!(param in b.param_fields)) {
+                  return 999999999999;
+              }
+
+              return a.param_fields[param] - b.param_fields[param];
+            },
           });
         }
     }
