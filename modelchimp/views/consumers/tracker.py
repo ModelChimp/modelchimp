@@ -70,6 +70,8 @@ class TrackerConsumer(AsyncWebsocketConsumer):
             await self.update_heart_beat()
         elif message['type'] == ClientEvent.DATASET_ID:
             await self.add_dataset_id(message['value'])
+        elif message['type'] == ClientEvent.GRID_SEARCH:
+            await self.add_grid_search(message['value'])
 
     @database_sync_to_async
     def get_user_project_details(self, key):
@@ -216,4 +218,13 @@ class TrackerConsumer(AsyncWebsocketConsumer):
         '''
         self.experiment_obj.dataset_id = value
         self.experiment_obj.model_parameters['dataset_id'] = value
+        self.experiment_obj.save()
+
+    @database_sync_to_async
+    def add_grid_search(self, value):
+        '''
+        Add the grid search result
+        '''
+
+        self.experiment_obj.grid_search = value
         self.experiment_obj.save()

@@ -35,6 +35,7 @@ class MachineLearningModel(models.Model):
     evaluation_parameters = JSONField(null=True)
     deep_learning_parameters = JSONField(default=list, null=True) #REMOVE
     epoch_durations = JSONField(null=True)
+    grid_search = JSONField(null=True)
 
     ml_model_file = models.FileField(upload_to='model/', null=True)
     code_file = models.FileField(upload_to='code/', null=True)
