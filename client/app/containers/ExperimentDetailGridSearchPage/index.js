@@ -24,23 +24,40 @@ import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
 import { Table, Divider, Tag } from 'antd';
 import styled from 'styled-components';
+import Plot from 'react-plotly.js';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailGridSearchPage extends React.Component {
   componentDidMount() {
     this.modelId = this.props.match.params.modelId;
-    this.columns = [{
-      title: 'GridSearch',
-      dataIndex: 'gridsearch',
-      key: 'gridsearch',
-    }, {
-      title: 'Max',
-      dataIndex: 'max',
-      key: 'max',
-    }, {
-      title: 'Min',
-      dataIndex: 'min',
-    },];
+    this.data = {
+      type: 'parcoords',
+      line: {
+        color: 'blue'
+      },
+
+      dimensions: [{
+        range: [1, 5],
+        constraintrange: [1, 2],
+        label: 'A',
+        values: [1,4]
+      }, {
+        range: [1,5],
+        label: 'B',
+        values: [3,1.5],
+        tickvals: [1.5,3,4.5]
+      }, {
+        range: [1, 5],
+        label: 'C',
+        values: [2,4],
+        tickvals: [1,2,4,5],
+        ticktext: ['text 1','text 2','text 4','text 5']
+      }, {
+        range: [1, 5],
+        label: 'D',
+        values: [4,2]
+      }]
+};
 
     this.props.getExperimentGridSearchData(this.modelId);
   }
@@ -48,11 +65,18 @@ export class ExperimentDetailGridSearchPage extends React.Component {
   render() {
     return <ExperimentDetail modelId={this.props.match.params.modelId} selectedKeys={'6'}>
       <Section name="GridSearch">
+        <Plot
+        data={[this.data]}
+        layout={ { title: 'A Fancy Plot'}}
+        config={{displayModeBar: false}}
+        style={{width:'inherit'}}
+      />
         <Wrapper>
           <Table columns={this.props.gridsearchColumns}
                   dataSource={this.props.gridsearchData}
                   rowKey="id"
-                  scroll={{x:true}} />
+                  scroll={{x:true}}
+                   />
         </Wrapper>
       </Section>
     </ExperimentDetail>;
