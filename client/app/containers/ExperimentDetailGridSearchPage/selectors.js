@@ -5,23 +5,37 @@ import { initialState } from './reducer';
 const selectExperimentDetailGridSearchPageDomain = state =>
   state.get('experimentDetailGridSearchPage', initialState);
 
-const makeSelectExperimentDetailGridSearchPage = () =>
+const makeSelectExperimentGridSearchData = () =>
   createSelector(selectExperimentDetailGridSearchPageDomain, substate => {
-    let gridsearchData = substate.get('gridsearchData');
+    let data = substate.get('data');
     let result = null;
 
-    if(gridsearchData){
-      result = gridsearchData.summary.map((e,i) =>({
-          key:i,
-          gridsearch: e.name,
-          max: e.max,
-          min: e.min
-      }));
+    // if(gridsearchData){
+    //
+    // }
+
+    return data;
+},);
+
+const makeSelectExperimentGridSearchColumns = () =>
+  createSelector(selectExperimentDetailGridSearchPageDomain, substate => {
+    let data = substate.get('columns');
+    let result = [];
+
+    if(!data) return null;
+
+    for(var i in data){
+      result.push({
+        title: data[i],
+        dataIndex: data[i],
+        key: data[i]
+      });
     }
 
     return result;
-  },
-  );
+},);
 
-export default makeSelectExperimentDetailGridSearchPage;
-export { selectExperimentDetailGridSearchPageDomain };
+export { selectExperimentDetailGridSearchPageDomain,
+          makeSelectExperimentGridSearchData,
+          makeSelectExperimentGridSearchColumns
+        };

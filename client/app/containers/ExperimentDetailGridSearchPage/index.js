@@ -12,7 +12,10 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectExperimentDetailGridSearchPage from './selectors';
+import {
+  makeSelectExperimentGridSearchData,
+  makeSelectExperimentGridSearchColumns
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import {loadExperimentGridSearchAction} from './actions';
@@ -38,14 +41,14 @@ export class ExperimentDetailGridSearchPage extends React.Component {
       dataIndex: 'min',
     },];
 
-    // this.props.getExperimentGridSearchData(this.modelId);
+    this.props.getExperimentGridSearchData(this.modelId);
   }
 
   render() {
     return <ExperimentDetail modelId={this.props.match.params.modelId} selectedKeys={'6'}>
       <Section name="GridSearch">
         Hello
-        <Table columns={this.columns} dataSource={this.props.gridsearchData} />
+        <Table columns={this.props.gridsearchColumns} dataSource={this.props.gridsearchData} />
       </Section>
     </ExperimentDetail>;
   }
@@ -53,11 +56,13 @@ export class ExperimentDetailGridSearchPage extends React.Component {
 
 ExperimentDetailGridSearchPage.propTypes = {
   getExperimentGridSearchData: PropTypes.func.isRequired,
-  gridsearchData: PropTypes.array
+  gridsearchData: PropTypes.array,
+  gridsearchColumns: PropTypes.array
 };
 
 const mapStateToProps = createStructuredSelector({
-  gridsearchData: makeSelectExperimentDetailGridSearchPage(),
+  gridsearchData: makeSelectExperimentGridSearchData(),
+  gridsearchColumns: makeSelectExperimentGridSearchColumns(),
 });
 
 function mapDispatchToProps(dispatch) {

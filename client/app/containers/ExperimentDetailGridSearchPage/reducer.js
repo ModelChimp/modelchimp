@@ -13,7 +13,8 @@ import {   LOAD_EXPERIMENT_DETAIL_GRIDSEARCH,
 export const initialState = fromJS({
   loading: false,
   error: false,
-  gridsearchData: null
+  data: null,
+  columns: null
 });
 
 function experimentDetailGridSearchPageReducer(state = initialState, action) {
@@ -25,7 +26,8 @@ function experimentDetailGridSearchPageReducer(state = initialState, action) {
       .set('error', false);
     case LOAD_EXPERIMENT_DETAIL_GRIDSEARCH_SUCCESS:
       return state
-      .set('gridsearchData', action.gridsearchData)
+      .set('data', action.gridsearchData.data)
+      .set('columns', action.gridsearchData.columns)
       .set('loading', false);
     case LOAD_EXPERIMENT_DETAIL_GRIDSEARCH_ERROR:
       return state
