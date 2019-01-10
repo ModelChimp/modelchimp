@@ -40,10 +40,12 @@ class ExperimentGridSearchAPI(mixins.RetrieveModelMixin,
             if current_row_size > row_size:
                 row_size = current_row_size
 
-        # Instantiate the rows and add the data
-        result['data'] = [{}] * row_size
-        for key in result['columns']:
-            for i in range(row_size):
-                result['data'][i][key] = data[key][i]
+        # Create the final data
+        result['data'] = []
+        for i in range(row_size):
+            row = {}
+            for key in result['columns']:
+                row[key] = data[key][i]
+            result['data'].append(row)
 
         return Response(result, status=status.HTTP_200_OK)

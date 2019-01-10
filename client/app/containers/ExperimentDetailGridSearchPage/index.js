@@ -47,7 +47,6 @@ export class ExperimentDetailGridSearchPage extends React.Component {
   render() {
     return <ExperimentDetail modelId={this.props.match.params.modelId} selectedKeys={'6'}>
       <Section name="GridSearch">
-        Hello
         <Table columns={this.props.gridsearchColumns} dataSource={this.props.gridsearchData} />
       </Section>
     </ExperimentDetail>;
