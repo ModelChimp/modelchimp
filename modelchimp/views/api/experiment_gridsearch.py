@@ -15,5 +15,35 @@ class ExperimentGridSearchAPI(mixins.RetrieveModelMixin,
     permission_classes = (IsAuthenticated, HasProjectMembership)
 
     def retrieve(self, request, model_id,  *args, **kwargs):
+        result = dict()
+        result['data'] = list()
+        result['columns'] = list()
+
+        # Get the data from DB
         instance = self.get_queryset().get(id=model_id)
-        return Response(instance.grid_search, status=status.HTTP_200_OK)
+        data = instance.grid_search.get('data', None)
+
+        # Return empty response for no data
+        if not data:
+            Response(status=status.HTTP_200_OK)
+
+        # Remove params column
+        if 'params' in data:
+            data.pop('params', None)
+
+        # Get the length of the long column and also create columns data
+        result['columns'] = data.keys()
+        row_size = 0
+        for key in result['columns']:
+            current_row_size = len(data[key])
+
+            if current_row_size > row_size:
+                row_size = current_row_size
+
+        # Instantiate the rows and add the data
+        result['data'] = [{}] * row_size
+        for key in result['columns']:
+            for i in range(row_size):
+                result['data'][i][key] = data[key][i]
+
+        return Response(result, status=status.HTTP_200_OK)
