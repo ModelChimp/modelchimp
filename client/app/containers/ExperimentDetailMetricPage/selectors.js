@@ -10,7 +10,7 @@ const makeSelectExperimentDetailMetricPage = () =>
     let metricData = substate.get('metricData');
     let result = null;
 
-    if(metricData){
+    if(metricData && metricData.summary.length > 0){
       result = metricData.summary.map((e,i) =>({
           key:i,
           metric: e.name,

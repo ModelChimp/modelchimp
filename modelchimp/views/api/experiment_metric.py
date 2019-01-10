@@ -24,7 +24,7 @@ class ExperimentMetricAPI(mixins.RetrieveModelMixin,
         result['duration'] = instance.epoch_durations
 
         if not result['metric']:
-            return Response(status=status.HTTP_200_OK)
+            return Response(result, status=status.HTTP_200_OK)
 
         for metric in result['metric']['metric_list']:
             # Get the max and min value
