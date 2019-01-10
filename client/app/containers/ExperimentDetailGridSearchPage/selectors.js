@@ -25,11 +25,20 @@ const makeSelectExperimentGridSearchColumns = () =>
     if(!data) return null;
 
     for(var i in data){
-      result.push({
+      let col = {
         title: data[i],
         dataIndex: data[i],
         key: data[i]
-      });
+      };
+
+      if(data[i].includes('param')){
+        col['fixed']= 'left';
+        col['width'] = 100;
+      } else {
+        col['width'] = 150;
+      }
+
+      result.push(col);
     }
 
     return result;

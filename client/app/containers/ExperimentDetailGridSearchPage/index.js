@@ -23,6 +23,7 @@ import {loadExperimentGridSearchAction} from './actions';
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
 import { Table, Divider, Tag } from 'antd';
+import styled from 'styled-components';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailGridSearchPage extends React.Component {
@@ -47,11 +48,20 @@ export class ExperimentDetailGridSearchPage extends React.Component {
   render() {
     return <ExperimentDetail modelId={this.props.match.params.modelId} selectedKeys={'6'}>
       <Section name="GridSearch">
-        <Table columns={this.props.gridsearchColumns} dataSource={this.props.gridsearchData} />
+        <Wrapper>
+          <Table columns={this.props.gridsearchColumns}
+                  dataSource={this.props.gridsearchData}
+                  rowKey="id"
+                  scroll={{x:true}} />
+        </Wrapper>
       </Section>
     </ExperimentDetail>;
   }
 }
+
+const Wrapper = styled.div`
+.ant-table { white-space: nowrap; }
+`;
 
 ExperimentDetailGridSearchPage.propTypes = {
   getExperimentGridSearchData: PropTypes.func.isRequired,

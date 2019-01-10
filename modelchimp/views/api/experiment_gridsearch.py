@@ -43,7 +43,7 @@ class ExperimentGridSearchAPI(mixins.RetrieveModelMixin,
         # Create the final data
         result['data'] = []
         for i in range(row_size):
-            row = {}
+            row = {'id': i}
             for key in result['columns']:
                 row[key] = data[key][i]
             result['data'].append(row)
