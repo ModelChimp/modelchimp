@@ -21,6 +21,7 @@ import ExperimentDetailParamPage from 'containers/ExperimentDetailParamPage/Load
 import ExperimentDetailCodePage from 'containers/ExperimentDetailCodePage/Loadable';
 import ExperimentDetailChartPage from 'containers/ExperimentDetailChartPage/Loadable';
 import ExperimentDetailObjectPage from 'containers/ExperimentDetailObjectPage/Loadable';
+import ExperimentDetailGridSearchPage from 'containers/ExperimentDetailGridSearchPage/Loadable';
 
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -46,7 +47,8 @@ export default function App() {
         <PrivateRoute path="/experiment-detail/:modelId/parameter" component={ExperimentDetailParamPage} />
         <PrivateRoute path="/experiment-detail/:modelId/code" component={ExperimentDetailCodePage} />
         <PrivateRoute path="/experiment-detail/:modelId/chart" component={ExperimentDetailChartPage} />
-        <PrivateRoute path="/experiment-detail/:modelId/object" component={ExperimentDetailObjectPage} />        
+        <PrivateRoute path="/experiment-detail/:modelId/object" component={ExperimentDetailObjectPage} />
+        <PrivateRoute path="/experiment-detail/:modelId/gridsearch" component={ExperimentDetailGridSearchPage} />        
         <PrivateRoute path="/experiment-detail/:modelId/" component={ExperimentDetailMetricPage} />
         <PrivateRoute path="/experiment-list/:id" component={ExperimentList} />
         <Route path="/login" component={LoginPage} />

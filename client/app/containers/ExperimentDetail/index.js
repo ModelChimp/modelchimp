@@ -77,6 +77,10 @@ export class ExperimentDetail extends React.Component {
                         <Link to={`/experiment-detail/${this.props.modelId}/object`}>
                         <FontAwesomeIcon icon="grip-horizontal" /> Objects</Link>
                         </Menu.Item>
+                      <Menu.Item key="6">
+                        <Link to={`/experiment-detail/${this.props.modelId}/gridsearch`}>
+                        <FontAwesomeIcon icon="grip-horizontal" /> Grid Search</Link>
+                      </Menu.Item>
                   </Menu>
                 </Sider>
         <Content style={{marginLeft:200}}>
