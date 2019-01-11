@@ -7,7 +7,9 @@
 import {
   LOAD_EXPERIMENT_DETAIL_GRIDSEARCH,
   LOAD_EXPERIMENT_DETAIL_GRIDSEARCH_SUCCESS,
-  LOAD_EXPERIMENT_DETAIL_GRIDSEARCH_ERROR
+  LOAD_EXPERIMENT_DETAIL_GRIDSEARCH_ERROR,
+  SET_PARAM_COLS,
+  SET_METRIC_COLS,
   } from './constants';
 
 
@@ -41,5 +43,19 @@ export function loadExperimentGridSearchErrorAction(error) {
   return {
     type: LOAD_EXPERIMENT_DETAIL_GRIDSEARCH_ERROR,
     error
+  };
+}
+
+export function setParamColsAction(paramCols) {
+  return {
+    type: SET_PARAM_COLS,
+    paramCols
+  };
+}
+
+export function setMetricColsAction(metricCols) {
+  return {
+    type: SET_METRIC_COLS,
+    metricCols
   };
 }

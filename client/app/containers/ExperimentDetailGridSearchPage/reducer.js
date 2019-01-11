@@ -7,7 +7,9 @@
 import { fromJS } from 'immutable';
 import {   LOAD_EXPERIMENT_DETAIL_GRIDSEARCH,
             LOAD_EXPERIMENT_DETAIL_GRIDSEARCH_SUCCESS,
-            LOAD_EXPERIMENT_DETAIL_GRIDSEARCH_ERROR
+            LOAD_EXPERIMENT_DETAIL_GRIDSEARCH_ERROR,
+            SET_PARAM_COLS,
+            SET_METRIC_COLS
     } from './constants';
 
 export const initialState = fromJS({
@@ -38,11 +40,19 @@ function experimentDetailGridSearchPageReducer(state = initialState, action) {
       .set('columns', action.gridsearchData.columns)
       .setIn(['paramCols','list'], action.paramColumns)
       .setIn(['metricCols', 'list'], action.metricColumns)
+      .setIn(['paramCols','selected'], action.paramColumns.slice(0, 2))
+      .setIn(['metricCols','selected'], action.metricColumns[0])
       .set('loading', false);
     case LOAD_EXPERIMENT_DETAIL_GRIDSEARCH_ERROR:
       return state
       .set('error', action.error)
       .set('loading', false);
+    case SET_PARAM_COLS:
+      return state
+      .setIn(['paramCols','selected'], action.paramCols);
+    case SET_METRIC_COLS:
+      return state
+      .setIn(['metricCols','selected'], action.metricCols);
     default:
       return state;
   }

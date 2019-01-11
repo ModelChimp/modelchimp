@@ -14,7 +14,9 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
   makeSelectExperimentGridSearchData,
-  makeSelectExperimentGridSearchColumns
+  makeSelectExperimentGridSearchColumns,
+  makeSelectParamColsSelected,
+  makeSelectMetricColsSelected
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -42,7 +44,9 @@ export class ExperimentDetailGridSearchPage extends React.Component {
         <ChartMenu />
 
         <Plot
-        data={[parseChartData(this.props.gridsearchData, ['param_C', 'param_kernel'], 'std_fit_time')]}
+        data={[parseChartData(this.props.gridsearchData,
+                              this.props.selectedParamCols,
+                              this.props.selectedMetricCols )]}
         layout={ { title: 'Grid Search Plot'}}
         config={{displayModeBar: false}}
         style={{width:'inherit'}}
@@ -72,6 +76,8 @@ ExperimentDetailGridSearchPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   gridsearchData: makeSelectExperimentGridSearchData(),
   gridsearchColumns: makeSelectExperimentGridSearchColumns(),
+  selectedParamCols: makeSelectParamColsSelected(),
+  selectedMetricCols: makeSelectMetricColsSelected()
 });
 
 function mapDispatchToProps(dispatch) {
