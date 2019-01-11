@@ -19,6 +19,7 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import {loadExperimentGridSearchAction} from './actions';
+import parseChartData from './parseChartData';
 
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
@@ -38,14 +39,14 @@ export class ExperimentDetailGridSearchPage extends React.Component {
 
       dimensions: [{
         range: [1, 5],
-        constraintrange: [1, 2],
+        // constraintrange: [1, 2],
         label: 'A',
         values: [1,4]
       }, {
         range: [1,5],
         label: 'B',
         values: [3,1.5],
-        tickvals: [1.5,3,4.5]
+        // tickvals: [1.5,3,4.5]
       }, {
         range: [1, 5],
         label: 'C',
@@ -66,8 +67,8 @@ export class ExperimentDetailGridSearchPage extends React.Component {
     return <ExperimentDetail modelId={this.props.match.params.modelId} selectedKeys={'6'}>
       <Section name="GridSearch">
         <Plot
-        data={[this.data]}
-        layout={ { title: 'A Fancy Plot'}}
+        data={[parseChartData(this.props.gridsearchData, ['param_C', 'param_kernel'], 'std_fit_time')]}
+        layout={ { title: 'Grid Search Plot'}}
         config={{displayModeBar: false}}
         style={{width:'inherit'}}
       />
