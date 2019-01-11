@@ -23,6 +23,7 @@ import saga from './saga';
 import {loadExperimentGridSearchAction} from './actions';
 import parseChartData from './parseChartData';
 import ChartMenu from './ChartMenu';
+import {parseFilterData} from './parseChartData';
 
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
@@ -50,6 +51,8 @@ export class ExperimentDetailGridSearchPage extends React.Component {
         layout={ { title: 'Grid Search Plot'}}
         config={{displayModeBar: false}}
         style={{width:'inherit'}}
+        onUpdate={ parseFilterData }
+
       />
         <Wrapper>
           <Table columns={this.props.gridsearchColumns}

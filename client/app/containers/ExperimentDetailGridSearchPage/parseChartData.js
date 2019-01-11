@@ -118,4 +118,73 @@ const parseChartData = (data, paramCols, metricCol) =>{
 };
 
 
+// Check for filters applied on the lines selected within
+// the parallel coordinate chart
+const parseFilterData = (data) => {
+  const fData = data.data[0].dimensions;
+  let result = {};
+
+  const isCategoryColumn = (d) => {
+    if('ticktext' in d) return true;
+
+    return false;
+  }
+
+  const getCategoryValues = (d) => {
+    let filteredValIndex = []
+    let constraintRange = [];
+
+    if( Array.isArray(d.constraintrange[0]) ){
+      constraintRange = d.constraintrange;
+    } else {
+      constraintRange = [d.constraintrange];
+    }
+
+    for(var i in d.values){
+      for(var j in constraintRange){
+        if( d.tickvals[i] >= constraintRange[j][0] &&
+          d.tickvals[i] <= constraintRange[j][1]){
+              filteredValIndex.push(d.tickvals[i] - 1);
+        }
+      }
+    }
+
+    result[d.label] = {
+      values:[],
+      type:'categorical'
+    };
+    result[d.label].values = filteredValIndex.map((e) => d.ticktext[e]);
+
+    return result;
+  }
+
+  const getNumericalValues = (d) => {
+    result[d.label] = {
+      values:[],
+      type:'numerical'
+    };
+
+    if( Array.isArray(d.constraintrange[0]) ){
+      result[d.label].values = d.constraintrange;
+    } else {
+      result[d.label].values = [d.constraintrange];
+    }
+  }
+
+  for(var i in fData){
+    // If filter not applied then ignore the column
+    if(!('constraintrange' in fData[i])) continue;
+
+    // Check is it a categorical or numerical column
+    if(isCategoryColumn(fData[i])){
+      getCategoryValues(fData[i]);
+    } else {
+      getNumericalValues(fData[i]);
+    }
+  }
+  
+  return result;
+}
+
 export default parseChartData;
+export {parseFilterData};
