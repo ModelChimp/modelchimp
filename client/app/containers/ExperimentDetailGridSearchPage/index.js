@@ -20,6 +20,7 @@ import reducer from './reducer';
 import saga from './saga';
 import {loadExperimentGridSearchAction} from './actions';
 import parseChartData from './parseChartData';
+import ChartMenu from './ChartMenu';
 
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
@@ -27,45 +28,19 @@ import { Table, Divider, Tag } from 'antd';
 import styled from 'styled-components';
 import Plot from 'react-plotly.js';
 
+
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailGridSearchPage extends React.Component {
   componentDidMount() {
     this.modelId = this.props.match.params.modelId;
-    this.data = {
-      type: 'parcoords',
-      line: {
-        color: 'blue'
-      },
-
-      dimensions: [{
-        range: [1, 5],
-        // constraintrange: [1, 2],
-        label: 'A',
-        values: [1,4]
-      }, {
-        range: [1,5],
-        label: 'B',
-        values: [3,1.5],
-        // tickvals: [1.5,3,4.5]
-      }, {
-        range: [1, 5],
-        label: 'C',
-        values: [2,4],
-        tickvals: [1,2,4,5],
-        ticktext: ['text 1','text 2','text 4','text 5']
-      }, {
-        range: [1, 5],
-        label: 'D',
-        values: [4,2]
-      }]
-};
-
     this.props.getExperimentGridSearchData(this.modelId);
   }
 
   render() {
     return <ExperimentDetail modelId={this.props.match.params.modelId} selectedKeys={'6'}>
       <Section name="GridSearch">
+        <ChartMenu />
+
         <Plot
         data={[parseChartData(this.props.gridsearchData, ['param_C', 'param_kernel'], 'std_fit_time')]}
         layout={ { title: 'Grid Search Plot'}}

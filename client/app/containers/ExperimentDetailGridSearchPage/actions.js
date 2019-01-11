@@ -19,9 +19,21 @@ export function loadExperimentGridSearchAction(modelId) {
 }
 
 export function loadExperimentGridSearchSuccessAction(gridsearchData) {
+  let paramColumns = [];
+  let metricColumns = [];
+  for(var i = 0; i < gridsearchData.columns.length; i++){
+    if(gridsearchData.columns[i].includes('param')){
+      paramColumns.push(gridsearchData.columns[i]);
+    } else {
+      metricColumns.push(gridsearchData.columns[i]);
+    }
+  }
+
   return {
     type: LOAD_EXPERIMENT_DETAIL_GRIDSEARCH_SUCCESS,
-    gridsearchData
+    gridsearchData,
+    paramColumns,
+    metricColumns
   };
 }
 

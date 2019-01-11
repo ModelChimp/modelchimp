@@ -44,7 +44,27 @@ const makeSelectExperimentGridSearchColumns = () =>
     return result;
 },);
 
+const makeSelectParamColsList = () =>
+  createSelector(selectExperimentDetailGridSearchPageDomain,
+    substate => substate.getIn(['paramCols','list']),);
+
+const makeSelectParamColsSelected = () =>
+  createSelector(selectExperimentDetailGridSearchPageDomain,
+    substate => substate.getIn(['paramCols','selected']),);
+
+const makeSelectMetricColsList = () =>
+  createSelector(selectExperimentDetailGridSearchPageDomain,
+    substate => substate.getIn(['metricCols','list']),);
+
+const makeSelectMetricColsSelected = () =>
+  createSelector(selectExperimentDetailGridSearchPageDomain,
+    substate => substate.getIn(['metricCols','selected']),);
+
 export { selectExperimentDetailGridSearchPageDomain,
           makeSelectExperimentGridSearchData,
-          makeSelectExperimentGridSearchColumns
+          makeSelectExperimentGridSearchColumns,
+          makeSelectParamColsList,
+          makeSelectParamColsSelected,
+          makeSelectMetricColsList,
+          makeSelectMetricColsSelected
         };
