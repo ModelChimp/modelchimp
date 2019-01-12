@@ -14,7 +14,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
-import { Table, Divider, Tag } from 'antd';
+import { Table } from 'antd';
 import styled from 'styled-components';
 import Plot from 'react-plotly.js';
 import {
@@ -26,9 +26,8 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import { loadExperimentGridSearchAction } from './actions';
-import parseChartData from './parseChartData';
+import { parseChartData, parseFilterData } from './parseChartData';
 import ChartMenu from './ChartMenu';
-import { parseFilterData } from './parseChartData';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailGridSearchPage extends React.Component {
@@ -83,6 +82,9 @@ ExperimentDetailGridSearchPage.propTypes = {
   getExperimentGridSearchData: PropTypes.func.isRequired,
   gridsearchData: PropTypes.array,
   gridsearchColumns: PropTypes.array,
+  match: PropTypes.object,
+  selectedParamCols: PropTypes.array,
+  selectedMetricCols: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({

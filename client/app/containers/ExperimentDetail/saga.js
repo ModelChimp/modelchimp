@@ -1,8 +1,5 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import CookiesManager from 'utils/cookiesManager';
+import { put, takeLatest } from 'redux-saga/effects';
 import ModelchimpClient from 'utils/modelchimpClient';
-
-import request from 'utils/request';
 import { LOAD_EXPERIMENT_DETAIL } from './constants';
 import {
   loadExperimentDetailSuccessAction,
@@ -16,7 +13,7 @@ export function* getExperimentData({ modelId }) {
     const experiment = yield ModelchimpClient.get(requestURL);
     yield put(loadExperimentDetailSuccessAction(experiment));
   } catch (err) {
-    yield put(loadExperimentDetailErrorActions(err));
+    yield put(loadExperimentDetailErrorAction(err));
   }
 }
 

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PropTypes from 'prop-types';
 
 const Section = ({ name, style, className, children }) => (
   <section className={className} style={style}>
@@ -14,6 +14,15 @@ const Section = ({ name, style, className, children }) => (
     {children}
   </section>
 );
+
+
+ReposList.propTypes = {
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  name: PropTypes.string,
+  style: PropTypes.object,
+  children: PropTypes.array
+};
+
 
 const StyledSection = styled(Section)`
   margin-top: 30px;

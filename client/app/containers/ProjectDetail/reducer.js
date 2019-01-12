@@ -5,10 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import {
-  LOAD_PROJECT_DETAIL,
-  LOAD_PROJECT_DETAIL_SUCCESS,
-} from './constants';
+import { LOAD_PROJECT_DETAIL, LOAD_PROJECT_DETAIL_SUCCESS } from './constants';
 
 export const initialState = fromJS({
   loading: false,

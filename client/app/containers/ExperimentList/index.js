@@ -157,7 +157,7 @@ export class ExperimentList extends React.Component {
 
     // Add metric columns
     if (opMCol && opMCol.length > 0) {
-      for(let i = 0; i<opMCol.length; i+=1){
+      for (let i = 0; i < opMCol.length; i += 1) {
         const metric = opMCol[i];
         let metricName = metric.split('$');
         metricName =
@@ -187,8 +187,7 @@ export class ExperimentList extends React.Component {
 
     // Add parameter columns
     if (opCol && opCol.length > 0) {
-      for(let i = 0; i<opCol.length; i+=1){
-
+      for (let i = 0; i < opCol.length; i += 1) {
         const param = opCol[i];
 
         result.push({

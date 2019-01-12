@@ -7,9 +7,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PropTypes from 'prop-types';
 
 const IdBlock = ({ copy, display, style, className }) => {
-  const copyToClipboard = e => {
+  const copyToClipboard = () => {
     const textArea = document.createElement('textarea');
 
     textArea.value = copy;
@@ -24,11 +25,18 @@ const IdBlock = ({ copy, display, style, className }) => {
   return (
     <span className={className} style={style}>
       {display}
-      <button onClick={copyToClipboard}>
+      <button onClick={copyToClipboard} type="button">
         <FontAwesomeIcon icon="copy" />
       </button>
     </span>
   );
+};
+
+IdBlock.propTypes = {
+  copy: PropTypes.string,
+  display: PropTypes.string,
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  style: PropTypes.object
 };
 
 const StyledIdBlock = styled(IdBlock)`

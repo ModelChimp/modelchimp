@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import PropTypes from 'prop-types';
 
 function LineChart({ data, label, xAxisLabel, style }) {
   const inputData = {
@@ -63,6 +64,11 @@ function LineChart({ data, label, xAxisLabel, style }) {
   );
 }
 
-LineChart.propTypes = {};
+LineChart.propTypes = {
+  data: PropTypes.array,
+  label: PropTypes.string,
+  xAxisLabel: PropTypes.string,
+  style: PropTypes.object
+};
 
 export default LineChart;

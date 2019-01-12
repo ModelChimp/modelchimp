@@ -14,7 +14,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
-import { Table, Divider, Tag } from 'antd';
 import LineChart from 'components/LineChart';
 import {
   makeSelectExperimentDetailMetricChartPage,
@@ -95,6 +94,7 @@ ExperimentDetailChartPage.propTypes = {
   getExperimentChartData: PropTypes.func.isRequired,
   metricData: PropTypes.object,
   durationData: PropTypes.object,
+  match: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

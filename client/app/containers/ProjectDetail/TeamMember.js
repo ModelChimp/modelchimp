@@ -16,6 +16,13 @@ const Member = ({ className, profilePic, firstName, lastName }) => (
   </div>
 );
 
+Member.propTypes = {
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  profilePic: PropTypes.string,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+};
+
 const StyledMember = styled(Member)`
   font-size: 20px;
   padding-bottom: 10px;
@@ -44,7 +51,7 @@ class TeamMember extends React.Component {
   };
 
   render() {
-    const {members} = this.props;
+    const { members } = this.props;
 
     return (
       <div style={this.props.style}>
@@ -60,7 +67,7 @@ class TeamMember extends React.Component {
           onCancel={this.handleCancel}
         >
           {members &&
-            members.map((e, i) => (
+            members.map((e) => (
               <StyledMember
                 key={e.id}
                 profilePic={ModelchimpClient.getImageUrl(e.avatar)}
@@ -75,11 +82,7 @@ class TeamMember extends React.Component {
 }
 
 TeamMember.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  profilePic: PropTypes.string,
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
-  members: PropTypes.array
+  members: PropTypes.array,
 };
 
 export default TeamMember;

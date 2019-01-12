@@ -1,21 +1,15 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-
-import { Layout, Menu, Icon, Avatar } from 'antd';
+import { Layout, Menu, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
-import A from './A';
-import Img from './Img';
-import NavBar from './NavBar';
-import HeaderLink from './HeaderLink';
-import messages from './messages';
 import Logo from './logo.png';
+import PropTypes from 'prop-types';
 
 /* eslint-disable react/prefer-stateless-function */
 class Header extends React.Component {
   render() {
     return (
       <Layout.Header style={{ position: 'fixed', zIndex: 300, width: '100vw' }}>
-        <img src={Logo} style={{ height: '30px' }} />
+        <img src={Logo} style={{ height: '30px' }} alt="" />
 
         <Menu
           theme="dark"
@@ -43,6 +37,11 @@ class Header extends React.Component {
     );
   }
 }
+
+Header.propTypes = {
+  avatar: PropTypes.string,
+};
+
 
 export default Header;
 

@@ -8,12 +8,10 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import HeaderWrapper from 'containers/HeaderWrapper';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import IdBlock from 'components/IdBlock';
 import Content from 'components/Content';
-import ContentCentered from 'components/Content';
-import Section from 'components/Section';
 import { Link } from 'react-router-dom';
 import saga from './saga';
 import reducer from './reducer';
@@ -26,13 +24,12 @@ import {
 
 import { loadExperimentDetailAction } from './actions';
 
-const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetail extends React.Component {
   componentDidMount() {
-    const modelId = this.props.modelId;
+    const {modelId} = this.props;
     this.props.getExperimentMetaData(modelId);
   }
 
@@ -142,7 +139,10 @@ ExperimentDetail.propTypes = {
   getExperimentMetaData: PropTypes.func,
   experimentName: PropTypes.string,
   experimentId: PropTypes.string,
-  experimentShortId: PropTypes.string,
+  modelId: PropTypes.string,
+  selectedKeys: PropTypes.array,
+  shortExperimentId: PropTypes.string,
+  children: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({

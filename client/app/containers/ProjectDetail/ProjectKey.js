@@ -32,7 +32,7 @@ class ProjectKey extends React.Component {
 
 ProjectKey.propTypes = {
   className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  projectKey: PropTypes.string
+  projectKey: PropTypes.string,
 };
 
 const StyledProjectKey = styled(ProjectKey)`

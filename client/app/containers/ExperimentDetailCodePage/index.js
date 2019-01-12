@@ -14,7 +14,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
-import { Table, Divider, Tag } from 'antd';
+import { Table } from 'antd';
 import Highlight from 'react-highlight';
 import makeSelectExperimentDetailCodePage from './selectors';
 import reducer from './reducer';
@@ -64,6 +64,7 @@ export class ExperimentDetailCodePage extends React.Component {
 ExperimentDetailCodePage.propTypes = {
   getExperimentCodeData: PropTypes.func.isRequired,
   codeData: PropTypes.string,
+  match: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

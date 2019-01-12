@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import ModelchimpClient from 'utils/modelchimpClient';
-import { LOAD_PROJECT_DETAIL, LOAD_PROJECT_TEAM } from './constants';
+import { LOAD_PROJECT_DETAIL } from './constants';
 import {
   loadProjectDetailSuccessAction,
   loadProjectDetailErrorAction,

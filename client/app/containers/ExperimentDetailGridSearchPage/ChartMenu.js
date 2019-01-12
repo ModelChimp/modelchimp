@@ -68,7 +68,7 @@ class ChartMenu extends React.PureComponent {
     const result = [];
 
     if (!data) return;
-    for (const i in data) {
+    for (let i=0; i < data.length; i+=1) {
       result.push(<Select.Option key={data[i]}>{data[i]}</Select.Option>);
     }
 
@@ -78,7 +78,11 @@ class ChartMenu extends React.PureComponent {
 
 ChartMenu.propTypes = {
   paramCols: PropTypes.array,
+  metricCols: PropTypes.array,
   setParams: PropTypes.func,
+  setMetrics:  PropTypes.func,
+  selectedParamCols: PropTypes.array,
+  selectedMetricCols: PropTypes.array
 };
 
 function mapDispatchToProps(dispatch) {

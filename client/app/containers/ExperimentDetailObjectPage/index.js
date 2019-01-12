@@ -14,7 +14,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
-import { Table, Divider, Tag } from 'antd';
+import { Table } from 'antd';
 import IdBlock from 'components/IdBlock';
 import makeSelectExperimentDetailObjectPage from './selectors';
 import reducer from './reducer';
@@ -63,6 +63,7 @@ export class ExperimentDetailObjectPage extends React.Component {
 ExperimentDetailObjectPage.propTypes = {
   getExperimentObjectData: PropTypes.func.isRequired,
   objectData: PropTypes.array,
+  match: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

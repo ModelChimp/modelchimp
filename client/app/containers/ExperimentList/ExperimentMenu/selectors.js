@@ -13,7 +13,7 @@ const makeSelectExperimentMenuParameter = () =>
       return result;
     }
 
-    for (let i = 0; i < menuParam.length; i++) {
+    for (let i = 0; i < menuParam.length; i+=1) {
       const data = {
         key: menuParam[i].name,
         title: menuParam[i].name,
@@ -35,7 +35,7 @@ const makeSelectExperimentMenuMetric = () =>
       return result;
     }
 
-    for (let i = 0; i < menuMetric.length; i++) {
+    for (let i = 0; i < menuMetric.length; i+=1) {
       let metricName = menuMetric[i].name.split('$');
 
       metricName =

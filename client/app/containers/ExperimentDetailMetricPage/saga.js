@@ -1,8 +1,5 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import CookiesManager from 'utils/cookiesManager';
+import { put, takeLatest } from 'redux-saga/effects';
 import ModelchimpClient from 'utils/modelchimpClient';
-
-import request from 'utils/request';
 import { LOAD_EXPERIMENT_DETAIL_METRIC } from './constants';
 import {
   loadExperimentMetricSuccessAction,

@@ -7,12 +7,6 @@ const selectExperimentDetailGridSearchPageDomain = state =>
 const makeSelectExperimentGridSearchData = () =>
   createSelector(selectExperimentDetailGridSearchPageDomain, substate => {
     const data = substate.get('data');
-    const result = null;
-
-    // if(gridsearchData){
-    //
-    // }
-
     return data;
   });
 
@@ -23,7 +17,7 @@ const makeSelectExperimentGridSearchColumns = () =>
 
     if (!data) return null;
 
-    for (const i in data) {
+    for (let i=0; i<data.length ; i+=1) {
       const col = {
         title: data[i],
         dataIndex: data[i],

@@ -14,7 +14,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
-import { Table, Divider, Tag } from 'antd';
+import { Table } from 'antd';
 import makeSelectExperimentDetailMetricPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -61,6 +61,7 @@ export class ExperimentDetailMetricPage extends React.Component {
 ExperimentDetailMetricPage.propTypes = {
   getExperimentMetricData: PropTypes.func.isRequired,
   metricData: PropTypes.array,
+  match: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -6,7 +6,7 @@ const parseChartData = (data, paramCols, metricCol) => {
   const isNumColumn = colName => {
     let numFlag = true;
 
-    for (const i in data) {
+    for (let i=0; i<data.length ; i+=1) {
       numFlag = Number.isFinite(data[i][colName]);
 
       if (!numFlag) return false;
@@ -22,8 +22,8 @@ const parseChartData = (data, paramCols, metricCol) => {
 
     const values = [];
 
-    for (const i in data) {
-      if (i == 0) {
+    for (let i=0; i<data.length ; i+=1) {
+      if (i === 0) {
         max = data[i][colName];
         min = data[i][colName];
       }
@@ -45,7 +45,7 @@ const parseChartData = (data, paramCols, metricCol) => {
 
     const tickText = [];
 
-    for (const i in data) {
+    for (let i=0; i<data.length ; i+=1) {
       if (!tickText.includes(data[i][colName])) {
         tickText.push(data[i][colName]);
       }
@@ -74,8 +74,7 @@ const parseChartData = (data, paramCols, metricCol) => {
   // Check the column type
   // For number column create the range based tickvals
   // For string column create the annotated ticks
-
-  for (const p in paramCols) {
+  for (let p=0; i<paramCols.length ; p+=1) {
     const numColFlag = isNumColumn(paramCols[p]);
 
     if (numColFlag) {
@@ -140,8 +139,8 @@ const parseFilterData = data => {
       constraintRange = [d.constraintrange];
     }
 
-    for (const i in d.values) {
-      for (const j in constraintRange) {
+    for (let i=0; i<d.values.length ; i+=1) {
+      for (let j=0; i<constraintRange.length ; j+=1) {
         if (
           d.tickvals[i] >= constraintRange[j][0] &&
           d.tickvals[i] <= constraintRange[j][1]
@@ -172,10 +171,9 @@ const parseFilterData = data => {
     }
   };
 
-  for (const i in fData) {
+  for (let i=0; i<fData.length ; i+=1) {
     // If filter not applied then ignore the column
-    if (!('constraintrange' in fData[i])) continue;
-
+    if ('constraintrange' in fData[i]){
     // Check is it a categorical or numerical column
     if (isCategoryColumn(fData[i])) {
       getCategoryValues(fData[i]);
@@ -184,8 +182,9 @@ const parseFilterData = data => {
     }
   }
 
+  }
+
   return result;
 };
 
-export default parseChartData;
-export { parseFilterData };
+export { parseChartData, parseFilterData };

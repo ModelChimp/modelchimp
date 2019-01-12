@@ -17,14 +17,12 @@ import { makeSelectLoading } from 'containers/App/selectors';
 import HeaderWrapper from 'containers/HeaderWrapper';
 import ContentCentered from 'components/ContentCentered';
 
-import styled from 'styled-components';
 import { Layout } from 'antd';
 import { loadProjectData } from './actions';
 import { makeSelectProjects } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ProjectList from './ProjectList';
-
 
 export class ProjectPage extends React.PureComponent {
   componentDidMount() {
