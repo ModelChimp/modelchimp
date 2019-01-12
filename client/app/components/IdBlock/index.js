@@ -19,7 +19,7 @@ const IdBlock = ({ copy, display, style, className }) => {
     document.execCommand('Copy');
     textArea.remove();
 
-    alert('Experiment id has been copied');
+    // alert('Experiment id has been copied');
   };
 
   return (
@@ -36,7 +36,7 @@ IdBlock.propTypes = {
   copy: PropTypes.string,
   display: PropTypes.string,
   className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 const StyledIdBlock = styled(IdBlock)`

@@ -22,7 +22,7 @@ export function loadExperimentGridSearchAction(modelId) {
 export function loadExperimentGridSearchSuccessAction(gridsearchData) {
   const paramColumns = [];
   const metricColumns = [];
-  for (let i = 0; i < gridsearchData.columns.length; i+=1) {
+  for (let i = 0; i < gridsearchData.columns.length; i += 1) {
     if (gridsearchData.columns[i].includes('param')) {
       paramColumns.push(gridsearchData.columns[i]);
     } else {

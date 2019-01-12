@@ -15,14 +15,12 @@ const Section = ({ name, style, className, children }) => (
   </section>
 );
 
-
-ReposList.propTypes = {
+Section.propTypes = {
   className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   name: PropTypes.string,
   style: PropTypes.object,
-  children: PropTypes.array
+  children: PropTypes.array,
 };
-
 
 const StyledSection = styled(Section)`
   margin-top: 30px;

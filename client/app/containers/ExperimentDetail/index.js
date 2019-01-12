@@ -29,7 +29,7 @@ const { Sider } = Layout;
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetail extends React.Component {
   componentDidMount() {
-    const {modelId} = this.props;
+    const { modelId } = this.props;
     this.props.getExperimentMetaData(modelId);
   }
 

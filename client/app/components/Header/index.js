@@ -1,8 +1,8 @@
 import React from 'react';
 import { Layout, Menu, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
-import Logo from './logo.png';
 import PropTypes from 'prop-types';
+import Logo from './logo.png';
 
 /* eslint-disable react/prefer-stateless-function */
 class Header extends React.Component {
@@ -41,7 +41,6 @@ class Header extends React.Component {
 Header.propTypes = {
   avatar: PropTypes.string,
 };
-
 
 export default Header;
 

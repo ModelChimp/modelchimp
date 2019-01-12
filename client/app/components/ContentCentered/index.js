@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Content from 'components/Content';
 import { Layout } from 'antd';
 
 const ContentCentered = styled(Layout.Content)`

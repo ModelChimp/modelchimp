@@ -68,7 +68,7 @@ LineChart.propTypes = {
   data: PropTypes.array,
   label: PropTypes.string,
   xAxisLabel: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 export default LineChart;

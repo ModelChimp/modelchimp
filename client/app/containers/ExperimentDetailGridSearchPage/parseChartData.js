@@ -6,7 +6,7 @@ const parseChartData = (data, paramCols, metricCol) => {
   const isNumColumn = colName => {
     let numFlag = true;
 
-    for (let i=0; i<data.length ; i+=1) {
+    for (let i = 0; i < data.length; i += 1) {
       numFlag = Number.isFinite(data[i][colName]);
 
       if (!numFlag) return false;
@@ -22,7 +22,7 @@ const parseChartData = (data, paramCols, metricCol) => {
 
     const values = [];
 
-    for (let i=0; i<data.length ; i+=1) {
+    for (let i = 0; i < data.length; i += 1) {
       if (i === 0) {
         max = data[i][colName];
         min = data[i][colName];
@@ -45,7 +45,7 @@ const parseChartData = (data, paramCols, metricCol) => {
 
     const tickText = [];
 
-    for (let i=0; i<data.length ; i+=1) {
+    for (let i = 0; i < data.length; i += 1) {
       if (!tickText.includes(data[i][colName])) {
         tickText.push(data[i][colName]);
       }
@@ -74,7 +74,7 @@ const parseChartData = (data, paramCols, metricCol) => {
   // Check the column type
   // For number column create the range based tickvals
   // For string column create the annotated ticks
-  for (let p=0; i<paramCols.length ; p+=1) {
+  for (let p = 0; p < paramCols.length; p += 1) {
     const numColFlag = isNumColumn(paramCols[p]);
 
     if (numColFlag) {
@@ -139,8 +139,8 @@ const parseFilterData = data => {
       constraintRange = [d.constraintrange];
     }
 
-    for (let i=0; i<d.values.length ; i+=1) {
-      for (let j=0; i<constraintRange.length ; j+=1) {
+    for (let i = 0; i < d.values.length; i += 1) {
+      for (let j = 0; i < constraintRange.length; j += 1) {
         if (
           d.tickvals[i] >= constraintRange[j][0] &&
           d.tickvals[i] <= constraintRange[j][1]
@@ -171,17 +171,16 @@ const parseFilterData = data => {
     }
   };
 
-  for (let i=0; i<fData.length ; i+=1) {
+  for (let i = 0; i < fData.length; i += 1) {
     // If filter not applied then ignore the column
-    if ('constraintrange' in fData[i]){
-    // Check is it a categorical or numerical column
-    if (isCategoryColumn(fData[i])) {
-      getCategoryValues(fData[i]);
-    } else {
-      getNumericalValues(fData[i]);
+    if ('constraintrange' in fData[i]) {
+      // Check is it a categorical or numerical column
+      if (isCategoryColumn(fData[i])) {
+        getCategoryValues(fData[i]);
+      } else {
+        getNumericalValues(fData[i]);
+      }
     }
-  }
-
   }
 
   return result;

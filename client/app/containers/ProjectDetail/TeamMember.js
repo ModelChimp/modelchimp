@@ -67,7 +67,7 @@ class TeamMember extends React.Component {
           onCancel={this.handleCancel}
         >
           {members &&
-            members.map((e) => (
+            members.map(e => (
               <StyledMember
                 key={e.id}
                 profilePic={ModelchimpClient.getImageUrl(e.avatar)}
@@ -83,6 +83,7 @@ class TeamMember extends React.Component {
 
 TeamMember.propTypes = {
   members: PropTypes.array,
+  style: PropTypes.array
 };
 
 export default TeamMember;

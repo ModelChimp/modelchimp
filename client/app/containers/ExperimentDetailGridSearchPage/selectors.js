@@ -17,7 +17,7 @@ const makeSelectExperimentGridSearchColumns = () =>
 
     if (!data) return null;
 
-    for (let i=0; i<data.length ; i+=1) {
+    for (let i = 0; i < data.length; i += 1) {
       const col = {
         title: data[i],
         dataIndex: data[i],

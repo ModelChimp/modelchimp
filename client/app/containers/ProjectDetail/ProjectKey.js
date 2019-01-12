@@ -14,7 +14,7 @@ class ProjectKey extends React.Component {
     document.execCommand('Copy');
     textArea.remove();
 
-    alert('Project key has been copied');
+    // alert('Project key has been copied');
   }
 
   render() {
