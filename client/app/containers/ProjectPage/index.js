@@ -18,6 +18,7 @@ import HeaderWrapper from 'containers/HeaderWrapper';
 import ContentCentered from 'components/ContentCentered';
 
 import styled from 'styled-components';
+import { Layout } from 'antd';
 import Section from './Section';
 import { loadProjectData } from './actions';
 import { makeSelectProjects } from './selectors';
@@ -25,10 +26,7 @@ import reducer from './reducer';
 import saga from './saga';
 import ProjectList from './ProjectList';
 
-import { Layout } from 'antd';
-
-const AppWrapper = styled.div`
-`;
+const AppWrapper = styled.div``;
 
 export class ProjectPage extends React.PureComponent {
   componentDidMount() {
@@ -39,7 +37,7 @@ export class ProjectPage extends React.PureComponent {
     const { projects } = this.props;
 
     return (
-       <Layout className="layout">
+      <Layout className="layout">
         <HeaderWrapper />
         <article>
           <Helmet>
@@ -48,9 +46,8 @@ export class ProjectPage extends React.PureComponent {
           </Helmet>
 
           <ContentCentered>
-              <ProjectList projects={projects} style={{ marginTop: '100px' }}/>
+            <ProjectList projects={projects} style={{ marginTop: '100px' }} />
           </ContentCentered>
-
         </article>
       </Layout>
     );

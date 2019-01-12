@@ -1,29 +1,29 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import request from 'utils/request';
+import CookiesManager from 'utils/cookiesManager';
+import ModelchimpClient from 'utils/modelchimpClient';
 import { LOAD_EXPERIMENT_DATA } from './constants';
 import {
   loadExperimentSuccessAction,
   loadExperimentErrorAction,
 } from './actions';
-import { makeSelectExperimentColumns,
-         makeSelectExperimentMetricColumns } from './selectors';
-
-import CookiesManager from 'utils/cookiesManager';
-import ModelchimpClient from 'utils/modelchimpClient';
-
+import {
+  makeSelectExperimentColumns,
+  makeSelectExperimentMetricColumns,
+} from './selectors';
 
 export function* getExperimentList({ projectId, columns }) {
   let requestURL = `ml-model/${projectId}/`;
   let cols = yield select(makeSelectExperimentColumns());
   let metricCols = yield select(makeSelectExperimentMetricColumns());
 
-  if((cols && cols.length>0) || (metricCols && metricCols.length>0)){
-    cols = cols.map((e) => `param_fields[]=${e}&`);
-    cols = cols.join("")
-    metricCols = metricCols.map((e) => `metric_fields[]=${e}&`);
-    metricCols = metricCols.join("")
+  if ((cols && cols.length > 0) || (metricCols && metricCols.length > 0)) {
+    cols = cols.map(e => `param_fields[]=${e}&`);
+    cols = cols.join('');
+    metricCols = metricCols.map(e => `metric_fields[]=${e}&`);
+    metricCols = metricCols.join('');
 
-    requestURL =  `${requestURL}?${cols}${metricCols}`;
+    requestURL = `${requestURL}?${cols}${metricCols}`;
   }
 
   try {

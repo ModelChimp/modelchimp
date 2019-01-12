@@ -5,12 +5,13 @@
  */
 
 import { fromJS } from 'immutable';
-import { LOAD_MENU_PARAMETER,
-         LOAD_MENU_PARAMETER_SUCCESS,
-         LOAD_MENU_PARAMETER_ERROR,
-         SET_COLUMN_TARGET_KEY,
-         SET_COLUMN_TARGET_METRIC_KEY
-    } from './constants';
+import {
+  LOAD_MENU_PARAMETER,
+  LOAD_MENU_PARAMETER_SUCCESS,
+  LOAD_MENU_PARAMETER_ERROR,
+  SET_COLUMN_TARGET_KEY,
+  SET_COLUMN_TARGET_METRIC_KEY,
+} from './constants';
 
 export const initialState = fromJS({
   loading: false,
@@ -18,7 +19,7 @@ export const initialState = fromJS({
   menuParam: false,
   menuMetric: false,
   targetKeys: false,
-  targetMetricKeys: false
+  targetMetricKeys: false,
 });
 
 function experimentDetailMetricPageReducer(state = initialState, action) {
@@ -27,7 +28,7 @@ function experimentDetailMetricPageReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('error', false)
-        .set('projectId', action.projectId)
+        .set('projectId', action.projectId);
     case LOAD_MENU_PARAMETER_SUCCESS:
       return state
         .set('loading', false)
@@ -39,7 +40,7 @@ function experimentDetailMetricPageReducer(state = initialState, action) {
     case SET_COLUMN_TARGET_KEY:
       return state.set('targetKeys', action.targetKeys);
     case SET_COLUMN_TARGET_METRIC_KEY:
-      return state.set('targetMetricKeys', action.targetMetricKeys);      
+      return state.set('targetMetricKeys', action.targetMetricKeys);
     default:
       return state;
   }

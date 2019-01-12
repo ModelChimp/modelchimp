@@ -12,52 +12,58 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectExperimentDetailCodePage from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-import {loadExperimentCodeAction} from './actions';
-
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
 import { Table, Divider, Tag } from 'antd';
 import Highlight from 'react-highlight';
+import makeSelectExperimentDetailCodePage from './selectors';
+import reducer from './reducer';
+import saga from './saga';
+import { loadExperimentCodeAction } from './actions';
+
 import CodeStyle from './tomorrow-night-eighties.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailCodePage extends React.Component {
   componentDidMount() {
     this.modelId = this.props.match.params.modelId;
-    this.columns = [{
-      title: 'Codeeter',
-      dataIndex: 'code',
-      key: 'code',
-      width: '20vw'
-    }, {
-      title: 'Value',
-      dataIndex: 'value',
-      key: 'value',
-      width: '60vw'
-    }];
+    this.columns = [
+      {
+        title: 'Codeeter',
+        dataIndex: 'code',
+        key: 'code',
+        width: '20vw',
+      },
+      {
+        title: 'Value',
+        dataIndex: 'value',
+        key: 'value',
+        width: '60vw',
+      },
+    ];
 
     this.props.getExperimentCodeData(this.modelId);
   }
 
   render() {
-    return <ExperimentDetail modelId={this.props.match.params.modelId} selectedKeys={'3'}>
-      <Section name="Code">
-        <link rel="stylesheet" href={CodeStyle} />
+    return (
+      <ExperimentDetail
+        modelId={this.props.match.params.modelId}
+        selectedKeys="3"
+      >
+        <Section name="Code">
+          <link rel="stylesheet" href={CodeStyle} />
 
-        <Highlight className='python'>
-          {this.props.codeData}
-        </Highlight>
-      </Section>
-    </ExperimentDetail>;
+          <Highlight className="python">{this.props.codeData}</Highlight>
+        </Section>
+      </ExperimentDetail>
+    );
   }
 }
 
 ExperimentDetailCodePage.propTypes = {
   getExperimentCodeData: PropTypes.func.isRequired,
-  codeData: PropTypes.string
+  codeData: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({

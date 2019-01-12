@@ -3,14 +3,13 @@ import {
   LOAD_MENU_PARAMETER_SUCCESS,
   LOAD_MENU_PARAMETER_ERROR,
   SET_COLUMN_TARGET_KEY,
-  SET_COLUMN_TARGET_METRIC_KEY
+  SET_COLUMN_TARGET_METRIC_KEY,
 } from './constants';
-
 
 export function loadMenuParameterAction(projectId) {
   return {
     type: LOAD_MENU_PARAMETER,
-    projectId
+    projectId,
   };
 }
 

@@ -12,11 +12,11 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import {makeSelectProjectDetail, makeSelectProjectKey} from './selectors';
-import reducer from './reducer';
-import {projectDetailSaga} from './saga';
 import { Breadcrumb } from 'antd';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { makeSelectProjectDetail, makeSelectProjectKey } from './selectors';
+import reducer from './reducer';
+import { projectDetailSaga } from './saga';
 
 import { loadProjectDetailAction } from './actions';
 
@@ -32,17 +32,24 @@ export class ProjectDetail extends React.Component {
     return (
       <div>
         <Breadcrumb separator=">">
-          <Breadcrumb.Item><Link to="/projects">Projects</Link></Breadcrumb.Item>
-          <Breadcrumb.Item><Link to={`/experiment-list/${this.props.projectId}`}>{this.props.projectDetail.name}</Link></Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link to="/projects">Projects</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link to={`/experiment-list/${this.props.projectId}`}>
+              {this.props.projectDetail.name}
+            </Link>
+          </Breadcrumb.Item>
         </Breadcrumb>
-        <h1 style={{marginTop:"20px"}}>{this.props.projectDetail.name}</h1>
+        <h1 style={{ marginTop: '20px' }}>{this.props.projectDetail.name}</h1>
         <p>{this.props.projectDetail.description}</p>
         <div>
           <ProjectKey projectKey={this.props.projectKey} />
-          <TeamMember members={this.props.projectDetail.members}
-                      style={{display:"inline", float:"right"}} />
+          <TeamMember
+            members={this.props.projectDetail.members}
+            style={{ display: 'inline', float: 'right' }}
+          />
         </div>
-
       </div>
     );
   }
@@ -52,12 +59,12 @@ ProjectDetail.propTypes = {
   projectDetail: PropTypes.object,
   getProjectDetailData: PropTypes.func,
   projectId: PropTypes.string,
-  projectKey: PropTypes.string
+  projectKey: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   projectDetail: makeSelectProjectDetail(),
-  projectKey: makeSelectProjectKey()
+  projectKey: makeSelectProjectKey(),
 });
 
 function mapDispatchToProps(dispatch) {

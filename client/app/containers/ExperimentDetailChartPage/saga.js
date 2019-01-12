@@ -4,9 +4,12 @@ import ModelchimpClient from 'utils/modelchimpClient';
 
 import request from 'utils/request';
 import { LOAD_EXPERIMENT_DETAIL_CHART } from './constants';
-import { loadExperimentChartSuccessAction, loadExperimentChartErrorAction } from './actions';
+import {
+  loadExperimentChartSuccessAction,
+  loadExperimentChartErrorAction,
+} from './actions';
 
-export function* getExperimentChartData({modelId}) {
+export function* getExperimentChartData({ modelId }) {
   const requestURL = `experiment-detail/${modelId}/metric`;
 
   try {

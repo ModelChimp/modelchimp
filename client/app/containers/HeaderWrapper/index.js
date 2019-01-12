@@ -12,12 +12,12 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import Header from 'components/Header';
+import ModelchimpClient from 'utils/modelchimpClient';
 import makeSelectHeaderWrapper from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import {loadHeader} from './actions';
-import Header from 'components/Header';
-import ModelchimpClient from 'utils/modelchimpClient';
+import { loadHeader } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HeaderWrapper extends React.PureComponent {
@@ -26,13 +26,13 @@ export class HeaderWrapper extends React.PureComponent {
   }
 
   render() {
-    return <Header avatar={this.props.avatar}></Header>;
+    return <Header avatar={this.props.avatar} />;
   }
 }
 
 HeaderWrapper.propTypes = {
   getAvatar: PropTypes.func.isRequired,
-  avatar: PropTypes.string
+  avatar: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -41,8 +41,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getAvatar: () =>
-      dispatch(loadHeader()),
+    getAvatar: () => dispatch(loadHeader()),
   };
 }
 

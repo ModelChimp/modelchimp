@@ -9,9 +9,8 @@ import {
   LOAD_EXPERIMENT_DATA,
   LOAD_EXPERIMENT_DATA_SUCCESS,
   LOAD_EXPERIMENT_DATA_ERROR,
-  SET_EXPERIMENT_COLUMNS
+  SET_EXPERIMENT_COLUMNS,
 } from './constants';
-
 
 export function getDataAction() {
   return {
@@ -40,14 +39,15 @@ export function loadExperimentErrorAction(error) {
   };
 }
 
-export function setExperimentColumnAction(columnList,
+export function setExperimentColumnAction(
+  columnList,
   metricColumnList,
-  projectId) {
-
+  projectId,
+) {
   return {
     type: SET_EXPERIMENT_COLUMNS,
     columnList,
     metricColumnList,
-    projectId
+    projectId,
   };
 }

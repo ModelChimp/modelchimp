@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-
 const selectExperimentDetail = state =>
   state.get('experimentDetail', initialState);
 
@@ -17,25 +16,26 @@ const makeSelectExperimentId = () =>
 
 const makeSelectExperimentName = () =>
   createSelector(selectExperimentDetail, experimentDetailState => {
-    let expId = experimentDetailState.get('experimentId');
-    let shortExpId = experimentDetailState.get('shortExperimentId');
-    let expName = experimentDetailState.get('experimentName');
+    const expId = experimentDetailState.get('experimentId');
+    const shortExpId = experimentDetailState.get('shortExperimentId');
+    const expName = experimentDetailState.get('experimentName');
 
-    if( expId === expName){
+    if (expId === expName) {
       return shortExpId;
     }
 
     return expName;
-  }, );
+  });
 
 const makeSelectShortExperimentId = () =>
   createSelector(selectExperimentDetail, experimentDetailState =>
     experimentDetailState.get('shortExperimentId'),
   );
 
-export { selectExperimentDetail,
-          makeSelectExperimentDetail,
-          makeSelectExperimentId,
-          makeSelectShortExperimentId,
-          makeSelectExperimentName
-        };
+export {
+  selectExperimentDetail,
+  makeSelectExperimentDetail,
+  makeSelectExperimentId,
+  makeSelectShortExperimentId,
+  makeSelectExperimentName,
+};

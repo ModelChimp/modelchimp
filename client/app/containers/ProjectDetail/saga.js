@@ -1,21 +1,18 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import request from 'utils/request';
+import CookiesManager from 'utils/cookiesManager';
+import ModelchimpClient from 'utils/modelchimpClient';
 import { LOAD_PROJECT_DETAIL, LOAD_PROJECT_TEAM } from './constants';
 import {
   loadProjectDetailSuccessAction,
   loadProjectDetailErrorAction,
   loadProjectTeamSuccessAction,
-  loadProjectTeamErrorAction
+  loadProjectTeamErrorAction,
 } from './actions';
-
-import CookiesManager from 'utils/cookiesManager';
-import ModelchimpClient from 'utils/modelchimpClient';
-
 
 function* getProjectDetail({ projectId }) {
   const projectURL = `project/${projectId}`;
   const projectKeyURL = `project/key/${projectId}/`;
-
 
   try {
     const projectDetail = yield ModelchimpClient.get(projectURL);
@@ -30,7 +27,6 @@ function* getProjectDetail({ projectId }) {
 function* projectDetailSaga() {
   yield takeLatest(LOAD_PROJECT_DETAIL, getProjectDetail);
 }
-
 
 function* getProjectTeam({ projectId }) {
   const projectURL = `project/${projectId}`;
@@ -48,5 +44,4 @@ function* projectTeamSaga() {
   yield takeLatest(LOAD_PROJECT_TEAM, getProjectDetail);
 }
 
-export { projectDetailSaga,
-          projectTeamSaga };
+export { projectDetailSaga, projectTeamSaga };

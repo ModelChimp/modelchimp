@@ -17,14 +17,11 @@ import FontFaceObserver from 'fontfaceobserver';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
 import ModelchimpClient from 'utils/modelchimpClient';
-import CookiesManager from 'utils/cookiesManager';
 
 // import font awesome
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-library.add(fas)
-
+import { library } from '@fortawesome/fontawesome-svg-core';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 // Import root app
 import App from 'containers/App';
@@ -40,6 +37,7 @@ import configureStore from './configureStore';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
+library.add(fas);
 
 // Observe loading of Open Sans (to remove open sans, remove the <link> tag in
 // the index.html file and this observer)
@@ -77,7 +75,6 @@ if (module.hot) {
     render(translationMessages);
   });
 }
-
 
 // Chunked polyfill for browsers without Intl support
 if (!window.Intl) {

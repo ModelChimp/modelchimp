@@ -9,26 +9,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Select } from 'antd';
+import styled from 'styled-components';
 import {
   makeSelectParamColsList,
   makeSelectMetricColsList,
   makeSelectParamColsSelected,
-  makeSelectMetricColsSelected
- } from './selectors';
-import {
-  setParamColsAction,
-  setMetricColsAction
-} from './actions';
-
-import styled from 'styled-components';
-
+  makeSelectMetricColsSelected,
+} from './selectors';
+import { setParamColsAction, setMetricColsAction } from './actions';
 
 const Wrapper = styled.div`
-  margin:10px;
+  margin: 10px;
 `;
 
 class ChartMenu extends React.PureComponent {
-  constructor (props){
+  constructor(props) {
     super(props);
     this.handleParamChange = this.handleParamChange.bind(this);
     this.handleMetricChange = this.handleMetricChange.bind(this);
@@ -47,35 +42,34 @@ class ChartMenu extends React.PureComponent {
     return (
       <Wrapper>
         <Select
-            mode="multiple"
-            style={{ width: '30vw' }}
-            placeholder="Please select"
-            defaultValue={this.props.selectedParamCols}
-            onChange={this.handleParamChange}>
+          mode="multiple"
+          style={{ width: '30vw' }}
+          placeholder="Please select"
+          defaultValue={this.props.selectedParamCols}
+          onChange={this.handleParamChange}
+        >
           {this.parseData(this.props.paramCols)}
-          </Select>
-          <Select
-              showSearch
-              style={{ width: 200, float:'right' }}
-              placeholder="Select a person"
-              optionFilterProp="children"
-              onChange={this.handleMetricChange}
-              defaultValue={this.props.selectedMetricCols}
-            >
-            {this.parseData(this.props.metricCols)}
-            </Select>
+        </Select>
+        <Select
+          showSearch
+          style={{ width: 200, float: 'right' }}
+          placeholder="Select a person"
+          optionFilterProp="children"
+          onChange={this.handleMetricChange}
+          defaultValue={this.props.selectedMetricCols}
+        >
+          {this.parseData(this.props.metricCols)}
+        </Select>
       </Wrapper>
     );
   }
 
-  parseData(data){
-    let result = [];
+  parseData(data) {
+    const result = [];
 
-    if(!data) return;
-    for(var i in data){
-      result.push(
-        <Select.Option key={data[i]}>{data[i]}</Select.Option>
-      )
+    if (!data) return;
+    for (const i in data) {
+      result.push(<Select.Option key={data[i]}>{data[i]}</Select.Option>);
     }
 
     return result;
@@ -83,27 +77,23 @@ class ChartMenu extends React.PureComponent {
 }
 
 ChartMenu.propTypes = {
-    paramCols: PropTypes.array,
-    setParams: PropTypes.func
+  paramCols: PropTypes.array,
+  setParams: PropTypes.func,
 };
-
 
 function mapDispatchToProps(dispatch) {
   return {
-    setParams: (paramCols) =>
-      dispatch(setParamColsAction(paramCols)),
-    setMetrics: (metricCols) =>
-      dispatch(setMetricColsAction(metricCols)),
+    setParams: paramCols => dispatch(setParamColsAction(paramCols)),
+    setMetrics: metricCols => dispatch(setMetricColsAction(metricCols)),
   };
 }
-
 
 export default connect(
   createStructuredSelector({
     paramCols: makeSelectParamColsList(),
     metricCols: makeSelectMetricColsList(),
     selectedParamCols: makeSelectParamColsSelected(),
-    selectedMetricCols: makeSelectMetricColsSelected()
+    selectedMetricCols: makeSelectMetricColsSelected(),
   }),
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ChartMenu);

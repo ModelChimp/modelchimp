@@ -4,11 +4,12 @@ import ModelchimpClient from 'utils/modelchimpClient';
 
 import request from 'utils/request';
 import { LOAD_MENU_PARAMETER } from './constants';
-import { loadMenuParameterSuccessAction,
-        loadMenuParameterErrorAction } from './actions';
+import {
+  loadMenuParameterSuccessAction,
+  loadMenuParameterErrorAction,
+} from './actions';
 
-
-export function* getExperimentMenuParameterData({projectId}) {
+export function* getExperimentMenuParameterData({ projectId }) {
   const requestURL = `ml-model/get-param/${projectId}/`;
 
   try {

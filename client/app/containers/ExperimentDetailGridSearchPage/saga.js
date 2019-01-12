@@ -4,9 +4,12 @@ import ModelchimpClient from 'utils/modelchimpClient';
 
 import request from 'utils/request';
 import { LOAD_EXPERIMENT_DETAIL_GRIDSEARCH } from './constants';
-import { loadExperimentGridSearchSuccessAction, loadExperimentGridSearchErrorAction } from './actions';
+import {
+  loadExperimentGridSearchSuccessAction,
+  loadExperimentGridSearchErrorAction,
+} from './actions';
 
-export function* getExperimentGridSearchData({modelId}) {
+export function* getExperimentGridSearchData({ modelId }) {
   const requestURL = `experiment-detail/${modelId}/gridsearch`;
 
   try {
@@ -18,5 +21,8 @@ export function* getExperimentGridSearchData({modelId}) {
 }
 
 export default function* experimentGridSearchData() {
-  yield takeLatest(LOAD_EXPERIMENT_DETAIL_GRIDSEARCH, getExperimentGridSearchData);
+  yield takeLatest(
+    LOAD_EXPERIMENT_DETAIL_GRIDSEARCH,
+    getExperimentGridSearchData,
+  );
 }

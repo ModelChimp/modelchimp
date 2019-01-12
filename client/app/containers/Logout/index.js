@@ -11,14 +11,13 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectAuthLogged } from 'containers/App/selectors';
 
 import { Redirect } from 'react-router-dom';
-import { logout } from './actions';
 import CookiesManager from 'utils/cookiesManager';
 import ModelchimpClient from 'utils/modelchimpClient';
+import { logout } from './actions';
 
 class Logout extends React.PureComponent {
   render() {
     this.props.setLogout();
-
 
     return <Redirect to="/login" />;
   }

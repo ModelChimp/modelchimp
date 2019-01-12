@@ -16,7 +16,9 @@ const selectExperimentListDomain = state =>
  * Default selector used by ExperimentList
  */
 const makeSelectLoading = () =>
- createSelector(selectExperimentListDomain, substate => substate.get('loading'));
+  createSelector(selectExperimentListDomain, substate =>
+    substate.get('loading'),
+  );
 
 const makeSelectExperimentList = () =>
   createSelector(selectExperimentListDomain, experimentListState =>
@@ -38,9 +40,11 @@ const makeSelectExperimentColumnsPID = () =>
     experimentListState.get('columns').get('projectId'),
   );
 
-export { selectExperimentListDomain,
-          makeSelectExperimentList,
-          makeSelectExperimentColumns,
-          makeSelectExperimentMetricColumns,
-          makeSelectExperimentColumnsPID,
-          makeSelectLoading };
+export {
+  selectExperimentListDomain,
+  makeSelectExperimentList,
+  makeSelectExperimentColumns,
+  makeSelectExperimentMetricColumns,
+  makeSelectExperimentColumnsPID,
+  makeSelectLoading,
+};

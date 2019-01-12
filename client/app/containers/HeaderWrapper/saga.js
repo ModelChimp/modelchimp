@@ -4,10 +4,12 @@ import ModelchimpClient from 'utils/modelchimpClient';
 
 import request from 'utils/request';
 import { LOAD_HEADER } from './constants';
-import { loadHeaderSuccessAction, loadExperimentParamErrorAction } from './actions';
+import {
+  loadHeaderSuccessAction,
+  loadExperimentParamErrorAction,
+} from './actions';
 
-
-export function* getHeaderData({modelId}) {
+export function* getHeaderData({ modelId }) {
   const requestURL = `user`;
 
   try {

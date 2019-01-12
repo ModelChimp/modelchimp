@@ -1,6 +1,6 @@
 /**
  *
- * ExperimentDetailMetricPage
+ * Experiment Menu
  *
  */
 
@@ -12,73 +12,69 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import {makeSelectExperimentMenuParameter,
-        makeSelectExperimentMenuMetric,
-        makeSelectTargetKeys,
-        makeSelectTargetMetricKeys } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-import {loadExperimentMetricAction} from './actions';
-
 import Section from 'components/Section';
 import { Modal, Menu, Icon, Button, Transfer } from 'antd';
-import {loadMenuParameterAction,
-        setTargetKeysAction,
-        setMetricTargetKeysAction} from './actions';
-import {setExperimentColumnAction} from '../actions';
-import { List } from 'immutable';
+import {
+  makeSelectExperimentMenuParameter,
+  makeSelectExperimentMenuMetric,
+  makeSelectTargetKeys,
+  makeSelectTargetMetricKeys,
+} from './selectors';
+import reducer from './reducer';
+import saga from './saga';
 
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
-
+import {
+  loadMenuParameterAction,
+  setTargetKeysAction,
+  setMetricTargetKeysAction,
+} from './actions';
+import { setExperimentColumnAction } from '../actions';
 
 class ExperimentMenu extends React.Component {
   state = {
     current: 'mail',
     visible: false,
-    mockData: [],
-    targetKeys: [],
-    paramData: []
-  }
+  };
 
   componentDidMount() {
-    let projectId = this.props.projectId;
+    const { projectId } = this.props;
     this.props.getExperimentMenuParameterData(projectId);
   }
 
-  handleClick = (e) => {
+  handleClick = e => {
     this.setState({
       current: e.key,
     });
-  }
+  };
 
   showModal = () => {
     this.setState({
       visible: true,
     });
-  }
+  };
 
-  handleOk = (e) => {
+  handleOk = () => {
     this.setState({
       visible: false,
     });
 
-    this.props.setExperimentColumn(this.props.targetKeys,
+    this.props.setExperimentColumn(
+      this.props.targetKeys,
       this.props.targetMetricKeys,
-      this.props.projectId);
-  }
+      this.props.projectId,
+    );
+  };
 
-  handleCancel = (e) => {
+  handleCancel = () => {
     this.setState({
       visible: false,
     });
+  };
 
-  }
-
-  parseData = (data) => {
+  parseData = data => {
     const paramData = [];
 
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i += 1) {
       const result = {
         key: i.toString(),
         title: data[i].parameter,
@@ -90,34 +86,35 @@ class ExperimentMenu extends React.Component {
     }
 
     return paramData;
-  }
+  };
 
-  handleParamChange = (targetKeys) => {
+  handleParamChange = targetKeys => {
     this.props.setTargetKeys(targetKeys);
-  }
+  };
 
-  handleMetricChange = (targetMetricKeys) => {
+  handleMetricChange = targetMetricKeys => {
     this.props.setTargetMetricKeys(targetMetricKeys);
-  }
+  };
 
   render() {
     return (
       <Menu
-        className = {this.props.className}
+        className={this.props.className}
         onClick={this.handleClick}
         selectedKeys={[this.state.current]}
         mode="horizontal"
         style={this.props.style}
       >
         <Menu.Item key="experiments">
-          <Icon type="bars" />Experiments
+          <Icon type="bars" />
+          Experiments
         </Menu.Item>
         <Menu.Item key="setting">
           <Icon type="setting" /> Setting
         </Menu.Item>
 
-        <Menu.Item key="customize-table" style={{float:"right"}}>
-          <Button type="primary"  onClick={this.showModal}>
+        <Menu.Item key="customize-table" style={{ float: 'right' }}>
+          <Button type="primary" onClick={this.showModal}>
             <span>Customize Table</span>
           </Button>
           <Modal
@@ -126,23 +123,22 @@ class ExperimentMenu extends React.Component {
             onOk={this.handleOk}
             onCancel={this.handleCancel}
           >
-          <Section name="Metric">
-            <Transfer
-               dataSource={this.props.menuMetric}
-               targetKeys={this.props.targetMetricKeys}
-               onChange={this.handleMetricChange}
-
-               render={item => item.title}
-             />
-         </Section>
-         <Section name="Parameter">
-          <Transfer
-             dataSource={this.props.menuParam}
-             targetKeys={this.props.targetKeys}
-             onChange={this.handleParamChange}
-             render={item => item.title}
-           />
-         </Section>
+            <Section name="Metric">
+              <Transfer
+                dataSource={this.props.menuMetric}
+                targetKeys={this.props.targetMetricKeys}
+                onChange={this.handleMetricChange}
+                render={item => item.title}
+              />
+            </Section>
+            <Section name="Parameter">
+              <Transfer
+                dataSource={this.props.menuParam}
+                targetKeys={this.props.targetKeys}
+                onChange={this.handleParamChange}
+                render={item => item.title}
+              />
+            </Section>
           </Modal>
         </Menu.Item>
       </Menu>
@@ -156,22 +152,30 @@ ExperimentMenu.propTypes = {
   menuMetric: PropTypes.array,
   targetKeys: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
   targetMetricKeys: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
+  projectId: PropTypes.string,
+  setExperimentColumn: PropTypes.func,
+  setTargetKeys: PropTypes.func,
+  setTargetMetricKeys: PropTypes.func,
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  style: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   menuParam: makeSelectExperimentMenuParameter(),
   menuMetric: makeSelectExperimentMenuMetric(),
   targetKeys: makeSelectTargetKeys(),
-  targetMetricKeys : makeSelectTargetMetricKeys()
+  targetMetricKeys: makeSelectTargetMetricKeys(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getExperimentMenuParameterData: projectId => dispatch(loadMenuParameterAction(projectId)),
+    getExperimentMenuParameterData: projectId =>
+      dispatch(loadMenuParameterAction(projectId)),
     setExperimentColumn: (columns, metricColumns, projectId) =>
-          dispatch(setExperimentColumnAction(columns, metricColumns, projectId)),
-    setTargetKeys: (targetKeys) => dispatch(setTargetKeysAction(targetKeys)),
-    setTargetMetricKeys: (targetMetricKeys) => dispatch(setMetricTargetKeysAction(targetMetricKeys)),
+      dispatch(setExperimentColumnAction(columns, metricColumns, projectId)),
+    setTargetKeys: targetKeys => dispatch(setTargetKeysAction(targetKeys)),
+    setTargetMetricKeys: targetMetricKeys =>
+      dispatch(setMetricTargetKeysAction(targetMetricKeys)),
   };
 }
 

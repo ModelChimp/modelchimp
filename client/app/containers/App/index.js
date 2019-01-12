@@ -29,7 +29,6 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import GlobalStyle from '../../global-styles';
 import PrivateRoute from './PrivateRoute';
 
-
 export default function App() {
   return (
     <div>
@@ -44,12 +43,30 @@ export default function App() {
         <Route exact path="/" component={HomePage} />
         <Route path="/features" component={FeaturePage} />
         <PrivateRoute path="/projects" component={ProjectPage} />
-        <PrivateRoute path="/experiment-detail/:modelId/parameter" component={ExperimentDetailParamPage} />
-        <PrivateRoute path="/experiment-detail/:modelId/code" component={ExperimentDetailCodePage} />
-        <PrivateRoute path="/experiment-detail/:modelId/chart" component={ExperimentDetailChartPage} />
-        <PrivateRoute path="/experiment-detail/:modelId/object" component={ExperimentDetailObjectPage} />
-        <PrivateRoute path="/experiment-detail/:modelId/gridsearch" component={ExperimentDetailGridSearchPage} />        
-        <PrivateRoute path="/experiment-detail/:modelId/" component={ExperimentDetailMetricPage} />
+        <PrivateRoute
+          path="/experiment-detail/:modelId/parameter"
+          component={ExperimentDetailParamPage}
+        />
+        <PrivateRoute
+          path="/experiment-detail/:modelId/code"
+          component={ExperimentDetailCodePage}
+        />
+        <PrivateRoute
+          path="/experiment-detail/:modelId/chart"
+          component={ExperimentDetailChartPage}
+        />
+        <PrivateRoute
+          path="/experiment-detail/:modelId/object"
+          component={ExperimentDetailObjectPage}
+        />
+        <PrivateRoute
+          path="/experiment-detail/:modelId/gridsearch"
+          component={ExperimentDetailGridSearchPage}
+        />
+        <PrivateRoute
+          path="/experiment-detail/:modelId/"
+          component={ExperimentDetailMetricPage}
+        />
         <PrivateRoute path="/experiment-list/:id" component={ExperimentList} />
         <Route path="/login" component={LoginPage} />
         <Route path="/logout" component={Logout} />

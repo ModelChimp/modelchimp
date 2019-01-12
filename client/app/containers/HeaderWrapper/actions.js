@@ -1,9 +1,8 @@
 import {
   LOAD_HEADER,
   LOAD_HEADER_SUCCESS,
-  LOAD_HEADER_ERROR
-  } from './constants';
-
+  LOAD_HEADER_ERROR,
+} from './constants';
 
 export function loadHeader() {
   return {
@@ -14,13 +13,13 @@ export function loadHeader() {
 export function loadHeaderSuccessAction(avatar) {
   return {
     type: LOAD_HEADER_SUCCESS,
-    avatar
+    avatar,
   };
 }
 
 export function loadHeaderErrorAction(error) {
   return {
     type: LOAD_HEADER_ERROR,
-    error
+    error,
   };
 }

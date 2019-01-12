@@ -1,7 +1,10 @@
 import { fromJS } from 'immutable';
 import CookiesManager from 'utils/cookiesManager';
 
-
+import {
+  LOAD_EXPERIMENT_DATA,
+  LOAD_EXPERIMENT_DATA_SUCCESS,
+} from 'containers/ExperimentList/constants';
 import {
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS,
@@ -10,11 +13,6 @@ import {
   LOGIN_ERROR,
   LOGOUT,
 } from './constants';
-
-import {
-  LOAD_EXPERIMENT_DATA,
-  LOAD_EXPERIMENT_DATA_SUCCESS,
-} from 'containers/ExperimentList/constants';
 
 // The initial state of the App
 const initialState = fromJS({

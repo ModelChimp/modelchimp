@@ -16,20 +16,22 @@ import injectReducer from 'utils/injectReducer';
 import { Table, Tag, Icon } from 'antd';
 import ProjectDetail from 'containers/ProjectDetail/Loadable';
 import HeaderWrapper from 'containers/HeaderWrapper';
-import { makeSelectExperimentList,
-          makeSelectExperimentColumns,
-          makeSelectExperimentMetricColumns,
-          makeSelectExperimentColumnsPID,
-          makeSelectLoading } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-import { getDataAction, loadExperimentAction } from './actions';
 import { Layout } from 'antd';
 import ContentCentered from 'components/ContentCentered';
 import Content from 'components/Content';
-import { Link } from "react-router-dom";
-import ExperimentMenu from './ExperimentMenu/index.js';
+import { Link } from 'react-router-dom';
 import LoadingIndicator from 'components/LoadingIndicator';
+import {
+  makeSelectExperimentList,
+  makeSelectExperimentColumns,
+  makeSelectExperimentMetricColumns,
+  makeSelectExperimentColumnsPID,
+  makeSelectLoading,
+} from './selectors';
+import reducer from './reducer';
+import saga from './saga';
+import { getDataAction, loadExperimentAction } from './actions';
+import ExperimentMenu from './ExperimentMenu/index.js';
 
 export class ExperimentList extends React.Component {
   componentDidMount() {
@@ -38,9 +40,9 @@ export class ExperimentList extends React.Component {
     this.props.initiateDataFetch();
     this.props.getExperimentData(projectId);
 
-    this.timer = setInterval(()=>{
+    this.timer = setInterval(() => {
       this.props.getExperimentData(projectId);
-    },2000);
+    }, 2000);
   }
 
   componentWillUnmount() {
@@ -60,20 +62,21 @@ export class ExperimentList extends React.Component {
 
           if (text === record.experiment_id) result = text.substring(0, 7);
 
-          return <Link to={`/experiment-detail/${record.id}`}>
-                  {result}
-                </Link>;
+          return <Link to={`/experiment-detail/${record.id}`}>{result}</Link>;
         },
       },
       {
         title: 'Status',
         dataIndex: 'status',
         key: 'status',
-        render: (text) => {
-          if(text === 1) return <Icon type="sync" spin style={{color:'orange'}}/>;
+        render: text => {
+          if (text === 1)
+            return <Icon type="sync" spin style={{ color: 'orange' }} />;
 
-          return <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" />;
-        }
+          return (
+            <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" />
+          );
+        },
       },
       {
         title: 'Submitted By',
@@ -126,19 +129,22 @@ export class ExperimentList extends React.Component {
           <div style={{ marginTop: '50px' }}>
             <ProjectDetail projectId={this.props.match.params.id} />
           </div>
-          <ExperimentMenu style={{ marginTop: '50px', background:'#F0F2F5' }}
-              projectId={this.props.match.params.id}
-              />
-            { this.props.loading ? (<LoadingIndicator />):
-              (<Table
-                columns={this.addOptionalColumns(this.columns)}
-                dataSource={this.props.experimentList}
-                rowKey="id"
-                style={{ marginTop: '50px' }}
-              />)
-            }
-      </Content>
-    </Layout>
+          <ExperimentMenu
+            style={{ marginTop: '50px', background: '#F0F2F5' }}
+            projectId={this.props.match.params.id}
+          />
+          {this.props.loading ? (
+            <LoadingIndicator />
+          ) : (
+            <Table
+              columns={this.addOptionalColumns(this.columns)}
+              dataSource={this.props.experimentList}
+              rowKey="id"
+              style={{ marginTop: '50px' }}
+            />
+          )}
+        </Content>
+      </Layout>
     );
   }
 
@@ -146,60 +152,63 @@ export class ExperimentList extends React.Component {
     const opCol = this.props.optionalColumns;
     const opMCol = this.props.optionalMetricColumns;
 
-    let result = [];
+    const result = [];
 
-    if(this.props.match.params.id !== this.props.optionalColumnsPID) return data;
+    if (this.props.match.params.id !== this.props.optionalColumnsPID)
+      return data;
 
     // Add metric columns
-    if(opMCol && opMCol.length > 0) {
-        for(var i in opMCol){
-          let metric = opMCol[i];
-          let metricName = metric.split('$');
-          metricName = metricName[1] === '1'? `${metricName[0]}(max)`
-                          : `${metricName[0]}(min)`;
+    if (opMCol && opMCol.length > 0) {
+      for (var i in opMCol) {
+        const metric = opMCol[i];
+        let metricName = metric.split('$');
+        metricName =
+          metricName[1] === '1'
+            ? `${metricName[0]}(max)`
+            : `${metricName[0]}(min)`;
 
-          result.push({
-            title: metricName,
-            dataIndex: `metric_fields.${metric}`,
-            key: opMCol[i],
-            render: (text) => text ? Math.round(text * 100)/100 : null,
-            // TODO: Improve the logic later
-            sorter: (a, b) => {
-              if (!(metric in a.metric_fields)) {
-                  return -999999999999;
-              }
-              else if (!(metric in b.metric_fields)) {
-                  return 999999999999;
-              }
+        result.push({
+          title: metricName,
+          dataIndex: `metric_fields.${metric}`,
+          key: opMCol[i],
+          render: text => (text ? Math.round(text * 100) / 100 : null),
+          // TODO: Improve the logic later
+          sorter: (a, b) => {
+            if (!(metric in a.metric_fields)) {
+              return -999999999999;
+            }
+            if (!(metric in b.metric_fields)) {
+              return 999999999999;
+            }
 
-              return a.metric_fields[metric] - b.metric_fields[metric];
-            },
-          });
-        }
+            return a.metric_fields[metric] - b.metric_fields[metric];
+          },
+        });
+      }
     }
 
     // Add parameter columns
-    if(opCol && opCol.length > 0) {
-        for(var i in opCol){
-          let param = opCol[i];
+    if (opCol && opCol.length > 0) {
+      for (var i in opCol) {
+        const param = opCol[i];
 
-          result.push({
-            title: param,
-            dataIndex: `param_fields.${param}`,
-            key: param,
-            // TODO: Improve the logic later
-            sorter: (a, b) => {
-              if (!(param in a.param_fields)) {
-                  return -999999999999;
-              }
-              else if (!(param in b.param_fields)) {
-                  return 999999999999;
-              }
+        result.push({
+          title: param,
+          dataIndex: `param_fields.${param}`,
+          key: param,
+          // TODO: Improve the logic later
+          sorter: (a, b) => {
+            if (!(param in a.param_fields)) {
+              return -999999999999;
+            }
+            if (!(param in b.param_fields)) {
+              return 999999999999;
+            }
 
-              return a.param_fields[param] - b.param_fields[param];
-            },
-          });
-        }
+            return a.param_fields[param] - b.param_fields[param];
+          },
+        });
+      }
     }
 
     return [...data, ...result];
@@ -209,9 +218,9 @@ export class ExperimentList extends React.Component {
 ExperimentList.propTypes = {
   getExperimentData: PropTypes.func.isRequired,
   experimentList: PropTypes.array,
-  optionalColumns:PropTypes.array,
+  optionalColumns: PropTypes.array,
   optionalColumnsPID: PropTypes.string,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({

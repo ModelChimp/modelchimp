@@ -1,16 +1,15 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-
 const selectExperimentDetailMetricPageDomain = state =>
   state.get('experimentMenuParameter', initialState);
 
 const makeSelectExperimentMenuParameter = () =>
   createSelector(selectExperimentDetailMetricPageDomain, substate => {
-    let result = [];
-    let menuParam = substate.get('menuParam');
+    const result = [];
+    const menuParam = substate.get('menuParam');
 
-    if(menuParam.length === 0){
+    if (menuParam.length === 0) {
       return result;
     }
 
@@ -25,23 +24,24 @@ const makeSelectExperimentMenuParameter = () =>
     }
 
     return result;
-    },
-  );
+  });
 
 const makeSelectExperimentMenuMetric = () =>
   createSelector(selectExperimentDetailMetricPageDomain, substate => {
-    let result = [];
-    let menuMetric = substate.get('menuMetric');
+    const result = [];
+    const menuMetric = substate.get('menuMetric');
 
-    if(menuMetric.length === 0){
+    if (menuMetric.length === 0) {
       return result;
     }
 
     for (let i = 0; i < menuMetric.length; i++) {
-      let metricName = menuMetric[i].name.split("$");
+      let metricName = menuMetric[i].name.split('$');
 
-      metricName = metricName[1] === '1' ? `${metricName[0]}(max)`
-                    : `${metricName[0]}(min)`;
+      metricName =
+        metricName[1] === '1'
+          ? `${metricName[0]}(max)`
+          : `${metricName[0]}(min)`;
 
       const data = {
         key: menuMetric[i].name,
@@ -53,29 +53,28 @@ const makeSelectExperimentMenuMetric = () =>
     }
 
     return result;
-    },
-  );
+  });
 
 const makeSelectTargetKeys = () =>
-  createSelector(selectExperimentDetailMetricPageDomain, substate =>{
-    let tk = substate.get('targetKeys');
-    if(tk) return tk;
+  createSelector(selectExperimentDetailMetricPageDomain, substate => {
+    const tk = substate.get('targetKeys');
+    if (tk) return tk;
 
     return [];
-  },
-);
+  });
 
 const makeSelectTargetMetricKeys = () =>
-  createSelector(selectExperimentDetailMetricPageDomain, substate =>{
-    let tk = substate.get('targetMetricKeys');
-    if(tk) return tk;
+  createSelector(selectExperimentDetailMetricPageDomain, substate => {
+    const tk = substate.get('targetMetricKeys');
+    if (tk) return tk;
 
     return [];
-  },
-);
+  });
 
-export { selectExperimentDetailMetricPageDomain,
-        makeSelectExperimentMenuParameter,
-        makeSelectTargetKeys,
-        makeSelectTargetMetricKeys,
-        makeSelectExperimentMenuMetric };
+export {
+  selectExperimentDetailMetricPageDomain,
+  makeSelectExperimentMenuParameter,
+  makeSelectTargetKeys,
+  makeSelectTargetMetricKeys,
+  makeSelectExperimentMenuMetric,
+};

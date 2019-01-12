@@ -4,9 +4,12 @@ import ModelchimpClient from 'utils/modelchimpClient';
 
 import request from 'utils/request';
 import { LOAD_EXPERIMENT_DETAIL_PARAM } from './constants';
-import { loadExperimentParamSuccessAction, loadExperimentParamErrorAction } from './actions';
+import {
+  loadExperimentParamSuccessAction,
+  loadExperimentParamErrorAction,
+} from './actions';
 
-export function* getExperimentParamData({modelId}) {
+export function* getExperimentParamData({ modelId }) {
   const requestURL = `experiment-detail/${modelId}/param`;
 
   try {

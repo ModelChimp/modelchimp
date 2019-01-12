@@ -10,7 +10,7 @@ import {
   LOAD_PROJECT_DETAIL_ERROR,
   LOAD_PROJECT_TEAM,
   LOAD_PROJECT_TEAM_SUCCESS,
-  LOAD_PROJECT_TEAM_ERROR
+  LOAD_PROJECT_TEAM_ERROR,
 } from './constants';
 
 export function loadProjectDetailAction(projectId) {
@@ -24,7 +24,7 @@ export function loadProjectDetailSuccessAction(projectDetail, projectKey) {
   return {
     type: LOAD_PROJECT_DETAIL_SUCCESS,
     projectDetail,
-    projectKey
+    projectKey,
   };
 }
 
@@ -35,18 +35,17 @@ export function loadProjectDetailErrorAction(error) {
   };
 }
 
-
-const loadProjectTeamAction = (projectId) => ({
+const loadProjectTeamAction = projectId => ({
   type: LOAD_PROJECT_TEAM,
   projectId,
 });
 
-const loadProjectTeamSuccessAction = (team) => ({
+const loadProjectTeamSuccessAction = team => ({
   type: LOAD_PROJECT_TEAM_SUCCESS,
   team,
 });
 
-const loadProjectTeamErrorAction = (error) => ({
+const loadProjectTeamErrorAction = error => ({
   type: LOAD_PROJECT_TEAM_ERROR,
   error,
 });
@@ -54,5 +53,5 @@ const loadProjectTeamErrorAction = (error) => ({
 export {
   loadProjectTeamAction,
   loadProjectTeamSuccessAction,
-  loadProjectTeamErrorAction
+  loadProjectTeamErrorAction,
 };
