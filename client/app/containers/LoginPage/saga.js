@@ -2,11 +2,8 @@
  * Gets the repositories of the user from Github
  */
 
-import { call, put, takeLatest } from 'redux-saga/effects';
-
-import request from 'utils/request';
+import { put, takeLatest } from 'redux-saga/effects';
 import { LOGIN } from 'containers/App/constants';
-import CookiesManager from 'utils/cookiesManager';
 import ModelchimpClient from 'utils/modelchimpClient';
 import { loginSuccess, loginError } from './actions';
 
@@ -19,7 +16,7 @@ export function* postLogin({ username, password }) {
     };
 
     const data = yield ModelchimpClient.post(requestURL, params);
-    const token = data.token;
+    const {token} = data;
     ModelchimpClient.login(token);
 
     yield put(loginSuccess(token));

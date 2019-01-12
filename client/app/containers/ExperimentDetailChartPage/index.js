@@ -13,15 +13,16 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
-import { makeSelectExperimentDetailMetricChartPage,
-          makeSelectExperimentDetailDurationChartPage } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-import {loadExperimentChartAction} from './actions';
-
 import Section from 'components/Section';
 import { Table, Divider, Tag } from 'antd';
 import LineChart from 'components/LineChart';
+import {
+  makeSelectExperimentDetailMetricChartPage,
+  makeSelectExperimentDetailDurationChartPage,
+} from './selectors';
+import reducer from './reducer';
+import saga from './saga';
+import { loadExperimentChartAction } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailChartPage extends React.Component {
@@ -42,16 +43,21 @@ export class ExperimentDetailChartPage extends React.Component {
     const mData = this.props.metricData;
     const dData = this.props.durationData;
 
-    return (<ExperimentDetail
+    return (
+      <ExperimentDetail
         modelId={this.props.match.params.modelId}
-        selectedKeys={'4'}>
-      <Section name="Metric Chart">
-        { mData && mData.metric_list.map((e, i) => this.createMetricChart(e, i))}
-      </Section>
+        selectedKeys="4"
+      >
+        <Section name="Metric Chart">
+          {mData &&
+            mData.metric_list.map((e, i) => this.createMetricChart(e, i))}
+        </Section>
         <Section name="Duration Chart">
-        { dData && dData.tag_list.map((e, i) => this.createDurationChart(e, i))}
-      </Section>
-    </ExperimentDetail>);
+          {dData &&
+            dData.tag_list.map((e, i) => this.createDurationChart(e, i))}
+        </Section>
+      </ExperimentDetail>
+    );
   }
 
   createMetricChart(metric, index) {
@@ -63,7 +69,8 @@ export class ExperimentDetailChartPage extends React.Component {
     return (
       <div key={index} style={{ marginBottom: 20 }}>
         <LineChart data={data} label={metric} xAxisLabel="Epoch" />
-     </div>);
+      </div>
+    );
   }
 
   createDurationChart(duration, index) {
@@ -74,8 +81,13 @@ export class ExperimentDetailChartPage extends React.Component {
 
     return (
       <div key={index} style={{ marginBottom: 20 }}>
-      <LineChart data={data} label={`${duration} (seconds)`} xAxisLabel="Epoch" />
-    </div>);
+        <LineChart
+          data={data}
+          label={`${duration} (seconds)`}
+          xAxisLabel="Epoch"
+        />
+      </div>
+    );
   }
 }
 

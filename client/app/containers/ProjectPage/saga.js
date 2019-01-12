@@ -2,11 +2,9 @@
  * Gets the repositories of the user from Github
  */
 
-import { call, put, takeLatest } from 'redux-saga/effects';
-import CookiesManager from 'utils/cookiesManager';
+import { put, takeLatest } from 'redux-saga/effects';
 import ModelchimpClient from 'utils/modelchimpClient';
 
-import request from 'utils/request';
 import { LOAD_PROJECT_DATA } from './constants';
 import { projectDataLoaded, projectDataError } from './actions';
 

@@ -1,6 +1,4 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
-import request from 'utils/request';
-import CookiesManager from 'utils/cookiesManager';
+import { put, takeLatest, select } from 'redux-saga/effects';
 import ModelchimpClient from 'utils/modelchimpClient';
 import { LOAD_EXPERIMENT_DATA } from './constants';
 import {
@@ -12,7 +10,7 @@ import {
   makeSelectExperimentMetricColumns,
 } from './selectors';
 
-export function* getExperimentList({ projectId, columns }) {
+export function* getExperimentList({ projectId }) {
   let requestURL = `ml-model/${projectId}/`;
   let cols = yield select(makeSelectExperimentColumns());
   let metricCols = yield select(makeSelectExperimentMetricColumns());

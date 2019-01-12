@@ -3,13 +3,13 @@
 */
 
 const parseChartData = (data, paramCols, metricCol) => {
-  const isNumColumn = (colName) => {
+  const isNumColumn = colName => {
     let numFlag = true;
 
-    for(let i in data){
+    for (const i in data) {
       numFlag = Number.isFinite(data[i][colName]);
 
-      if(!numFlag) return false;
+      if (!numFlag) return false;
     }
 
     return numFlag;
@@ -18,57 +18,54 @@ const parseChartData = (data, paramCols, metricCol) => {
   const getRangeValues = colName => {
     let max = 0;
 
+    let min = 0;
 
-let min = 0;
+    const values = [];
 
-
-let values = [];
-
-    for(let i in data){
-      if(i==0){
+    for (const i in data) {
+      if (i == 0) {
         max = data[i][colName];
         min = data[i][colName];
-      };
+      }
 
-      if( max < data[i][colName]) max = data[i][colName];
-      if( min > data[i][colName]) min = data[i][colName];
+      if (max < data[i][colName]) max = data[i][colName];
+      if (min > data[i][colName]) min = data[i][colName];
 
       values.push(data[i][colName]);
     }
 
     return {
-      range:[min, max],
-      values: values,
-    }
-  }
+      range: [min, max],
+      values,
+    };
+  };
 
-  const getCategoryValues = (colName) => {
+  const getCategoryValues = colName => {
     let values = [];
 
+    const tickText = [];
 
-let tickText = [];
-
-    for(let i in data){
-      if(!(tickText.includes(data[i][colName]))){
+    for (const i in data) {
+      if (!tickText.includes(data[i][colName])) {
         tickText.push(data[i][colName]);
       }
 
       values.push(data[i][colName]);
     }
 
-    values = values.map((e) => tickText.indexOf(e) + 1);
+    values = values.map(e => tickText.indexOf(e) + 1);
 
     return {
-      range:[1, tickText.length],
-      values: values,
-      tickText: tickText,
+      range: [1, tickText.length],
+      values,
+      tickText,
       tickvals: generateArray(tickText.length),
     };
-  }
+  };
 
   const generateArray = n => [...Array(n)].map((_, index) => index + 1);
 
-  if(!data) return null;
+  if (!data) return null;
 
   const paramsResult = [];
   const metricResult = [];
@@ -78,11 +75,11 @@ let tickText = [];
   // For number column create the range based tickvals
   // For string column create the annotated ticks
 
-  for(let p in paramCols){
-    let numColFlag = isNumColumn(paramCols[p]);
+  for (const p in paramCols) {
+    const numColFlag = isNumColumn(paramCols[p]);
 
-    if(numColFlag){
-      let rangeAndValues = getRangeValues(paramCols[p]);
+    if (numColFlag) {
+      const rangeAndValues = getRangeValues(paramCols[p]);
 
       paramsResult.push({
         range: rangeAndValues.range,
@@ -143,14 +140,15 @@ const parseFilterData = data => {
       constraintRange = [d.constraintrange];
     }
 
-    for (var i in d.values) {
-      for (var j in constraintRange) {
+    for (const i in d.values) {
+      for (const j in constraintRange) {
         if (
           d.tickvals[i] >= constraintRange[j][0] &&
-          d.tickvals[i] <= constraintRange[j][1])
+          d.tickvals[i] <= constraintRange[j][1]
+        )
           filteredValIndex.push(d.tickvals[i] - 1);
-        }
       }
+    }
 
     result[d.label] = {
       values: [],
@@ -174,7 +172,7 @@ const parseFilterData = data => {
     }
   };
 
-  for (var i in fData) {
+  for (const i in fData) {
     // If filter not applied then ignore the column
     if (!('constraintrange' in fData[i])) continue;
 

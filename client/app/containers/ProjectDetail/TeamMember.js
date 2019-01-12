@@ -2,15 +2,17 @@ import React from 'react';
 import { Modal, Button } from 'antd';
 import ModelchimpClient from 'utils/modelchimpClient';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-const Member = ({ className, profilePic, first_name, last_name }) => (
+const Member = ({ className, profilePic, firstName, lastName }) => (
   <div className={className}>
     <img
       src={profilePic}
       style={{ height: '64px', width: '64px', marginRight: '10px' }}
+      alt=""
     />
-    <span>{first_name} </span>
-    <span>{last_name}</span>
+    <span>{firstName} </span>
+    <span>{lastName}</span>
   </div>
 );
 
@@ -29,20 +31,20 @@ class TeamMember extends React.Component {
     });
   };
 
-  handleOk = e => {
+  handleOk = () => {
     this.setState({
       visible: false,
     });
   };
 
-  handleCancel = e => {
+  handleCancel = () => {
     this.setState({
       visible: false,
     });
   };
 
   render() {
-    const members = this.props.members;
+    const {members} = this.props;
 
     return (
       <div style={this.props.style}>
@@ -60,10 +62,10 @@ class TeamMember extends React.Component {
           {members &&
             members.map((e, i) => (
               <StyledMember
-                key={i}
+                key={e.id}
                 profilePic={ModelchimpClient.getImageUrl(e.avatar)}
-                first_name={e.first_name}
-                last_name={e.last_name}
+                firstName={e.first_name}
+                lastName={e.last_name}
               />
             ))}
         </Modal>
@@ -71,5 +73,13 @@ class TeamMember extends React.Component {
     );
   }
 }
+
+TeamMember.propTypes = {
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  profilePic: PropTypes.string,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  members: PropTypes.array
+};
 
 export default TeamMember;

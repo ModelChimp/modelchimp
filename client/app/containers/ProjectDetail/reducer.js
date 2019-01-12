@@ -8,7 +8,6 @@ import { fromJS } from 'immutable';
 import {
   LOAD_PROJECT_DETAIL,
   LOAD_PROJECT_DETAIL_SUCCESS,
-  LOAD_PROJECT_DETAIL_ERROR,
 } from './constants';
 
 export const initialState = fromJS({

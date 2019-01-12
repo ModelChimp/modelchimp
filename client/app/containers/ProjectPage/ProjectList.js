@@ -44,6 +44,7 @@ class ProjectList extends React.PureComponent {
 
 ProjectList.propTypes = {
   projects: PropTypes.array,
+  style: PropTypes.object
 };
 
 export default ProjectList;

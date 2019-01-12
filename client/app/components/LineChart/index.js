@@ -28,7 +28,7 @@ function LineChart({ data, label, xAxisLabel, style }) {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: data,
+        data,
       },
     ],
   };
@@ -37,27 +37,30 @@ function LineChart({ data, label, xAxisLabel, style }) {
     <Line
       data={inputData}
       options={{
-      scales: {
-        xAxes: [{
-          type: 'linear',
-          position: 'bottom',
-          scaleLabel: {
+        scales: {
+          xAxes: [
+            {
+              type: 'linear',
+              position: 'bottom',
+              scaleLabel: {
                 display: true,
-            labelString: xAxisLabel,
-          },
-        }],
-      },
+                labelString: xAxisLabel,
+              },
+            },
+          ],
+        },
         title: {
           display: true,
-        text: label,
+          text: label,
         },
         legend: {
-        display: false,
+          display: false,
         },
-    }}
-    height={60}
-    style={style}
-  />);
+      }}
+      height={60}
+      style={style}
+    />
+  );
 }
 
 LineChart.propTypes = {};

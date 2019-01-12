@@ -11,7 +11,6 @@ import { createStructuredSelector } from 'reselect';
 import { makeSelectAuthLogged } from 'containers/App/selectors';
 
 import { Redirect } from 'react-router-dom';
-import CookiesManager from 'utils/cookiesManager';
 import ModelchimpClient from 'utils/modelchimpClient';
 import { logout } from './actions';
 

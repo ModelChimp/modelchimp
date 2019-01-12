@@ -1,15 +1,13 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import CookiesManager from 'utils/cookiesManager';
+import {  put, takeLatest } from 'redux-saga/effects';
 import ModelchimpClient from 'utils/modelchimpClient';
 
-import request from 'utils/request';
 import { LOAD_HEADER } from './constants';
 import {
   loadHeaderSuccessAction,
-  loadExperimentParamErrorAction,
+  loadHeaderErrorAction,
 } from './actions';
 
-export function* getHeaderData({ modelId }) {
+export function* getHeaderData() {
   const requestURL = `user`;
 
   try {

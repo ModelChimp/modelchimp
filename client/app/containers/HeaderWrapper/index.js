@@ -13,7 +13,6 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Header from 'components/Header';
-import ModelchimpClient from 'utils/modelchimpClient';
 import makeSelectHeaderWrapper from './selectors';
 import reducer from './reducer';
 import saga from './saga';

@@ -7,22 +7,21 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import reducer from './reducer';
-import saga from './saga';
 import HeaderWrapper from 'containers/HeaderWrapper';
-import {
-  Layout, Menu, Breadcrumb, Icon,
-} from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import IdBlock from 'components/IdBlock';
 import Content from 'components/Content';
 import ContentCentered from 'components/Content';
 import Section from 'components/Section';
-import { Link } from "react-router-dom";
-import {makeSelectExperimentDetail,
-        makeSelectExperimentId,
-        makeSelectShortExperimentId,
-        makeSelectExperimentName
+import { Link } from 'react-router-dom';
+import saga from './saga';
+import reducer from './reducer';
+import {
+  makeSelectExperimentDetail,
+  makeSelectExperimentId,
+  makeSelectShortExperimentId,
+  makeSelectExperimentName,
 } from './selectors';
 
 import { loadExperimentDetailAction } from './actions';
@@ -38,7 +37,9 @@ export class ExperimentDetail extends React.Component {
   }
 
   render() {
-    const selected = this.props.selectedKeys ? [this.props.selectedKeys] : ['1'];
+    const selected = this.props.selectedKeys
+      ? [this.props.selectedKeys]
+      : ['1'];
 
     return (
       <Layout>
@@ -55,7 +56,9 @@ export class ExperimentDetail extends React.Component {
               position: 'fixed',
               marginTop: 64,
               zIndex: 200,
-              height: '100vh'}}>
+              height: '100vh',
+            }}
+          >
             <Menu
               mode="inline"
               defaultSelectedKeys={['1']}
@@ -65,7 +68,8 @@ export class ExperimentDetail extends React.Component {
             >
               <Menu.Item key="1">
                 <Link to={`/experiment-detail/${this.props.modelId}`}>
-                  <FontAwesomeIcon icon="greater-than-equal" />  Metrics</Link>
+                  <FontAwesomeIcon icon="greater-than-equal" /> Metrics
+                </Link>
               </Menu.Item>
               <Menu.Item key="2">
                 <Link to={`/experiment-detail/${this.props.modelId}/parameter`}>
@@ -80,36 +84,54 @@ export class ExperimentDetail extends React.Component {
               <Menu.Item key="4">
                 <Link to={`/experiment-detail/${this.props.modelId}/chart`}>
                   <FontAwesomeIcon icon="chart-line" /> Charts
-                  </Link>
+                </Link>
               </Menu.Item>
               <Menu.Item key="5">
                 <Link to={`/experiment-detail/${this.props.modelId}/object`}>
-                  <FontAwesomeIcon icon="grip-horizontal" /> Objects</Link>
+                  <FontAwesomeIcon icon="grip-horizontal" /> Objects
+                </Link>
               </Menu.Item>
               <Menu.Item key="6">
-                <Link to={`/experiment-detail/${this.props.modelId}/gridsearch`}>
-                  <FontAwesomeIcon icon="grip-horizontal" /> Grid Search</Link>
+                <Link
+                  to={`/experiment-detail/${this.props.modelId}/gridsearch`}
+                >
+                  <FontAwesomeIcon icon="grip-horizontal" /> Grid Search
+                </Link>
               </Menu.Item>
             </Menu>
           </Sider>
-          <Content style={{marginLeft:200}}>
-            <h1></h1>
+          <Content style={{ marginLeft: 200 }}>
+            <h1 />
 
-            <div style={{marginTop:"50px"}}>
+            <div style={{ marginTop: '50px' }}>
               <Breadcrumb separator=">">
-                <Breadcrumb.Item><Link to="/projects">Projects</Link></Breadcrumb.Item>
-                <Breadcrumb.Item><Link to={`/experiment-list/${this.props.experiment.project}`}>{this.props.experiment.project_name}</Link></Breadcrumb.Item>
-                <Breadcrumb.Item><Link to={`/experiment-detail/${this.props.experiment.id}`}>{this.props.experimentName}</Link></Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  <Link to="/projects">Projects</Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  <Link
+                    to={`/experiment-list/${this.props.experiment.project}`}
+                  >
+                    {this.props.experiment.project_name}
+                  </Link>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  <Link to={`/experiment-detail/${this.props.experiment.id}`}>
+                    {this.props.experimentName}
+                  </Link>
+                </Breadcrumb.Item>
               </Breadcrumb>
-              <div style={{marginTop:"20px"}}>
+              <div style={{ marginTop: '20px' }}>
                 <h2>Experiment Name: {this.props.experimentName}</h2>
-                <IdBlock copy={this.props.experimentId} display={this.props.shortExperimentId}  />
+                <IdBlock
+                  copy={this.props.experimentId}
+                  display={this.props.shortExperimentId}
+                />
                 {this.props.children}
               </div>
             </div>
           </Content>
         </Layout>
-
       </Layout>
     );
   }

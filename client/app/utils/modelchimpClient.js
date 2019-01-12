@@ -27,9 +27,9 @@ class ModelchimpClient {
   setDefaultOptions(baseURL = '/') {
     this.baseURL = baseURL;
 
-    if (this.isAuthenticated()) {
-      const authToken = CookiesManager.getAuthToken(this.tokenName);
-    }
+    // if (this.isAuthenticated()) {
+    //   const authToken = CookiesManager.getAuthToken(this.tokenName);
+    // }
 
     this.updateAuthToken();
   }
@@ -76,17 +76,17 @@ class ModelchimpClient {
     });
   }
 
-  patch(url, params = {}) {
-    // return axios.patch(url, params, { ...this.defaultOptions });
-  }
-
-  put(url, params = {}) {
-    // return axios.put(url, params, { ...this.defaultOptions });
-  }
-
-  delete(url) {
-    // return axios.delete(url, { ...this.defaultOptions });
-  }
+  // patch(url, params = {}) {
+  //   // return axios.patch(url, params, { ...this.defaultOptions });
+  // }
+  //
+  // put(url, params = {}) {
+  //   // return axios.put(url, params, { ...this.defaultOptions });
+  // }
+  //
+  // delete(url) {
+  //   // return axios.delete(url, { ...this.defaultOptions });
+  // }
 
   getImageUrl(url) {
     const targetURL = this.baseURL + url;

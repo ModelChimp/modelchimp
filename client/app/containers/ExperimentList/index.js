@@ -13,11 +13,9 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { Table, Tag, Icon } from 'antd';
+import { Table, Tag, Icon, Layout } from 'antd';
 import ProjectDetail from 'containers/ProjectDetail/Loadable';
 import HeaderWrapper from 'containers/HeaderWrapper';
-import { Layout } from 'antd';
-import ContentCentered from 'components/ContentCentered';
 import Content from 'components/Content';
 import { Link } from 'react-router-dom';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -31,7 +29,7 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import { getDataAction, loadExperimentAction } from './actions';
-import ExperimentMenu from './ExperimentMenu/index.js';
+import ExperimentMenu from './ExperimentMenu/index';
 
 export class ExperimentList extends React.Component {
   componentDidMount() {
@@ -159,7 +157,7 @@ export class ExperimentList extends React.Component {
 
     // Add metric columns
     if (opMCol && opMCol.length > 0) {
-      for (var i in opMCol) {
+      for(let i = 0; i<opMCol.length; i+=1){
         const metric = opMCol[i];
         let metricName = metric.split('$');
         metricName =
@@ -189,7 +187,8 @@ export class ExperimentList extends React.Component {
 
     // Add parameter columns
     if (opCol && opCol.length > 0) {
-      for (var i in opCol) {
+      for(let i = 0; i<opCol.length; i+=1){
+
         const param = opCol[i];
 
         result.push({
@@ -221,6 +220,9 @@ ExperimentList.propTypes = {
   optionalColumns: PropTypes.array,
   optionalColumnsPID: PropTypes.string,
   loading: PropTypes.bool,
+  match: PropTypes.object,
+  initiateDataFetch: PropTypes.func,
+  optionalMetricColumns: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
