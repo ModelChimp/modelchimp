@@ -37,6 +37,17 @@ class ChartMenu extends React.PureComponent {
     this.props.setMetrics(value);
   }
 
+  parseData(data) {
+    const result = [];
+
+    if (!data) return null;
+    for (let i = 0; i < data.length; i += 1) {
+      result.push(<Select.Option key={data[i]}>{data[i]}</Select.Option>);
+    }
+
+    return result;
+  }
+
   render() {
     // Render the content into a list item
     return (
@@ -62,17 +73,6 @@ class ChartMenu extends React.PureComponent {
         </Select>
       </Wrapper>
     );
-  }
-
-  const parseData = (data) => {
-    const result = [];
-
-    if (!data) return;
-    for (let i = 0; i < data.length; i += 1) {
-      result.push(<Select.Option key={data[i]}>{data[i]}</Select.Option>);
-    }
-
-    return result;
   }
 }
 

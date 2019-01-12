@@ -83,7 +83,7 @@ class TeamMember extends React.Component {
 
 TeamMember.propTypes = {
   members: PropTypes.array,
-  style: PropTypes.array
+  style: PropTypes.array,
 };
 
 export default TeamMember;
