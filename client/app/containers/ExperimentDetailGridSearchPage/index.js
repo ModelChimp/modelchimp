@@ -41,6 +41,7 @@ export class ExperimentDetailGridSearchPage extends React.Component {
   }
 
   onFilterSelection = (d) => {
+    if(d.data.length === 0) return null;
     const selectedFilters = parseFilterData(d);
 
     if(!isEqual(this.props.filter, selectedFilters)){

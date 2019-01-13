@@ -27,7 +27,6 @@ export const initialState = fromJS({
     list: null,
     selected: null,
   },
-  // filter: null
 });
 
 function experimentDetailGridSearchPageReducer(state = initialState, action) {
@@ -52,8 +51,6 @@ function experimentDetailGridSearchPageReducer(state = initialState, action) {
       return state.setIn(['paramCols', 'selected'], action.paramCols);
     case SET_METRIC_COLS:
       return state.setIn(['metricCols', 'selected'], action.metricCols);
-    // case SET_CHART_FILTERS:
-    //   return state.set('filter', action.filter);
     default:
       return state;
   }
