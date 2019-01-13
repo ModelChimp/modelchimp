@@ -8,9 +8,10 @@ import { initialState } from './reducer';
 const selectGridSearchTableDomain = state =>
   state.get('gridSearchTable', initialState);
 
-
 const makeSelectGridSearchTable = () =>
-  createSelector(selectGridSearchTableDomain, substate => substate.get('filter'));
+  createSelector(selectGridSearchTableDomain, substate =>
+    substate.get('filter'),
+  );
 
 export default makeSelectGridSearchTable;
 export { selectGridSearchTableDomain };

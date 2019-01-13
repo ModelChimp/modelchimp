@@ -14,9 +14,9 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
-import { Table } from 'antd';
 import styled from 'styled-components';
 import Plot from 'react-plotly.js';
+import { isEqual } from 'lodash';
 import {
   makeSelectExperimentGridSearchData,
   makeSelectExperimentGridSearchColumns,
@@ -26,12 +26,14 @@ import {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { loadExperimentGridSearchAction, setParamColsAction, setFilterAction } from './actions';
+import {
+  loadExperimentGridSearchAction,
+  setParamColsAction,
+  setFilterAction,
+} from './actions';
 import { parseChartData, parseFilterData } from './parseChartData';
 import ChartMenu from './ChartMenu';
-import { isEqual } from 'lodash';
 import GridSearchTable from './GridSearchTable';
-
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailGridSearchPage extends React.Component {
@@ -40,15 +42,16 @@ export class ExperimentDetailGridSearchPage extends React.Component {
     this.props.getExperimentGridSearchData(this.modelId);
   }
 
-  onFilterSelection = (d) => {
-    if(d.data.length === 0) return null;
+  onFilterSelection = d => {
+    if (d.data.length === 0) return null;
     const selectedFilters = parseFilterData(d);
 
-    if(!isEqual(this.props.filter, selectedFilters)){
+    if (!isEqual(this.props.filter, selectedFilters)) {
       this.props.setFilter(selectedFilters);
     }
-  }
 
+    return null;
+  };
 
   render() {
     return (
@@ -59,25 +62,23 @@ export class ExperimentDetailGridSearchPage extends React.Component {
         <Section name="GridSearch">
           <ChartMenu />
           <Plot
-            data={
-              parseChartData(
-                this.props.gridsearchData,
-                this.props.selectedParamCols,
-                this.props.selectedMetricCols,
-              )
-            }
+            data={parseChartData(
+              this.props.gridsearchData,
+              this.props.selectedParamCols,
+              this.props.selectedMetricCols,
+            )}
             layout={{ title: 'Grid Search Plot' }}
             config={{ displayModeBar: false }}
             style={{ width: 'inherit' }}
             onUpdate={this.onFilterSelection}
           />
           <Wrapper>
-          <GridSearchTable
-            columns={this.props.gridsearchColumns}
-            dataSource={this.props.gridsearchData}
-            rowKey="id"
-            scroll={{ x: true }}
-          />
+            <GridSearchTable
+              columns={this.props.gridsearchColumns}
+              dataSource={this.props.gridsearchData}
+              rowKey="id"
+              scroll={{ x: true }}
+            />
           </Wrapper>
         </Section>
       </ExperimentDetail>
@@ -98,6 +99,8 @@ ExperimentDetailGridSearchPage.propTypes = {
   match: PropTypes.object,
   selectedParamCols: PropTypes.array,
   selectedMetricCols: PropTypes.string,
+  filter: PropTypes.array,
+  setFilter: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -112,8 +115,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getExperimentGridSearchData: modelId =>
       dispatch(loadExperimentGridSearchAction(modelId)),
-    setParamCols: paramCols =>
-      dispatch(setParamColsAction(paramCols)),
+    setParamCols: paramCols => dispatch(setParamColsAction(paramCols)),
     setFilter: filter => dispatch(setFilterAction(filter)),
   };
 }

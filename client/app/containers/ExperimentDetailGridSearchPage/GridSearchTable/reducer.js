@@ -5,13 +5,10 @@
  */
 
 import { fromJS } from 'immutable';
-import {
-
-  SET_CHART_FILTERS,
-} from '../constants';
+import { SET_CHART_FILTERS } from '../constants';
 
 export const initialState = fromJS({
-  filter: null
+  filter: null,
 });
 
 function experimentGridSearchTableReducer(state = initialState, action) {

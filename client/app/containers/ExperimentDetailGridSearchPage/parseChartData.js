@@ -107,13 +107,15 @@ const parseChartData = (data, paramCols, metricCol) => {
   });
   // Combine the columns and return
 
-  return [{
-    type: 'parcoords',
-    line: {
-      color: 'blue',
+  return [
+    {
+      type: 'parcoords',
+      line: {
+        color: 'blue',
+      },
+      dimensions: [...paramsResult, ...metricResult],
     },
-    dimensions: [...paramsResult, ...metricResult],
-  }];
+  ];
 };
 
 // Check for filters applied on the lines selected within

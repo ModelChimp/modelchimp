@@ -17,4 +17,4 @@ export const SET_METRIC_COLS =
   'app/ExperimentDetailGridSearchPage/SET_METRIC_COLS';
 
 export const SET_CHART_FILTERS =
-'app/ExperimentDetailGridSearchPage/SET_CHART_FILTERS';
+  'app/ExperimentDetailGridSearchPage/SET_CHART_FILTERS';

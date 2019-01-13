@@ -16,7 +16,7 @@ import {
   makeSelectParamColsSelected,
   makeSelectMetricColsSelected,
 } from './selectors';
-import { setParamColsAction, setMetricColsAction, setFilterAction } from './actions';
+import { setParamColsAction, setMetricColsAction } from './actions';
 
 const Wrapper = styled.div`
   margin: 10px;
@@ -50,28 +50,30 @@ class ChartMenu extends React.PureComponent {
 
   render() {
     // Render the content into a list item
-    return ( this.props.paramCols &&
-      <Wrapper>
-        <Select
-          mode="multiple"
-          style={{ width: '30vw' }}
-          placeholder="Please select"
-          defaultValue={this.props.selectedParamCols}
-          onChange={this.handleParamChange}
-        >
-          {this.parseData(this.props.paramCols)}
-        </Select>
-        <Select
-          showSearch
-          style={{ width: 200, float: 'right' }}
-          placeholder="Select a person"
-          optionFilterProp="children"
-          onChange={this.handleMetricChange}
-          defaultValue={this.props.selectedMetricCols}
-        >
-          {this.parseData(this.props.metricCols)}
-        </Select>
-      </Wrapper>
+    return (
+      this.props.paramCols && (
+        <Wrapper>
+          <Select
+            mode="multiple"
+            style={{ width: '30vw' }}
+            placeholder="Please select"
+            defaultValue={this.props.selectedParamCols}
+            onChange={this.handleParamChange}
+          >
+            {this.parseData(this.props.paramCols)}
+          </Select>
+          <Select
+            showSearch
+            style={{ width: 200, float: 'right' }}
+            placeholder="Select a person"
+            optionFilterProp="children"
+            onChange={this.handleMetricChange}
+            defaultValue={this.props.selectedMetricCols}
+          >
+            {this.parseData(this.props.metricCols)}
+          </Select>
+        </Wrapper>
+      )
     );
   }
 }
