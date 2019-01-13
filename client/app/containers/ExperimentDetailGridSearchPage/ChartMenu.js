@@ -50,7 +50,7 @@ class ChartMenu extends React.PureComponent {
 
   render() {
     // Render the content into a list item
-    return (
+    return ( this.props.paramCols &&
       <Wrapper>
         <Select
           mode="multiple"
@@ -89,7 +89,6 @@ function mapDispatchToProps(dispatch) {
   return {
     setParams: paramCols => dispatch(setParamColsAction(paramCols)),
     setMetrics: metricCols => dispatch(setMetricColsAction(metricCols)),
-    setFilter: filter => dispatch(setFilterAction(filter)),
   };
 }
 
