@@ -30,6 +30,8 @@ import { loadExperimentGridSearchAction, setParamColsAction, setFilterAction } f
 import { parseChartData, parseFilterData } from './parseChartData';
 import ChartMenu from './ChartMenu';
 import { isEqual } from 'lodash';
+import GridSearchTable from './GridSearchTable';
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailGridSearchPage extends React.Component {
@@ -40,11 +42,10 @@ export class ExperimentDetailGridSearchPage extends React.Component {
 
   onFilterSelection = (d) => {
     const selectedFilters = parseFilterData(d);
-    console.log(d);
-    console.log(selectedFilters);
-    // if(!isEqual(this.props.filter, selectedFilters)){
-    //   this.props.setFilter(selectedFilters);
-    // }
+
+    if(!isEqual(this.props.filter, selectedFilters)){
+      this.props.setFilter(selectedFilters);
+    }
   }
 
 
@@ -70,12 +71,12 @@ export class ExperimentDetailGridSearchPage extends React.Component {
             onUpdate={this.onFilterSelection}
           />
           <Wrapper>
-            <Table
-              columns={this.props.gridsearchColumns}
-              dataSource={this.props.gridsearchData}
-              rowKey="id"
-              scroll={{ x: true }}
-            />
+          <GridSearchTable
+            columns={this.props.gridsearchColumns}
+            dataSource={this.props.gridsearchData}
+            rowKey="id"
+            scroll={{ x: true }}
+          />
           </Wrapper>
         </Section>
       </ExperimentDetail>
@@ -125,6 +126,7 @@ const withReducer = injectReducer({
   key: 'experimentDetailGridSearchPage',
   reducer,
 });
+
 const withSaga = injectSaga({ key: 'experimentDetailGridSearchPage', saga });
 
 export default compose(
