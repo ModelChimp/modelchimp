@@ -84,7 +84,7 @@ ExperimentDetailGridSearchPage.propTypes = {
   gridsearchColumns: PropTypes.array,
   match: PropTypes.object,
   selectedParamCols: PropTypes.array,
-  selectedMetricCols: PropTypes.array,
+  selectedMetricCols: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({

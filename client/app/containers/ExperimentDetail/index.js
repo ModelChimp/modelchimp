@@ -140,9 +140,9 @@ ExperimentDetail.propTypes = {
   experimentName: PropTypes.string,
   experimentId: PropTypes.string,
   modelId: PropTypes.string,
-  selectedKeys: PropTypes.array,
+  selectedKeys: PropTypes.string,
   shortExperimentId: PropTypes.string,
-  children: PropTypes.array,
+  children: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

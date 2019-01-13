@@ -82,7 +82,7 @@ ChartMenu.propTypes = {
   setParams: PropTypes.func,
   setMetrics: PropTypes.func,
   selectedParamCols: PropTypes.array,
-  selectedMetricCols: PropTypes.array,
+  selectedMetricCols: PropTypes.string,
 };
 
 function mapDispatchToProps(dispatch) {
