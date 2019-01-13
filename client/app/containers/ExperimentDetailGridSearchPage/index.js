@@ -46,13 +46,13 @@ export class ExperimentDetailGridSearchPage extends React.Component {
           <ChartMenu />
 
           <Plot
-            data={[
+            data={
               parseChartData(
                 this.props.gridsearchData,
                 this.props.selectedParamCols,
                 this.props.selectedMetricCols,
-              ),
-            ]}
+              )
+            }
             layout={{ title: 'Grid Search Plot' }}
             config={{ displayModeBar: false }}
             style={{ width: 'inherit' }}
