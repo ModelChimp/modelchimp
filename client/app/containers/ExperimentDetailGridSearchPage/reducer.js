@@ -11,6 +11,7 @@ import {
   LOAD_EXPERIMENT_DETAIL_GRIDSEARCH_ERROR,
   SET_PARAM_COLS,
   SET_METRIC_COLS,
+  SET_CHART_FILTERS,
 } from './constants';
 
 export const initialState = fromJS({
@@ -26,6 +27,7 @@ export const initialState = fromJS({
     list: null,
     selected: null,
   },
+  filter: null
 });
 
 function experimentDetailGridSearchPageReducer(state = initialState, action) {
@@ -50,6 +52,8 @@ function experimentDetailGridSearchPageReducer(state = initialState, action) {
       return state.setIn(['paramCols', 'selected'], action.paramCols);
     case SET_METRIC_COLS:
       return state.setIn(['metricCols', 'selected'], action.metricCols);
+    case SET_CHART_FILTERS:
+      return state.set('filter', action.filter);
     default:
       return state;
   }

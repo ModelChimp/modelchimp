@@ -22,12 +22,14 @@ import {
   makeSelectExperimentGridSearchColumns,
   makeSelectParamColsSelected,
   makeSelectMetricColsSelected,
+  makeSelectFiltersSelected,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { loadExperimentGridSearchAction } from './actions';
+import { loadExperimentGridSearchAction, setParamColsAction, setFilterAction } from './actions';
 import { parseChartData, parseFilterData } from './parseChartData';
 import ChartMenu from './ChartMenu';
+import { isEqual } from 'lodash';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailGridSearchPage extends React.Component {
@@ -35,6 +37,16 @@ export class ExperimentDetailGridSearchPage extends React.Component {
     this.modelId = this.props.match.params.modelId;
     this.props.getExperimentGridSearchData(this.modelId);
   }
+
+  onFilterSelection = (d) => {
+    const selectedFilters = parseFilterData(d);
+    console.log(d);
+    console.log(selectedFilters);
+    // if(!isEqual(this.props.filter, selectedFilters)){
+    //   this.props.setFilter(selectedFilters);
+    // }
+  }
+
 
   render() {
     return (
@@ -44,7 +56,6 @@ export class ExperimentDetailGridSearchPage extends React.Component {
       >
         <Section name="GridSearch">
           <ChartMenu />
-
           <Plot
             data={
               parseChartData(
@@ -56,7 +67,7 @@ export class ExperimentDetailGridSearchPage extends React.Component {
             layout={{ title: 'Grid Search Plot' }}
             config={{ displayModeBar: false }}
             style={{ width: 'inherit' }}
-            onUpdate={parseFilterData}
+            onUpdate={this.onFilterSelection}
           />
           <Wrapper>
             <Table
@@ -92,12 +103,16 @@ const mapStateToProps = createStructuredSelector({
   gridsearchColumns: makeSelectExperimentGridSearchColumns(),
   selectedParamCols: makeSelectParamColsSelected(),
   selectedMetricCols: makeSelectMetricColsSelected(),
+  filter: makeSelectFiltersSelected(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getExperimentGridSearchData: modelId =>
       dispatch(loadExperimentGridSearchAction(modelId)),
+    setParamCols: paramCols =>
+      dispatch(setParamColsAction(paramCols)),
+    setFilter: filter => dispatch(setFilterAction(filter)),
   };
 }
 

@@ -17,7 +17,6 @@ const parseChartData = (data, paramCols, metricCol) => {
 
   const getRangeValues = colName => {
     let max = 0;
-
     let min = 0;
 
     const values = [];
@@ -140,7 +139,7 @@ const parseFilterData = data => {
     }
 
     for (let i = 0; i < d.values.length; i += 1) {
-      for (let j = 0; i < constraintRange.length; j += 1) {
+      for (let j = 0; j < constraintRange.length; j += 1) {
         if (
           d.tickvals[i] >= constraintRange[j][0] &&
           d.tickvals[i] <= constraintRange[j][1]

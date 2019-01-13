@@ -10,6 +10,7 @@ import {
   LOAD_EXPERIMENT_DETAIL_GRIDSEARCH_ERROR,
   SET_PARAM_COLS,
   SET_METRIC_COLS,
+  SET_CHART_FILTERS,
 } from './constants';
 
 export function loadExperimentGridSearchAction(modelId) {
@@ -56,5 +57,12 @@ export function setMetricColsAction(metricCols) {
   return {
     type: SET_METRIC_COLS,
     metricCols,
+  };
+}
+
+export function setFilterAction(filter) {
+  return {
+    type: SET_CHART_FILTERS,
+    filter,
   };
 }

@@ -16,7 +16,7 @@ import {
   makeSelectParamColsSelected,
   makeSelectMetricColsSelected,
 } from './selectors';
-import { setParamColsAction, setMetricColsAction } from './actions';
+import { setParamColsAction, setMetricColsAction, setFilterAction } from './actions';
 
 const Wrapper = styled.div`
   margin: 10px;
@@ -89,6 +89,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setParams: paramCols => dispatch(setParamColsAction(paramCols)),
     setMetrics: metricCols => dispatch(setMetricColsAction(metricCols)),
+    setFilter: filter => dispatch(setFilterAction(filter)),
   };
 }
 

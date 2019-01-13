@@ -57,6 +57,11 @@ const makeSelectMetricColsSelected = () =>
     substate.getIn(['metricCols', 'selected']),
   );
 
+const makeSelectFiltersSelected = () =>
+  createSelector(selectExperimentDetailGridSearchPageDomain, substate =>
+    substate.get('filter'),
+  );
+
 export {
   selectExperimentDetailGridSearchPageDomain,
   makeSelectExperimentGridSearchData,
@@ -65,4 +70,5 @@ export {
   makeSelectParamColsSelected,
   makeSelectMetricColsList,
   makeSelectMetricColsSelected,
+  makeSelectFiltersSelected,
 };
