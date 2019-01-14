@@ -21,11 +21,12 @@ class ExperimentGridSearchAPI(mixins.RetrieveModelMixin,
 
         # Get the data from DB
         instance = self.get_queryset().get(id=model_id)
-        data = instance.grid_search.get('data', None)
 
         # Return empty response for no data
-        if not data:
-            Response(status=status.HTTP_200_OK)
+        if instance.grid_search is None:
+            return Response(result, status=status.HTTP_200_OK)
+
+        data = instance.grid_search.get('data', None)
 
         # Remove params column
         if 'params' in data:

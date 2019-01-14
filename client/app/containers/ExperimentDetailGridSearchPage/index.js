@@ -53,34 +53,49 @@ export class ExperimentDetailGridSearchPage extends React.Component {
     return null;
   };
 
+  componentWillUnmount() {
+    // clearInterval(this.timer);
+  }
+
   render() {
+    const {gridsearchData, gridsearchColumns,selectedParamCols, selectedMetricCols} = this.props;
+    const renderHTML = gridsearchData && (gridsearchData.length > 0) ? (
+      <Section name="GridSearch">
+
+      <ChartMenu />
+      <Plot
+        data={parseChartData(
+          gridsearchData,
+          selectedParamCols,
+          selectedMetricCols,
+        )}
+        layout={{ title: 'Grid Search Plot' }}
+        config={{ displayModeBar: false }}
+        style={{ width: 'inherit' }}
+        onUpdate={this.onFilterSelection}
+      />
+      <Wrapper>
+        <GridSearchTable
+          columns={gridsearchColumns}
+          dataSource={gridsearchData}
+          rowKey="id"
+          scroll={{ x: true }}
+        />
+      </Wrapper>
+    </Section>
+      ): (
+    <Section name="GridSearch">
+      No Data
+    </Section>
+      );
+
+
     return (
       <ExperimentDetail
         modelId={this.props.match.params.modelId}
         selectedKeys="6"
       >
-        <Section name="GridSearch">
-          <ChartMenu />
-          <Plot
-            data={parseChartData(
-              this.props.gridsearchData,
-              this.props.selectedParamCols,
-              this.props.selectedMetricCols,
-            )}
-            layout={{ title: 'Grid Search Plot' }}
-            config={{ displayModeBar: false }}
-            style={{ width: 'inherit' }}
-            onUpdate={this.onFilterSelection}
-          />
-          <Wrapper>
-            <GridSearchTable
-              columns={this.props.gridsearchColumns}
-              dataSource={this.props.gridsearchData}
-              rowKey="id"
-              scroll={{ x: true }}
-            />
-          </Wrapper>
-        </Section>
+          { renderHTML }
       </ExperimentDetail>
     );
   }
