@@ -19,7 +19,7 @@ Section.propTypes = {
   className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   name: PropTypes.string,
   style: PropTypes.object,
-  children: PropTypes.array,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 };
 
 const StyledSection = styled(Section)`

@@ -142,7 +142,7 @@ ExperimentDetail.propTypes = {
   modelId: PropTypes.string,
   selectedKeys: PropTypes.string,
   shortExperimentId: PropTypes.string,
-  children: PropTypes.object,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 };
 
 const mapStateToProps = createStructuredSelector({
