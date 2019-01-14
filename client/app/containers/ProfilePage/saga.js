@@ -7,11 +7,14 @@ import {
 } from './actions';
 
 export function* getProfileData() {
-  const requestURL = `experiment-detail/${modelId}/metric`;
-  
+  const requestURL = `user`;
+
   try {
     const profileData = yield ModelchimpClient.get(requestURL);
-    yield put(loadProfileSuccessAction(profileData));
+
+    // Modify the avatar url
+    profileData.profile_detail.avatar = ModelchimpClient.getImageUrl(profileData.profile_detail.avatar);
+    yield put(loadProfileSuccessAction(profileData.profile_detail));
   } catch (err) {
     yield put(loadProfilecErrorAction(err));
   }
