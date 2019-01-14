@@ -21,6 +21,7 @@ import ExperimentDetailCodePage from 'containers/ExperimentDetailCodePage/Loadab
 import ExperimentDetailChartPage from 'containers/ExperimentDetailChartPage/Loadable';
 import ExperimentDetailObjectPage from 'containers/ExperimentDetailObjectPage/Loadable';
 import ExperimentDetailGridSearchPage from 'containers/ExperimentDetailGridSearchPage/Loadable';
+import ProfilePage from 'containers/ProfilePage/Loadable';
 
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -67,6 +68,7 @@ export default function App() {
           component={ExperimentDetailMetricPage}
         />
         <PrivateRoute path="/experiment-list/:id" component={ExperimentList} />
+        <PrivateRoute path="/profile" component={ProfilePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/logout" component={Logout} />
         <Route path="" component={NotFoundPage} />

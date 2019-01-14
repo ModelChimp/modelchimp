@@ -27,8 +27,10 @@ class Header extends React.Component {
           </Menu.Item>
 
           <Menu.SubMenu title={<Avatar src={this.props.avatar} />}>
-            <Menu.Item key="setting:1">Profile</Menu.Item>
-            <Menu.Item key="setting:2">
+            <Menu.Item key="profile">
+              <Link to="/profile">Profile</Link>
+            </Menu.Item>
+            <Menu.Item key="logout">
               <Link to="/logout">Logout</Link>
             </Menu.Item>
           </Menu.SubMenu>
