@@ -4,6 +4,8 @@ import { LOAD_PROFILE, UPDATE_PROFILE } from './constants';
 import {
   loadProfileSuccessAction,
   loadProfilecErrorAction,
+  updateProfileSuccessAction,
+  updateProfilecErrorAction
 } from './actions';
 
 export function* getProfileData() {
@@ -13,8 +15,8 @@ export function* getProfileData() {
     const profileData = yield ModelchimpClient.get(requestURL);
 
     // Modify the avatar url
-    profileData.profile_detail.avatar = ModelchimpClient.getImageUrl(profileData.profile_detail.avatar);
-    yield put(loadProfileSuccessAction(profileData.profile_detail));
+    profileData.avatar = ModelchimpClient.getImageUrl(profileData.avatar);
+    yield put(loadProfileSuccessAction(profileData));
   } catch (err) {
     yield put(loadProfilecErrorAction(err));
   }
@@ -23,8 +25,14 @@ export function* getProfileData() {
 export function* updateProfileData({values}) {
   const requestURL = `user`;
 
-  console.log(values);
+  try {
+    const profileData = yield ModelchimpClient.post(requestURL, { body : values });
 
+    // Modify the avatar url
+    yield put(updateProfileSuccessAction(profileData));
+  } catch (err) {
+    yield put(updateProfilecErrorAction(err));
+  }
 }
 
 export default function* profilecData() {

@@ -9,6 +9,9 @@ import {
   LOAD_PROFILE,
   LOAD_PROFILE_SUCCESS,
   LOAD_PROFILE_ERROR,
+  UPDATE_PROFILE,
+  UPDATE_PROFILE_SUCCESS,
+  UPDATE_PROFILE_ERROR
 } from './constants';
 
 export const initialState = fromJS({
@@ -31,6 +34,12 @@ function profilePageReducer(state = initialState, action) {
       return state
               .set('error', action.error)
               .set('loading', false);
+    case UPDATE_PROFILE_SUCCESS:
+      return state
+            .set('loading', false);
+    case UPDATE_PROFILE_ERROR:
+      return state
+              .set('error', action.error);
     default:
       return state;
   }

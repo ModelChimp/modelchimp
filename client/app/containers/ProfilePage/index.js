@@ -38,7 +38,6 @@ export class ProfilePage extends React.Component {
   }
 
   render() {
-    console.log(this.props.profileData.avatar);
     return (
       <Layout className="layout">
         <Helmet>
@@ -63,7 +62,7 @@ export class ProfilePage extends React.Component {
                   </Section>
                 </Col>
             </Row>
-            <EditProfile updateFunc={this.props.updateProfile}/>
+            <EditProfile updateFunc={this.props.updateProfile} data={this.props.profileData} />
 
           </div>
         </ContentCentered>

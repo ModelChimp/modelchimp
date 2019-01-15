@@ -55,7 +55,7 @@ class EditProfile extends React.Component {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-        <WrappedProfileForm updateFunc={this.props.updateFunc}/>
+        <WrappedProfileForm updateFunc={this.props.updateFunc} data={this.props.data}/>
         </Modal>
       </div>
     );
@@ -71,8 +71,20 @@ class ProfileForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
-        this.props.updateFunc(values);
+        let result = new FormData();
+        let valuesKeys = Object.keys(values);
+
+        for(let i=0; i < valuesKeys.length; i+=1){
+          if( values[valuesKeys[i]] !== undefined ){
+            if(valuesKeys[i] === 'avatar'){
+              result.append(valuesKeys[i],  values[valuesKeys[i]][0].originFileObj, values[valuesKeys[i]][0].name );
+            } else {
+              result.append(valuesKeys[i],  values[valuesKeys[i]]);
+            }
+          }
+        }
+
+        this.props.updateFunc(result);
       }
     });
   }
@@ -94,36 +106,41 @@ class ProfileForm extends React.Component {
     }
 
   render() {
-    const { getFieldDecorator } = this.props.form;
+    const { getFieldDecorator, setFieldsValue } = this.props.form;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
     };
+    const {last_name} = this.props.data;
+
+
     return (
       <Form onSubmit={this.handleSubmit}>
       <Form.Item {...formItemLayout} label="First Name">
-        {getFieldDecorator('firstName', {
+        {getFieldDecorator('first_name', {
           rules: [{
             message: 'First Name',
           }],
+          initialValue:this.props.data.first_name
         })(
           <Input placeholder="First Name" />
         )}
       </Form.Item>
       <Form.Item {...formItemLayout} label="Last Name">
-        {getFieldDecorator('lasttName', {
+        {getFieldDecorator('last_name', {
           rules: [{
             message: 'Last Name',
           }],
+          initialValue:this.props.data.last_name
         })(
-          <Input placeholder="Last Name" />
+          <Input placeholder="Last Name"  />
         )}
       </Form.Item>
       <Form.Item
         {...formItemLayout}
         label="Upload"
       >
-        {getFieldDecorator('upload', {
+        {getFieldDecorator('avatar', {
           valuePropName: 'fileList',
           getValueFromEvent: this.normFile,
         })(

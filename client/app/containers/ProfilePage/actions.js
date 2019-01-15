@@ -33,10 +33,11 @@ export function loadProfilecErrorAction(error) {
   };
 }
 
-export function updateProfileAction(values) {
+export function updateProfileAction(values, profilePic) {
   return {
     type: UPDATE_PROFILE,
-    values
+    values,
+    profilePic
   };
 }
 

@@ -14,7 +14,7 @@ class ModelchimpClient {
       this.defaultOptions = {
         headers: {
           Authorization: '',
-          'Content-Type': 'application/json',
+          // 'Content-Type': 'application/json',
         },
       };
       this.baseURL = baseURL;
