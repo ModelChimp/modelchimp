@@ -9,9 +9,8 @@ export function* getHeaderData() {
 
   try {
     let data = yield ModelchimpClient.get(requestURL);
-    let avatarData = ModelchimpClient.getImageUrl(data.avatar);
 
-    yield put(loadHeaderSuccessAction(avatarData));
+    yield put(loadHeaderSuccessAction(data.avatar));
   } catch (err) {
     yield put(loadHeaderErrorAction(err));
   }

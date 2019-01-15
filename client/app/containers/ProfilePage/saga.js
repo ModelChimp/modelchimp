@@ -14,9 +14,6 @@ export function* getProfileData() {
 
   try {
     const profileData = yield ModelchimpClient.get(requestURL);
-
-    // Modify the avatar url
-    profileData.avatar = ModelchimpClient.getImageUrl(profileData.avatar);
     yield put(loadProfileSuccessAction(profileData));
   } catch (err) {
     yield put(loadProfilecErrorAction(err));

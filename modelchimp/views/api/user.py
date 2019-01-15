@@ -19,17 +19,15 @@ class UserAPI(viewsets.ModelViewSet):
 
     def retrieve(self, *args, **kwargs):
         instance = self.get_queryset().get(user=self.request.user.id )
-        serializer = self.serializer_class(instance)
+        serializer = self.get_serializer(instance)
+        #serializer.is_valid(raise_exception=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def update(self, *args, **kwargs):
         user_profile = self.get_queryset().get(user=self.request.user.id )
-        print(user_profile)
-        print(self.request.data)
         serializer = self.get_serializer(user_profile, data=self.request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         # self.perform_update(serializer)
         serializer.save()
-        print(serializer.data)
         return Response(serializer.data)
