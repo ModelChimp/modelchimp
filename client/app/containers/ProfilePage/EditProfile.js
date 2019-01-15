@@ -148,6 +148,7 @@ class EditProfile extends React.Component {
           visible={this.props.modalVisible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          footer={null} 
         >
         <WrappedProfileForm updateFunc={this.props.updateFunc} data={this.props.data}/>
         </Modal>
