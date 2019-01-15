@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import ModelchimpClient from 'utils/modelchimpClient';
-import { LOAD_PROFILE } from './constants';
+import { LOAD_PROFILE, UPDATE_PROFILE } from './constants';
 import {
   loadProfileSuccessAction,
   loadProfilecErrorAction,
@@ -20,6 +20,14 @@ export function* getProfileData() {
   }
 }
 
+export function* updateProfileData({values}) {
+  const requestURL = `user`;
+
+  console.log(values);
+
+}
+
 export default function* profilecData() {
   yield takeLatest(LOAD_PROFILE, getProfileData);
+  yield takeLatest(UPDATE_PROFILE, updateProfileData);
 }

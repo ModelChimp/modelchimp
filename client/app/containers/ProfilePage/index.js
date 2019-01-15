@@ -15,7 +15,7 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectProfile from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { loadProfileAction } from './actions';
+import { loadProfileAction, updateProfileAction } from './actions';
 
 import HeaderWrapper from 'containers/HeaderWrapper';
 import { Layout, Avatar } from 'antd';
@@ -24,6 +24,8 @@ import ContentCentered from 'components/ContentCentered';
 import { Row, Col } from 'antd';
 import ModelchimpClient from 'utils/modelchimpClient';
 import Section from 'components/Section';
+import EditProfile from './EditProfile';
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class ProfilePage extends React.Component {
@@ -61,6 +63,8 @@ export class ProfilePage extends React.Component {
                   </Section>
                 </Col>
             </Row>
+            <EditProfile updateFunc={this.props.updateProfile}/>
+
           </div>
         </ContentCentered>
       </Layout>    );
@@ -80,6 +84,8 @@ function mapDispatchToProps(dispatch) {
   return {
     loadProfile: () =>
       dispatch(loadProfileAction()),
+    updateProfile: (values) =>
+      dispatch(updateProfileAction(values)),
   };
 }
 
