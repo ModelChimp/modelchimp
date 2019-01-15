@@ -10,7 +10,9 @@ import {
   LOAD_PROFILE_ERROR,
   UPDATE_PROFILE,
   UPDATE_PROFILE_SUCCESS,
-  UPDATE_PROFILE_ERROR
+  UPDATE_PROFILE_ERROR,
+  PROFILE_MODAL_OPEN,
+  PROFILE_MODAL_CLOSE,
 } from './constants';
 
 export function loadProfileAction(modelId) {
@@ -41,9 +43,10 @@ export function updateProfileAction(values, profilePic) {
   };
 }
 
-export function updateProfileSuccessAction() {
+export function updateProfileSuccessAction(profileData) {
   return {
     type: UPDATE_PROFILE_SUCCESS,
+    profileData,
   };
 }
 
@@ -51,5 +54,17 @@ export function updateProfilecErrorAction(error) {
   return {
     type: UPDATE_PROFILE_ERROR,
     error,
+  };
+}
+
+export function profileModalOpenAction(error) {
+  return {
+    type: PROFILE_MODAL_OPEN,
+  };
+}
+
+export function profileModalCloseAction(error) {
+  return {
+    type: PROFILE_MODAL_CLOSE,
   };
 }

@@ -12,7 +12,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectProfile from './selectors';
+import {makeSelectProfile} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { loadProfileAction, updateProfileAction } from './actions';

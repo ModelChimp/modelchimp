@@ -9,4 +9,9 @@ const makeSelectProfile = () =>
     return substate.get('profileData');
   });
 
-export default makeSelectProfile;
+const makeSelectModalVisible = () =>
+  createSelector(selectProfilePageDomain, substate => {
+    return substate.get('modalVisible');
+  });
+
+export {makeSelectProfile, makeSelectModalVisible};

@@ -1,70 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import ModelchimpClient from 'utils/modelchimpClient';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {
-  Form, Select, InputNumber, Switch, Radio,
-  Slider, Button, Upload, Icon, Rate, Checkbox,
-  Row, Col,Modal, Input
+  Form, Select, Button, Upload, Icon, Modal, Input
 } from 'antd';
+import {makeSelectModalVisible} from './selectors';
+import { profileModalOpenAction, profileModalCloseAction } from './actions';
+import { createStructuredSelector } from 'reselect';
 
 const { Option } = Select;
 
-
-class EditProfile extends React.Component {
-  state = { visible: false };
-
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  handleOk = () => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-  handleCancel = () => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
-    });
-  }
-
-  render() {
-    return (
-      <div style={this.props.style}>
-        <Button type="primary" onClick={this.showModal}>
-          <span>
-            Edit
-          </span>
-        </Button>
-        <Modal
-          title="Edit Profile"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-        >
-        <WrappedProfileForm updateFunc={this.props.updateFunc} data={this.props.data}/>
-        </Modal>
-      </div>
-    );
-  }
-}
-
-EditProfile.propTypes = {
-  style: PropTypes.object,
-};
 
 class ProfileForm extends React.Component {
   handleSubmit = (e) => {
@@ -160,6 +108,74 @@ class ProfileForm extends React.Component {
     );
   }
 }
+
 const WrappedProfileForm = Form.create({ name: 'profile' })(ProfileForm);
 
-export default EditProfile;
+class EditProfile extends React.Component {
+  state = { visible: false };
+
+  showModal = () => {
+    this.props.profileModalOpen();
+  };
+
+  handleOk = () => {
+    this.props.profileModalClose();
+  };
+
+  handleCancel = () => {
+    this.props.profileModalClose();
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
+
+  render() {
+    return (
+      <div style={this.props.style}>
+        <Button type="primary" onClick={this.showModal}>
+          <span>
+            Edit
+          </span>
+        </Button>
+        <Modal
+          title="Edit Profile"
+          visible={this.props.modalVisible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+        <WrappedProfileForm updateFunc={this.props.updateFunc} data={this.props.data}/>
+        </Modal>
+      </div>
+    );
+  }
+}
+
+EditProfile.propTypes = {
+  style: PropTypes.object,
+};
+
+const mapStateToProps = createStructuredSelector({
+  modalVisible: makeSelectModalVisible(),
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    profileModalOpen: () =>
+      dispatch(profileModalOpenAction()),
+    profileModalClose: () =>
+      dispatch(profileModalCloseAction()),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditProfile);
+
+// export default EditProfile;

@@ -5,7 +5,8 @@ import {
   loadProfileSuccessAction,
   loadProfilecErrorAction,
   updateProfileSuccessAction,
-  updateProfilecErrorAction
+  updateProfilecErrorAction,
+  profileModalCloseAction,
 } from './actions';
 
 export function* getProfileData() {
@@ -27,8 +28,6 @@ export function* updateProfileData({values}) {
 
   try {
     const profileData = yield ModelchimpClient.post(requestURL, { body : values });
-
-    // Modify the avatar url
     yield put(updateProfileSuccessAction(profileData));
   } catch (err) {
     yield put(updateProfilecErrorAction(err));
