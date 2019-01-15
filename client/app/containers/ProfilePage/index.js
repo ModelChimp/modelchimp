@@ -55,10 +55,10 @@ export class ProfilePage extends React.Component {
                 </Col>
                 <Col xs={{ span: 5, offset: 1 }} lg={{ span: 8, offset: 4 }} >
                   <Section name="First Name" h3={true}>
-                    {this.props.profileData.first_name}
+                    <span>{this.props.profileData.first_name}</span>
                   </Section>
                   <Section name="Last Name" h3={true}>
-                    {this.props.profileData.last_name}
+                    <span>{this.props.profileData.last_name}</span>
                   </Section>
                 </Col>
             </Row>
