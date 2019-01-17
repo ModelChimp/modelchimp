@@ -80,9 +80,14 @@ class ModelchimpClient {
   //   // return axios.patch(url, params, { ...this.defaultOptions });
   // }
   //
-  // put(url, params = {}) {
-  //   // return axios.put(url, params, { ...this.defaultOptions });
-  // }
+  put(url, params = {}) {
+    const targetURL = this.baseURL + this.apiURL + url;
+    return call(request, targetURL, {
+      ...this.defaultOptions,
+      method: 'PUT',
+      ...params,
+    });
+  }
   //
   // delete(url) {
   //   // return axios.delete(url, { ...this.defaultOptions });

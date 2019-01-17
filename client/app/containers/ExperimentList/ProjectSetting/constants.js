@@ -19,3 +19,7 @@ export const LOAD_PROJECT_MEMBERS_DELETE = 'app/ProjectSetting/LOAD_PROJECT_MEMB
 export const SEND_INVITE = 'app/ProjectSetting/SEND_INVITE';
 export const SEND_INVITE_SUCCESS = 'app/ProjectSetting/SEND_INVITE_SUCCESS';
 export const SEND_INVITE_ERROR = 'app/ProjectSetting/SEND_INVITE_ERROR';
+
+export const SUCCESS_INFO_MESSAGE = 'app/ProjectSetting/SUCCESS_INFO_MESSAGE';
+export const ERROR_INFO_MESSAGE = 'app/ProjectSetting/ERROR_INFO_MESSAGE';
+export const RESET_UPDATE_FLAG = 'app/ProjectSetting/ERROR_INFO_MESSAGE';

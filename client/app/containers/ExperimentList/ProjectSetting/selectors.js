@@ -16,8 +16,7 @@ const selectProjectSettingDomain = state =>
  * Default selector used by ProjectSetting
  */
 
-const makeSelectProjectSetting = () =>
-  createSelector(selectProjectSettingDomain, substate => substate.toJS());
+const makeSelectUpdateFlag = () =>
+  createSelector(selectProjectSettingDomain, substate => substate.get('update'));
 
-export default makeSelectProjectSetting;
-export { selectProjectSettingDomain };
+export { makeSelectUpdateFlag };

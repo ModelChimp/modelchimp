@@ -12,12 +12,12 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectProjectSetting from './selectors';
+import {makeSelectUpdateFlag} from './selectors';
 import Section from 'components/Section';
-import { Button, Modal } from 'antd';
+import { Button, Modal,message } from 'antd';
 import { makeSelectProjectDetail } from 'containers/ProjectDetail/selectors';
 import DetailEditForm from './DetailEditForm';
-
+import {resetUpdateAction} from './actions';
 /* eslint-disable react/prefer-stateless-function */
 export class Detail extends React.Component {
   state = {
@@ -51,7 +51,16 @@ export class Detail extends React.Component {
     });
   };
 
+  componentDidUpdate(){
+    if(this.props.updateFlag){
+      message.info('Success');
+      this.props.resetUpdate();
+    }
+  }
+
   render() {
+
+
     return <div>
       <div>
       <b>Project Name:</b>  {this.props.projectDetail.name}
@@ -93,17 +102,17 @@ export class Detail extends React.Component {
 }
 
 Detail.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  resetUpdate: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  projectSetting: makeSelectProjectSetting(),
+  updateFlag: makeSelectUpdateFlag(),
   projectDetail: makeSelectProjectDetail(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    resetUpdate: () => dispatch(resetUpdateAction()),
   };
 }
 

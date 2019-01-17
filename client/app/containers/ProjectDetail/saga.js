@@ -7,7 +7,7 @@ import {
 } from './actions';
 
 function* getProjectDetail({ projectId }) {
-  const projectURL = `project/${projectId}`;
+  const projectURL = `project/${projectId}/`;
   const projectKeyURL = `project/key/${projectId}/`;
 
   try {

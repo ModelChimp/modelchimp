@@ -12,7 +12,7 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectProjectSetting from './selectors';
+import {makeSelectUpdateFlag} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -44,7 +44,7 @@ ProjectSetting.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  projectSetting: makeSelectProjectSetting(),
+  // projectSetting: makeSelectProjectSetting(),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -6,7 +6,7 @@ import {
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectProjectDetail } from 'containers/ProjectDetail/selectors';
-
+import { updateProjectAction } from './actions';
 
 class RegistrationForm extends React.Component {
   state = {
@@ -17,7 +17,8 @@ class RegistrationForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        const projectId = this.props.projectDetail.id;
+        this.props.updateProject(projectId, values);
       }
     });
   }
@@ -68,7 +69,7 @@ class RegistrationForm extends React.Component {
           {...formItemLayout}
           label="Description"
         >
-          {getFieldDecorator('password', {
+          {getFieldDecorator('description', {
             rules: [{
               message: 'Please add the description',
             }],
@@ -89,7 +90,7 @@ const WrappedEditDetailForm = Form.create({ name: 'editDetails' })(RegistrationF
 
 
 WrappedEditDetailForm.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  updateProject: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -98,7 +99,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    updateProject: (projectId, projectData) => dispatch(updateProjectAction(projectId, projectData)),
   };
 }
 

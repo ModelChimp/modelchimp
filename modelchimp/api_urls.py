@@ -22,7 +22,7 @@ from rest_framework.authtoken import views
 urlpatterns = [
     url(r'^api-token-auth/', views.obtain_auth_token),
     url(r'project/$', project.ProjectAPI.as_view(), name='project'),
-    url(r'project/(?P<project_id>\d+)$', project.ProjectAPI.as_view(),
+    url(r'project/(?P<project_id>\d+)/$', project.ProjectAPI.as_view(),
         name='project'),
     url(r'project/(?P<project_id>\d+)/dashboard/experiment-metric/$',
         project_dashboard.experiment_metric_chart,
