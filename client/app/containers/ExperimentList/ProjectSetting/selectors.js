@@ -19,4 +19,9 @@ const selectProjectSettingDomain = state =>
 const makeSelectUpdateFlag = () =>
   createSelector(selectProjectSettingDomain, substate => substate.get('update'));
 
-export { makeSelectUpdateFlag };
+  const makeSelectDeleteFlag = () =>
+    createSelector(selectProjectSettingDomain, substate => substate.get('delete'));
+
+export { makeSelectUpdateFlag,
+        makeSelectDeleteFlag,
+      };

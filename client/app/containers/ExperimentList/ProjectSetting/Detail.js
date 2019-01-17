@@ -12,12 +12,16 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import {makeSelectUpdateFlag} from './selectors';
+import {makeSelectUpdateFlag, makeSelectDeleteFlag} from './selectors';
 import Section from 'components/Section';
 import { Button, Modal,message } from 'antd';
 import { makeSelectProjectDetail } from 'containers/ProjectDetail/selectors';
 import DetailEditForm from './DetailEditForm';
-import {resetUpdateAction} from './actions';
+import {resetStateAction, deleteProjectAction} from './actions';
+import { Redirect } from 'react-router-dom';
+
+
+
 /* eslint-disable react/prefer-stateless-function */
 export class Detail extends React.Component {
   state = {
@@ -51,15 +55,26 @@ export class Detail extends React.Component {
     });
   };
 
+  deleteProject = () => {
+    const projectId = this.props.projectDetail.id;
+    this.props.deleteProject(projectId);
+  };
+
   componentDidUpdate(){
     if(this.props.updateFlag){
       message.info('Success');
-      this.props.resetUpdate();
+      this.props.resetState();
+    }
+
+    if(this.props.deleteFlag){
+      message.info('Project Successfully Deleted');
+      this.props.resetState();
+
     }
   }
 
   render() {
-
+    if(this.props.deleteFlag) return <Redirect to="/projects" />;
 
     return <div>
       <div>
@@ -93,7 +108,9 @@ export class Detail extends React.Component {
         >
         Are you sure you want to delete this project?
         <div style={{textAlign:'center', marginTop:'20px'}}>
-          <Button type="danger" htmlType="submit">DELETE PROJECT</Button>
+          <Button type="danger" htmlType="submit" onClick={this.deleteProject}>
+            DELETE PROJECT
+          </Button>
         </div>
       </Modal>
 
@@ -102,17 +119,19 @@ export class Detail extends React.Component {
 }
 
 Detail.propTypes = {
-  resetUpdate: PropTypes.func.isRequired,
+  resetState: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   updateFlag: makeSelectUpdateFlag(),
+  deleteFlag: makeSelectDeleteFlag(),
   projectDetail: makeSelectProjectDetail(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    resetUpdate: () => dispatch(resetUpdateAction()),
+    resetState: () => dispatch(resetStateAction()),
+    deleteProject: (projectId) => dispatch(deleteProjectAction(projectId)),
   };
 }
 

@@ -37,8 +37,8 @@ class ProjectAPI(generics.ListCreateAPIView, mixins.UpdateModelMixin):
 
 		return self.list(request, st=status.HTTP_201_CREATED)
 
-	def delete(self, request, format=None):
-		pid = request.data.get('project_id')
+	def delete(self, request, project_id, format=None):
+		pid = project_id
 		user = request.user
 
 		project_obj = Project.objects.get(pk=pid)

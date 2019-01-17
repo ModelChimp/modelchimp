@@ -8,7 +8,10 @@ import {
   UPDATE_PROJECT_DETAILS,
   UPDATE_PROJECT_DETAILS_SUCCESS,
   UPDATE_PROJECT_DETAILS_ERROR,
-  RESET_UPDATE_FLAG,
+  DELETE_PROJECT_DETAILS,
+  DELETE_PROJECT_DETAILS_SUCCESS,
+  DELETE_PROJECT_DETAILS_ERROR,
+  RESET_STATE_FLAG,
  } from './constants';
 
 export function updateProjectAction(projectId, projectData) {
@@ -32,8 +35,27 @@ export function updateProjectErrorAction() {
   };
 }
 
-export function resetUpdateAction() {
+export function resetStateAction() {
   return {
-    type: RESET_UPDATE_FLAG,
+    type: RESET_STATE_FLAG,
+  };
+}
+
+export function deleteProjectAction(projectId) {
+  return {
+    type: DELETE_PROJECT_DETAILS,
+    projectId
+  };
+}
+
+export function deleteProjectSuccessAction(projectData) {
+  return {
+    type: DELETE_PROJECT_DETAILS_SUCCESS,
+  };
+}
+
+export function deleteProjectErrorAction() {
+  return {
+    type: DELETE_PROJECT_DETAILS_ERROR,
   };
 }
