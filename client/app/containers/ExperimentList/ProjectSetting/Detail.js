@@ -79,10 +79,13 @@ export class Detail extends React.Component {
       <Modal
         title="Delete Project"
         visible={this.state.deleteModalVisible}
-        onOk={this.handleOk}
         onCancel={this.handleCancel}
+        footer={null}
         >
         Are you sure you want to delete this project?
+        <div style={{textAlign:'center', marginTop:'20px'}}>
+          <Button type="danger" htmlType="submit">DELETE PROJECT</Button>
+        </div>
       </Modal>
 
     </div>;
