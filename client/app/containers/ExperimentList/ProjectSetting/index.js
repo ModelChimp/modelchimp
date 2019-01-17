@@ -16,10 +16,26 @@ import makeSelectProjectSetting from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
+import SiderMenu from './SiderMenu';
+import ContentCentered from 'components/ContentCentered';
+import { Layout } from 'antd'
+
+
 /* eslint-disable react/prefer-stateless-function */
 export class ProjectSetting extends React.Component {
   render() {
-    return <div>Setting Page</div>;
+    return <ContentCentered style={{width:'60vw', marginTop:'40px'}}>
+            <Layout>
+              <SiderMenu>
+                  Some Content
+              </SiderMenu>
+              <Layout style={{ padding: '0 24px 24px' }}>
+                <Layout.Content>
+                  Some Content
+                </Layout.Content>
+              </Layout>
+            </Layout>
+          </ContentCentered>;
   }
 }
 
