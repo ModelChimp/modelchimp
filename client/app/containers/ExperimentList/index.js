@@ -30,6 +30,9 @@ import reducer from './reducer';
 import saga from './saga';
 import { getDataAction, loadExperimentAction } from './actions';
 import ExperimentMenu from './ExperimentMenu/index';
+import ProjectSetting from './ProjectSetting';
+import { makeSelectMenuKey } from './ExperimentMenu/selectors';
+import { MENU_SETTING } from './ExperimentMenu/constants';
 
 export class ExperimentList extends React.Component {
   componentDidMount() {
@@ -115,6 +118,27 @@ export class ExperimentList extends React.Component {
   }
 
   render() {
+    const getContent = () => {
+      let content = '';
+
+      if(this.props.menuKey === MENU_SETTING){
+        content = <ProjectSetting />;
+      } else {
+        content = this.props.loading ? (
+                        <LoadingIndicator />
+                      ) : (
+                        <Table
+                          columns={this.addOptionalColumns(this.columns)}
+                          dataSource={this.props.experimentList}
+                          rowKey="id"
+                        />
+                    );
+      }
+
+      return content;
+    }
+
+
     return (
       <Layout className="layout">
         <Helmet>
@@ -131,15 +155,7 @@ export class ExperimentList extends React.Component {
             style={{ marginTop: '50px', background: '#F0F2F5' }}
             projectId={this.props.match.params.id}
           />
-          {this.props.loading ? (
-            <LoadingIndicator />
-          ) : (
-            <Table
-              columns={this.addOptionalColumns(this.columns)}
-              dataSource={this.props.experimentList}
-              rowKey="id"
-            />
-          )}
+        { getContent() }
         </Content>
       </Layout>
     );
@@ -229,6 +245,7 @@ const mapStateToProps = createStructuredSelector({
   optionalColumns: makeSelectExperimentColumns(),
   optionalMetricColumns: makeSelectExperimentMetricColumns(),
   optionalColumnsPID: makeSelectExperimentColumnsPID(),
+  menuKey: makeSelectMenuKey(),
 });
 
 function mapDispatchToProps(dispatch) {
