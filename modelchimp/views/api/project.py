@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from rest_framework import generics, status
+from rest_framework import generics, status, mixins
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -9,7 +9,7 @@ from modelchimp.models.membership import Membership
 from modelchimp.serializers.project import ProjectSerializer
 
 
-class ProjectAPI(generics.ListCreateAPIView):
+class ProjectAPI(generics.ListCreateAPIView, mixins.UpdateModelMixin):
 	serializer_class = ProjectSerializer
 	queryset = Project.objects.all()
 
@@ -50,3 +50,13 @@ class ProjectAPI(generics.ListCreateAPIView):
 			return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 		return Response(status=status.HTTP_204_NO_CONTENT)
+
+	def update(self, request, project_id, *args, **kwargs):
+		instance = self.get_queryset().get(id=project_id )
+		serializer = self.get_serializer(instance, data=self.request.data, partial=True)
+		serializer.is_valid(raise_exception=True)
+		serializer.save()
+		return Response(serializer.data, status=status.HTTP_200_OK)
+
+	def put(self, request, *args, **kwargs):
+	    return self.update(request, *args, **kwargs)

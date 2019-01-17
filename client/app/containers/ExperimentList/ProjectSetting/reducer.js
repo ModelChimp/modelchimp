@@ -5,9 +5,16 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION } from './constants';
+import {
+  UPDATE_PROJECT_DETAILS,
+  UPDATE_PROJECT_DETAILS_SUCCESS,
+  UPDATE_PROJECT_DETAILS_ERROR,
+ } from './constants';
 
-export const initialState = fromJS({});
+export const initialState = fromJS({
+
+
+});
 
 function projectSettingReducer(state = initialState, action) {
   switch (action.type) {

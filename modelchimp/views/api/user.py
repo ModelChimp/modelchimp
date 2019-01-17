@@ -10,8 +10,6 @@ from modelchimp.api_permissions import HasProjectMembership
 from rest_framework.permissions import IsAuthenticated
 
 
-# class UserAPI(mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
-#                                 viewsets.GenericViewSet):
 class UserAPI(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
