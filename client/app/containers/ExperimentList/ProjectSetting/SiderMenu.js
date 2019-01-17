@@ -23,13 +23,12 @@ class Sider extends React.Component {
 
   render() {
     return (
-      <Layout.Sider width={200} style={{ background: '#fff' }}>
+      <Layout.Sider width={200} style={{ background: '#F0F2F5' }}>
         <Menu
           className={this.props.className}
           mode="inline"
           openKeys={this.state.openKeys}
           onOpenChange={this.onOpenChange}
-          style={{ height: '100%'}}
         >
             <Menu.Item key="1">Project Details</Menu.Item>
             <Menu.Item key="2">Members</Menu.Item>
