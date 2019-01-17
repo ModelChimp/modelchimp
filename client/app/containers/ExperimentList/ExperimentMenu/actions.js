@@ -4,6 +4,7 @@ import {
   LOAD_MENU_PARAMETER_ERROR,
   SET_COLUMN_TARGET_KEY,
   SET_COLUMN_TARGET_METRIC_KEY,
+  ON_MENU_SELECT,
 } from './constants';
 
 export function loadMenuParameterAction(projectId) {
@@ -38,5 +39,12 @@ export function setMetricTargetKeysAction(targetMetricKeys) {
   return {
     type: SET_COLUMN_TARGET_METRIC_KEY,
     targetMetricKeys,
+  };
+}
+
+export function onMenuSelectionAction(menuKey) {
+  return {
+    type: ON_MENU_SELECT,
+    menuKey,
   };
 }

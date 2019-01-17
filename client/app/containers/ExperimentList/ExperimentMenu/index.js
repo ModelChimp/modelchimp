@@ -19,6 +19,7 @@ import {
   makeSelectExperimentMenuMetric,
   makeSelectTargetKeys,
   makeSelectTargetMetricKeys,
+  makeSelectMenuKey,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -27,8 +28,15 @@ import {
   loadMenuParameterAction,
   setTargetKeysAction,
   setMetricTargetKeysAction,
+  onMenuSelectionAction,
 } from './actions';
 import { setExperimentColumnAction } from '../actions';
+import {
+  MENU_EXPERIMENT,
+  MENU_SETTING,
+  MENU_CUSTOMIZE_TABLE,
+} from './constants';
+
 
 class ExperimentMenu extends React.Component {
   state = {
@@ -42,9 +50,9 @@ class ExperimentMenu extends React.Component {
   }
 
   handleClick = e => {
-    this.setState({
-      current: e.key,
-    });
+    const key = e.key === MENU_CUSTOMIZE_TABLE? MENU_EXPERIMENT : e.key;
+
+    this.props.onMenuSelection(key);
   };
 
   showModal = () => {
@@ -101,46 +109,48 @@ class ExperimentMenu extends React.Component {
       <Menu
         className={this.props.className}
         onClick={this.handleClick}
-        selectedKeys={[this.state.current]}
+        selectedKeys={[this.props.menuKey]}
         mode="horizontal"
         style={this.props.style}
       >
-        <Menu.Item key="experiments">
+        <Menu.Item key={MENU_EXPERIMENT}>
           <Icon type="bars" />
           Experiments
         </Menu.Item>
-        <Menu.Item key="setting">
+        <Menu.Item key={MENU_SETTING}>
           <Icon type="setting" /> Setting
         </Menu.Item>
 
-        <Menu.Item key="customize-table" style={{ float: 'right' }}>
-          <Button type="primary" onClick={this.showModal}>
-            <span>Customize Table</span>
-          </Button>
-          <Modal
-            title="Columns"
-            visible={this.state.visible}
-            onOk={this.handleOk}
-            onCancel={this.handleCancel}
-          >
-            <Section name="Metric">
-              <Transfer
-                dataSource={this.props.menuMetric}
-                targetKeys={this.props.targetMetricKeys}
-                onChange={this.handleMetricChange}
-                render={item => item.title}
-              />
-            </Section>
-            <Section name="Parameter">
-              <Transfer
-                dataSource={this.props.menuParam}
-                targetKeys={this.props.targetKeys}
-                onChange={this.handleParamChange}
-                render={item => item.title}
-              />
-            </Section>
-          </Modal>
-        </Menu.Item>
+        { this.props.menuKey !== MENU_SETTING ? (
+          <Menu.Item key={MENU_CUSTOMIZE_TABLE} style={{ float: 'right' }}>
+            <Button type="primary" onClick={this.showModal}>
+              <span>Customize Table</span>
+            </Button>
+            <Modal
+              title="Columns"
+              visible={this.state.visible}
+              onOk={this.handleOk}
+              onCancel={this.handleCancel}
+            >
+              <Section name="Metric">
+                <Transfer
+                  dataSource={this.props.menuMetric}
+                  targetKeys={this.props.targetMetricKeys}
+                  onChange={this.handleMetricChange}
+                  render={item => item.title}
+                />
+              </Section>
+              <Section name="Parameter">
+                <Transfer
+                  dataSource={this.props.menuParam}
+                  targetKeys={this.props.targetKeys}
+                  onChange={this.handleParamChange}
+                  render={item => item.title}
+                />
+              </Section>
+            </Modal>
+          </Menu.Item>
+        ) : null}
       </Menu>
     );
   }
@@ -163,6 +173,7 @@ ExperimentMenu.propTypes = {
 const mapStateToProps = createStructuredSelector({
   menuParam: makeSelectExperimentMenuParameter(),
   menuMetric: makeSelectExperimentMenuMetric(),
+  menuKey: makeSelectMenuKey(),
   targetKeys: makeSelectTargetKeys(),
   targetMetricKeys: makeSelectTargetMetricKeys(),
 });
@@ -176,6 +187,10 @@ function mapDispatchToProps(dispatch) {
     setTargetKeys: targetKeys => dispatch(setTargetKeysAction(targetKeys)),
     setTargetMetricKeys: targetMetricKeys =>
       dispatch(setMetricTargetKeysAction(targetMetricKeys)),
+    setTargetMetricKeys: targetMetricKeys =>
+      dispatch(setMetricTargetKeysAction(targetMetricKeys)),
+    onMenuSelection: menuKey =>
+      dispatch(onMenuSelectionAction(menuKey)),
   };
 }
 
