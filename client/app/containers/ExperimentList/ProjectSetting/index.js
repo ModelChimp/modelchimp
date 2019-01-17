@@ -19,7 +19,7 @@ import saga from './saga';
 import SiderMenu from './SiderMenu';
 import ContentCentered from 'components/ContentCentered';
 import { Layout } from 'antd'
-
+import Detail from './Detail';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ProjectSetting extends React.Component {
@@ -31,7 +31,7 @@ export class ProjectSetting extends React.Component {
               </SiderMenu>
               <Layout style={{ padding: '0 24px 24px' }}>
                 <Layout.Content>
-                  Some Content
+                  <Detail />
                 </Layout.Content>
               </Layout>
             </Layout>
