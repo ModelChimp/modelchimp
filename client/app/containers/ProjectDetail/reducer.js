@@ -14,6 +14,7 @@ export const initialState = fromJS({
   projectDetail: {
     name: null,
     description: null,
+    members:null
   },
   projectKey: null,
 });

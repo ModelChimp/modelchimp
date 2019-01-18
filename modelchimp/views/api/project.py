@@ -19,7 +19,7 @@ class ProjectAPI(generics.ListCreateAPIView, mixins.UpdateModelMixin):
 		else:
 			queryset = self.get_queryset().filter(membership__user=self.request.user).order_by('-date_created')
 
-		serializer = ProjectSerializer(queryset, many=True, context={'user_id': self.request.user.id})
+		serializer = self.get_serializer(queryset, many=True, context={'user_id': self.request.user.id})
 		if st is None:
 			st = status.HTTP_200_OK
 
