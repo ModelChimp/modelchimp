@@ -14,10 +14,13 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {makeSelectUpdateFlag, makeSelectDeleteFlag} from './selectors';
 import Section from 'components/Section';
-import { Button, Modal, message, Layout } from 'antd';
+import { Button, Modal, message, Layout, Form, Icon, Input } from 'antd';
 import { makeSelectProjectDetail } from 'containers/ProjectDetail/selectors';
 import styled from 'styled-components';
 
+/*
+* Member component
+*/
 const Member = ({ className, profilePic, firstName, lastName }) => (
   <div className={className}>
     <img
@@ -44,13 +47,81 @@ const StyledMember = styled(Member)`
 `;
 
 
+/*
+* Invite Form
+*/
+function hasErrors(fieldsError) {
+  return Object.keys(fieldsError).some(field => fieldsError[field]);
+}
 
-/* eslint-disable react/prefer-stateless-function */
+class InviteForm extends React.Component {
+  componentDidMount() {
+    // To disabled submit button at the beginning.
+    this.props.form.validateFields();
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
+
+  render() {
+    const {
+      getFieldDecorator, getFieldsError, getFieldError, isFieldTouched,
+    } = this.props.form;
+
+    const emailError = isFieldTouched('email') && getFieldError('email');
+    return (
+      <Form layout="inline" onSubmit={this.handleSubmit} style={this.props.style}>
+        <Form.Item
+          style={{width:'20%'}}
+          >
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={hasErrors(getFieldsError())}
+            style={{width:'150%'}}
+          >
+            Invite
+          </Button>
+        </Form.Item>
+        <Form.Item
+          wrapperCol={{span: 24}}
+          style={{width:'70%'}}
+          validateStatus={emailError ? 'error' : ''}
+          help={emailError || ''}
+         >
+           {getFieldDecorator('email', {
+             rules: [{
+               type: 'email', message: 'The input is not valid E-mail!',
+             }, {
+               required: true, message: 'Please input your E-mail!',
+             }],
+           })(
+             <Input placeholder="Please input the email"/>
+           )}
+         </Form.Item>
+      </Form>
+    );
+  }
+}
+
+const WrappedInviteForm = Form.create({ name: 'invite_form' })(InviteForm);
+
+
+/*
+* Main component
+*/
 export class Members extends React.Component {
   render() {
     const members = this.props.projectDetail.members;
     return members ? (
       <Layout>
+      <WrappedInviteForm style={{marginBottom:'30px'}}/>
       {members.map((e)=> <StyledMember key={e.id}
                                   firstName={e.first_name}
                                   lastName={e.last_name}
@@ -65,8 +136,6 @@ Members.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  // updateFlag: makeSelectUpdateFlag(),
-  // deleteFlag: makeSelectDeleteFlag(),
   projectDetail: makeSelectProjectDetail(),
 });
 
