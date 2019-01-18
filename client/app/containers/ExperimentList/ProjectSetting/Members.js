@@ -17,7 +17,7 @@ import Section from 'components/Section';
 import { Button, Modal, message, Layout, Form, Icon, Input } from 'antd';
 import { makeSelectProjectDetail } from 'containers/ProjectDetail/selectors';
 import styled from 'styled-components';
-
+import { sendInviteAction } from './actions';
 /*
 * Member component
 */
@@ -64,7 +64,9 @@ class InviteForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        const projectId = this.props.projectId;
+
+        this.props.dispatch(sendInviteAction(values, projectId))
       }
     });
   }
@@ -95,7 +97,7 @@ class InviteForm extends React.Component {
           validateStatus={emailError ? 'error' : ''}
           help={emailError || ''}
          >
-           {getFieldDecorator('email', {
+           {getFieldDecorator('to_email', {
              rules: [{
                type: 'email', message: 'The input is not valid E-mail!',
              }, {
@@ -118,10 +120,16 @@ const WrappedInviteForm = Form.create({ name: 'invite_form' })(InviteForm);
 */
 export class Members extends React.Component {
   render() {
+
     const members = this.props.projectDetail.members;
+    const projectId =this.props.match.params.id;
+
     return members ? (
       <Layout>
-      <WrappedInviteForm style={{marginBottom:'30px'}}/>
+      <WrappedInviteForm style={{marginBottom:'30px'}}
+        projectId={projectId}
+        dispatch={this.props.dispatch}
+         />
       {members.map((e)=> <StyledMember key={e.id}
                                   firstName={e.first_name}
                                   lastName={e.last_name}

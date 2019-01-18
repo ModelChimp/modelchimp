@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 
 from modelchimp.models.user import User
+from modelchimp.models.project import Project
 from modelchimp.models.invitation import Invitation
 from modelchimp.models.membership import Membership
 from modelchimp.serializers.invitation import InvitationSerializer
@@ -24,17 +25,19 @@ class SendInviteAPI(generics.CreateAPIView):
     queryset = Invitation.objects.all()
     permission_classes = (IsAuthenticated, HasProjectMembership)
 
-    def create(self, request, *args, **kwargs):
+    def create(self, request, project_id, *args, **kwargs):
         data = request.data.copy()
         data['from_user'] = request.user.id
+        project = Project.objects.get(id=project_id)
+        data['project'] = project.id
         serializer = self.serializer_class(data=data)
+        serializer.is_valid()
 
         if serializer.is_valid():
             saved_instance = serializer.save()
 
             #Check if the from user is member of the project
             from_user = serializer.validated_data['from_user']
-            project = serializer.validated_data['project']
 
             #Create the content for the email
             current_site = request.META['HTTP_HOST']

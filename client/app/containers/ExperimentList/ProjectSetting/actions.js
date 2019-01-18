@@ -13,6 +13,9 @@ import {
   DELETE_PROJECT_DETAILS_ERROR,
   RESET_STATE_FLAG,
   SET_MENU_KEY,
+  SEND_INVITE,
+  SEND_INVITE_SUCCESS,
+  SEND_INVITE_ERROR,
  } from './constants';
 
 
@@ -66,5 +69,27 @@ export function setMenuKey(key) {
   return {
     type: SET_MENU_KEY,
     key
+  };
+}
+
+
+
+export function sendInviteAction(values, projectId) {
+  return {
+    type: SEND_INVITE,
+    values,
+    projectId,
+  };
+}
+
+export function sendInviteSuccessAction() {
+  return {
+    type: SEND_INVITE_SUCCESS,
+  };
+}
+
+export function sendInviteErrorAction() {
+  return {
+    type: SEND_INVITE_ERROR,
   };
 }
