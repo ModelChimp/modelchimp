@@ -12,7 +12,9 @@ import {
   DELETE_PROJECT_DETAILS_SUCCESS,
   DELETE_PROJECT_DETAILS_ERROR,
   RESET_STATE_FLAG,
+  SET_MENU_KEY,
  } from './constants';
+
 
 export function updateProjectAction(projectId, projectData) {
   return {
@@ -57,5 +59,12 @@ export function deleteProjectSuccessAction(projectData) {
 export function deleteProjectErrorAction() {
   return {
     type: DELETE_PROJECT_DETAILS_ERROR,
+  };
+}
+
+export function setMenuKey(key) {
+  return {
+    type: SET_MENU_KEY,
+    key
   };
 }

@@ -23,3 +23,7 @@ export const SEND_INVITE_ERROR = 'app/ProjectSetting/SEND_INVITE_ERROR';
 export const SUCCESS_INFO_MESSAGE = 'app/ProjectSetting/SUCCESS_INFO_MESSAGE';
 export const ERROR_INFO_MESSAGE = 'app/ProjectSetting/ERROR_INFO_MESSAGE';
 export const RESET_STATE_FLAG = 'app/ProjectSetting/RESET_UPDATE_FLAG';
+
+export const DETAILS_KEY = 'app/ProjectSetting/DETAILS_KEY';
+export const MEMBERS_KEY = 'app/ProjectSetting/MEMBERS_KEY';
+export const SET_MENU_KEY = 'app/ProjectSetting/SET_MENU_KEY';

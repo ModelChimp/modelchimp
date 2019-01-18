@@ -20,13 +20,19 @@ import SiderMenu from './SiderMenu';
 import ContentCentered from 'components/ContentCentered';
 import { Layout } from 'antd'
 import Detail from './Detail';
+import { setMenuKey } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ProjectSetting extends React.Component {
+  onMenuClick = ({key}) => {
+    this.props.dispatch(setMenuKey(key));
+  }
+
+
   render() {
     return <ContentCentered style={{width:'60vw', marginTop:'40px'}}>
             <Layout>
-              <SiderMenu>
+              <SiderMenu onClick={this.onMenuClick}>
                   Some Content
               </SiderMenu>
               <Layout style={{ padding: '0 24px 24px' }}>

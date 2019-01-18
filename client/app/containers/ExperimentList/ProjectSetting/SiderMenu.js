@@ -2,36 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Menu, Icon, Layout } from 'antd';
+import { DETAILS_KEY, MEMBERS_KEY } from './constants';
 
 class Sider extends React.Component {
-  // submenu keys of first level
-
-  state = {
-    openKeys: ['sub1'],
-  };
-
-  onOpenChange = (openKeys) => {
-    const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
-    if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-      this.setState({ openKeys });
-    } else {
-      this.setState({
-        openKeys: latestOpenKey ? [latestOpenKey] : [],
-      });
-    }
-  }
-
   render() {
     return (
       <Layout.Sider width={200} style={{ background: '#F0F2F5' }}>
         <Menu
           className={this.props.className}
           mode="inline"
-          openKeys={this.state.openKeys}
-          onOpenChange={this.onOpenChange}
+          defaultSelectedKeys={[DETAILS_KEY]}
+          onClick={this.props.onClick}
         >
-            <Menu.Item key="1">Project Details</Menu.Item>
-            <Menu.Item key="2">Members</Menu.Item>
+            <Menu.Item key={DETAILS_KEY}>Project Details</Menu.Item>
+            <Menu.Item key={MEMBERS_KEY}>Members</Menu.Item>
         </Menu>
       </Layout.Sider>
     );
