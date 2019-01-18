@@ -12,12 +12,12 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import {makeSelectUpdateFlag, makeSelectDeleteFlag} from './selectors';
+import {makeSelectInvite} from './selectors';
 import Section from 'components/Section';
 import { Button, Modal, message, Layout, Form, Icon, Input } from 'antd';
 import { makeSelectProjectDetail } from 'containers/ProjectDetail/selectors';
 import styled from 'styled-components';
-import { sendInviteAction } from './actions';
+import { sendInviteAction, resetStateAction } from './actions';
 /*
 * Member component
 */
@@ -65,10 +65,17 @@ class InviteForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         const projectId = this.props.projectId;
-
+        console.log(projectId);
         this.props.dispatch(sendInviteAction(values, projectId))
       }
     });
+  }
+
+  componentDidUpdate(){
+    if(this.props.inviteFlag){
+      message.info('Invite sent successfully!');
+      this.props.dispatch(resetStateAction());
+    }
   }
 
   render() {
@@ -129,6 +136,7 @@ export class Members extends React.Component {
       <WrappedInviteForm style={{marginBottom:'30px'}}
         projectId={projectId}
         dispatch={this.props.dispatch}
+        inviteFlag={this.props.inviteFlag}
          />
       {members.map((e)=> <StyledMember key={e.id}
                                   firstName={e.first_name}
@@ -145,6 +153,7 @@ Members.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   projectDetail: makeSelectProjectDetail(),
+  inviteFlag: makeSelectInvite(),
 });
 
 function mapDispatchToProps(dispatch) {

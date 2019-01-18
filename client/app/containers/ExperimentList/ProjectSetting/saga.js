@@ -50,8 +50,7 @@ export function* sendInvite({ values, projectId }) {
   try {
     const data = yield ModelchimpClient.post(requestURL,
                                                 {body: formData});
-
-    yield put(sendInviteSuccessAction(data));
+    yield put(sendInviteSuccessAction());
   } catch (err) {
     yield put(sendInviteErrorAction(err));
   }

@@ -14,8 +14,12 @@ const makeSelectDeleteFlag = () =>
 const makeSelectMenuKey = () =>
   createSelector(selectProjectSettingDomain, substate => substate.get('menuKey'));
 
+const makeSelectInvite = () =>
+  createSelector(selectProjectSettingDomain, substate => substate.get('invite'));
+
 export {
   makeSelectUpdateFlag,
   makeSelectDeleteFlag,
   makeSelectMenuKey,
+  makeSelectInvite,
 };

@@ -57,7 +57,7 @@ class SendInviteAPI(generics.CreateAPIView):
                 print(e)
                 saved_instance.delete()
 
-            return Response(status=status.HTTP_201_CREATED)
+            return Response({}, status=status.HTTP_201_CREATED)
 
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

@@ -75,6 +75,7 @@ export function setMenuKey(key) {
 
 
 export function sendInviteAction(values, projectId) {
+
   return {
     type: SEND_INVITE,
     values,
@@ -83,6 +84,7 @@ export function sendInviteAction(values, projectId) {
 }
 
 export function sendInviteSuccessAction() {
+
   return {
     type: SEND_INVITE_SUCCESS,
   };
