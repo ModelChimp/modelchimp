@@ -120,8 +120,8 @@ class ExperimentMenu extends React.Component {
           </Link>
         </Menu.Item>
         <Menu.Item key={MENU_SETTING}>
-          <Link to={`${this.props.url}/settings`}>
-            <Icon type="setting" /> Setting
+          <Link to={`${this.props.url}/settings/details`}>
+            <Icon type="setting" /> Settings
           </Link>
         </Menu.Item>
 

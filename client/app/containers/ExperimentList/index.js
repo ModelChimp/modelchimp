@@ -43,7 +43,7 @@ export class ExperimentList extends React.Component {
             projectId={this.props.match.params.id}
             url={this.props.match.url}
           />
-        <Route path={`${this.props.match.url}/settings`} component={ProjectSetting} />
+        <Route path={`${this.props.match.path}/settings`} component={ProjectSetting} />
         <Route exact path={`${this.props.match.path}`} component={ExperimentTable} />
         </Content>
       </Layout>

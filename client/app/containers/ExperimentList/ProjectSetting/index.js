@@ -21,7 +21,8 @@ import ContentCentered from 'components/ContentCentered';
 import { Layout } from 'antd'
 import Detail from './Detail';
 import { setMenuKey } from './actions';
-
+import { Route } from 'react-router-dom';
+import Members from './Members';
 /* eslint-disable react/prefer-stateless-function */
 export class ProjectSetting extends React.Component {
   onMenuClick = ({key}) => {
@@ -32,12 +33,14 @@ export class ProjectSetting extends React.Component {
   render() {
     return <ContentCentered style={{width:'60vw', marginTop:'40px'}}>
             <Layout>
-              <SiderMenu onClick={this.onMenuClick}>
+              <SiderMenu onClick={this.onMenuClick} url={this.props.match.url}>
                   Some Content
               </SiderMenu>
               <Layout style={{ padding: '0 24px 24px' }}>
                 <Layout.Content>
-                  <Detail />
+                    <Route exact path={`${this.props.match.path}`} component={Detail} />
+                    <Route  path={`${this.props.match.path}/details`} component={Detail} />
+                    <Route  path={`${this.props.match.path}/members`} component={Members} />
                 </Layout.Content>
               </Layout>
             </Layout>
