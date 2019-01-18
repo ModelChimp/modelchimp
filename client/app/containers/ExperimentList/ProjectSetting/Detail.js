@@ -17,9 +17,9 @@ import Section from 'components/Section';
 import { Button, Modal,message } from 'antd';
 import { makeSelectProjectDetail } from 'containers/ProjectDetail/selectors';
 import DetailEditForm from './DetailEditForm';
-import {resetStateAction, deleteProjectAction} from './actions';
+import {resetStateAction, deleteProjectAction, setMenuKey} from './actions';
 import { Redirect } from 'react-router-dom';
-
+import { DETAILS_KEY } from './constants';
 
 
 /* eslint-disable react/prefer-stateless-function */
@@ -71,6 +71,10 @@ export class Detail extends React.Component {
       this.props.resetState();
 
     }
+  }
+
+  componentDidMount(){
+    this.props.setMenuKey(DETAILS_KEY);
   }
 
   render() {
@@ -132,6 +136,7 @@ function mapDispatchToProps(dispatch) {
   return {
     resetState: () => dispatch(resetStateAction()),
     deleteProject: (projectId) => dispatch(deleteProjectAction(projectId)),
+    setMenuKey: (key) => dispatch(setMenuKey(key)),
   };
 }
 

@@ -22,7 +22,8 @@ import { getDataAction, loadExperimentAction } from './actions';
 import ExperimentMenu from './ExperimentMenu/index';
 import ProjectSetting from './ProjectSetting';
 import { Link } from 'react-router-dom';
-
+import { onMenuSelectionAction } from './ExperimentMenu/actions';
+import { MENU_EXPERIMENT } from './ExperimentMenu/constants';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentTable extends React.Component {
@@ -96,6 +97,7 @@ export class ExperimentTable extends React.Component {
   componentDidMount() {
     const projectId = this.props.match.params.id;
 
+    this.props.menuSelection(MENU_EXPERIMENT);
     this.props.initiateDataFetch();
     this.props.getExperimentData(projectId);
 
@@ -211,6 +213,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getExperimentData: projectId => dispatch(loadExperimentAction(projectId)),
     initiateDataFetch: () => dispatch(getDataAction()),
+    menuSelection: (key) => dispatch(onMenuSelectionAction(key)),
     };
 }
 

@@ -6,6 +6,8 @@ import { DETAILS_KEY, MEMBERS_KEY } from './constants';
 import { Link } from 'react-router-dom';
 
 class Sider extends React.Component {
+
+
   render() {
     return (
       <Layout.Sider width={200} style={{ background: '#F0F2F5' }}>
@@ -13,6 +15,7 @@ class Sider extends React.Component {
           className={this.props.className}
           mode="inline"
           defaultSelectedKeys={[DETAILS_KEY]}
+          selectedKeys={[this.props.menuSelected]}
           onClick={this.props.onClick}
         >
             <Menu.Item key={DETAILS_KEY}>

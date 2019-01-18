@@ -17,7 +17,9 @@ import Section from 'components/Section';
 import { Button, Modal, message, Layout, Form, Icon, Input } from 'antd';
 import { makeSelectProjectDetail } from 'containers/ProjectDetail/selectors';
 import styled from 'styled-components';
-import { sendInviteAction, resetStateAction } from './actions';
+import { sendInviteAction, resetStateAction, setMenuKey } from './actions';
+import { MEMBERS_KEY } from './constants';
+
 /*
 * Member component
 */
@@ -65,7 +67,6 @@ class InviteForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         const projectId = this.props.projectId;
-        console.log(projectId);
         this.props.dispatch(sendInviteAction(values, projectId))
       }
     });
@@ -126,10 +127,15 @@ const WrappedInviteForm = Form.create({ name: 'invite_form' })(InviteForm);
 * Main component
 */
 export class Members extends React.Component {
+  componentDidMount(){
+    this.props.dispatch(setMenuKey(MEMBERS_KEY));
+  }
+
   render() {
 
     const members = this.props.projectDetail.members;
     const projectId =this.props.match.params.id;
+
 
     return members ? (
       <Layout>
