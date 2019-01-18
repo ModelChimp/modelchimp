@@ -36,6 +36,7 @@ import {
   MENU_SETTING,
   MENU_CUSTOMIZE_TABLE,
 } from './constants';
+import { Route, Link } from "react-router-dom";
 
 
 class ExperimentMenu extends React.Component {
@@ -114,11 +115,14 @@ class ExperimentMenu extends React.Component {
         style={this.props.style}
       >
         <Menu.Item key={MENU_EXPERIMENT}>
-          <Icon type="bars" />
-          Experiments
+          <Link to={`${this.props.url}`}>
+            <Icon type="bars" /> Experiments
+          </Link>
         </Menu.Item>
         <Menu.Item key={MENU_SETTING}>
-          <Icon type="setting" /> Setting
+          <Link to={`${this.props.url}/settings`}>
+            <Icon type="setting" /> Setting
+          </Link>
         </Menu.Item>
 
         { this.props.menuKey !== MENU_SETTING ? (
