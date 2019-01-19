@@ -12,6 +12,9 @@ export function* postLogin({ username, password }) {
 
   try {
     const params = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ username, password }),
     };
 
