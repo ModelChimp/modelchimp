@@ -6,7 +6,11 @@ import {
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectProjectDetail } from 'containers/ProjectDetail/selectors';
+<<<<<<< HEAD
 import { updateProjectAction } from './actions';
+=======
+
+>>>>>>> edb75688ab7532ef10b216dfb9fff5685892a480
 
 class RegistrationForm extends React.Component {
   state = {
