@@ -20,6 +20,11 @@ import {
   LOAD_PROJECT_DATA,
   LOAD_PROJECT_DATA_SUCCESS,
   LOAD_PROJECT_DATA_ERROR,
+  PROJECT_MODAL_OPEN,
+  PROJECT_MODAL_CLOSE,
+  CREATE_PROJECT,
+  CREATE_PROJECT_SUCCESS,
+  CREATE_PROJECT_ERROR,
 } from './constants';
 
 /**
@@ -53,5 +58,37 @@ export function projectDataError(error) {
   return {
     type: LOAD_PROJECT_DATA_ERROR,
     error,
+  };
+}
+
+export function projectModalOpen() {
+  return {
+    type: PROJECT_MODAL_OPEN,
+  };
+}
+
+export function projectModalClose() {
+  return {
+    type: PROJECT_MODAL_CLOSE,
+  };
+}
+
+export function createProject(values) {
+  return {
+    type: CREATE_PROJECT,
+    values,
+  };
+}
+
+export function createProjectSuccess(projects) {
+  return {
+    type: CREATE_PROJECT_SUCCESS,
+    projects,
+  };
+}
+
+export function createProjectError() {
+  return {
+    type: CREATE_PROJECT_ERROR,
   };
 }

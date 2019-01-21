@@ -21,7 +21,7 @@ class ProjectList extends React.PureComponent {
         style={this.props.style}
         renderItem={item => (
           <Link to={`/experiment-list/${item.id}`} style={{ color: 'inherit' }}>
-            <List.Item>
+            <List.Item style={{borderBottom:'1px solid grey'}}>
               <List.Item.Meta
                 title={item.name}
                 description={item.description}

@@ -23,6 +23,7 @@ import { makeSelectProjects } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ProjectList from './ProjectList';
+import CreateProject from './CreateProject';
 
 export class ProjectPage extends React.PureComponent {
   componentDidMount() {
@@ -42,7 +43,8 @@ export class ProjectPage extends React.PureComponent {
           </Helmet>
 
           <ContentCentered>
-            <ProjectList projects={projects} style={{ marginTop: '100px' }} />
+            <CreateProject style={{marginTop:'100px'}} />
+            <ProjectList projects={projects} />
           </ContentCentered>
         </article>
       </Layout>
