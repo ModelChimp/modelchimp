@@ -7,6 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Form, Icon, Input, Button, Alert } from 'antd';
+import H1 from 'components/H1';
+import Img from 'components/Img'
+import LogoPath from 'images/logo_white.png'
 
 const FormItem = Form.Item;
 
@@ -32,6 +35,7 @@ class NormalLoginForm extends React.Component {
 
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
+        <Img src={LogoPath} />
         <FormItem>
           {getFieldDecorator('userName', {
             rules: [{ required: true, message: 'Please input your username!' }],

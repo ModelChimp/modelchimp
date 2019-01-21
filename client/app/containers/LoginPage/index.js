@@ -15,7 +15,6 @@ import {
   makeSelectError,
 } from 'containers/App/selectors';
 
-import H1 from 'components/H1';
 
 import { Redirect } from 'react-router-dom';
 import { login } from './actions';
@@ -36,7 +35,6 @@ class LoginPage extends React.PureComponent {
             content="Feature page of React.js Boilerplate application"
           />
         </Helmet>
-        <H1>Login Page</H1>
         <LoginForm
           onSubmitForm={this.props.onSubmitForm}
           errorMsg={this.props.errorMsg}

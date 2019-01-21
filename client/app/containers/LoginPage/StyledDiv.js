@@ -5,14 +5,26 @@ const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  height:100vh;
+  background:#001529;
+
+   h1 {
+    color: white;
+  }
+
+  img {
+    height:150px;
+  }
+
 
   .login-form {
     max-width: 300px;
     width: 300px;
-    border: 1px solid grey;
+    border: 1px solid #4CBBCF;
     border-radius: 20px;
     padding: 10px;
     align-self: center;
+
   }
 
   .login-form-forgot {

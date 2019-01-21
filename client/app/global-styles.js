@@ -26,6 +26,12 @@ const GlobalStyle = createGlobalStyle`
     font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
   }
+
+
+  button.ant-btn-primary {
+    background:#4CBBCF;
+    border-color:#4CBBCF;
+  }
 `;
 
 export default GlobalStyle;
