@@ -49,7 +49,6 @@ export class ExperimentDetail extends React.Component {
     this.setState({
       selectedKey: key
     });
-    console.log(this.state);
   };
 
   render() {
