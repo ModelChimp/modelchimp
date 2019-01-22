@@ -12,6 +12,3 @@ ENV PATH /frontend/.bin:$PATH
 COPY package.json /frontend/package.json
 
 RUN npm install
-
-# start app
-CMD ["npm", "run", "start"]

@@ -100,12 +100,7 @@ if (!window.Intl) {
 // we do not want it installed
 if (process.env.NODE_ENV === 'production') {
   require('offline-plugin/runtime').install(); // eslint-disable-line global-require
+  ModelchimpClient.setDefaultOptions('/');
 } else {
-  const { SERVER_URL } = process.env;
-
-  if(SERVER_URL) {
-    ModelchimpClient.setDefaultOptions(SERVER_URL);
-  } else {
-    ModelchimpClient.setDefaultOptions('http://127.0.0.1:8000');
-  }
+  ModelchimpClient.setDefaultOptions('http://127.0.0.1:8000/');
 }

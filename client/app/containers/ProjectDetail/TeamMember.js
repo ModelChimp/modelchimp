@@ -70,7 +70,7 @@ class TeamMember extends React.Component {
             members.map(e => (
               <StyledMember
                 key={e.id}
-                profilePic={ModelchimpClient.getImageUrl(e.avatar)}
+                profilePic={e.avatar}
                 firstName={e.first_name}
                 lastName={e.last_name}
               />
