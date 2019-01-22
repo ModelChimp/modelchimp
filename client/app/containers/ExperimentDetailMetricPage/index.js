@@ -46,14 +46,9 @@ export class ExperimentDetailMetricPage extends React.Component {
 
   render() {
     return (
-      <ExperimentDetail
-        modelId={this.props.match.params.modelId}
-        selectedKeys="1"
-      >
         <Section name="Metrics">
           <Table columns={this.columns} dataSource={this.props.metricData} />
         </Section>
-      </ExperimentDetail>
     );
   }
 }

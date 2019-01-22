@@ -12,7 +12,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
 import { Table } from 'antd';
 import IdBlock from 'components/IdBlock';
@@ -44,10 +43,6 @@ export class ExperimentDetailObjectPage extends React.Component {
 
   render() {
     return (
-      <ExperimentDetail
-        modelId={this.props.match.params.modelId}
-        selectedKeys="5"
-      >
         <Section name="Objects">
           <Table
             columns={this.columns}
@@ -55,7 +50,6 @@ export class ExperimentDetailObjectPage extends React.Component {
             rowKey="id"
           />
         </Section>
-      </ExperimentDetail>
     );
   }
 }

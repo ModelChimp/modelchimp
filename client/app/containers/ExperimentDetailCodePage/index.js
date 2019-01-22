@@ -40,22 +40,16 @@ export class ExperimentDetailCodePage extends React.Component {
         width: '60vw',
       },
     ];
-
     this.props.getExperimentCodeData(this.modelId);
   }
 
   render() {
     return (
-      <ExperimentDetail
-        modelId={this.props.match.params.modelId}
-        selectedKeys="3"
-      >
         <Section name="Code">
           <link rel="stylesheet" href={CodeStyle} />
 
           <Highlight className="python">{this.props.codeData}</Highlight>
         </Section>
-      </ExperimentDetail>
     );
   }
 }

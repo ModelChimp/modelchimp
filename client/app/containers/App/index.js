@@ -15,12 +15,7 @@ import ProjectPage from 'containers/ProjectPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import Logout from 'containers/Logout/Loadable';
 import ExperimentList from 'containers/ExperimentList/Loadable';
-import ExperimentDetailMetricPage from 'containers/ExperimentDetailMetricPage/Loadable';
-import ExperimentDetailParamPage from 'containers/ExperimentDetailParamPage/Loadable';
-import ExperimentDetailCodePage from 'containers/ExperimentDetailCodePage/Loadable';
-import ExperimentDetailChartPage from 'containers/ExperimentDetailChartPage/Loadable';
-import ExperimentDetailObjectPage from 'containers/ExperimentDetailObjectPage/Loadable';
-import ExperimentDetailGridSearchPage from 'containers/ExperimentDetailGridSearchPage/Loadable';
+import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import ProfilePage from 'containers/ProfilePage/Loadable';
 
 import FeaturePage from 'containers/FeaturePage/Loadable';
@@ -44,28 +39,8 @@ export default function App() {
         <Route path="/features" component={FeaturePage} />
         <PrivateRoute path="/projects" component={ProjectPage} />
         <PrivateRoute
-          path="/experiment-detail/:modelId/parameter"
-          component={ExperimentDetailParamPage}
-        />
-        <PrivateRoute
-          path="/experiment-detail/:modelId/code"
-          component={ExperimentDetailCodePage}
-        />
-        <PrivateRoute
-          path="/experiment-detail/:modelId/chart"
-          component={ExperimentDetailChartPage}
-        />
-        <PrivateRoute
-          path="/experiment-detail/:modelId/object"
-          component={ExperimentDetailObjectPage}
-        />
-        <PrivateRoute
-          path="/experiment-detail/:modelId/gridsearch"
-          component={ExperimentDetailGridSearchPage}
-        />
-        <PrivateRoute
-          path="/experiment-detail/:modelId/"
-          component={ExperimentDetailMetricPage}
+          path="/experiment-detail/:modelId"
+          component={ExperimentDetail}
         />
         <PrivateRoute path="/experiment-list/:id" component={ExperimentList} />
         <PrivateRoute path="/profile" component={ProfilePage} />

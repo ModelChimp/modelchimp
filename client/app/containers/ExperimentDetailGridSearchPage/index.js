@@ -12,7 +12,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
 import styled from 'styled-components';
 import Plot from 'react-plotly.js';
@@ -91,12 +90,9 @@ export class ExperimentDetailGridSearchPage extends React.Component {
 
 
     return (
-      <ExperimentDetail
-        modelId={this.props.match.params.modelId}
-        selectedKeys="6"
-      >
+      <div>
           { renderHTML }
-      </ExperimentDetail>
+      </div>
     );
   }
 }

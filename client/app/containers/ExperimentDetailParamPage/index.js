@@ -12,7 +12,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
 import { Table } from 'antd';
 import makeSelectExperimentDetailParamPage from './selectors';
@@ -44,14 +43,10 @@ export class ExperimentDetailParamPage extends React.Component {
 
   render() {
     return (
-      <ExperimentDetail
-        modelId={this.props.match.params.modelId}
-        selectedKeys="2"
-      >
+
         <Section name="Parameters">
           <Table columns={this.columns} dataSource={this.props.paramData} />
         </Section>
-      </ExperimentDetail>
     );
   }
 }

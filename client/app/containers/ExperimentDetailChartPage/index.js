@@ -12,7 +12,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
 import LineChart from 'components/LineChart';
 import {
@@ -43,10 +42,7 @@ export class ExperimentDetailChartPage extends React.Component {
     const dData = this.props.durationData;
 
     return (
-      <ExperimentDetail
-        modelId={this.props.match.params.modelId}
-        selectedKeys="4"
-      >
+      <div>
         <Section name="Metric Chart">
           {mData &&
             mData.metric_list.map((e, i) => this.createMetricChart(e, i))}
@@ -55,7 +51,7 @@ export class ExperimentDetailChartPage extends React.Component {
           {dData &&
             dData.tag_list.map((e, i) => this.createDurationChart(e, i))}
         </Section>
-      </ExperimentDetail>
+      </div>
     );
   }
 

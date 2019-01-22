@@ -12,7 +12,7 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import IdBlock from 'components/IdBlock';
 import Content from 'components/Content';
-import { Link } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import saga from './saga';
 import reducer from './reducer';
 import {
@@ -24,14 +24,33 @@ import {
 
 import { loadExperimentDetailAction } from './actions';
 
+import ExperimentDetailMetricPage from 'containers/ExperimentDetailMetricPage/Loadable';
+import ExperimentDetailParamPage from 'containers/ExperimentDetailParamPage/Loadable';
+import ExperimentDetailCodePage from 'containers/ExperimentDetailCodePage/Loadable';
+import ExperimentDetailChartPage from 'containers/ExperimentDetailChartPage/Loadable';
+import ExperimentDetailObjectPage from 'containers/ExperimentDetailObjectPage/Loadable';
+import ExperimentDetailGridSearchPage from 'containers/ExperimentDetailGridSearchPage/Loadable';
+
 const { Sider } = Layout;
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetail extends React.Component {
+  state = {
+    selectedKey: '1'
+  }
+
   componentDidMount() {
-    const { modelId } = this.props;
+    const { modelId } = this.props.match.params;
+
     this.props.getExperimentMetaData(modelId);
   }
+
+  onMenuSelect = ({key}) => {
+    this.setState({
+      selectedKey: key
+    });
+    console.log(this.state);
+  };
 
   render() {
     const selected = this.props.selectedKeys
@@ -61,36 +80,37 @@ export class ExperimentDetail extends React.Component {
               defaultSelectedKeys={['1']}
               defaultOpenKeys={['sub1']}
               style={{ height: '100%', borderRight: 0 }}
-              selectedKeys={selected}
+              selectedKeys={[this.state.selectedKey]}
+              onClick={this.onMenuSelect}
             >
               <Menu.Item key="1">
-                <Link to={`/experiment-detail/${this.props.modelId}`}>
+                <Link to={`${this.props.match.url}`}  >
                   <FontAwesomeIcon icon="greater-than-equal" /> Metrics
                 </Link>
               </Menu.Item>
               <Menu.Item key="2">
-                <Link to={`/experiment-detail/${this.props.modelId}/parameter`}>
+                <Link to={`${this.props.match.url}/param`}>
                   <FontAwesomeIcon icon="list-ol" /> Parameters
                 </Link>
               </Menu.Item>
               <Menu.Item key="3">
-                <Link to={`/experiment-detail/${this.props.modelId}/code`}>
+                <Link to={`${this.props.match.url}/code`} >
                   <FontAwesomeIcon icon="file-code" /> Code
                 </Link>
               </Menu.Item>
               <Menu.Item key="4">
-                <Link to={`/experiment-detail/${this.props.modelId}/chart`}>
+                <Link to={`${this.props.match.url}/chart`}>
                   <FontAwesomeIcon icon="chart-line" /> Charts
                 </Link>
               </Menu.Item>
               <Menu.Item key="5">
-                <Link to={`/experiment-detail/${this.props.modelId}/object`}>
+                <Link to={`${this.props.match.url}/object`}>
                   <FontAwesomeIcon icon="grip-horizontal" /> Objects
                 </Link>
               </Menu.Item>
               <Menu.Item key="6">
                 <Link
-                  to={`/experiment-detail/${this.props.modelId}/gridsearch`}
+                  to={`${this.props.match.url}/gridsearch`}
                 >
                   <FontAwesomeIcon icon="grip-horizontal" /> Grid Search
                 </Link>
@@ -124,7 +144,12 @@ export class ExperimentDetail extends React.Component {
                   copy={this.props.experimentId}
                   display={this.props.shortExperimentId}
                 />
-                {this.props.children}
+              <Route exact path={`${this.props.match.path}`} component={ExperimentDetailMetricPage} />
+              <Route path={`${this.props.match.path}/param`} component={ExperimentDetailParamPage} />
+              <Route path={`${this.props.match.path}/code`} component={ExperimentDetailCodePage} />
+              <Route path={`${this.props.match.path}/chart`} component={ExperimentDetailChartPage} />
+              <Route path={`${this.props.match.path}/object`} component={ExperimentDetailObjectPage} />
+              <Route path={`${this.props.match.path}/gridsearch`} component={ExperimentDetailGridSearchPage} />
               </div>
             </div>
           </Content>
