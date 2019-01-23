@@ -12,37 +12,27 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import {makeSelectInvite} from './selectors';
 import Section from 'components/Section';
-import { Button, Modal, message, Layout, Form, Icon, Input } from 'antd';
-import { makeSelectProjectDetail } from 'containers/ProjectDetail/selectors';
+import { Button, Modal, message, Layout, Form, Icon, Input, Tag } from 'antd';
 import styled from 'styled-components';
-import { sendInviteAction, resetStateAction, setMenuKey } from './actions';
-import { MEMBERS_KEY } from './constants';
+// import { sendInviteAction, resetStateAction, setMenuKey } from './actions';
+// import {makeSelectInvite} from './selectors';
 
 /*
 * Member component
 */
-const Member = ({ className, profilePic, firstName, lastName }) => (
+const LabelItem = ({ className, label }) => (
   <div className={className}>
-    <img
-      src={profilePic}
-      style={{ height: '64px', width: '64px', marginRight: '10px' }}
-      alt=""
-    />
-    <span>{firstName} </span>
-    <span>{lastName}</span>
+    <span>{label} </span>
   </div>
 );
 
-Member.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  profilePic: PropTypes.string,
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
+LabelItem.propTypes = {
+  LabelItem: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  label: PropTypes.string,
 };
 
-const StyledMember = styled(Member)`
+const StyledLabelItem = styled(LabelItem)`
   font-size: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid #dbd8d8;
@@ -56,7 +46,7 @@ function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class InviteForm extends React.Component {
+class LabelForm extends React.Component {
   componentDidMount() {
     // To disabled submit button at the beginning.
     this.props.form.validateFields();
@@ -66,17 +56,17 @@ class InviteForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const projectId = this.props.projectId;
-        this.props.dispatch(sendInviteAction(values, projectId))
+        // const projectId = this.props.projectId;
+        // this.props.dispatch(sendInviteAction(values, projectId))
       }
     });
   }
 
   componentDidUpdate(){
-    if(this.props.inviteFlag){
-      message.info('Invite sent successfully!');
-      this.props.dispatch(resetStateAction());
-    }
+    // if(this.props.inviteFlag){
+    //   message.info('Invite sent successfully!');
+    //   this.props.dispatch(resetStateAction());
+    // }
   }
 
   render() {
@@ -84,7 +74,7 @@ class InviteForm extends React.Component {
       getFieldDecorator, getFieldsError, getFieldError, isFieldTouched,
     } = this.props.form;
 
-    const emailError = isFieldTouched('email') && getFieldError('email');
+    const labelError = isFieldTouched('email') && getFieldError('email');
     return (
       <Form layout="inline" onSubmit={this.handleSubmit} style={this.props.style}>
         <Form.Item
@@ -96,23 +86,21 @@ class InviteForm extends React.Component {
             disabled={hasErrors(getFieldsError())}
             style={{width:'150%'}}
           >
-            Invite
+            Add
           </Button>
         </Form.Item>
         <Form.Item
           wrapperCol={{span: 24}}
           style={{width:'70%'}}
-          validateStatus={emailError ? 'error' : ''}
-          help={emailError || ''}
+          validateStatus={labelError ? 'error' : ''}
+          help={labelError || ''}
          >
-           {getFieldDecorator('to_email', {
+           {getFieldDecorator('label', {
              rules: [{
-               type: 'email', message: 'The input is not valid E-mail!',
-             }, {
                required: true, message: 'Please input your E-mail!',
              }],
            })(
-             <Input placeholder="Please input the email"/>
+             <Input placeholder="Please input the label"/>
            )}
          </Form.Item>
       </Form>
@@ -120,46 +108,78 @@ class InviteForm extends React.Component {
   }
 }
 
-const WrappedInviteForm = Form.create({ name: 'invite_form' })(InviteForm);
+const WrappedLabelForm = Form.create({ name: 'label_form' })(LabelForm);
 
 
 /*
 * Main component
 */
-export class Members extends React.Component {
-  componentDidMount(){
-    this.props.dispatch(setMenuKey(MEMBERS_KEY));
-  }
+export class Label extends React.Component {
+  state = { visible: false };
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  handleOk = () => {
+    this.setState({
+      visible: false,
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+    });
+  };
 
   render() {
 
-    const members = this.props.projectDetail.members;
-    const projectId =this.props.match.params.id;
+    // const members = this.props.projectDetail.members;
+    // const projectId =this.props.match.params.id;
+    const labelDOM =  this.props.labels ? (
+      <span style={{marginLeft:'10px'}}>
+        { this.props.labels.map(tag => (
+          <Tag color="blue" key={tag}>
+            {tag}
+          </Tag>
+        )) }
+      </span>
+    ): null;
 
+    return <div style={this.props.style}>
 
-    return members ? (
-      <Layout>
-      <WrappedInviteForm style={{marginBottom:'30px'}}
-        projectId={projectId}
+      <Button type="primary" onClick={this.showModal} >
+        <span>
+          Labels
+        </span>
+      </Button>
+
+      {labelDOM}
+
+      <Modal
+        title="Labels"
+        visible={this.state.visible}
+        onOk={this.handleOk}
+        onCancel={this.handleCancel}
+      >
+      <WrappedLabelForm style={{marginBottom:'30px'}}
         dispatch={this.props.dispatch}
-        inviteFlag={this.props.inviteFlag}
          />
-      {members.map((e)=> <StyledMember key={e.id}
-                                  firstName={e.first_name}
-                                  lastName={e.last_name}
-                                  profilePic={e.avatar} />)}
-      </Layout>):
-      <div>No Members</div>;
+      </Modal>
+    </div>;
   }
 }
 
-Members.propTypes = {
+Label.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  projectDetail: makeSelectProjectDetail(),
-  inviteFlag: makeSelectInvite(),
+  // projectDetail: makeSelectProjectDetail(),
+  // inviteFlag: makeSelectInvite(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -171,4 +191,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Members);
+)(Label);

@@ -8,7 +8,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import HeaderWrapper from 'containers/HeaderWrapper';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Tag } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import IdBlock from 'components/IdBlock';
 import Content from 'components/Content';
@@ -30,6 +30,8 @@ import ExperimentDetailCodePage from 'containers/ExperimentDetailCodePage/Loadab
 import ExperimentDetailChartPage from 'containers/ExperimentDetailChartPage/Loadable';
 import ExperimentDetailObjectPage from 'containers/ExperimentDetailObjectPage/Loadable';
 import ExperimentDetailGridSearchPage from 'containers/ExperimentDetailGridSearchPage/Loadable';
+
+import Label from './Label';
 
 const { Sider } = Layout;
 
@@ -143,6 +145,8 @@ export class ExperimentDetail extends React.Component {
                   copy={this.props.experimentId}
                   display={this.props.shortExperimentId}
                 />
+              <Label style={{ marginTop: '20px' }} labels={this.props.experiment.labels}/>
+
               <Route exact path={`${this.props.match.path}`} component={ExperimentDetailMetricPage} />
               <Route path={`${this.props.match.path}/param`} component={ExperimentDetailParamPage} />
               <Route path={`${this.props.match.path}/code`} component={ExperimentDetailCodePage} />
