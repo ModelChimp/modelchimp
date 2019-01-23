@@ -15,6 +15,8 @@ import injectReducer from 'utils/injectReducer';
 import Section from 'components/Section';
 import { Button, Modal, message, Layout, Form, Icon, Input, Tag } from 'antd';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 // import { sendInviteAction, resetStateAction, setMenuKey } from './actions';
 // import {makeSelectInvite} from './selectors';
 
@@ -24,11 +26,14 @@ import styled from 'styled-components';
 const LabelItem = ({ className, label }) => (
   <div className={className}>
     <span>{label} </span>
+    <span style={{float:'right'}}>
+      <FontAwesomeIcon icon="trash" style={{fontSize:'15px', color:'pink'}} />
+    </span>
   </div>
 );
 
 LabelItem.propTypes = {
-  LabelItem: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   label: PropTypes.string,
 };
 
@@ -165,9 +170,12 @@ export class Label extends React.Component {
         onOk={this.handleOk}
         onCancel={this.handleCancel}
       >
-      <WrappedLabelForm style={{marginBottom:'30px'}}
-        dispatch={this.props.dispatch}
-         />
+        <WrappedLabelForm style={{marginBottom:'30px'}}
+          dispatch={this.props.dispatch}
+           />
+         {this.props.labels && this.props.labels.map( (label) => {
+           return <StyledLabelItem key={label} label={label} />
+         })}
       </Modal>
     </div>;
   }
