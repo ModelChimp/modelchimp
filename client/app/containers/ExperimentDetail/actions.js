@@ -34,17 +34,18 @@ export function loadExperimentDetailErrorAction(error) {
   };
 }
 
-export function createExperimentLabelsAction(modelId) {
+export function createExperimentLabelsAction(modelId, labelData) {
   return {
     type: CREATE_EXPERIMENT_LABELS,
     modelId,
+    labelData
   };
 }
 
-export function createExperimentLabelsSuccessAction(experiment) {
+export function createExperimentLabelsSuccessAction(data) {
   return {
     type: CREATE_EXPERIMENT_LABELS_SUCCESS,
-    experiment,
+    data,
   };
 }
 

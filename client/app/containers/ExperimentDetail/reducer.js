@@ -20,6 +20,7 @@ export const initialState = fromJS({
   experimentId: null,
   shortExperimentId: null,
   experimentName: null,
+  labels:null
 });
 
 function experimentDetailReducer(state = initialState, action) {
@@ -38,9 +39,12 @@ function experimentDetailReducer(state = initialState, action) {
             action.experiment.experiment_id.substring(0, 7),
         )
         .set('experimentName', action.experiment.name)
+        .set('labels', action.experiment.labels)
         .set('loading', false);
     case LOAD_EXPERIMENT_DETAIL_ERROR:
       return state.set('error', action.error).set('loading', false);
+    case CREATE_EXPERIMENT_LABELS_SUCCESS:
+      return state.set('labels', action.data);
     default:
       return state;
   }

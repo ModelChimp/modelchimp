@@ -4,9 +4,10 @@ import { LOAD_EXPERIMENT_DETAIL, CREATE_EXPERIMENT_LABELS } from './constants';
 import {
   loadExperimentDetailSuccessAction,
   loadExperimentDetailErrorAction,
-  loadExperimentLabelsSuccessAction,
-  loadExperimentLabelsErrorAction,
+  createExperimentLabelsSuccessAction,
+  createExperimentLabelsErrorAction,
 } from './actions';
+import { mapKeys } from 'lodash';
 
 
 export function* getExperimentData({ modelId }) {
@@ -20,17 +21,22 @@ export function* getExperimentData({ modelId }) {
   }
 }
 
-// export function* getLabelsData({ modelId }) {
-//   const requestURL = `experiment-label/${modelId}/`;
-//
-//   try {
-//     const data = yield ModelchimpClient.get(requestURL);
-//     yield put(loadExperimentLabelsSuccessAction(data));
-//   } catch (err) {
-//     yield put(loadExperimentLabelsErrorAction(err));
-//   }
-// }
+export function* createLabel({ modelId, labelData }) {
+  const requestURL = `experiment-label/${modelId}/`;
+  let formData = new FormData();
+
+  mapKeys(labelData, (v,k) => formData.append(k,v));
+
+  try {
+    const data = yield ModelchimpClient.post(requestURL, {body: formData});
+    yield put(createExperimentLabelsSuccessAction(data));
+  } catch (err) {
+    yield put(createExperimentLabelsErrorAction(err));
+  }
+}
 
 export default function* experimentData() {
   yield takeLatest(LOAD_EXPERIMENT_DETAIL, getExperimentData);
+  yield takeLatest(CREATE_EXPERIMENT_LABELS, createLabel);
+
 }

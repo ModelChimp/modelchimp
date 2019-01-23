@@ -20,6 +20,7 @@ import {
   makeSelectExperimentId,
   makeSelectShortExperimentId,
   makeSelectExperimentName,
+  makeSelectLabels,
 } from './selectors';
 
 import { loadExperimentDetailAction } from './actions';
@@ -145,7 +146,7 @@ export class ExperimentDetail extends React.Component {
                   copy={this.props.experimentId}
                   display={this.props.shortExperimentId}
                 />
-              <Label style={{ marginTop: '20px' }} labels={this.props.experiment.labels}/>
+              <Label style={{ marginTop: '20px' }} labels={this.props.labels}/>
 
               <Route exact path={`${this.props.match.path}`} component={ExperimentDetailMetricPage} />
               <Route path={`${this.props.match.path}/param`} component={ExperimentDetailParamPage} />
@@ -178,6 +179,7 @@ const mapStateToProps = createStructuredSelector({
   experimentId: makeSelectExperimentId(),
   shortExperimentId: makeSelectShortExperimentId(),
   experimentName: makeSelectExperimentName(),
+  labels: makeSelectLabels(),
 });
 
 function mapDispatchToProps(dispatch) {

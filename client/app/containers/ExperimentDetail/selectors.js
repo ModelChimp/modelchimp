@@ -32,10 +32,16 @@ const makeSelectShortExperimentId = () =>
     experimentDetailState.get('shortExperimentId'),
   );
 
+const makeSelectLabels = () =>
+  createSelector(selectExperimentDetail, experimentDetailState =>
+    experimentDetailState.get('labels'),
+  );
+
 export {
   selectExperimentDetail,
   makeSelectExperimentDetail,
   makeSelectExperimentId,
   makeSelectShortExperimentId,
   makeSelectExperimentName,
+  makeSelectLabels,
 };

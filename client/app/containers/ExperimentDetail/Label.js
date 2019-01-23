@@ -16,9 +16,8 @@ import Section from 'components/Section';
 import { Button, Modal, message, Layout, Form, Icon, Input, Tag } from 'antd';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-// import { sendInviteAction, resetStateAction, setMenuKey } from './actions';
-// import {makeSelectInvite} from './selectors';
+import { createExperimentLabelsAction } from './actions';
+import { makeSelectExperimentDetail } from './selectors';
 
 /*
 * Member component
@@ -45,7 +44,7 @@ const StyledLabelItem = styled(LabelItem)`
 
 
 /*
-* Invite Form
+* Label Form
 */
 function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -61,8 +60,9 @@ class LabelForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        // const projectId = this.props.projectId;
-        // this.props.dispatch(sendInviteAction(values, projectId))
+        const modelId = this.props.modelId;
+        this.props.dispatch(createExperimentLabelsAction(modelId, values))
+        this.props.form.resetFields();
       }
     });
   }
@@ -79,7 +79,7 @@ class LabelForm extends React.Component {
       getFieldDecorator, getFieldsError, getFieldError, isFieldTouched,
     } = this.props.form;
 
-    const labelError = isFieldTouched('email') && getFieldError('email');
+    const labelError = isFieldTouched('label') && getFieldError('label');
     return (
       <Form layout="inline" onSubmit={this.handleSubmit} style={this.props.style}>
         <Form.Item
@@ -102,7 +102,7 @@ class LabelForm extends React.Component {
          >
            {getFieldDecorator('label', {
              rules: [{
-               required: true, message: 'Please input your E-mail!',
+               required: true, message: 'Please input label!',
              }],
            })(
              <Input placeholder="Please input the label"/>
@@ -146,8 +146,8 @@ export class Label extends React.Component {
     // const projectId =this.props.match.params.id;
     const labelDOM =  this.props.labels ? (
       <span style={{marginLeft:'10px'}}>
-        { this.props.labels.map(tag => (
-          <Tag color="blue" key={tag}>
+        { this.props.labels.map((tag,i) => (
+          <Tag color="blue" key={i}>
             {tag}
           </Tag>
         )) }
@@ -169,12 +169,14 @@ export class Label extends React.Component {
         visible={this.state.visible}
         onOk={this.handleOk}
         onCancel={this.handleCancel}
+        footer={null}
       >
         <WrappedLabelForm style={{marginBottom:'30px'}}
           dispatch={this.props.dispatch}
+          modelId={this.props.experiment.id}
            />
-         {this.props.labels && this.props.labels.map( (label) => {
-           return <StyledLabelItem key={label} label={label} />
+         {this.props.labels && this.props.labels.map( (label, i) => {
+           return <StyledLabelItem key={i} label={label} />
          })}
       </Modal>
     </div>;
@@ -186,7 +188,7 @@ Label.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  // projectDetail: makeSelectProjectDetail(),
+  experiment: makeSelectExperimentDetail(),
   // inviteFlag: makeSelectInvite(),
 });
 
