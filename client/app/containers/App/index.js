@@ -23,6 +23,8 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import GlobalStyle from '../../global-styles';
 import PrivateRoute from './PrivateRoute';
+import Footer from 'components/Footer';
+import {Layout} from 'antd';
 
 export default function App() {
   return (
@@ -34,7 +36,7 @@ export default function App() {
         <meta name="description" content="A React.js Boilerplate application" />
       </Helmet>
       {/*  <Header /> */}
-      <Switch>
+      <Switch >
         <Route exact path="/" component={HomePage} />
         <Route path="/features" component={FeaturePage} />
         <PrivateRoute path="/projects" component={ProjectPage} />
@@ -48,7 +50,7 @@ export default function App() {
         <Route path="/logout" component={Logout} />
         <Route path="" component={NotFoundPage} />
       </Switch>
-      {/* <Footer /> */}
+      <Footer />
       <GlobalStyle />
     </div>
   );

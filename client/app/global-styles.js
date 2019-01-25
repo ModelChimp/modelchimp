@@ -32,6 +32,11 @@ const GlobalStyle = createGlobalStyle`
     background:#4CBBCF;
     border-color:#4CBBCF;
   }
+
+  /* Footer to the bottom */
+  #app > div > div.ant-layout {
+    min-height:90vh;
+  }
 `;
 
 export default GlobalStyle;
