@@ -25,8 +25,8 @@ import { makeSelectExperimentDetail } from './selectors';
 const LabelItem = ({ className, label, deleteFunc }) => (
   <div className={className}>
     <span>{label} </span>
-    <span style={{float:'right'}} onClick={ () => deleteFunc(label)} >
-      <FontAwesomeIcon icon="trash" style={{fontSize:'15px', color:'pink'}} />
+    <span className={"font-awesome"} style={{float:'right'}} onClick={ () => deleteFunc(label)} >
+      <FontAwesomeIcon icon="trash" style={{fontSize:'15px'}} />
     </span>
   </div>
 );
@@ -40,6 +40,15 @@ const StyledLabelItem = styled(LabelItem)`
   font-size: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid #dbd8d8;
+
+  .font-awesome {
+    color:pink;
+  }
+
+  .font-awesome:hover {
+    color:red;
+    cursor: pointer;
+  }
 `;
 
 
@@ -142,7 +151,7 @@ export class Label extends React.Component {
 
   handleDelete = (label) => {
     const modelId = this.props.experiment.id;
-    this.props.dispatch(deleteExperimentLabelsAction(modelId,label));
+    this.props.dispatch(deleteExperimentLabelsAction(modelId, label));
   };
 
   render() {
