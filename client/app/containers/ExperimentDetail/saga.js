@@ -1,11 +1,13 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import ModelchimpClient from 'utils/modelchimpClient';
-import { LOAD_EXPERIMENT_DETAIL, CREATE_EXPERIMENT_LABELS } from './constants';
+import { LOAD_EXPERIMENT_DETAIL, CREATE_EXPERIMENT_LABELS, DELETE_EXPERIMENT_LABELS } from './constants';
 import {
   loadExperimentDetailSuccessAction,
   loadExperimentDetailErrorAction,
   createExperimentLabelsSuccessAction,
   createExperimentLabelsErrorAction,
+  deleteExperimentLabelsSuccessAction,
+  deleteExperimentLabelsErrorAction
 } from './actions';
 import { mapKeys } from 'lodash';
 
@@ -35,8 +37,23 @@ export function* createLabel({ modelId, labelData }) {
   }
 }
 
+export function* deleteLabel({ modelId, label }) {
+  const requestURL = `experiment-label/${modelId}/?label=${label}`;
+
+  try {
+    const data = yield ModelchimpClient.delete(requestURL);
+
+    if(data){
+      yield put(deleteExperimentLabelsSuccessAction(data));
+    }
+  } catch (err) {
+    yield put(deleteExperimentLabelsErrorAction(err));
+  }
+}
+
 export default function* experimentData() {
   yield takeLatest(LOAD_EXPERIMENT_DETAIL, getExperimentData);
   yield takeLatest(CREATE_EXPERIMENT_LABELS, createLabel);
+  yield takeLatest(DELETE_EXPERIMENT_LABELS, deleteLabel);
 
 }

@@ -16,16 +16,16 @@ import Section from 'components/Section';
 import { Button, Modal, message, Layout, Form, Icon, Input, Tag } from 'antd';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { createExperimentLabelsAction } from './actions';
+import { createExperimentLabelsAction, deleteExperimentLabelsAction } from './actions';
 import { makeSelectExperimentDetail } from './selectors';
 
 /*
 * Member component
 */
-const LabelItem = ({ className, label }) => (
+const LabelItem = ({ className, label, deleteFunc }) => (
   <div className={className}>
     <span>{label} </span>
-    <span style={{float:'right'}}>
+    <span style={{float:'right'}} onClick={ () => deleteFunc(label)} >
       <FontAwesomeIcon icon="trash" style={{fontSize:'15px', color:'pink'}} />
     </span>
   </div>
@@ -140,6 +140,11 @@ export class Label extends React.Component {
     });
   };
 
+  handleDelete = (label) => {
+    const modelId = this.props.experiment.id;
+    this.props.dispatch(deleteExperimentLabelsAction(modelId,label));
+  };
+
   render() {
 
     // const members = this.props.projectDetail.members;
@@ -176,7 +181,7 @@ export class Label extends React.Component {
           modelId={this.props.experiment.id}
            />
          {this.props.labels && this.props.labels.map( (label, i) => {
-           return <StyledLabelItem key={i} label={label} />
+           return <StyledLabelItem key={i} label={label} deleteFunc={this.handleDelete} />
          })}
       </Modal>
     </div>;

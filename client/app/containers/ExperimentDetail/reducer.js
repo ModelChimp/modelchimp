@@ -6,6 +6,9 @@ import {
   CREATE_EXPERIMENT_LABELS,
   CREATE_EXPERIMENT_LABELS_SUCCESS,
   CREATE_EXPERIMENT_LABELS_ERROR,
+  DELETE_EXPERIMENT_LABELS,
+  DELETE_EXPERIMENT_LABELS_SUCCESS,
+  DELETE_EXPERIMENT_LABELS_ERROR
 } from './constants';
 
 export const initialState = fromJS({
@@ -45,6 +48,12 @@ function experimentDetailReducer(state = initialState, action) {
       return state.set('error', action.error).set('loading', false);
     case CREATE_EXPERIMENT_LABELS_SUCCESS:
       return state.set('labels', action.data);
+    case CREATE_EXPERIMENT_LABELS_ERROR:
+      return state.set('error', action.error).set('loading', false);
+    case DELETE_EXPERIMENT_LABELS_SUCCESS:
+      return state.set('labels', action.data);
+    case DELETE_EXPERIMENT_LABELS_ERROR:
+      return state.set('error', action.error).set('loading', false);
     default:
       return state;
   }

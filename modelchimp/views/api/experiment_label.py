@@ -21,7 +21,6 @@ class ExperimentLabelAPI(generics.ListCreateAPIView):
         ml_obj = MachineLearningModel.objects.get(id=model_id)
         user = self.request.user
         label = request.data.get('label')
-
         # Preprocess the label field
         label = label.strip()
 
@@ -43,15 +42,13 @@ class ExperimentLabelAPI(generics.ListCreateAPIView):
         if label in ml_obj.labels:
             ml_obj.labels.remove(label)
             ml_obj.save()
-        else:
-            return Response(status=status.HTTP_200_OK)
 
-        return Response(ml_obj.labels, status=status.HTTP_204_NO_CONTENT)
+        return Response(ml_obj.labels, status=status.HTTP_200_OK)
 
     def list(self, request, model_id, *args, **kwargs):
         ml_obj = MachineLearningModel.objects.get(id=model_id)
         user = self.request.user
         label = request.data.get('label')
-        
+
         serializer = ExperimentLabelSerializer(ml_obj)
         return Response(serializer.data, status=status.HTTP_200_OK)
