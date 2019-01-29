@@ -5,6 +5,8 @@ from rest_framework import mixins
 
 from modelchimp.serializers.profile import ProfileSerializer
 from modelchimp.models.profile import Profile
+from modelchimp.models.user import User
+from modelchimp.serializers.user import UserSerializer
 
 from modelchimp.api_permissions import HasProjectMembership
 from rest_framework.permissions import IsAuthenticated
@@ -29,3 +31,17 @@ class UserAPI(viewsets.ModelViewSet):
         # self.perform_update(serializer)
         serializer.save()
         return Response(serializer.data)
+
+
+class RegisterAPI(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+
+
+    def create(self, *args, **kwargs):
+        serializer = self.get_serializer(data=self.request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response({})

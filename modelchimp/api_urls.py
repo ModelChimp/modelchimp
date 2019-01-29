@@ -104,7 +104,10 @@ urlpatterns = [
         name='experiment_gridsearch'),
     url(r'user$',
         user.UserAPI.as_view({'get': 'retrieve', 'post': 'update'}),
-         name='experiment_meta'),
+         name='user'),
+    url(r'register$',
+        user.RegisterAPI.as_view({'post': 'create'}),
+         name='register'),
     url(r'invite/(?P<project_id>\d+)/$', invitation.SendInviteAPI.as_view(),
          name='invite'),
 ]
