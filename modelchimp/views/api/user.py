@@ -42,6 +42,7 @@ class RegisterAPI(viewsets.ModelViewSet):
     def create(self, *args, **kwargs):
         serializer = self.get_serializer(data=self.request.data, partial=True)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        user = serializer.save()
+        token = user.auth_token.key
 
-        return Response({})
+        return Response({'token': token})
