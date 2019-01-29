@@ -7,12 +7,14 @@
 import {
   REGISTER,
   REGISTER_SUCCESS,
-  REGISTER_ERROR
+  REGISTER_ERROR,
+  RESET,
  } from './constants';
 
-export function registerAction() {
+export function registerAction(data) {
   return {
     type: REGISTER,
+    data
   };
 }
 
@@ -25,5 +27,11 @@ export function registerSuccessAction() {
 export function registerErrorAction() {
   return {
     type: REGISTER_ERROR,
+  };
+}
+
+export function resetAction() {
+  return {
+    type: RESET,
   };
 }

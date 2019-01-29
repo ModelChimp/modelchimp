@@ -13,15 +13,32 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectRegistrationPage from './selectors';
+import {
+  makeSelectRegisterSuccess,
+  makeSelectRegisterError,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import RegisterForm from './RegisterForm';
 import Content from 'components/Content';
 import StyledDiv from './StyledDiv';
-
+import { registerAction, resetAction } from './actions';
+import {
+  message
+} from 'antd';
 /* eslint-disable react/prefer-stateless-function */
 export class RegistrationPage extends React.Component {
+  handleSubmit = (d) =>{
+    this.props.dispatch(registerAction(d));
+  }
+
+  componentDidUpdate(){
+    if(this.props.registerError){
+      message.error('Registration unsuccessful!');
+      this.props.dispatch(resetAction());
+    }
+  }
+
   render() {
     return (
       <StyledDiv>
@@ -29,7 +46,7 @@ export class RegistrationPage extends React.Component {
           <title>RegistrationPage</title>
           <meta name="description" content="Description of Registration Page" />
         </Helmet>
-        <RegisterForm />
+        <RegisterForm onSubmit={this.handleSubmit} />
       </StyledDiv>
     );
   }
@@ -40,7 +57,8 @@ RegistrationPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  registrationPage: makeSelectRegistrationPage(),
+  registerSuccess: makeSelectRegisterSuccess(),
+  registerError: makeSelectRegisterError(),
 });
 
 function mapDispatchToProps(dispatch) {
