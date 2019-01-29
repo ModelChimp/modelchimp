@@ -107,7 +107,7 @@ export class ExperimentDetail extends React.Component {
               </Menu.Item>
               <Menu.Item key="5">
                 <Link to={`${this.props.match.url}/object`}>
-                  <FontAwesomeIcon icon="grip-horizontal" /> Objects
+                  <FontAwesomeIcon icon="database" /> Objects
                 </Link>
               </Menu.Item>
               <Menu.Item key="6">
