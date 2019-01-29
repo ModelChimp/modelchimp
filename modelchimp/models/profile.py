@@ -13,7 +13,7 @@ class Profile(models.Model):
     user   = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     avatar = models.ImageField(null=True, upload_to='profile/')
     avatar_url = models.URLField(null=True)
-    first_name = models.CharField(max_length=200, blank=True, default='')
+    first_name = models.CharField(max_length=200, blank=True, default='Unknown')
     last_name = models.CharField(max_length=200, blank=True, default='')
 
     def __str__(self):
