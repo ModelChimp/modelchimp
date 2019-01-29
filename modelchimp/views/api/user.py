@@ -36,7 +36,7 @@ class UserAPI(viewsets.ModelViewSet):
 class RegisterAPI(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    permission_classes = (IsAuthenticated,)
+    permission_classes = ()
 
 
     def create(self, *args, **kwargs):

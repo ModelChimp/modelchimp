@@ -26,6 +26,12 @@ import { registerAction, resetAction } from './actions';
 import {
   message
 } from 'antd';
+import {
+  makeSelectAuthLogged,
+  makeSelectError,
+} from 'containers/App/selectors';
+import { Redirect } from 'react-router-dom';
+
 /* eslint-disable react/prefer-stateless-function */
 export class RegistrationPage extends React.Component {
   handleSubmit = (d) =>{
@@ -37,9 +43,12 @@ export class RegistrationPage extends React.Component {
       message.error('Registration unsuccessful!');
       this.props.dispatch(resetAction());
     }
+
   }
 
   render() {
+    if (this.props.logged) return <Redirect to="/projects" />;
+
     return (
       <StyledDiv>
         <Helmet>
@@ -59,6 +68,7 @@ RegistrationPage.propTypes = {
 const mapStateToProps = createStructuredSelector({
   registerSuccess: makeSelectRegisterSuccess(),
   registerError: makeSelectRegisterError(),
+  logged: makeSelectAuthLogged(),
 });
 
 function mapDispatchToProps(dispatch) {

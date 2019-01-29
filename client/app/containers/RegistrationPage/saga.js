@@ -6,6 +6,8 @@ import {
   registerErrorAction,
  } from './actions';
 import {mapKeys} from 'lodash';
+import { loginSuccess, loginError } from 'containers/LoginPage/actions';
+
 
 export function* registerUser({data}) {
   const requestURL = `register`;
@@ -15,7 +17,10 @@ export function* registerUser({data}) {
 
   try {
     const response = yield ModelchimpClient.post(requestURL, {body: formData});
-    yield put(registerSuccessAction(response));
+    const { token } = response;
+    ModelchimpClient.login(token);
+
+    yield put(loginSuccess(token));
   } catch (err) {
     yield put(registerErrorAction(err));
   }
