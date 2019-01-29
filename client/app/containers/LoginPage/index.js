@@ -29,10 +29,10 @@ class LoginPage extends React.PureComponent {
     return (
       <StyledDiv>
         <Helmet>
-          <title>Feature Page</title>
+          <title>Login Page</title>
           <meta
-            name="description"
-            content="Feature page of React.js Boilerplate application"
+            name="login"
+            content="Login into Modelchimp"
           />
         </Helmet>
         <LoginForm

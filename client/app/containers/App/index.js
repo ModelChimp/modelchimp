@@ -17,7 +17,7 @@ import Logout from 'containers/Logout/Loadable';
 import ExperimentList from 'containers/ExperimentList/Loadable';
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import ProfilePage from 'containers/ProfilePage/Loadable';
-
+import RegistrationPage from 'containers/RegistrationPage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
@@ -48,6 +48,7 @@ export default function App() {
         <PrivateRoute path="/profile" component={ProfilePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/logout" component={Logout} />
+        <Route path="/register" component={RegistrationPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
       <Footer />

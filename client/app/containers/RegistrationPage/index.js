@@ -16,17 +16,21 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectRegistrationPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import RegisterForm from './RegisterForm';
+import Content from 'components/Content';
+import StyledDiv from './StyledDiv';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RegistrationPage extends React.Component {
   render() {
     return (
-      <div>
+      <StyledDiv>
         <Helmet>
           <title>RegistrationPage</title>
-          <meta name="description" content="Description of RegistrationPage" />
+          <meta name="description" content="Description of Registration Page" />
         </Helmet>
-      </div>
+        <RegisterForm />
+      </StyledDiv>
     );
   }
 }
