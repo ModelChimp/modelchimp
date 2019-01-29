@@ -15,6 +15,10 @@ const { Option } = Select;
 
 
 class ProfileForm extends React.Component {
+  state = {
+    uploadDisabled:false,
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -45,13 +49,25 @@ class ProfileForm extends React.Component {
     return e && e.fileList;
   }
 
-  onChange = ({abort, file}) => {
+  customRequest = ({abort, filename}) => {
     return {
         abort() {
           console.log('upload progress is aborted.');
         }
       }
     }
+
+  onChange = ({fileList, file, onSuccess}) => {
+    if(fileList.length>0){
+      this.setState({
+        uploadDisabled:true,
+      });
+    } else {
+      this.setState({
+        uploadDisabled:false,
+      });
+    }
+  }
 
   render() {
     const { getFieldDecorator, setFieldsValue } = this.props.form;
@@ -92,7 +108,13 @@ class ProfileForm extends React.Component {
           valuePropName: 'fileList',
           getValueFromEvent: this.normFile,
         })(
-          <Upload name="logo" action="/upload.do" listType="picture" customRequest={this.onChange}>
+          <Upload name="logo"
+                  action="/upload.do"
+                  listType="picture"
+                  customRequest={this.customRequest}
+                  onChange={this.onChange}
+                  beforeUpload={()=>false}
+                  disabled={this.state.uploadDisabled}>
             <Button>
               <Icon type="upload" /> Click to upload
             </Button>
@@ -148,7 +170,7 @@ class EditProfile extends React.Component {
           visible={this.props.modalVisible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
-          footer={null} 
+          footer={null}
         >
         <WrappedProfileForm updateFunc={this.props.updateFunc} data={this.props.data}/>
         </Modal>
