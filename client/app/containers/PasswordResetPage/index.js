@@ -26,7 +26,8 @@ import {
 } from 'containers/App/selectors';
 import { Redirect } from 'react-router-dom';
 import PasswordResetForm from './PasswordResetForm';
-
+import ModelchimpClient from 'utils/modelchimpClient';
+import { logout } from 'containers/Logout/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class PasswordResetPage extends React.Component {
@@ -41,6 +42,9 @@ export class PasswordResetPage extends React.Component {
     }
   }
 
+  componentDidMount(){
+    this.props.setLogout();
+  }
   render() {
     // if (this.props.logged) return <Redirect to="/projects" />;
 
@@ -73,6 +77,10 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    setLogout: () => {
+      ModelchimpClient.logout();
+      return dispatch(logout());
+    },
   };
 }
 
