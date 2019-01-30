@@ -49,7 +49,7 @@ class ForgotPasswordForm extends React.Component {
 
     const labelError = isFieldTouched('email') && getFieldError('email');
     return (
-      <Form layout="inline" onSubmit={this.handleSubmit} style={this.props.style}>
+      <Form layout="vertical" onSubmit={this.handleSubmit} style={this.props.style}>
 
         <Form.Item
         style={{width:'70%'}}
@@ -124,7 +124,7 @@ export class ForgotPassword extends React.Component {
         onCancel={this.handleCancel}
         footer={null}
       >
-        <WrappedForgotPasswordForm style={{marginBottom:'30px'}}
+        <WrappedForgotPasswordForm
           dispatch={this.props.dispatch}
           onOk={this.handleOk}
            />

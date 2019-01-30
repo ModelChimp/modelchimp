@@ -16,14 +16,16 @@ const StyledDiv = styled.div`
     height:150px;
   }
 
-
-  .login-form {
-    max-width: 300px;
-    width: 300px;
+  .form-wrapper{
+    align-self: center;
     border: 1px solid #4CBBCF;
     border-radius: 20px;
+    max-width: 300px;
+    width: 300px;
     padding: 10px;
-    align-self: center;
+  }
+
+  .login-form {
 
   }
 
