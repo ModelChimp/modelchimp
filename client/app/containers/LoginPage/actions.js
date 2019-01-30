@@ -1,4 +1,15 @@
-import { LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from 'containers/App/constants';
+import { LOGIN,
+          LOGIN_SUCCESS,
+          LOGIN_ERROR,
+         } from 'containers/App/constants';
+
+import {
+  FORGOT_PASSWORD,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_ERROR,
+  RESET,
+} from './constants';
+
 
 export function login(username, password) {
   return {
@@ -19,5 +30,31 @@ export function loginError(message) {
   return {
     type: LOGIN_ERROR,
     error: message,
+  };
+}
+
+export function forgotPassword(email) {
+  return {
+    type: FORGOT_PASSWORD,
+    email,
+  };
+}
+
+export function forgotPasswordSuccess() {
+  return {
+    type: FORGOT_PASSWORD_SUCCESS,
+  };
+}
+
+export function forgotPasswordError(error) {
+  return {
+    type: FORGOT_PASSWORD_ERROR,
+    error
+  };
+}
+
+export function reset() {
+  return {
+    type: RESET,
   };
 }

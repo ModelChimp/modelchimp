@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import Img from 'components/Img'
 import LogoPath from 'images/logo_white.png'
+import { Link } from 'react-router-dom';
 
 
 class RegistrationForm extends React.Component {
@@ -98,6 +99,7 @@ class RegistrationForm extends React.Component {
         <Form.Item >
           <Button type="primary" htmlType="submit">Register</Button>
         </Form.Item>
+        <Link to={'/login'} style={{float:'left'}} >Login</Link>
       </Form>
     );
   }

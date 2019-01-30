@@ -10,6 +10,8 @@ import { Form, Icon, Input, Button, Alert } from 'antd';
 import H1 from 'components/H1';
 import Img from 'components/Img'
 import LogoPath from 'images/logo_white.png'
+import { Link } from 'react-router-dom';
+import ForgotPassword from './ForgotPassword';
 
 const FormItem = Form.Item;
 
@@ -67,6 +69,8 @@ class NormalLoginForm extends React.Component {
             Log in
           </Button>
         </FormItem>
+        <Link to={'/register'} style={{float:'left'}} >Register</Link>
+        <ForgotPassword  style={{float:'right'}}/>
       </Form>
     );
   }
