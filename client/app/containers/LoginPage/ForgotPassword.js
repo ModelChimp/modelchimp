@@ -35,17 +35,11 @@ class ForgotPasswordForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.dispatch(forgotPassword(values.email))
+        this.props.dispatch(forgotPassword(values))
         this.props.form.resetFields();
+        this.props.onOk();
       }
     });
-  }
-
-  componentDidUpdate(){
-    // if(this.props.inviteFlag){
-    //   message.info('Invite sent successfully!');
-    //   this.props.dispatch(resetStateAction());
-    // }
   }
 
   render() {
@@ -53,7 +47,7 @@ class ForgotPasswordForm extends React.Component {
       getFieldDecorator, getFieldsError, getFieldError, isFieldTouched,
     } = this.props.form;
 
-    const labelError = isFieldTouched('label') && getFieldError('label');
+    const labelError = isFieldTouched('email') && getFieldError('email');
     return (
       <Form layout="inline" onSubmit={this.handleSubmit} style={this.props.style}>
 
@@ -132,6 +126,7 @@ export class ForgotPassword extends React.Component {
       >
         <WrappedForgotPasswordForm style={{marginBottom:'30px'}}
           dispatch={this.props.dispatch}
+          onOk={this.handleOk}
            />
       </Modal>
     </div>;
@@ -143,7 +138,6 @@ ForgotPassword.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  // experiment: makeSelectExperimentDetail(),
 });
 
 function mapDispatchToProps(dispatch) {

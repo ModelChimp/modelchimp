@@ -33,10 +33,10 @@ export function loginError(message) {
   };
 }
 
-export function forgotPassword(email) {
+export function forgotPassword(values) {
   return {
     type: FORGOT_PASSWORD,
-    email,
+    values,
   };
 }
 
@@ -53,7 +53,7 @@ export function forgotPasswordError(error) {
   };
 }
 
-export function reset() {
+export function resetStateAction() {
   return {
     type: RESET,
   };

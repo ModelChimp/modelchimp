@@ -36,6 +36,7 @@ class NormalLoginForm extends React.Component {
     );
 
     return (
+      <div style={{textAlign:'center', width:300}}>
       <Form onSubmit={this.handleSubmit} className="login-form">
         <Img src={LogoPath} />
         <FormItem>
@@ -69,9 +70,12 @@ class NormalLoginForm extends React.Component {
             Log in
           </Button>
         </FormItem>
-        <Link to={'/register'} style={{float:'left'}} >Register</Link>
-        <ForgotPassword  style={{float:'right'}}/>
       </Form>
+      <Link to={'/register'} style={{float:'left'}} >Register</Link>
+      <ForgotPassword  style={{float:'right'}}/>
+
+      </div>
+
     );
   }
 }
