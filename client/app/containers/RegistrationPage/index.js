@@ -20,7 +20,6 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import RegisterForm from './RegisterForm';
-import Content from 'components/Content';
 import StyledDiv from './StyledDiv';
 import { registerAction, resetAction } from './actions';
 import {
