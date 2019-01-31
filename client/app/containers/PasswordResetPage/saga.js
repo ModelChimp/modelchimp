@@ -17,10 +17,10 @@ export function* passwordReset({data}) {
 
   try {
     const response = yield ModelchimpClient.post(requestURL, {body: formData});
-    // const { token } = response;
-    // ModelchimpClient.login(token);
-    //
-    // yield put(loginSuccess(token));
+    const { token } = response;
+    ModelchimpClient.login(token);
+
+    yield put(loginSuccess(token));
   } catch (err) {
     yield put(registerErrorAction(err));
   }

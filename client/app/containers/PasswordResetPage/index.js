@@ -46,7 +46,7 @@ export class PasswordResetPage extends React.Component {
     this.props.setLogout();
   }
   render() {
-    // if (this.props.logged) return <Redirect to="/projects" />;
+    if (this.props.logged) return <Redirect to="/projects" />;
 
     return (
       <StyledDiv>
