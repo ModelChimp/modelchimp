@@ -12,14 +12,26 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectInviteRedirect from './selectors';
+import {makeSelectExistingUser} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { inviteCheckAction } from './actions';
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class InviteRedirect extends React.Component {
+  componentDidMount(){
+    const inviteToken = this.props.match.params.token;
+
+    this.props.dispatch(inviteCheckAction(inviteToken));
+  }
+
+
   render() {
-    return <div />;
+    console.log(this.props.existingUser);
+    return <div>
+      hello
+    </div>;
   }
 }
 
@@ -28,7 +40,7 @@ InviteRedirect.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  inviteRedirect: makeSelectInviteRedirect(),
+  existingUser: makeSelectExistingUser(),
 });
 
 function mapDispatchToProps(dispatch) {

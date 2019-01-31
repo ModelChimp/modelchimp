@@ -110,7 +110,7 @@ urlpatterns = [
          name='register'),
     url(r'invite/create/(?P<project_id>\d+)/$', invitation.InviteAPI.as_view(),
          name='invite_create'),
-    url(r'invite/(?P<invite_id>\d+)/$', invitation.InviteAPI.as_view(),
+    url(r'invite/(?P<invite_id>[0-9A-Za-z_\-]+)/$', invitation.InviteInfoAPI.as_view(),
          name='invite_info'),
     url(r'^rest-auth/password/reset/confirm/', user.PasswordResetConfirmAPIView.as_view()),
     url(r'^rest-auth/', include('rest_auth.urls')),

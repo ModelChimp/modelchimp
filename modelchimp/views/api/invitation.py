@@ -60,12 +60,18 @@ class InviteAPI(generics.CreateAPIView):
             return Response({}, status=status.HTTP_201_CREATED)
 
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
+
+
+class InviteInfoAPI(generics.CreateAPIView):
+    serializer_class = InvitationSerializer
+    queryset = Invitation.objects.all()
+    permission_classes = ()
+
     def get(self, request, invite_id, *args, **kwargs):
         iid = force_text(urlsafe_base64_decode(invite_id))
 
         # Save the clicked event
-        invite_object = self.get_queryset.get(pk=iid)
+        invite_object = self.queryset.get(pk=iid)
         invite_object.invite_clicked = True
         invite_object.save()
 
@@ -78,9 +84,9 @@ class InviteAPI(generics.CreateAPIView):
             except Membership.DoesNotExist:
                 Membership.objects.create(project=invite_object.project, user=user)
 
-            return Response({'existsing_user': True})
+            return Response({'existing_user': True})
         except User.DoesNotExist:
             pass
 
 
-        return Response({'existsing_user': False})
+        return Response({'existing_user': False})

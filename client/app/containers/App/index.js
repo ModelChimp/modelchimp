@@ -21,6 +21,7 @@ import RegistrationPage from 'containers/RegistrationPage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import PasswordResetPage from 'containers/PasswordResetPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import InviteRedirect from 'containers/InviteRedirect/Loadable';
 
 import GlobalStyle from '../../global-styles';
 import PrivateRoute from './PrivateRoute';
@@ -48,6 +49,7 @@ export default function App() {
         <PrivateRoute path="/experiment-list/:id" component={ExperimentList} />
         <PrivateRoute path="/profile" component={ProfilePage} />
         <Route path="/reset/:uid/:token/" component={PasswordResetPage} />
+        <Route path="/invite/:token/" component={InviteRedirect} />
         <Route path="/login" component={LoginPage} />
         <Route path="/logout" component={Logout} />
         <Route path="/register" component={RegistrationPage} />
