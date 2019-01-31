@@ -10,7 +10,7 @@ from modelchimp.serializers.user import UserSerializer
 
 from modelchimp.api_permissions import HasProjectMembership
 from rest_framework.permissions import IsAuthenticated
-
+from rest_auth.views import PasswordResetConfirmView
 
 class UserAPI(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
@@ -43,6 +43,15 @@ class RegisterAPI(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=self.request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+        token = user.auth_token.key
+
+        return Response({'token': token})
+
+class PasswordResetConfirmAPIView(PasswordResetConfirmView):
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user =serializer.save()
         token = user.auth_token.key
 
         return Response({'token': token})
