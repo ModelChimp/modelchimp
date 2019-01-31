@@ -94,8 +94,6 @@ elif settings.ENTERPRISE_FLAG:
                     url(r'^login/$',
                         LoginView.as_view(template_name='registration/login_enterprise.html'),
                         name='login'),
-                    url(r'^invitation/(?P<invite_id>[0-9A-Za-z_\-]+)/$',
-                        invitation.invite_clicked, name='invitation'),
                         ]
 else:
     urlpatterns += [url(r'^$', LoginView.as_view(template_name='registration/login.html'),
@@ -103,6 +101,4 @@ else:
                     url(r'^login/$',
                         LoginView.as_view(template_name='registration/login.html'),
                         name='login'),
-                    url(r'^invitation/(?P<invite_id>[0-9A-Za-z_\-]+)/$',
-                        invitation.invite_clicked, name='invitation'),
                         ]

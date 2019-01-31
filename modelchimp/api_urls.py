@@ -108,8 +108,10 @@ urlpatterns = [
     url(r'register$',
         user.RegisterAPI.as_view({'post': 'create'}),
          name='register'),
-    url(r'invite/(?P<project_id>\d+)/$', invitation.SendInviteAPI.as_view(),
-         name='invite'),
+    url(r'invite/create/(?P<project_id>\d+)/$', invitation.InviteAPI.as_view(),
+         name='invite_create'),
+    url(r'invite/(?P<invite_id>\d+)/$', invitation.InviteAPI.as_view(),
+         name='invite_info'),
     url(r'^rest-auth/password/reset/confirm/', user.PasswordResetConfirmAPIView.as_view()),
     url(r'^rest-auth/', include('rest_auth.urls')),
 

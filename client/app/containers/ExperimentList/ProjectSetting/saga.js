@@ -42,7 +42,7 @@ export function* deleteProjecttData({ projectId }) {
 }
 
 export function* sendInvite({ values, projectId }) {
-  let requestURL = `invite/${projectId}/`;
+  let requestURL = `invite/create/${projectId}/`;
   let formData = new FormData();
 
   mapKeys(values, (v,k) => formData.append(k,v));

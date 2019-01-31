@@ -20,7 +20,7 @@ from modelchimp.api_permissions import HasProjectMembership
 from rest_framework.permissions import IsAuthenticated
 
 
-class SendInviteAPI(generics.CreateAPIView):
+class InviteAPI(generics.CreateAPIView):
     serializer_class = InvitationSerializer
     queryset = Invitation.objects.all()
     permission_classes = (IsAuthenticated, HasProjectMembership)
@@ -40,7 +40,7 @@ class SendInviteAPI(generics.CreateAPIView):
             from_user = serializer.validated_data['from_user']
 
             #Create the content for the email
-            current_site = request.META['HTTP_HOST']
+            current_site = get_current_site(request)
             mail_subject = 'ModelChimp: You have been invited to join %s' % (project.name,)
             message = render_to_string('email/invitation_email.html', {
                 'domain': current_site,
@@ -61,32 +61,26 @@ class SendInviteAPI(generics.CreateAPIView):
 
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-def invite_clicked(request, invite_id, *args, **kwargs):
-    try:
+    def get(self, request, invite_id, *args, **kwargs):
         iid = force_text(urlsafe_base64_decode(invite_id))
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-        return HttpResponse('This invitation link is no longer valid!')
 
-    # Save the clicked event
-    invite_object = Invitation.objects.get(pk=iid)
-    invite_object.invite_clicked = True
-    invite_object.save()
+        # Save the clicked event
+        invite_object = self.get_queryset.get(pk=iid)
+        invite_object.invite_clicked = True
+        invite_object.save()
 
-    # Check if the user already exists
-    try:
-        user = User.objects.get(email=invite_object.to_email)
-
+        # Check if the user already exists
         try:
-            Membership.objects.get(project=invite_object.project, user=user)
-        except Membership.DoesNotExist:
-            Membership.objects.create(project=invite_object.project, user=user)
+            user = User.objects.get(email=invite_object.to_email)
 
-        login(request, user, settings.AUTHENTICATION_BACKENDS[0])
-        return HttpResponseRedirect('/project/' + str(invite_object.project.id))
-    except User.DoesNotExist:
-        pass
+            try:
+                Membership.objects.get(project=invite_object.project, user=user)
+            except Membership.DoesNotExist:
+                Membership.objects.create(project=invite_object.project, user=user)
 
-    if settings.ENTERPRISE_FLAG:
-        return HttpResponseRedirect('/invite/' + invite_id)
+            return Response({'existsing_user': True})
+        except User.DoesNotExist:
+            pass
 
-    return HttpResponseRedirect('/signup/' + invite_id)
+
+        return Response({'existsing_user': False})
