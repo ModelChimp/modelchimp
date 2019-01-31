@@ -32,7 +32,7 @@ class InviteAPI(generics.CreateAPIView):
         data['project'] = project.id
         serializer = self.serializer_class(data=data)
         serializer.is_valid()
-
+        print(serializer.errors)
         if serializer.is_valid():
             saved_instance = serializer.save()
 
@@ -60,7 +60,7 @@ class InviteAPI(generics.CreateAPIView):
             return Response({}, status=status.HTTP_201_CREATED)
 
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
+    
     def get(self, request, invite_id, *args, **kwargs):
         iid = force_text(urlsafe_base64_decode(invite_id))
 
