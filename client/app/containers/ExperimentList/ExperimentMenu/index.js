@@ -133,8 +133,9 @@ class ExperimentMenu extends React.Component {
               visible={this.state.visible}
               onOk={this.handleOk}
               onCancel={this.handleCancel}
+              style={{textAlign:'center'}}
             >
-              <Section name="Metric">
+              <Section name="Metric" style={{marginTop:'0px'}}>
                 <Transfer
                   dataSource={this.props.menuMetric}
                   targetKeys={this.props.targetMetricKeys}

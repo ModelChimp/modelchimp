@@ -81,7 +81,7 @@ class NormalLoginForm extends React.Component {
         <Link to="/register" style={{ float: 'left' }}>
           Register
         </Link>
-        <ForgotPassword style={{ float: 'right' }} />
+        <ForgotPassword style={{ float: 'right', color:'#1890ff' }} />
       </div>
     );
   }
