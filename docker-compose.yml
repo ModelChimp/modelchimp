@@ -23,6 +23,7 @@ services:
       - DB_HOST=db
       - REDIS_HOST=redis
       - MODELCHIMP_PATH=/code
+      - DOMAIN=127.0.0.1:3000
     volumes:
       - .:/code
     ports:

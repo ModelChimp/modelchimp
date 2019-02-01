@@ -11,5 +11,5 @@ python3 /code/manage.py migrate
 python3 /code/manage.py collectstatic --noinput
 python3 manage.py create_super_user --email admin@modelchimp.com --password modelchimp123
 python3 manage.py loaddata modelchimp.json
-python3 /code/manage.py set_google_auth
+python3 /code/manage.py set_domain
 python3 /code/manage.py runserver 0.0.0.0:8000
