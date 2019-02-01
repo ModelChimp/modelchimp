@@ -1,13 +1,9 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import ModelchimpClient from 'utils/modelchimpClient';
 import { INVITE_CHECK } from './constants';
-import {
-  inviteCheckSuccessAction,
-  inviteCheckErrorAction,
- } from './actions';
+import { inviteCheckSuccessAction, inviteCheckErrorAction } from './actions';
 
-
-export function* registerUser({inviteToken}) {
+export function* registerUser({ inviteToken }) {
   const requestURL = `invite/${inviteToken}/`;
 
   try {

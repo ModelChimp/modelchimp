@@ -72,8 +72,9 @@ const makeSelectTargetMetricKeys = () =>
   });
 
 const makeSelectMenuKey = () =>
-  createSelector(selectExperimentMenuPageDomain, substate => substate.get('menuKey'));
-
+  createSelector(selectExperimentMenuPageDomain, substate =>
+    substate.get('menuKey'),
+  );
 
 export {
   selectExperimentMenuPageDomain,

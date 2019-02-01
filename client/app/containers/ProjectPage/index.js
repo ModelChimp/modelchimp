@@ -43,7 +43,7 @@ export class ProjectPage extends React.PureComponent {
           </Helmet>
 
           <ContentCentered>
-            <CreateProject style={{marginTop:'100px'}} />
+            <CreateProject style={{ marginTop: '100px' }} />
             <ProjectList projects={projects} />
           </ContentCentered>
         </article>

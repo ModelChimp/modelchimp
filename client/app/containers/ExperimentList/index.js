@@ -24,44 +24,38 @@ import ExperimentMenu from './ExperimentMenu/index';
 import ProjectSetting from './ProjectSetting';
 import ExperimentTable from './ExperimentTable';
 
+const ExperimentList = props => (
+  <Layout className="layout">
+    <Helmet>
+      <title>ExperimentList</title>
+      <meta name="description" content="Description of ExperimentList" />
+    </Helmet>
+    <HeaderWrapper />
 
-export class ExperimentList extends React.Component {
-  render() {
-    return (
-      <Layout className="layout">
-        <Helmet>
-          <title>ExperimentList</title>
-          <meta name="description" content="Description of ExperimentList" />
-        </Helmet>
-        <HeaderWrapper />
-
-        <Content>
-          <div style={{ marginTop: '50px' }}>
-            <ProjectDetail projectId={this.props.match.params.id} />
-          </div>
-          <ExperimentMenu
-            style={{ marginTop: '50px', background: '#F0F2F5' }}
-            projectId={this.props.match.params.id}
-            url={this.props.match.url}
-          />
-        <Route path={`${this.props.match.path}/settings`} component={ProjectSetting} />
-        <Route exact path={`${this.props.match.path}`} component={ExperimentTable} />
-        </Content>
-      </Layout>
-    );
-  }
-}
+    <Content>
+      <div style={{ marginTop: '50px' }}>
+        <ProjectDetail projectId={props.match.params.id} />
+      </div>
+      <ExperimentMenu
+        style={{ marginTop: '50px', background: '#F0F2F5' }}
+        projectId={props.match.params.id}
+        url={props.match.url}
+      />
+      <Route path={`${props.match.path}/settings`} component={ProjectSetting} />
+      <Route exact path={`${props.match.path}`} component={ExperimentTable} />
+    </Content>
+  </Layout>
+);
 
 ExperimentList.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  match: PropTypes.object,
 };
 
-const mapStateToProps = createStructuredSelector({
-});
+const mapStateToProps = createStructuredSelector({});
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch
+    dispatch,
   };
 }
 

@@ -5,18 +5,18 @@ const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  height:100vh;
-  background:#001529;
-  color:white;
+  height: 100vh;
+  background: #001529;
+  color: white;
 
   h1 {
     color: white;
   }
 
   img {
-    height:150px;
+    height: 150px;
     width: 200px;
-    align-self:center;
+    align-self: center;
   }
 `;
 

@@ -3,12 +3,10 @@ import {
   LOAD_EXPERIMENT_DETAIL,
   LOAD_EXPERIMENT_DETAIL_SUCCESS,
   LOAD_EXPERIMENT_DETAIL_ERROR,
-  CREATE_EXPERIMENT_LABELS,
   CREATE_EXPERIMENT_LABELS_SUCCESS,
   CREATE_EXPERIMENT_LABELS_ERROR,
-  DELETE_EXPERIMENT_LABELS,
   DELETE_EXPERIMENT_LABELS_SUCCESS,
-  DELETE_EXPERIMENT_LABELS_ERROR
+  DELETE_EXPERIMENT_LABELS_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -23,7 +21,7 @@ export const initialState = fromJS({
   experimentId: null,
   shortExperimentId: null,
   experimentName: null,
-  labels:null
+  labels: null,
 });
 
 function experimentDetailReducer(state = initialState, action) {
@@ -39,7 +37,7 @@ function experimentDetailReducer(state = initialState, action) {
         .set('experimentId', action.experiment.experiment_id)
         .set(
           'shortExperimentId',
-            action.experiment.experiment_id.substring(0, 7),
+          action.experiment.experiment_id.substring(0, 7),
         )
         .set('experimentName', action.experiment.name)
         .set('labels', action.experiment.labels)

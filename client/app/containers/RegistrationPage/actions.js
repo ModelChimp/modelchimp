@@ -4,17 +4,12 @@
  *
  */
 
-import {
-  REGISTER,
-  REGISTER_SUCCESS,
-  REGISTER_ERROR,
-  RESET,
- } from './constants';
+import { REGISTER, REGISTER_SUCCESS, REGISTER_ERROR, RESET } from './constants';
 
 export function registerAction(data) {
   return {
     type: REGISTER,
-    data
+    data,
   };
 }
 

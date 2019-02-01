@@ -14,6 +14,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Section from 'components/Section';
 import { Modal, Menu, Icon, Button, Transfer } from 'antd';
+import { Link } from 'react-router-dom';
 import {
   makeSelectExperimentMenuParameter,
   makeSelectExperimentMenuMetric,
@@ -36,12 +37,9 @@ import {
   MENU_SETTING,
   MENU_CUSTOMIZE_TABLE,
 } from './constants';
-import { Route, Link } from "react-router-dom";
-
 
 class ExperimentMenu extends React.Component {
   state = {
-    current: 'mail',
     visible: false,
   };
 
@@ -51,7 +49,7 @@ class ExperimentMenu extends React.Component {
   }
 
   handleClick = e => {
-    const key = e.key === MENU_CUSTOMIZE_TABLE? MENU_EXPERIMENT : e.key;
+    const key = e.key === MENU_CUSTOMIZE_TABLE ? MENU_EXPERIMENT : e.key;
 
     this.props.onMenuSelection(key);
   };
@@ -125,7 +123,7 @@ class ExperimentMenu extends React.Component {
           </Link>
         </Menu.Item>
 
-        { this.props.menuKey !== MENU_SETTING ? (
+        {this.props.menuKey !== MENU_SETTING ? (
           <Menu.Item key={MENU_CUSTOMIZE_TABLE} style={{ float: 'right' }}>
             <Button type="primary" onClick={this.showModal}>
               <span>Customize Table</span>
@@ -172,6 +170,9 @@ ExperimentMenu.propTypes = {
   setTargetMetricKeys: PropTypes.func,
   className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   style: PropTypes.object,
+  onMenuSelection: PropTypes.func,
+  menuKey: PropTypes.string,
+  url: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -191,10 +192,7 @@ function mapDispatchToProps(dispatch) {
     setTargetKeys: targetKeys => dispatch(setTargetKeysAction(targetKeys)),
     setTargetMetricKeys: targetMetricKeys =>
       dispatch(setMetricTargetKeysAction(targetMetricKeys)),
-    setTargetMetricKeys: targetMetricKeys =>
-      dispatch(setMetricTargetKeysAction(targetMetricKeys)),
-    onMenuSelection: menuKey =>
-      dispatch(onMenuSelectionAction(menuKey)),
+    onMenuSelection: menuKey => dispatch(onMenuSelectionAction(menuKey)),
   };
 }
 

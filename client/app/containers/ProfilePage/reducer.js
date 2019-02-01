@@ -9,7 +9,6 @@ import {
   LOAD_PROFILE,
   LOAD_PROFILE_SUCCESS,
   LOAD_PROFILE_ERROR,
-  UPDATE_PROFILE,
   UPDATE_PROFILE_SUCCESS,
   UPDATE_PROFILE_ERROR,
   PROFILE_MODAL_OPEN,
@@ -18,7 +17,7 @@ import {
 
 export const initialState = fromJS({
   profileData: {
-    avatar:null
+    avatar: null,
   },
   modalVisible: false,
 });
@@ -26,25 +25,18 @@ export const initialState = fromJS({
 function profilePageReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_PROFILE:
-      return state
-        .set('loading', true)
-        .set('error', false);
+      return state.set('loading', true).set('error', false);
     case LOAD_PROFILE_SUCCESS:
-      return state
-            .set('profileData', action.profileData)
-            .set('loading', false);
+      return state.set('profileData', action.profileData).set('loading', false);
     case LOAD_PROFILE_ERROR:
-      return state
-              .set('error', action.error)
-              .set('loading', false);
+      return state.set('error', action.error).set('loading', false);
     case UPDATE_PROFILE_SUCCESS:
       return state
-            .set('loading', false)
-            .set('profileData', action.profileData)
-            .set('modalVisible', false);
+        .set('loading', false)
+        .set('profileData', action.profileData)
+        .set('modalVisible', false);
     case UPDATE_PROFILE_ERROR:
-      return state
-              .set('error', action.error);
+      return state.set('error', action.error);
     case PROFILE_MODAL_OPEN:
       return state.set('modalVisible', true);
     case PROFILE_MODAL_CLOSE:

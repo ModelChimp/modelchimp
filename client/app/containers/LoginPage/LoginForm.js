@@ -7,9 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Form, Icon, Input, Button, Alert } from 'antd';
-import H1 from 'components/H1';
-import Img from 'components/Img'
-import LogoPath from 'images/logo_white.png'
+import Img from 'components/Img';
+import LogoPath from 'images/logo_white.png';
 import { Link } from 'react-router-dom';
 import ForgotPassword from './ForgotPassword';
 
@@ -41,20 +40,28 @@ class NormalLoginForm extends React.Component {
           <Img src={LogoPath} />
           <FormItem>
             {getFieldDecorator('userName', {
-              rules: [{ required: true, message: 'Please input your username!' }],
+              rules: [
+                { required: true, message: 'Please input your username!' },
+              ],
             })(
               <Input
-                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                prefix={
+                  <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
                 placeholder="Username"
               />,
             )}
           </FormItem>
           <FormItem>
             {getFieldDecorator('password', {
-              rules: [{ required: true, message: 'Please input your Password!' }],
+              rules: [
+                { required: true, message: 'Please input your Password!' },
+              ],
             })(
               <Input
-                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                prefix={
+                  <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />
+                }
                 type="password"
                 placeholder="Password"
               />,
@@ -71,10 +78,11 @@ class NormalLoginForm extends React.Component {
             </Button>
           </FormItem>
         </Form>
-        <Link to={'/register'} style={{float:'left'}} >Register</Link>
-        <ForgotPassword  style={{float:'right'}}/>
+        <Link to="/register" style={{ float: 'left' }}>
+          Register
+        </Link>
+        <ForgotPassword style={{ float: 'right' }} />
       </div>
-
     );
   }
 }

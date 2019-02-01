@@ -13,7 +13,7 @@ import {
   CREATE_EXPERIMENT_LABELS_ERROR,
   DELETE_EXPERIMENT_LABELS,
   DELETE_EXPERIMENT_LABELS_SUCCESS,
-  DELETE_EXPERIMENT_LABELS_ERROR
+  DELETE_EXPERIMENT_LABELS_ERROR,
 } from './constants';
 
 export function loadExperimentDetailAction(modelId) {
@@ -41,7 +41,7 @@ export function createExperimentLabelsAction(modelId, labelData) {
   return {
     type: CREATE_EXPERIMENT_LABELS,
     modelId,
-    labelData
+    labelData,
   };
 }
 
@@ -63,7 +63,7 @@ export function deleteExperimentLabelsAction(modelId, label) {
   return {
     type: DELETE_EXPERIMENT_LABELS,
     modelId,
-    label
+    label,
   };
 }
 

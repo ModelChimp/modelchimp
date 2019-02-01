@@ -5,10 +5,13 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { LOGIN } from 'containers/App/constants';
 import ModelchimpClient from 'utils/modelchimpClient';
-import { loginSuccess, loginError, forgotPasswordSuccess, forgotPasswordError } from './actions';
 import {
-  FORGOT_PASSWORD,
-} from './constants';
+  loginSuccess,
+  loginError,
+  forgotPasswordSuccess,
+  forgotPasswordError,
+} from './actions';
+import { FORGOT_PASSWORD } from './constants';
 
 export function* postLogin({ username, password }) {
   const requestURL = `api-token-auth/`;
@@ -58,8 +61,7 @@ export function* forgotPassword({ values }) {
       body: JSON.stringify(values),
     };
 
-    const data = yield ModelchimpClient.post(requestURL, params);
-
+    yield ModelchimpClient.post(requestURL, params);
     yield put(forgotPasswordSuccess());
   } catch (err) {
     yield put(forgotPasswordError(err));

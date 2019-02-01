@@ -15,7 +15,7 @@ import {
   PROFILE_MODAL_CLOSE,
 } from './constants';
 
-export function loadProfileAction(modelId) {
+export function loadProfileAction() {
   return {
     type: LOAD_PROFILE,
   };
@@ -30,7 +30,7 @@ export function loadProfileSuccessAction(profileData) {
 
 export function loadProfilecErrorAction(error) {
   return {
-    type: LOAD_PROFILE_SUCCESS,
+    type: LOAD_PROFILE_ERROR,
     error,
   };
 }
@@ -39,7 +39,7 @@ export function updateProfileAction(values, profilePic) {
   return {
     type: UPDATE_PROFILE,
     values,
-    profilePic
+    profilePic,
   };
 }
 
@@ -57,13 +57,13 @@ export function updateProfilecErrorAction(error) {
   };
 }
 
-export function profileModalOpenAction(error) {
+export function profileModalOpenAction() {
   return {
     type: PROFILE_MODAL_OPEN,
   };
 }
 
-export function profileModalCloseAction(error) {
+export function profileModalCloseAction() {
   return {
     type: PROFILE_MODAL_CLOSE,
   };

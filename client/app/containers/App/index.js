@@ -10,7 +10,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Switch, Route } from 'react-router-dom';
 
-import HomePage from 'containers/HomePage/Loadable';
 import ProjectPage from 'containers/ProjectPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import Logout from 'containers/Logout/Loadable';
@@ -18,15 +17,13 @@ import ExperimentList from 'containers/ExperimentList/Loadable';
 import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import ProfilePage from 'containers/ProfilePage/Loadable';
 import RegistrationPage from 'containers/RegistrationPage/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
 import PasswordResetPage from 'containers/PasswordResetPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import InviteRedirect from 'containers/InviteRedirect/Loadable';
 
+import Footer from 'components/Footer';
 import GlobalStyle from '../../global-styles';
 import PrivateRoute from './PrivateRoute';
-import Footer from 'components/Footer';
-import {Layout} from 'antd';
 
 export default function App() {
   return (
@@ -38,7 +35,7 @@ export default function App() {
         <meta name="description" content="A React.js Boilerplate application" />
       </Helmet>
       {/*  <Header /> */}
-      <Switch >
+      <Switch>
         <PrivateRoute exact path="/" component={ProjectPage} />
         <PrivateRoute path="/projects" component={ProjectPage} />
         <PrivateRoute

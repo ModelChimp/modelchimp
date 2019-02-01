@@ -6,7 +6,6 @@ import {
   loadProfilecErrorAction,
   updateProfileSuccessAction,
   updateProfilecErrorAction,
-  profileModalCloseAction,
 } from './actions';
 
 export function* getProfileData() {
@@ -20,11 +19,13 @@ export function* getProfileData() {
   }
 }
 
-export function* updateProfileData({values}) {
+export function* updateProfileData({ values }) {
   const requestURL = `user`;
 
   try {
-    const profileData = yield ModelchimpClient.post(requestURL, { body : values });
+    const profileData = yield ModelchimpClient.post(requestURL, {
+      body: values,
+    });
     yield put(updateProfileSuccessAction(profileData));
   } catch (err) {
     yield put(updateProfilecErrorAction(err));

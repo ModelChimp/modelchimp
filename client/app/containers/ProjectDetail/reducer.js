@@ -5,8 +5,8 @@
  */
 
 import { fromJS } from 'immutable';
-import { LOAD_PROJECT_DETAIL, LOAD_PROJECT_DETAIL_SUCCESS } from './constants';
 import { UPDATE_PROJECT_DETAILS_SUCCESS } from 'containers/ExperimentList/ProjectSetting/constants';
+import { LOAD_PROJECT_DETAIL, LOAD_PROJECT_DETAIL_SUCCESS } from './constants';
 
 export const initialState = fromJS({
   loading: false,
@@ -14,7 +14,7 @@ export const initialState = fromJS({
   projectDetail: {
     name: null,
     description: null,
-    members:null
+    members: null,
   },
   projectKey: null,
 });
@@ -33,8 +33,7 @@ function projectDetailReducer(state = initialState, action) {
         .set('projectDetail', action.projectDetail)
         .set('projectKey', action.projectKey);
     case UPDATE_PROJECT_DETAILS_SUCCESS:
-      return state
-        .set('projectDetail', action.projectData)
+      return state.set('projectDetail', action.projectData);
     default:
       return state;
   }

@@ -8,7 +8,7 @@ export function* getHeaderData() {
   const requestURL = `user`;
 
   try {
-    let data = yield ModelchimpClient.get(requestURL);
+    const data = yield ModelchimpClient.get(requestURL);
 
     yield put(loadHeaderSuccessAction(data.avatar));
   } catch (err) {

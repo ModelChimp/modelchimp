@@ -1,6 +1,5 @@
 import React from 'react';
 import { Modal, Button } from 'antd';
-import ModelchimpClient from 'utils/modelchimpClient';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 

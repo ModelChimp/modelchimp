@@ -5,26 +5,24 @@ const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  height:100vh;
-  background:#001529;
+  height: 100vh;
+  background: #001529;
 
-   h1 {
+  h1 {
     color: white;
   }
 
   img {
-    height:150px;
+    height: 150px;
   }
-
 
   form {
     max-width: 300px;
     width: 300px;
-    border: 1px solid #4CBBCF;
+    border: 1px solid #4cbbcf;
     border-radius: 20px;
     padding: 10px;
     align-self: center;
-
   }
 
   input {

@@ -1,6 +1,6 @@
 /**
  *
- * ProjectSetting
+ * Experiment Table
  *
  */
 
@@ -11,6 +11,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { Table, Tag, Icon } from 'antd';
 import LoadingIndicator from 'components/LoadingIndicator';
+import { Link } from 'react-router-dom';
 import {
   makeSelectExperimentList,
   makeSelectExperimentColumns,
@@ -19,9 +20,6 @@ import {
   makeSelectLoading,
 } from './selectors';
 import { getDataAction, loadExperimentAction } from './actions';
-import ExperimentMenu from './ExperimentMenu/index';
-import ProjectSetting from './ProjectSetting';
-import { Link } from 'react-router-dom';
 import { onMenuSelectionAction } from './ExperimentMenu/actions';
 import { MENU_EXPERIMENT } from './ExperimentMenu/constants';
 
@@ -110,7 +108,6 @@ export class ExperimentTable extends React.Component {
     clearInterval(this.timer);
   }
 
-
   addOptionalColumns(data) {
     const opCol = this.props.optionalColumns;
     const opMCol = this.props.optionalMetricColumns;
@@ -177,17 +174,16 @@ export class ExperimentTable extends React.Component {
     return [...data, ...result];
   }
 
-
   render() {
     return this.props.loading ? (
-                      <LoadingIndicator />
-                    ) : (
-                      <Table
-                        columns={this.addOptionalColumns(this.columns)}
-                        dataSource={this.props.experimentList}
-                        rowKey="id"
-                      />);
-
+      <LoadingIndicator />
+    ) : (
+      <Table
+        columns={this.addOptionalColumns(this.columns)}
+        dataSource={this.props.experimentList}
+        rowKey="id"
+      />
+    );
   }
 }
 
@@ -199,6 +195,8 @@ ExperimentTable.propTypes = {
   loading: PropTypes.bool,
   initiateDataFetch: PropTypes.func,
   optionalMetricColumns: PropTypes.array,
+  match: PropTypes.object,
+  menuSelection: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -213,8 +211,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getExperimentData: projectId => dispatch(loadExperimentAction(projectId)),
     initiateDataFetch: () => dispatch(getDataAction()),
-    menuSelection: (key) => dispatch(onMenuSelectionAction(key)),
-    };
+    menuSelection: key => dispatch(onMenuSelectionAction(key)),
+  };
 }
 
 export default connect(

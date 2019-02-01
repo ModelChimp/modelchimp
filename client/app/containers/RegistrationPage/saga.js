@@ -1,22 +1,20 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import ModelchimpClient from 'utils/modelchimpClient';
+import { mapKeys } from 'lodash';
+import { loginSuccess } from 'containers/LoginPage/actions';
 import { REGISTER } from './constants';
-import {
-  registerSuccessAction,
-  registerErrorAction,
- } from './actions';
-import {mapKeys} from 'lodash';
-import { loginSuccess, loginError } from 'containers/LoginPage/actions';
+import { registerErrorAction } from './actions';
 
-
-export function* registerUser({data}) {
+export function* registerUser({ data }) {
   const requestURL = `register`;
-  let formData = new FormData();
+  const formData = new FormData();
 
-  mapKeys(data, (v,k) => formData.append(k,v));
+  mapKeys(data, (v, k) => formData.append(k, v));
 
   try {
-    const response = yield ModelchimpClient.post(requestURL, {body: formData});
+    const response = yield ModelchimpClient.post(requestURL, {
+      body: formData,
+    });
     const { token } = response;
     ModelchimpClient.login(token);
 

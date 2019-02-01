@@ -1,9 +1,11 @@
-import { put, takeLatest, select } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 import ModelchimpClient from 'utils/modelchimpClient';
-import { UPDATE_PROJECT_DETAILS,
-          DELETE_PROJECT_DETAILS,
-          SEND_INVITE,
-      } from './constants';
+import { mapKeys } from 'lodash';
+import {
+  UPDATE_PROJECT_DETAILS,
+  DELETE_PROJECT_DETAILS,
+  SEND_INVITE,
+} from './constants';
 import {
   updateProjectSuccessAction,
   updateProjectErrorAction,
@@ -12,17 +14,15 @@ import {
   sendInviteSuccessAction,
   sendInviteErrorAction,
 } from './actions';
-import { mapKeys } from 'lodash';
 
 export function* updateProjectData({ projectId, projectData }) {
-  let requestURL = `project/${projectId}/`;
-  let formData = new FormData();
+  const requestURL = `project/${projectId}/`;
+  const formData = new FormData();
 
-  mapKeys(projectData, (v,k) => formData.append(k,v));
+  mapKeys(projectData, (v, k) => formData.append(k, v));
 
   try {
-    const data = yield ModelchimpClient.put(requestURL,
-                                                {body: formData});
+    const data = yield ModelchimpClient.put(requestURL, { body: formData });
 
     yield put(updateProjectSuccessAction(data));
   } catch (err) {
@@ -31,7 +31,7 @@ export function* updateProjectData({ projectId, projectData }) {
 }
 
 export function* deleteProjecttData({ projectId }) {
-  let requestURL = `project/${projectId}/`;
+  const requestURL = `project/${projectId}/`;
   try {
     const data = yield ModelchimpClient.delete(requestURL);
 
@@ -42,14 +42,13 @@ export function* deleteProjecttData({ projectId }) {
 }
 
 export function* sendInvite({ values, projectId }) {
-  let requestURL = `invite/create/${projectId}/`;
-  let formData = new FormData();
+  const requestURL = `invite/create/${projectId}/`;
+  const formData = new FormData();
 
-  mapKeys(values, (v,k) => formData.append(k,v));
+  mapKeys(values, (v, k) => formData.append(k, v));
 
   try {
-    const data = yield ModelchimpClient.post(requestURL,
-                                                {body: formData});
+    yield ModelchimpClient.post(requestURL, { body: formData });
     yield put(sendInviteSuccessAction());
   } catch (err) {
     yield put(sendInviteErrorAction(err));

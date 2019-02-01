@@ -57,43 +57,41 @@ export class ExperimentDetailGridSearchPage extends React.Component {
   }
 
   render() {
-    const {gridsearchData, gridsearchColumns,selectedParamCols, selectedMetricCols} = this.props;
-    const renderHTML = gridsearchData && (gridsearchData.length > 0) ? (
-      <Section name="GridSearch">
-
-      <ChartMenu />
-      <Plot
-        data={parseChartData(
-          gridsearchData,
-          selectedParamCols,
-          selectedMetricCols,
-        )}
-        layout={{ title: 'Grid Search Plot' }}
-        config={{ displayModeBar: false }}
-        style={{ width: 'inherit' }}
-        onUpdate={this.onFilterSelection}
-      />
-      <Wrapper>
-        <GridSearchTable
-          columns={gridsearchColumns}
-          dataSource={gridsearchData}
-          rowKey="id"
-          scroll={{ x: true }}
-        />
-      </Wrapper>
-    </Section>
-      ): (
-    <Section name="GridSearch">
-      No Data
-    </Section>
+    const {
+      gridsearchData,
+      gridsearchColumns,
+      selectedParamCols,
+      selectedMetricCols,
+    } = this.props;
+    const renderHTML =
+      gridsearchData && gridsearchData.length > 0 ? (
+        <Section name="GridSearch">
+          <ChartMenu />
+          <Plot
+            data={parseChartData(
+              gridsearchData,
+              selectedParamCols,
+              selectedMetricCols,
+            )}
+            layout={{ title: 'Grid Search Plot' }}
+            config={{ displayModeBar: false }}
+            style={{ width: 'inherit' }}
+            onUpdate={this.onFilterSelection}
+          />
+          <Wrapper>
+            <GridSearchTable
+              columns={gridsearchColumns}
+              dataSource={gridsearchData}
+              rowKey="id"
+              scroll={{ x: true }}
+            />
+          </Wrapper>
+        </Section>
+      ) : (
+        <Section name="GridSearch">No Data</Section>
       );
 
-
-    return (
-      <div>
-          { renderHTML }
-      </div>
-    );
+    return <div>{renderHTML}</div>;
   }
 }
 

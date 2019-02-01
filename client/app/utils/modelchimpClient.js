@@ -91,8 +91,11 @@ class ModelchimpClient {
 
   delete(url) {
     const targetURL = this.baseURL + this.apiURL + url;
-    return call(request, targetURL, { ...this.defaultOptions, method: 'DELETE' });
-    }
+    return call(request, targetURL, {
+      ...this.defaultOptions,
+      method: 'DELETE',
+    });
+  }
 
   getImageUrl(url) {
     const targetURL = this.baseURL + url;

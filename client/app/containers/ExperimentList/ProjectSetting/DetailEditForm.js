@@ -1,19 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Form, Input, Row, Col, Button,
-} from 'antd';
+import { Form, Input, Button } from 'antd';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectProjectDetail } from 'containers/ProjectDetail/selectors';
 import { updateProjectAction } from './actions';
 
 class RegistrationForm extends React.Component {
-  state = {
-    confirmDirty: false,
-  };
-
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
@@ -21,8 +15,7 @@ class RegistrationForm extends React.Component {
         this.props.updateProject(projectId, values);
       }
     });
-  }
-
+  };
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -52,42 +45,39 @@ class RegistrationForm extends React.Component {
 
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Form.Item
-          {...formItemLayout}
-          label="Name"
-        >
+        <Form.Item {...formItemLayout} label="Name">
           {getFieldDecorator('name', {
-            rules: [ {
-               message: 'Please input the project name',
-            }],
-            initialValue:this.props.projectDetail.name
-          })(
-            <Input />
-          )}
+            rules: [
+              {
+                message: 'Please input the project name',
+              },
+            ],
+            initialValue: this.props.projectDetail.name,
+          })(<Input />)}
         </Form.Item>
-        <Form.Item
-          {...formItemLayout}
-          label="Description"
-        >
+        <Form.Item {...formItemLayout} label="Description">
           {getFieldDecorator('description', {
-            rules: [{
-              message: 'Please add the description',
-            }],
-            initialValue:this.props.projectDetail.description
-          })(
-            <Input.TextArea rows={4} />
-          )}
+            rules: [
+              {
+                message: 'Please add the description',
+              },
+            ],
+            initialValue: this.props.projectDetail.description,
+          })(<Input.TextArea rows={4} />)}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">Submit</Button>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
         </Form.Item>
       </Form>
     );
   }
 }
 
-const WrappedEditDetailForm = Form.create({ name: 'editDetails' })(RegistrationForm);
-
+const WrappedEditDetailForm = Form.create({ name: 'editDetails' })(
+  RegistrationForm,
+);
 
 WrappedEditDetailForm.propTypes = {
   updateProject: PropTypes.func.isRequired,
@@ -99,7 +89,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateProject: (projectId, projectData) => dispatch(updateProjectAction(projectId, projectData)),
+    updateProject: (projectId, projectData) =>
+      dispatch(updateProjectAction(projectId, projectData)),
   };
 }
 
@@ -107,6 +98,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(WrappedEditDetailForm);
-
 
 // export default WrappedEditDetailForm;

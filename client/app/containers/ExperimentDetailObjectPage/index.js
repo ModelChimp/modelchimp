@@ -43,13 +43,13 @@ export class ExperimentDetailObjectPage extends React.Component {
 
   render() {
     return (
-        <Section name="Objects">
-          <Table
-            columns={this.columns}
-            dataSource={this.props.objectData}
-            rowKey="id"
-          />
-        </Section>
+      <Section name="Objects">
+        <Table
+          columns={this.columns}
+          dataSource={this.props.objectData}
+          rowKey="id"
+        />
+      </Section>
     );
   }
 }

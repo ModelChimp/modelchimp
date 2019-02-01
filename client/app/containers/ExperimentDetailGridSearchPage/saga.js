@@ -13,7 +13,6 @@ export function* getExperimentGridSearchData({ modelId }) {
     const gridsearchData = yield ModelchimpClient.get(requestURL);
     yield put(loadExperimentGridSearchSuccessAction(gridsearchData));
   } catch (err) {
-    console.log(err);
     yield put(loadExperimentGridSearchErrorAction(err));
   }
 }

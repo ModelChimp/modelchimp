@@ -13,28 +13,27 @@ import {
   makeSelectAuthLogged,
   makeSelectError,
 } from 'containers/App/selectors';
+import { Redirect } from 'react-router-dom';
+import { message } from 'antd';
 import {
   makeSelectForgotPasswordSuccess,
   makeSelectForgotPasswordError,
 } from './selectors';
 import reducer from './reducer';
 
-
-import { Redirect } from 'react-router-dom';
 import { login, resetStateAction } from './actions';
 import saga from './saga';
 import StyledDiv from './StyledDiv';
 import LoginForm from './LoginForm';
-import { message } from 'antd';
 
 class LoginPage extends React.PureComponent {
-  componentDidUpdate(){
-    if(this.props.passwordSuccess){
+  componentDidUpdate() {
+    if (this.props.passwordSuccess) {
       message.info('Password reset mail sent succesfully!');
       this.props.resetStateAction();
     }
 
-    if(this.props.passwordError){
+    if (this.props.passwordError) {
       message.error('Password reset mail could not be sent!');
       this.props.resetStateAction();
     }
@@ -47,10 +46,7 @@ class LoginPage extends React.PureComponent {
       <StyledDiv>
         <Helmet>
           <title>Login Page</title>
-          <meta
-            name="login"
-            content="Login into Modelchimp"
-          />
+          <meta name="login" content="Login into Modelchimp" />
         </Helmet>
         <LoginForm
           onSubmitForm={this.props.onSubmitForm}
@@ -64,6 +60,8 @@ class LoginPage extends React.PureComponent {
 LoginPage.propTypes = {
   logged: PropTypes.bool,
   passwordSuccess: PropTypes.bool,
+  passwordError: PropTypes.func,
+  resetStateAction: PropTypes.func,
   onSubmitForm: PropTypes.func,
   errorMsg: PropTypes.any,
 };

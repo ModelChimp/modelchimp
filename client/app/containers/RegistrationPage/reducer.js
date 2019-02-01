@@ -5,16 +5,11 @@
  */
 
 import { fromJS } from 'immutable';
-import {
-  REGISTER,
-  REGISTER_SUCCESS,
-  REGISTER_ERROR,
-  RESET,
- } from './constants';
+import { REGISTER_SUCCESS, REGISTER_ERROR, RESET } from './constants';
 
 export const initialState = fromJS({
   registerSuccess: false,
-  registerError: false
+  registerError: false,
 });
 
 function registrationPageReducer(state = initialState, action) {
@@ -24,9 +19,7 @@ function registrationPageReducer(state = initialState, action) {
     case REGISTER_ERROR:
       return state.set('registerError', true);
     case RESET:
-      return state
-            .set('registerError', false)
-            .set('registerSuccess', false);
+      return state.set('registerError', false).set('registerSuccess', false);
     default:
       return state;
   }

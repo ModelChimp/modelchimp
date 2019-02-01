@@ -1,7 +1,4 @@
-import { LOGIN,
-          LOGIN_SUCCESS,
-          LOGIN_ERROR,
-         } from 'containers/App/constants';
+import { LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from 'containers/App/constants';
 
 import {
   FORGOT_PASSWORD,
@@ -9,7 +6,6 @@ import {
   FORGOT_PASSWORD_ERROR,
   RESET,
 } from './constants';
-
 
 export function login(username, password) {
   return {
@@ -49,7 +45,7 @@ export function forgotPasswordSuccess() {
 export function forgotPasswordError(error) {
   return {
     type: FORGOT_PASSWORD_ERROR,
-    error
+    error,
   };
 }
 

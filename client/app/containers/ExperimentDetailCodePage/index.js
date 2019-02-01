@@ -12,7 +12,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
 import Highlight from 'react-highlight';
 import makeSelectExperimentDetailCodePage from './selectors';
@@ -45,11 +44,11 @@ export class ExperimentDetailCodePage extends React.Component {
 
   render() {
     return (
-        <Section name="Code">
-          <link rel="stylesheet" href={CodeStyle} />
+      <Section name="Code">
+        <link rel="stylesheet" href={CodeStyle} />
 
-          <Highlight className="python">{this.props.codeData}</Highlight>
-        </Section>
+        <Highlight className="python">{this.props.codeData}</Highlight>
+      </Section>
     );
   }
 }

@@ -1,4 +1,3 @@
-
 import { fromJS } from 'immutable';
 
 import {
@@ -7,14 +6,13 @@ import {
   LOAD_PROJECT_DATA_ERROR,
   PROJECT_MODAL_OPEN,
   PROJECT_MODAL_CLOSE,
-  CREATE_PROJECT,
   CREATE_PROJECT_SUCCESS,
   CREATE_PROJECT_ERROR,
 } from './constants';
 
 // The initial state of the App
 export const initialState = fromJS({
-  modalVisible: null
+  modalVisible: null,
 });
 
 function projectReducer(state = initialState, action) {
@@ -31,9 +29,9 @@ function projectReducer(state = initialState, action) {
       return state.set('modalVisible', false);
     case CREATE_PROJECT_SUCCESS:
       return state
-              .set('projects', action.projects)
-              .set('loading', false)
-              .set('modalVisible', false);
+        .set('projects', action.projects)
+        .set('loading', false)
+        .set('modalVisible', false);
     case CREATE_PROJECT_ERROR:
       return state.set('error', action.error).set('loading', false);
     default:

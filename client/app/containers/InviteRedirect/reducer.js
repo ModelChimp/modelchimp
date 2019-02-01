@@ -5,10 +5,11 @@
  */
 
 import { fromJS } from 'immutable';
-import { INVITE_CHECK,
-INVITE_CHECK_SUCCESS,
-INVITE_CHECK_ERROR,
- } from './constants';
+import {
+  INVITE_CHECK,
+  INVITE_CHECK_SUCCESS,
+  INVITE_CHECK_ERROR,
+} from './constants';
 
 export const initialState = fromJS({
   error: false,

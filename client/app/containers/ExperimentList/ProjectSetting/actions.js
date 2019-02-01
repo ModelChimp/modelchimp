@@ -16,8 +16,7 @@ import {
   SEND_INVITE,
   SEND_INVITE_SUCCESS,
   SEND_INVITE_ERROR,
- } from './constants';
-
+} from './constants';
 
 export function updateProjectAction(projectId, projectData) {
   return {
@@ -30,7 +29,7 @@ export function updateProjectAction(projectId, projectData) {
 export function updateProjectSuccessAction(projectData) {
   return {
     type: UPDATE_PROJECT_DETAILS_SUCCESS,
-    projectData
+    projectData,
   };
 }
 
@@ -49,11 +48,11 @@ export function resetStateAction() {
 export function deleteProjectAction(projectId) {
   return {
     type: DELETE_PROJECT_DETAILS,
-    projectId
+    projectId,
   };
 }
 
-export function deleteProjectSuccessAction(projectData) {
+export function deleteProjectSuccessAction() {
   return {
     type: DELETE_PROJECT_DETAILS_SUCCESS,
   };
@@ -68,14 +67,11 @@ export function deleteProjectErrorAction() {
 export function setMenuKey(key) {
   return {
     type: SET_MENU_KEY,
-    key
+    key,
   };
 }
 
-
-
 export function sendInviteAction(values, projectId) {
-
   return {
     type: SEND_INVITE,
     values,
@@ -84,7 +80,6 @@ export function sendInviteAction(values, projectId) {
 }
 
 export function sendInviteSuccessAction() {
-
   return {
     type: SEND_INVITE_SUCCESS,
   };

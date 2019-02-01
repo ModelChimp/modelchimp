@@ -8,84 +8,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import { Button, Modal, message, Layout, Form, Icon, Input, Tag } from 'antd';
-import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { forgotPassword } from './actions';
-// import { makeSelectExperimentDetail } from './selectors';
+import { Modal } from 'antd';
+import ForgotPasswordForm from './ForgotPasswordForm';
 
 /*
 * Label Form
 */
-function hasErrors(fieldsError) {
-  return Object.keys(fieldsError).some(field => fieldsError[field]);
-}
-
-class ForgotPasswordForm extends React.Component {
-  componentDidMount() {
-    // To disabled submit button at the beginning.
-    this.props.form.validateFields();
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        this.props.dispatch(forgotPassword(values))
-        this.props.form.resetFields();
-        this.props.onOk();
-      }
-    });
-  }
-
-  render() {
-    const {
-      getFieldDecorator, getFieldsError, getFieldError, isFieldTouched,
-    } = this.props.form;
-
-    const labelError = isFieldTouched('email') && getFieldError('email');
-    return (
-      <Form layout="vertical" onSubmit={this.handleSubmit} style={this.props.style}>
-
-        <Form.Item
-        style={{width:'70%'}}
-        >
-          {getFieldDecorator('email', {
-            rules: [{
-              type: 'email', message: 'The input is not valid E-mail!',
-            }, {
-              required: true, message: 'Please input your E-mail!',
-            }],
-          })(
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="email"
-             />
-          )}
-        </Form.Item>
-        <Form.Item
-          style={{width:'20%'}}
-          >
-          <Button
-            type="primary"
-            htmlType="submit"
-            disabled={hasErrors(getFieldsError())}
-            style={{width:'150%'}}
-          >
-            Send
-          </Button>
-        </Form.Item>
-      </Form>
-    );
-  }
-}
-
-const WrappedForgotPasswordForm = Form.create({ name: 'forgot_password_form' })(ForgotPasswordForm);
-
 
 /*
 * Main component
@@ -112,37 +41,38 @@ export class ForgotPassword extends React.Component {
   };
 
   render() {
-
-    return <div style={this.props.style}>
-        <a onClick={this.showModal}>
+    return (
+      <div style={this.props.style}>
+        <button type="button" onClick={this.showModal}>
           Forgot Password
-        </a>
-      <Modal
-        title="Forgot Password"
-        visible={this.state.visible}
-        onOk={this.handleOk}
-        onCancel={this.handleCancel}
-        footer={null}
-      >
-        <WrappedForgotPasswordForm
-          dispatch={this.props.dispatch}
+        </button>
+        <Modal
+          title="Forgot Password"
+          visible={this.state.visible}
           onOk={this.handleOk}
-           />
-      </Modal>
-    </div>;
+          onCancel={this.handleCancel}
+          footer={null}
+        >
+          <ForgotPasswordForm
+            dispatch={this.props.dispatch}
+            onOk={this.handleOk}
+          />
+        </Modal>
+      </div>
+    );
   }
 }
 
 ForgotPassword.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  style: PropTypes.object,
 };
 
-const mapStateToProps = createStructuredSelector({
-});
+const mapStateToProps = createStructuredSelector({});
 
 function mapDispatchToProps(dispatch) {
   return {
-      dispatch,
+    dispatch,
   };
 }
 

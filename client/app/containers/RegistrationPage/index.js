@@ -13,42 +13,33 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import {
-  makeSelectRegisterSuccess,
-  makeSelectRegisterError,
-} from './selectors';
+import { message } from 'antd';
+import { makeSelectAuthLogged } from 'containers/App/selectors';
+import { Redirect } from 'react-router-dom';
+import { makeSelectRegisterError } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import RegisterForm from './RegisterForm';
 import StyledDiv from './StyledDiv';
 import { registerAction, resetAction } from './actions';
-import {
-  message
-} from 'antd';
-import {
-  makeSelectAuthLogged,
-  makeSelectError,
-} from 'containers/App/selectors';
-import { Redirect } from 'react-router-dom';
 
 /* eslint-disable react/prefer-stateless-function */
 export class RegistrationPage extends React.Component {
-  handleSubmit = (d) =>{
+  handleSubmit = d => {
     this.props.dispatch(registerAction(d));
-  }
+  };
 
-  componentDidUpdate(){
-    if(this.props.registerError){
+  componentDidUpdate() {
+    if (this.props.registerError) {
       message.error('Registration unsuccessful!');
       this.props.dispatch(resetAction());
     }
-
   }
 
   render() {
     if (this.props.logged) return <Redirect to="/projects" />;
 
-    const {inviteToken} = this.props.match.params;
+    const { inviteToken } = this.props.match.params;
 
     return (
       <StyledDiv>
@@ -56,10 +47,7 @@ export class RegistrationPage extends React.Component {
           <title>RegistrationPage</title>
           <meta name="description" content="Description of Registration Page" />
         </Helmet>
-        <RegisterForm
-          onSubmit={this.handleSubmit}
-          inviteToken={inviteToken}
-           />
+        <RegisterForm onSubmit={this.handleSubmit} inviteToken={inviteToken} />
       </StyledDiv>
     );
   }
@@ -67,10 +55,12 @@ export class RegistrationPage extends React.Component {
 
 RegistrationPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  registerError: PropTypes.bool,
+  logged: PropTypes.bool,
+  match: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  registerSuccess: makeSelectRegisterSuccess(),
   registerError: makeSelectRegisterError(),
   logged: makeSelectAuthLogged(),
 });

@@ -43,10 +43,9 @@ export class ExperimentDetailParamPage extends React.Component {
 
   render() {
     return (
-
-        <Section name="Parameters">
-          <Table columns={this.columns} dataSource={this.props.paramData} />
-        </Section>
+      <Section name="Parameters">
+        <Table columns={this.columns} dataSource={this.props.paramData} />
+      </Section>
     );
   }
 }

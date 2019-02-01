@@ -9,7 +9,7 @@ import {
   FORGOT_PASSWORD_SUCCESS,
   FORGOT_PASSWORD_ERROR,
   RESET,
- } from './constants';
+} from './constants';
 
 export const initialState = fromJS({
   forgotPasswordSuccess: false,
@@ -24,8 +24,8 @@ function registrationPageReducer(state = initialState, action) {
       return state.set('forgotPasswordError', true);
     case RESET:
       return state
-            .set('forgotPasswordError', false)
-            .set('forgotPasswordSuccess', false);
+        .set('forgotPasswordError', false)
+        .set('forgotPasswordSuccess', false);
     default:
       return state;
   }

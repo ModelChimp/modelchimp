@@ -11,8 +11,8 @@ const makeSelectProjects = () =>
   createSelector(selectProject, projectState => projectState.get('projects'));
 
 const makeSelectModalVisible = () =>
-  createSelector(selectProject, projectState => projectState.get('modalVisible'));
+  createSelector(selectProject, projectState =>
+    projectState.get('modalVisible'),
+  );
 
-export { selectProject,
-          makeSelectProjects,
-          makeSelectModalVisible };
+export { selectProject, makeSelectProjects, makeSelectModalVisible };

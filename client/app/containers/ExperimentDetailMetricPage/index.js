@@ -12,7 +12,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import ExperimentDetail from 'containers/ExperimentDetail/Loadable';
 import Section from 'components/Section';
 import { Table } from 'antd';
 import makeSelectExperimentDetailMetricPage from './selectors';
@@ -46,9 +45,9 @@ export class ExperimentDetailMetricPage extends React.Component {
 
   render() {
     return (
-        <Section name="Metrics">
-          <Table columns={this.columns} dataSource={this.props.metricData} />
-        </Section>
+      <Section name="Metrics">
+        <Table columns={this.columns} dataSource={this.props.metricData} />
+      </Section>
     );
   }
 }

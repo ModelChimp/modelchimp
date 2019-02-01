@@ -9,8 +9,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Section = ({ name, style, className, children, h3 }) => (
-  <section className={className} style={style} >
-    {h3?  <h3>{name}</h3>: <h2>{name}</h2>}
+  <section className={className} style={style}>
+    {h3 ? <h3>{name}</h3> : <h2>{name}</h2>}
     {children}
   </section>
 );
@@ -20,6 +20,7 @@ Section.propTypes = {
   name: PropTypes.string,
   style: PropTypes.object,
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  h3: PropTypes.bool,
 };
 
 const StyledSection = styled(Section)`

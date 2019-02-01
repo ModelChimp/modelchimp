@@ -8,22 +8,11 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import HeaderWrapper from 'containers/HeaderWrapper';
-import { Layout, Menu, Breadcrumb, Tag } from 'antd';
+import { Layout, Menu, Breadcrumb } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import IdBlock from 'components/IdBlock';
 import Content from 'components/Content';
 import { Route, Link } from 'react-router-dom';
-import saga from './saga';
-import reducer from './reducer';
-import {
-  makeSelectExperimentDetail,
-  makeSelectExperimentId,
-  makeSelectShortExperimentId,
-  makeSelectExperimentName,
-  makeSelectLabels,
-} from './selectors';
-
-import { loadExperimentDetailAction } from './actions';
 
 import ExperimentDetailMetricPage from 'containers/ExperimentDetailMetricPage/Loadable';
 import ExperimentDetailParamPage from 'containers/ExperimentDetailParamPage/Loadable';
@@ -31,6 +20,16 @@ import ExperimentDetailCodePage from 'containers/ExperimentDetailCodePage/Loadab
 import ExperimentDetailChartPage from 'containers/ExperimentDetailChartPage/Loadable';
 import ExperimentDetailObjectPage from 'containers/ExperimentDetailObjectPage/Loadable';
 import ExperimentDetailGridSearchPage from 'containers/ExperimentDetailGridSearchPage/Loadable';
+import { loadExperimentDetailAction } from './actions';
+import {
+  makeSelectExperimentDetail,
+  makeSelectExperimentId,
+  makeSelectShortExperimentId,
+  makeSelectExperimentName,
+  makeSelectLabels,
+} from './selectors';
+import reducer from './reducer';
+import saga from './saga';
 
 import Label from './Label';
 
@@ -39,8 +38,8 @@ const { Sider } = Layout;
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetail extends React.Component {
   state = {
-    selectedKey: '1'
-  }
+    selectedKey: '1',
+  };
 
   componentDidMount() {
     const { modelId } = this.props.match.params;
@@ -48,17 +47,13 @@ export class ExperimentDetail extends React.Component {
     this.props.getExperimentMetaData(modelId);
   }
 
-  onMenuSelect = ({key}) => {
+  onMenuSelect = ({ key }) => {
     this.setState({
-      selectedKey: key
+      selectedKey: key,
     });
   };
 
   render() {
-    const selected = this.props.selectedKeys
-      ? [this.props.selectedKeys]
-      : ['1'];
-
     return (
       <Layout>
         <Helmet>
@@ -86,7 +81,7 @@ export class ExperimentDetail extends React.Component {
               onClick={this.onMenuSelect}
             >
               <Menu.Item key="1">
-                <Link to={`${this.props.match.url}`}  >
+                <Link to={`${this.props.match.url}`}>
                   <FontAwesomeIcon icon="greater-than-equal" /> Metrics
                 </Link>
               </Menu.Item>
@@ -96,7 +91,7 @@ export class ExperimentDetail extends React.Component {
                 </Link>
               </Menu.Item>
               <Menu.Item key="3">
-                <Link to={`${this.props.match.url}/code`} >
+                <Link to={`${this.props.match.url}/code`}>
                   <FontAwesomeIcon icon="file-code" /> Code
                 </Link>
               </Menu.Item>
@@ -111,9 +106,7 @@ export class ExperimentDetail extends React.Component {
                 </Link>
               </Menu.Item>
               <Menu.Item key="6">
-                <Link
-                  to={`${this.props.match.url}/gridsearch`}
-                >
+                <Link to={`${this.props.match.url}/gridsearch`}>
                   <FontAwesomeIcon icon="grip-horizontal" /> Grid Search
                 </Link>
               </Menu.Item>
@@ -146,14 +139,36 @@ export class ExperimentDetail extends React.Component {
                   copy={this.props.experimentId}
                   display={this.props.shortExperimentId}
                 />
-              <Label style={{ marginTop: '20px' }} labels={this.props.labels}/>
+                <Label
+                  style={{ marginTop: '20px' }}
+                  labels={this.props.labels}
+                />
 
-              <Route exact path={`${this.props.match.path}`} component={ExperimentDetailMetricPage} />
-              <Route path={`${this.props.match.path}/param`} component={ExperimentDetailParamPage} />
-              <Route path={`${this.props.match.path}/code`} component={ExperimentDetailCodePage} />
-              <Route path={`${this.props.match.path}/chart`} component={ExperimentDetailChartPage} />
-              <Route path={`${this.props.match.path}/object`} component={ExperimentDetailObjectPage} />
-              <Route path={`${this.props.match.path}/gridsearch`} component={ExperimentDetailGridSearchPage} />
+                <Route
+                  exact
+                  path={`${this.props.match.path}`}
+                  component={ExperimentDetailMetricPage}
+                />
+                <Route
+                  path={`${this.props.match.path}/param`}
+                  component={ExperimentDetailParamPage}
+                />
+                <Route
+                  path={`${this.props.match.path}/code`}
+                  component={ExperimentDetailCodePage}
+                />
+                <Route
+                  path={`${this.props.match.path}/chart`}
+                  component={ExperimentDetailChartPage}
+                />
+                <Route
+                  path={`${this.props.match.path}/object`}
+                  component={ExperimentDetailObjectPage}
+                />
+                <Route
+                  path={`${this.props.match.path}/gridsearch`}
+                  component={ExperimentDetailGridSearchPage}
+                />
               </div>
             </div>
           </Content>
@@ -165,13 +180,13 @@ export class ExperimentDetail extends React.Component {
 
 ExperimentDetail.propTypes = {
   experiment: PropTypes.object,
+  match: PropTypes.object,
   getExperimentMetaData: PropTypes.func,
   experimentName: PropTypes.string,
   experimentId: PropTypes.string,
   modelId: PropTypes.string,
-  selectedKeys: PropTypes.string,
   shortExperimentId: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  labels: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({

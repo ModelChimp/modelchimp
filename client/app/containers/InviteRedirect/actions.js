@@ -4,28 +4,29 @@
  *
  */
 
-import { INVITE_CHECK,
+import {
+  INVITE_CHECK,
   INVITE_CHECK_SUCCESS,
   INVITE_CHECK_ERROR,
- } from './constants';
+} from './constants';
 
 export function inviteCheckAction(inviteToken) {
   return {
     type: INVITE_CHECK,
-    inviteToken
+    inviteToken,
   };
 }
 
 export function inviteCheckSuccessAction(existingrUser) {
   return {
     type: INVITE_CHECK_SUCCESS,
-    existingrUser
+    existingrUser,
   };
 }
 
 export function inviteCheckErrorAction(error) {
   return {
     type: INVITE_CHECK_ERROR,
-    error
+    error,
   };
 }
