@@ -53,7 +53,7 @@ class RegisterAPI(viewsets.ModelViewSet):
 
         # Check if its an invite
         invite = self.request.data.get('invite_token', None)
-        if invite:
+        if invite and invite != 'undefined':
             iid = force_text(urlsafe_base64_decode(invite))
             invite_object = Invitation.objects.get(pk=iid)
             try:
