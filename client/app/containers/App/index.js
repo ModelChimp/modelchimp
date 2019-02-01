@@ -39,8 +39,7 @@ export default function App() {
       </Helmet>
       {/*  <Header /> */}
       <Switch >
-        <Route exact path="/" component={HomePage} />
-        <Route path="/features" component={FeaturePage} />
+        <PrivateRoute exact path="/" component={ProjectPage} />
         <PrivateRoute path="/projects" component={ProjectPage} />
         <PrivateRoute
           path="/experiment-detail/:modelId"
