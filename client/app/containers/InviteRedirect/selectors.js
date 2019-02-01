@@ -7,4 +7,7 @@ const selectInviteRedirectDomain = state =>
 const makeSelectExistingUser = () =>
   createSelector(selectInviteRedirectDomain, substate => substate.get('existingUser'));
 
-export { makeSelectExistingUser };
+const makeSelectError = () =>
+  createSelector(selectInviteRedirectDomain, substate => substate.get('error'));
+
+export { makeSelectExistingUser, makeSelectError };

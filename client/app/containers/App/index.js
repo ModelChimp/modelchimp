@@ -52,6 +52,7 @@ export default function App() {
         <Route path="/invite/:token/" component={InviteRedirect} />
         <Route path="/login" component={LoginPage} />
         <Route path="/logout" component={Logout} />
+        <Route path="/register/:inviteToken" component={RegistrationPage} />
         <Route path="/register" component={RegistrationPage} />
         <Route path="" component={NotFoundPage} />
       </Switch>

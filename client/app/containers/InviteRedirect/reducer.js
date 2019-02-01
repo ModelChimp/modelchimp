@@ -12,7 +12,7 @@ INVITE_CHECK_ERROR,
 
 export const initialState = fromJS({
   error: false,
-  existingUser: false
+  existingUser: null,
 });
 
 function inviteRedirectReducer(state = initialState, action) {
@@ -22,7 +22,7 @@ function inviteRedirectReducer(state = initialState, action) {
     case INVITE_CHECK_SUCCESS:
       return state.set('existingUser', action.existingrUser);
     case INVITE_CHECK_ERROR:
-      return state.set('inviteToken', action.inviteToken);
+      return state.set('error', action.inviteToken);
     default:
       return state;
   }
