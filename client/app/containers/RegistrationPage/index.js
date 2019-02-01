@@ -48,13 +48,18 @@ export class RegistrationPage extends React.Component {
   render() {
     if (this.props.logged) return <Redirect to="/projects" />;
 
+    const {inviteToken} = this.props.match.params;
+
     return (
       <StyledDiv>
         <Helmet>
           <title>RegistrationPage</title>
           <meta name="description" content="Description of Registration Page" />
         </Helmet>
-        <RegisterForm onSubmit={this.handleSubmit} />
+        <RegisterForm
+          onSubmit={this.handleSubmit}
+          inviteToken={inviteToken}
+           />
       </StyledDiv>
     );
   }

@@ -6,11 +6,17 @@ from rest_framework import mixins
 from modelchimp.serializers.profile import ProfileSerializer
 from modelchimp.models.profile import Profile
 from modelchimp.models.user import User
+from modelchimp.models.invitation import Invitation
+from modelchimp.models.membership import Membership
 from modelchimp.serializers.user import UserSerializer
 
 from modelchimp.api_permissions import HasProjectMembership
 from rest_framework.permissions import IsAuthenticated
 from rest_auth.views import PasswordResetConfirmView
+
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
+
 
 class UserAPI(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
@@ -44,6 +50,16 @@ class RegisterAPI(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         token = user.auth_token.key
+
+        # Check if its an invite
+        invite = self.request.data.get('invite_token', None)
+        if invite:
+            iid = force_text(urlsafe_base64_decode(invite))
+            invite_object = Invitation.objects.get(pk=iid)
+            try:
+                Membership.objects.get(project=invite_object.project, user=user)
+            except Membership.DoesNotExist:
+                Membership.objects.create(project=invite_object.project, user=user)
 
         return Response({'token': token})
 
