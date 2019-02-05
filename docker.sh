@@ -6,8 +6,12 @@ do
     key="$1"
 
     case $key in
-        --load-data)
-            LOAD_DATA=1
+        --development)
+            DEVELOPMENT=1
+            shift # past argument
+            ;;
+        -d)
+            DEVELOPMENT=1
             shift # past argument
             ;;
         *)    # unknown option
@@ -23,10 +27,10 @@ then
     cp .env-dev .env
 fi
 
-if [ $LOAD_DATA ]
+if [ $DEVELOPMENT ]
 then
-  docker-compose -p modelchimp-django up --build --abort-on-container-exit
+  docker-compose up --build --abort-on-container-exit
   exit
 fi
 
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build --abort-on-container-exit
+docker-compose -f docker-compose.yml -f docker-compose.local.yml up --build --abort-on-container-exit

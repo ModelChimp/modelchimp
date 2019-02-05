@@ -16,7 +16,7 @@ services:
     build: .
     container_name: web
     restart: always
-    command: ["bash", "wait-for-postgres.sh", "db", "bash", "runserver_dev.sh"]
+    command: ["bash", "wait-for-postgres.sh", "db", "bash", "runserver.sh"]
     env_file:
       - .env
     environment:

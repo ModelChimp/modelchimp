@@ -1,0 +1,5 @@
+version: '3'
+
+services:
+  ui:
+    command: npm run start:local
