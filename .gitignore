@@ -2,9 +2,7 @@
 
 #folders
 media
-assets/js
-assets/silk
-assets/channels
+assets
 
 #settings files
 CACHE

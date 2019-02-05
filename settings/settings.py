@@ -81,7 +81,7 @@ ROOT_URLCONF = 'settings.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['modelchimp/templates'],
+        'DIRS': ['modelchimp/templates','client/build'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,10 +139,11 @@ MEDIA_URL = '/media/'
 CONTENT_TYPES = ['image',]
 MAX_UPLOAD_SIZE = 2097152
 
-STATIC_URL = '/assets/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "modelchimp/templates/assets"),
+    os.path.join(BASE_DIR, "client/build"),
 ]
 
 # Rest Configuration
