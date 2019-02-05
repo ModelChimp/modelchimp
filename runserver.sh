@@ -1,10 +1,8 @@
 #!/bin/sh -
 
 # Creating some dummy assets
-mkdir -p media/code
 mkdir -p media/profile
-#cp assets/sample_code.py media/code/sample_code.py
-#cp assets/img/profile_pic.png media/profile/profile_pic.png
+cp profile_pic.png media/profile/profile_pic.png
 
 # Setting up the server
 python3 /code/manage.py migrate
