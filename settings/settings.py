@@ -140,9 +140,8 @@ CONTENT_TYPES = ['image',]
 MAX_UPLOAD_SIZE = 2097152
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "modelchimp/templates/assets"),
     os.path.join(BASE_DIR, "client/build"),
 ]
 
