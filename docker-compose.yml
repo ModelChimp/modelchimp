@@ -16,7 +16,7 @@ services:
     build: .
     container_name: web
     restart: always
-    command: ["bash", "wait-for-postgres.sh", "db", "bash", "runserver.sh"]
+    command: ["bash", "scripts/wait-for-postgres.sh", "db", "bash", "runserver.sh"]
     env_file:
       - .env
     environment:
@@ -33,7 +33,7 @@ services:
       - redis
   celery:
     build: .
-    command: bash wait-for-postgres.sh db celery -A settings worker -l info -B
+    command: bash scripts/wait-for-postgres.sh db celery -A settings worker -l info -B
     environment:
       - REDIS_HOST=redis
       - DB_HOST=db

@@ -3,3 +3,5 @@ version: '3'
 services:
   ui:
     command: npm run start:local
+  web:
+    command: ["bash", "scripts/wait-for-postgres.sh", "db", "bash", "scripts/wait-for-ui.sh", "bash", "runserver.sh"]
