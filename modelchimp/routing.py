@@ -4,7 +4,7 @@ from .views.consumers import ( tracker,
                                 experiment_level_reporting )
 
 websocket_urlpatterns = [
-    url(r'^ws/tracker/(?P<experiment_id>[^/]+)/$',
+    url(r'^ws/tracker/$',
         tracker.TrackerConsumer),
     url(r'^ws/project-status/(?P<project_key>[^/]+)/$',
         project_status.ProjectStatusConsumer),

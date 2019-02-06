@@ -17,7 +17,7 @@ from modelchimp.enum import ClientEvent, ExperimentStatus
 
 class TrackerConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        self.experiment_id = self.scope['url_route']['kwargs']['experiment_id']
+        #self.experiment_id = self.scope['url_route']['kwargs']['experiment_id']
         self.project = ''
 
         await self.accept()
@@ -34,6 +34,10 @@ class TrackerConsumer(AsyncWebsocketConsumer):
         data_json = json.loads(text_data)
         message = data_json['message']
         self.user = self.scope['user']
+        self.experiment_id = message.get('experiment_id', None)
+
+        if not self.experiment_id:
+            return None
 
         if isinstance(self.user, AnonymousUser):
             key = message['key']
