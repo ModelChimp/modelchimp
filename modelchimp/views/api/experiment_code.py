@@ -18,5 +18,11 @@ class ExperimentCodeAPI(mixins.RetrieveModelMixin,
         instance = self.get_queryset().get(id=model_id)
         result = dict()
 
-        result['code'] =  str(instance.code_file.read(), 'utf-8')
+        if instance.code_file:
+            result['code'] =  str(instance.code_file.read(), 'utf-8')
+            result['ipython_flag'] =  False
+        else:
+            result['code'] =  ''
+            result['ipython_flag'] =  True
+
         return Response(result, status=status.HTTP_200_OK)
