@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from modelchimp.models.machinelearning_model import MachineLearningModel
-
+from django.utils import timezone
 
 class MachineLearningModelSerializer(serializers.ModelSerializer):
     date_created_epoch = serializers.SerializerMethodField('to_epoch_date')
@@ -9,6 +9,7 @@ class MachineLearningModelSerializer(serializers.ModelSerializer):
     project_name = serializers.SerializerMethodField()
     param_fields = serializers.SerializerMethodField()
     metric_fields = serializers.SerializerMethodField()
+    duration = serializers.SerializerMethodField()
 
     class Meta:
         model = MachineLearningModel
@@ -84,3 +85,12 @@ class MachineLearningModelSerializer(serializers.ModelSerializer):
                 result[metric] = min
 
         return result
+
+    def get_duration(self, obj):
+        if obj.experiment_end and obj.experiment_start:
+            return obj.experiment_end - obj.experiment_start
+
+        if not obj.experiment_end and obj.experiment_start:
+            return timezone.now() - obj.experiment_start
+
+        return None

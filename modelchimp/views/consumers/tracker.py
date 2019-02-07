@@ -66,11 +66,10 @@ class TrackerConsumer(AsyncWebsocketConsumer):
             )
         elif message['type'] == ClientEvent.EXPERIMENT_START:
             await self.add_experiment_start(message['value'])
-        elif message['type'] == ClientEvent.EXPERIMENT_END:
-            await self.add_experiment_end(message['value'])
-        elif message['type'] == ClientEvent.COMPLETED:
+        elif message['type'] == ClientEvent.EXPERIMENT_COMPLETED:
             await self.add_experiment_complete_status(message['value'])
         elif message['type'] == ClientEvent.HEART_BEAT:
+            print('got heart beat')
             await self.update_heart_beat()
         elif message['type'] == ClientEvent.DATASET_ID:
             await self.add_dataset_id(message['value'])
@@ -197,17 +196,10 @@ class TrackerConsumer(AsyncWebsocketConsumer):
         self.experiment_obj.save()
 
     @database_sync_to_async
-    def add_experiment_end(self, value):
-        '''
-        Add the end datetime of experiment
-        '''
+    def add_experiment_complete_status(self, value):
         dt = datetime.strptime(value, "%Y-%m-%d %H:%M:%S.%f")
         self.experiment_obj.experiment_end = dt
-        self.experiment_obj.save()
-
-    @database_sync_to_async
-    def add_experiment_complete_status(self, value):
-        self.experiment_obj.status = value
+        self.experiment_obj.status = ExperimentStatus.COMPLETED
         self.experiment_obj.save()
 
     @database_sync_to_async
