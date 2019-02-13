@@ -6,7 +6,7 @@ set -e
 cmd="$@"
 
 until [ -d ./client/build ]; do
-  >&2 echo "Waiting for the UI to be built!"
+  >&2 echo "Waiting for the UI to be built! Please be patient, it takes time."
   sleep 1
 done
 

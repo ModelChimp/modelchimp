@@ -5,3 +5,5 @@ services:
     command: npm run start:local
   web:
     command: ["bash", "scripts/wait-for-postgres.sh", "db", "bash", "scripts/wait-for-ui.sh", "bash", "runserver.sh"]
+  celery:
+    command: ["bash", "scripts/wait-for-postgres.sh", "db", "bash", "scripts/wait-for-ui.sh", "celery", "-A", "settings", "worker", "-l", "info", "-B"]
