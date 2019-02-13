@@ -7,7 +7,6 @@ from django.db import transaction
 from modelchimp.models.project import Project
 from modelchimp.models.membership import Membership
 from modelchimp.serializers.membership import MembershipSerializer
-from modelchimp.serializers.user import UserSerializer
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -19,8 +18,6 @@ class ProjectSerializer(serializers.ModelSerializer):
     submission_count = serializers.SerializerMethodField()
     last_submitted = serializers.SerializerMethodField()
     last_submitted_epoch = serializers.SerializerMethodField()
-
-    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Project

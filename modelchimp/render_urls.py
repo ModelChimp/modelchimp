@@ -14,7 +14,7 @@ from modelchimp.views.render import (common,
                                     model_detail_custom_objects,
                                     model_detail_images,
                                     project_dashboard)
-from modelchimp.views.api import invitation
+
 from django.contrib.auth.views import (
     PasswordResetView,
     PasswordResetConfirmView,
@@ -78,15 +78,12 @@ urlpatterns = [
         name='profile'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/'
     + '(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        activate.activate, name='activate'),
-]
+        activate.activate, name='activate'),]
+
 
 if settings.OAUTH_LOGIN:
     urlpatterns += [url(r'^$', login_oauth.LoginOAuthView.as_view(), name='landing_page'),
-                    url(r'^login/$', login_oauth.LoginOAuthView.as_view(), name='login'),
-                    url(r'^invitation/(?P<invite_id>[0-9A-Za-z_\-]+)/$',
-                        invite_oauth.InviteOAuthView.as_view(), name='invitation'),
-                    ]
+                    url(r'^login/$', login_oauth.LoginOAuthView.as_view(), name='login'),]
 elif settings.ENTERPRISE_FLAG:
     urlpatterns += [
             url(r'^$', LoginView.as_view(template_name='registration/login_enterprise.html'),
@@ -94,8 +91,6 @@ elif settings.ENTERPRISE_FLAG:
                     url(r'^login/$',
                         LoginView.as_view(template_name='registration/login_enterprise.html'),
                         name='login'),
-                    url(r'^invitation/(?P<invite_id>[0-9A-Za-z_\-]+)/$',
-                        invitation.invite_clicked, name='invitation'),
                         ]
 else:
     urlpatterns += [url(r'^$', LoginView.as_view(template_name='registration/login.html'),
@@ -103,6 +98,4 @@ else:
                     url(r'^login/$',
                         LoginView.as_view(template_name='registration/login.html'),
                         name='login'),
-                    url(r'^invitation/(?P<invite_id>[0-9A-Za-z_\-]+)/$',
-                        invitation.invite_clicked, name='invitation'),
                         ]

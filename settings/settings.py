@@ -35,12 +35,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
     'compressor',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'storages',
+    'rest_auth',
     'modelchimp',
 ]
 
@@ -57,6 +59,7 @@ ENTERPRISE_NAME = config('ENTERPRISE_NAME')
 OAUTH_LOGIN=config('OAUTH_LOGIN', default=False, cast=bool) #DEPRECATED
 
 MIDDLEWARE = (
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,7 +81,7 @@ ROOT_URLCONF = 'settings.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['modelchimp/templates'],
+        'DIRS': ['modelchimp/templates','client/build'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,10 +139,10 @@ MEDIA_URL = '/media/'
 CONTENT_TYPES = ['image',]
 MAX_UPLOAD_SIZE = 2097152
 
-STATIC_URL = '/assets/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "modelchimp/templates/assets"),
+    os.path.join(BASE_DIR, "client/build"),
 ]
 
 # Rest Configuration
@@ -221,3 +224,10 @@ if not OAUTH_RESTRICT_USER_HOSTS:
     OAUTH_RESTRICT_USER_HOSTS = config('ALLOWED_USER_HOSTS',
                                         default='',
                                         cast=lambda v: [s.strip() for s in v.split(',')])
+
+#################
+# CORS
+#################
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = ()

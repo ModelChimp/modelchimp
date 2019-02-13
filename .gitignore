@@ -2,10 +2,14 @@
 
 #folders
 media
+<<<<<<< HEAD
 assets/js
 assets/silk
 assets/channels
 client
+=======
+assets
+>>>>>>> ui-2.0
 
 #settings files
 CACHE
@@ -57,6 +61,7 @@ www/uploads
 
 #Environment
 .env
+env.js
 
 #Production files to be ignored
 assets/admin/
@@ -68,3 +73,14 @@ celerybeat.pid
 
 # Docker Folders
 postgres-data
+
+# Don't check auto-generated stuff into git
+coverage
+build
+node_modules
+stats.json
+
+# Cruft
+.DS_Store
+npm-debug.log
+.idea

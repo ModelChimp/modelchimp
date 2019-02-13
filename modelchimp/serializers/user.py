@@ -1,14 +1,29 @@
 from rest_framework import serializers
 
 from modelchimp.models.user import User
+from modelchimp.models.profile import Profile
 from modelchimp.serializers.profile import ProfileSerializer
 
+from django.db import transaction
 
 class UserSerializer(serializers.ModelSerializer):
-    profile_detail = ProfileSerializer(source='profile', read_only=True)
-    first_name = serializers.ReadOnlyField(source='user.profile.first_name')
-    last_name = serializers.ReadOnlyField(source='user.profile.last_name')
+    confirm_password = serializers.CharField(required=False)
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'profile_detail')
+        fields = '__all__'
+
+    @transaction.atomic
+    def create(self, validated_data):
+        user = User.objects._create_user(**validated_data)
+        Profile.objects.create(user=user)
+        return user
+
+    def validate(self,data):
+        password = data.get('password')
+        confirm_password = data.pop('confirm_password')
+
+        if password != confirm_password:
+            raise serializers.ValidationError("Passwords don't match")
+
+        return data

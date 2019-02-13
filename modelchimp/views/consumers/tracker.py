@@ -17,7 +17,7 @@ from modelchimp.enum import ClientEvent, ExperimentStatus
 
 class TrackerConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        self.experiment_id = self.scope['url_route']['kwargs']['experiment_id']
+        #self.experiment_id = self.scope['url_route']['kwargs']['experiment_id']
         self.project = ''
 
         await self.accept()
@@ -34,6 +34,10 @@ class TrackerConsumer(AsyncWebsocketConsumer):
         data_json = json.loads(text_data)
         message = data_json['message']
         self.user = self.scope['user']
+        self.experiment_id = message.get('experiment_id', None)
+
+        if not self.experiment_id:
+            return None
 
         if isinstance(self.user, AnonymousUser):
             key = message['key']
@@ -62,14 +66,15 @@ class TrackerConsumer(AsyncWebsocketConsumer):
             )
         elif message['type'] == ClientEvent.EXPERIMENT_START:
             await self.add_experiment_start(message['value'])
-        elif message['type'] == ClientEvent.EXPERIMENT_END:
-            await self.add_experiment_end(message['value'])
-        elif message['type'] == ClientEvent.COMPLETED:
+        elif message['type'] == ClientEvent.EXPERIMENT_COMPLETED:
             await self.add_experiment_complete_status(message['value'])
         elif message['type'] == ClientEvent.HEART_BEAT:
+            print('got heart beat')
             await self.update_heart_beat()
         elif message['type'] == ClientEvent.DATASET_ID:
             await self.add_dataset_id(message['value'])
+        elif message['type'] == ClientEvent.GRID_SEARCH:
+            await self.add_grid_search(message['value'])
 
     @database_sync_to_async
     def get_user_project_details(self, key):
@@ -191,17 +196,10 @@ class TrackerConsumer(AsyncWebsocketConsumer):
         self.experiment_obj.save()
 
     @database_sync_to_async
-    def add_experiment_end(self, value):
-        '''
-        Add the end datetime of experiment
-        '''
+    def add_experiment_complete_status(self, value):
         dt = datetime.strptime(value, "%Y-%m-%d %H:%M:%S.%f")
         self.experiment_obj.experiment_end = dt
-        self.experiment_obj.save()
-
-    @database_sync_to_async
-    def add_experiment_complete_status(self, value):
-        self.experiment_obj.status = value
+        self.experiment_obj.status = ExperimentStatus.COMPLETED
         self.experiment_obj.save()
 
     @database_sync_to_async
@@ -216,4 +214,13 @@ class TrackerConsumer(AsyncWebsocketConsumer):
         '''
         self.experiment_obj.dataset_id = value
         self.experiment_obj.model_parameters['dataset_id'] = value
+        self.experiment_obj.save()
+
+    @database_sync_to_async
+    def add_grid_search(self, value):
+        '''
+        Add the grid search result
+        '''
+
+        self.experiment_obj.grid_search = value
         self.experiment_obj.save()

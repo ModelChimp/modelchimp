@@ -2,10 +2,10 @@ version: '3'
 
 services:
   db:
-    image: postgres
+    image: postgres:10.6
     restart: always
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data    
+      - ./postgres-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
   redis:
@@ -14,14 +14,16 @@ services:
       - 6379:6379
   web:
     build: .
+    container_name: web
     restart: always
-    command: ["bash", "wait-for-postgres.sh", "db", "bash", "runserver_dev.sh"]
+    command: ["bash", "scripts/wait-for-postgres.sh", "db", "bash", "runserver.sh"]
     env_file:
       - .env
     environment:
       - DB_HOST=db
       - REDIS_HOST=redis
       - MODELCHIMP_PATH=/code
+      - DOMAIN=127.0.0.1:3000
     volumes:
       - .:/code
     ports:
@@ -31,7 +33,7 @@ services:
       - redis
   celery:
     build: .
-    command: bash wait-for-postgres.sh db celery -A settings worker -l info -B
+    command: bash scripts/wait-for-postgres.sh db celery -A settings worker -l info -B
     environment:
       - REDIS_HOST=redis
       - DB_HOST=db
@@ -41,3 +43,19 @@ services:
       - db
       - redis
       - web
+  ui:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    command: npm run start
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./client:/frontend
+      - /frontend/node_modules
+    depends_on:
+      - db
+      - redis
+      - web
+    ports:
+      - 3000:3000
