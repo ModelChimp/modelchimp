@@ -9,6 +9,52 @@ from modelchimp.utils.generate_uid import generate_uid
 
 
 class MachineLearningModel(models.Model):
+    '''
+    Experiments table that store the experiments conducted in each project.
+
+    - JSON Fields -
+    model_parameters: dict
+    evaluation_parameters: # 0.1 version
+         evaluation:
+            <metric_name>:
+                - epoch: int
+                  value: float
+                - ...
+         metric_list:
+            - metric_name 1
+            - metric_name 2
+    epoch_durations:
+         duration:
+            <tag_name>:
+                - epoch: int
+                  value: float
+                - ...
+         tag_list:
+            - tag_name 1
+            - tag_name 2
+    grid_search: dict
+    '''
+
+    # New structure to store metrics in the future
+    # --------------------------------------------
+    # metric_data:
+    #      data:
+    #         <>:
+    #             - epoch: int
+    #               value: float
+    #               metric_name:
+    #               step: int   # 0.2 onwards
+    #               index: int  # 0.2 onwards
+    #               time: epoch # 0.2 onwards
+    #             - ...
+    #      metric_list:
+    #         - metric_name 1
+    #         - metric_name 2
+    #      time_list: # 0.2 onwards
+    #         - epoch
+    #         - step
+    #         - time
+
     name = models.CharField(max_length=200, blank=True, default='', null=True)
     algorithm = models.CharField(max_length=200, blank=True, default='', null=True)
     platform = models.CharField(max_length=200,
@@ -33,7 +79,6 @@ class MachineLearningModel(models.Model):
     features = JSONField(null=True)
     model_parameters = JSONField(null=True, default=dict)
     evaluation_parameters = JSONField(null=True)
-    deep_learning_parameters = JSONField(default=list, null=True) #REMOVE
     epoch_durations = JSONField(null=True)
     grid_search = JSONField(null=True)
 
