@@ -20,7 +20,6 @@ class BaseView(TemplateView):
         context = super(BaseView, self).get_context_data(**kwargs)
         context['meta_dict'] = self.meta_dict
         context['enterprise_flag'] = settings.ENTERPRISE_FLAG
-        context['enterprise_name'] = settings.ENTERPRISE_NAME
         context['aws_storage_flag'] = settings.AWS_STORAGE_FLAG
         context['url_name'] = self.request.resolver_match.url_name
         if not isinstance(self.request.user, AnonymousUser):

@@ -55,7 +55,7 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 #SOCIALACCOUNT_ADAPTER = 'modelchimp.adapters.ModelchimpSocialAccountAdapter'
 
 ENTERPRISE_FLAG =  config('ENTERPRISE_FLAG', default=True, cast=bool)
-ENTERPRISE_NAME = config('ENTERPRISE_NAME')
+
 OAUTH_LOGIN=config('OAUTH_LOGIN', default=False, cast=bool) #DEPRECATED
 
 MIDDLEWARE = (
