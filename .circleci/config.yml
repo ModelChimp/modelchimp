@@ -1,6 +1,7 @@
 version: 2
+
 jobs:
-  modelchimp:
+  build:
     environment:
       COMPOSE_PROJECT_NAME: modelchimp
     docker:
@@ -11,8 +12,9 @@ jobs:
       - run:
           name: Build Docker Images
           command: |
+            cp .env-dev .env
             set -x
-	    docker-compose -f docker-compose.yml -f docker-compose.local.yml up --build --abort-on-container-exit
+            docker-compose -f .circleci/docker-compose.circle.yml up --build -d
             sleep 10
       - store_test_results:
           path: test-results

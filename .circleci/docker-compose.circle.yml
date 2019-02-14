@@ -13,49 +13,41 @@ services:
     ports:
       - 6379:6379
   web:
-    build: .
+    build: ../
     container_name: web
     restart: always
-    command: ["bash", "./scripts/wait-for-postgres.sh", "db", "bash", "runserver.sh"]
+    command: ["bash", "./scripts/wait-for-postgres.sh", "db", "bash", "./scripts/wait-for-ui.sh", "bash", "runserver.sh"]
     env_file:
-      - .env
+      - ../.env
     environment:
       - DB_HOST=db
       - REDIS_HOST=redis
       - MODELCHIMP_PATH=/code
       - DOMAIN=127.0.0.1:3000
-    volumes:
-      - .:/code
     ports:
       - "8000:8000"
     depends_on:
       - db
       - redis
   celery:
-    build: .
-    command: bash ./scripts/wait-for-postgres.sh db celery -A settings worker -l info -B
+    build: ../
+    command: ["bash", "./scripts/wait-for-postgres.sh", "db", "bash", "./scripts/wait-for-ui.sh", "celery", "-A", "settings", "worker", "-l", "info", "-B"]
     environment:
       - REDIS_HOST=redis
       - DB_HOST=db
-    volumes:
-      - .:/code
     depends_on:
       - db
       - redis
       - web
   ui:
     build:
-      context: ./client
+      context: ../client
       dockerfile: Dockerfile
-    command: npm run start
+    command: npm run start:local
     environment:
       - NODE_ENV=development
     volumes:
       - ./client:/frontend
       - /frontend/node_modules
-    depends_on:
-      - db
-      - redis
-      - web
     ports:
       - 3000:3000
