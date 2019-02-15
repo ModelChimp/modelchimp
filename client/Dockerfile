@@ -9,7 +9,7 @@ WORKDIR /frontend
 ENV PATH /frontend/.bin:$PATH
 
 # install and cache app dependencies
-COPY package.json /frontend/package.json
+COPY . /frontend/
 
 RUN apt-get update && apt-get install libglu1 -y
 

@@ -1,0 +1,23 @@
+version: 2
+
+jobs:
+  build:
+    environment:
+      COMPOSE_PROJECT_NAME: modelchimp
+    docker:
+      - image: circleci/buildpack-deps:xenial
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Build Docker Images
+          command: |
+            cp .env-dev .env
+            set -x
+            docker-compose -f .circleci/docker-compose.circle.yml up --build -d
+            sleep 10
+      # - store_test_results:
+      #     path: test-results
+      # - store_artifacts:
+      #     path: test-results
+      #     destination: tr1
