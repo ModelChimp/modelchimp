@@ -16,8 +16,8 @@ jobs:
             set -x
             docker-compose -f .circleci/docker-compose.circle.yml up --build -d
             sleep 10
-      - store_test_results:
-          path: test-results
-      - store_artifacts:
-          path: test-results
-          destination: tr1
+      # - store_test_results:
+      #     path: test-results
+      # - store_artifacts:
+      #     path: test-results
+      #     destination: tr1
