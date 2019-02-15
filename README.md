@@ -1,5 +1,7 @@
 ![modelchimp-logo](https://docs.modelchimp.com/logo.png)
 
+[![CircleCI](https://circleci.com/gh/ModelChimp/modelchimp.svg?style=svg)](https://circleci.com/gh/ModelChimp/modelchimp)
+
 [![Join ModelChimp Slack channel](https://i.imgur.com/V7jxjak.png)](https://join.slack.com/t/modelchimp/shared_invite/enQtNDcyNzU0MTQ2MzU0LTYxNDFjZWIwOTE0NjFkMGVlOGQ5YTZhYWQ2MWE1YWVmMDVhMDQ5MmZlYTU0N2UxMWYxYzE0Nzc2NGZlN2FiN2Q)
 
 
