@@ -53,9 +53,5 @@ services:
     volumes:
       - ./client:/frontend
       - /frontend/node_modules
-    depends_on:
-      - db
-      - redis
-      - web
     ports:
       - 3000:3000
