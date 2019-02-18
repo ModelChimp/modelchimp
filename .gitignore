@@ -2,14 +2,7 @@
 
 #folders
 media
-<<<<<<< HEAD
-assets/js
-assets/silk
-assets/channels
-client
-=======
 assets
->>>>>>> ui-2.0
 
 #settings files
 CACHE
