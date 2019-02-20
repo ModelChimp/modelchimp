@@ -24,8 +24,6 @@ services:
       - REDIS_HOST=redis
       - MODELCHIMP_PATH=/code
       - DOMAIN=127.0.0.1:3000
-    volumes:
-      - .:/code
     ports:
       - "8000:8000"
     depends_on:
@@ -37,8 +35,6 @@ services:
     environment:
       - REDIS_HOST=redis
       - DB_HOST=db
-    volumes:
-      - .:/code
     depends_on:
       - db
       - redis
