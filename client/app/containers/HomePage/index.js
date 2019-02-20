@@ -58,7 +58,7 @@ export class HomePage extends React.PureComponent {
           <title>Home Page</title>
           <meta
             name="description"
-            content="A React.js Boilerplate application homepage"
+            content="Deep learning experiment tracker"
           />
         </Helmet>
         <div>

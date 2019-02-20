@@ -29,10 +29,10 @@ export default function App() {
   return (
     <div>
       <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
+        titleTemplate="%s"
+        defaultTitle="Modelchimp"
       >
-        <meta name="description" content="A React.js Boilerplate application" />
+        <meta name="description" content="Deep learning experiment Tracker" />
       </Helmet>
       {/*  <Header /> */}
       <Switch>
