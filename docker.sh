@@ -14,6 +14,14 @@ do
             DEVELOPMENT=1
             shift # past argument
             ;;
+        --test)
+            TEST=1
+            shift # past argument
+            ;;
+        -t)
+            TEST=1
+            shift # past argument
+            ;;
         *)    # unknown option
             POSITIONAL+=("$1") # save it in an array for later
             shift # past argument
@@ -33,4 +41,10 @@ then
   exit
 fi
 
-docker-compose -f docker-compose.yml -f docker-compose.local.yml up --build --abort-on-container-exit
+if [ $TEST ]
+then
+  docker-compose -f docker-compose.hub-test.yml up --build --abort-on-container-exit
+  exit
+fi
+
+docker-compose -f docker-compose.hub.yml up --build --abort-on-container-exit
