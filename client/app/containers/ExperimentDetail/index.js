@@ -20,6 +20,8 @@ import ExperimentDetailCodePage from 'containers/ExperimentDetailCodePage/Loadab
 import ExperimentDetailChartPage from 'containers/ExperimentDetailChartPage/Loadable';
 import ExperimentDetailObjectPage from 'containers/ExperimentDetailObjectPage/Loadable';
 import ExperimentDetailGridSearchPage from 'containers/ExperimentDetailGridSearchPage/Loadable';
+import ExperimentDetailAssetPage from 'containers/ExperimentDetailAssetPage/Loadable';
+
 import { loadExperimentDetailAction } from './actions';
 import {
   makeSelectExperimentDetail,
@@ -110,6 +112,11 @@ export class ExperimentDetail extends React.Component {
                   <FontAwesomeIcon icon="grip-horizontal" /> Grid Search
                 </Link>
               </Menu.Item>
+              <Menu.Item key="7">
+                <Link to={`${this.props.match.url}/asset`}>
+                  <FontAwesomeIcon icon="grip-horizontal" /> Asset
+                </Link>
+              </Menu.Item>
             </Menu>
           </Sider>
           <Content style={{ marginLeft: 200 }}>
@@ -168,6 +175,10 @@ export class ExperimentDetail extends React.Component {
                 <Route
                   path={`${this.props.match.path}/gridsearch`}
                   component={ExperimentDetailGridSearchPage}
+                />
+                <Route
+                  path={`${this.props.match.path}/asset`}
+                  component={ExperimentDetailAssetPage}
                 />
               </div>
             </div>
