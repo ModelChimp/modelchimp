@@ -27,3 +27,9 @@ class ExperimentAsset(models.Model):
 
         file_name = ntpath.basename(self.asset.name)
         return file_name
+
+    @property
+    def file_size(self):
+        if self.asset: return self.asset.size
+
+        return 0

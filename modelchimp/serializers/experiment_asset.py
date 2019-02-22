@@ -6,7 +6,7 @@ from modelchimp.models.machinelearning_model import MachineLearningModel
 class ExperimentAssetSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExperimentAsset
-        fields = ('meta_dict', 'asset', 'file_name')
+        fields = ('meta_dict', 'asset', 'file_name', 'file_size')
 
     def create(self, validated_data):
         mid = self.context['request'].parser_context['kwargs']['model_id']
