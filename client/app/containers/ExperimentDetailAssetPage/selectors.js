@@ -6,18 +6,18 @@ const selectExperimentDetailAssetPageDomain = state =>
 
 const makeSelectExperimentDetailAssetPage = () =>
   createSelector(selectExperimentDetailAssetPageDomain, substate => {
-    const assetData = substate.get('assetData');
-    let result = null;
+    // const assetData = substate.get('assetData');
+    // let result = null;
+    //
+    // if (assetData) {
+    //   result = Object.keys(assetData).map((k, i) => ({
+    //     key: i,
+    //     asset: k,
+    //     value: assetData[k],
+    //   }));
+    // }
 
-    if (assetData) {
-      result = Object.keys(assetData).map((k, i) => ({
-        key: i,
-        asset: k,
-        value: assetData[k],
-      }));
-    }
-
-    return result;
+    return substate.get('assetData');
   });
 
 export default makeSelectExperimentDetailAssetPage;

@@ -25,23 +25,24 @@ export class ExperimentDetailAssetPage extends React.Component {
     this.modelId = this.props.match.params.modelId;
     this.columns = [
       {
-        title: 'Asseteter',
-        dataIndex: 'asset',
-        key: 'asset',
+        title: 'File Name',
+        dataIndex: 'file_name',
+        key: 'file_name',
         width: '20vw',
       },
-      {
-        title: 'Value',
-        dataIndex: 'value',
-        key: 'value',
-        width: '60vw',
-      },
+      // {
+      //   title: 'Value',
+      //   dataIndex: 'value',
+      //   key: 'value',
+      //   width: '60vw',
+      // },
     ];
 
     this.props.getExperimentAssetData(this.modelId);
   }
 
   render() {
+    console.log(this.props.assetData);
     return (
       <Section name="Assets">
         <Table columns={this.columns} dataSource={this.props.assetData} />

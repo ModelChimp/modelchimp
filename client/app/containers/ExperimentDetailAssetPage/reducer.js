@@ -14,7 +14,7 @@ import {
 export const initialState = fromJS({
   loading: false,
   error: false,
-  paramData: null,
+  assetData: null,
 });
 
 function experimentDetailAssetPageReducer(state = initialState, action) {
@@ -25,7 +25,7 @@ function experimentDetailAssetPageReducer(state = initialState, action) {
         .set('loading', true)
         .set('error', false);
     case LOAD_EXPERIMENT_DETAIL_ASSET_SUCCESS:
-      return state.set('paramData', action.paramData).set('loading', false);
+      return state.set('assetData', action.assetData).set('loading', false);
     case LOAD_EXPERIMENT_DETAIL_ASSET_ERROR:
       return state.set('error', action.error).set('loading', false);
     default:
