@@ -1,3 +1,4 @@
+import ntpath
 from django.db import models
 from django.contrib.postgres.fields import JSONField
 
@@ -19,3 +20,10 @@ class ExperimentAsset(models.Model):
 
     date_created = models.DateTimeField(auto_now_add=True, blank=False)
     date_modified = models.DateTimeField(auto_now=True, blank=False)
+
+    @property
+    def file_name(self):
+        if self.custom_file_name: return self.custom_file_name
+
+        file_name = ntpath.basename(self.asset.name)
+        return file_name
