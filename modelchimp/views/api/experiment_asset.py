@@ -12,6 +12,6 @@ class ExperimentAssetAPI(generics.ListCreateAPIView):
     queryset = ExperimentAsset.objects.all()
     permission_classes = (IsAuthenticated, HasProjectMembership)
 
-    def perform_create(self, serializer):
-        model_id = self.kwargs['model_id']
-        instance = serializer.save()
+    def filter_queryset(self, queryset):
+        mid = self.kwargs.get('model_id')
+        return queryset.filter(ml_model=mid)
