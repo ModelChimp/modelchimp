@@ -71,6 +71,7 @@
     "connected-react-router": "4.5.0",
     "cross-env": "5.2.0",
     "express": "4.16.4",
+    "filesize": "^4.1.2",
     "fontfaceobserver": "2.0.13",
     "history": "4.7.2",
     "hoist-non-react-statics": "3.0.1",
