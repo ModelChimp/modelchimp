@@ -141,9 +141,10 @@ MAX_UPLOAD_SIZE = 2097152
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "client/build"),
-]
+if not DEBUG:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "client/build"),
+    ]
 
 # Rest Configuration
 REST_FRAMEWORK = {

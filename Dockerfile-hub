@@ -29,5 +29,6 @@ RUN apt-get update && apt-get install -y postgresql-client
 
 COPY . /code
 COPY --from=client-builder /frontend/build /code/client/build
+RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
