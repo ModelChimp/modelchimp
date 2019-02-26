@@ -20,6 +20,7 @@ services:
     env_file:
       - .env
     environment:
+      - DEBUG=True
       - DB_HOST=db
       - REDIS_HOST=redis
       - MODELCHIMP_PATH=/code
@@ -35,6 +36,7 @@ services:
     build: .
     command: bash ./scripts/wait-for-postgres.sh db celery -A settings worker -l info -B
     environment:
+      - DEBUG=True
       - REDIS_HOST=redis
       - DB_HOST=db
     volumes:
@@ -43,15 +45,3 @@ services:
       - db
       - redis
       - web
-  ui:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    command: npm run start
-    environment:
-      - NODE_ENV=development
-    volumes:
-      - ./client:/frontend
-      - /frontend/node_modules
-    ports:
-      - 3000:3000

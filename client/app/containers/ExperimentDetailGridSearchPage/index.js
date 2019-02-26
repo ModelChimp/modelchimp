@@ -14,7 +14,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Section from 'components/Section';
 import styled from 'styled-components';
-import Plot from 'react-plotly.js';
 import { isEqual } from 'lodash';
 import {
   makeSelectExperimentGridSearchData,
@@ -33,6 +32,14 @@ import {
 import { parseChartData, parseFilterData } from './parseChartData';
 import ChartMenu from './ChartMenu';
 import GridSearchTable from './GridSearchTable';
+
+import loadable from 'loadable-components';
+import LoadingIndicator from 'components/LoadingIndicator';
+
+const Plot = loadable(() => import('./Plot'), {
+  LoadingComponent: LoadingIndicator,
+});
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailGridSearchPage extends React.Component {
