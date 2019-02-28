@@ -1,6 +1,16 @@
 version: '3'
 
 services:
+  nginx:
+    image: nginx:latest
+    container_name: production_nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - serverhttp
   db:
     image: postgres:10.6
     restart: always
@@ -12,11 +22,10 @@ services:
     image: redis
     ports:
       - 6379:6379
-  web:
+  serverhttp:
     build: .
-    container_name: web
     restart: always
-    command: ["bash", "./scripts/wait-for-postgres.sh", "db", "bash", "runserver.sh"]
+    command: ["gunicorn", "--access-logfile", "-", "--workers", "3","-b", "0.0.0.0:8000",  "settings.wsgi:application"]
     env_file:
       - .env
     environment:
@@ -25,10 +34,32 @@ services:
       - REDIS_HOST=redis
       - MODELCHIMP_PATH=/code
       - DOMAIN=127.0.0.1:3000
+      - ALLOWED_HOSTS=*
     volumes:
       - .:/code
     ports:
       - "8000:8000"
+    depends_on:
+      - db
+      - redis
+  server-websocket:
+    build: .
+    restart: always
+    command: ["daphne", "-b", "0.0.0.0", "-p", "8001", "settings.asgi:application"]
+    env_file:
+      - .env
+    environment:
+      - DEBUG=True
+      - DB_HOST=db
+      - REDIS_HOST=redis
+      - MODELCHIMP_PATH=/code
+      - DOMAIN=127.0.0.1:3000
+      - VIRTUAL_HOST=foo.bar.com
+      - ALLOWED_HOSTS=*
+    volumes:
+      - .:/code
+    ports:
+      - "8001:8001"
     depends_on:
       - db
       - redis
@@ -43,16 +74,3 @@ services:
     depends_on:
       - db
       - redis
-      - web
-  ui:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    command: npm run start
-    environment:
-      - NODE_ENV=development
-    volumes:
-      - ./client:/frontend
-      - /frontend/node_modules
-    ports:
-      - 3000:3000

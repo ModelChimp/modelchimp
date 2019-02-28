@@ -17,3 +17,5 @@ psycopg2==2.7.3.1
 Pygments==2.2.0
 python-decouple==3.1
 redis==2.10.6
+gunicorn==19.9.0
+daphne==2.2.5
