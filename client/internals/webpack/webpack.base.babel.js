@@ -18,7 +18,6 @@ module.exports = options => ({
     {
       // Compile into js/build.js
       path: path.resolve(process.cwd(), 'build'),
-      publicPath: '/static/',
     },
     options.output,
   ), // Merge with env dependent settings
