@@ -52,7 +52,6 @@ SITE_ID = config('SITE_ID', default=1, cast=int)
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_QUERY_EMAIL = True
-#SOCIALACCOUNT_ADAPTER = 'modelchimp.adapters.ModelchimpSocialAccountAdapter'
 
 ENTERPRISE_FLAG =  config('ENTERPRISE_FLAG', default=True, cast=bool)
 
@@ -81,7 +80,7 @@ ROOT_URLCONF = 'settings.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['modelchimp/templates','client/build'],
+        'DIRS': ['modelchimp/templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -141,10 +140,6 @@ MAX_UPLOAD_SIZE = 2097152
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-if not DEBUG:
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, "client/build"),
-    ]
 
 # Rest Configuration
 REST_FRAMEWORK = {
