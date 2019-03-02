@@ -11,6 +11,7 @@ services:
       - 443:443
     depends_on:
       - serverhttp
+      - ui
   db:
     image: postgres:10.6
     restart: always
@@ -74,3 +75,13 @@ services:
     depends_on:
       - db
       - redis
+  ui:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    command: npm run start:prod
+    depends_on:
+      - db
+      - redis
+    ports:
+      - 3000:3000
