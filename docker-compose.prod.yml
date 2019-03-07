@@ -63,7 +63,7 @@ services:
       - /var/run/.env:/code/.env
   celery:
     image: modelchimp/modelchimp-server:latest
-    command: bash ./scripts/wait-for-postgres.sh db celery -A settings worker -l info -B
+    command: celery -A settings worker -l info -B
     links:
       - redis
     logging:

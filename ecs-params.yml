@@ -4,10 +4,10 @@ task_definition:
     nginx:
       cpu_shares: 100
       mem_limit: 524288000
-    serverhttp:
+    web:
       cpu_shares: 100
       mem_limit: 524288000
-    server-websocket:
+    socket:
       cpu_shares: 100
       mem_limit: 524288000
     celery:
