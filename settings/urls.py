@@ -27,6 +27,5 @@ urlpatterns = [
     url(r'^reset/done/$', PasswordResetCompleteView.as_view(),name='password_reset_complete'),
 ]
 
-if settings.DEBUG:
-    urlpatterns = urlpatterns  + static(settings.MEDIA_URL,
+urlpatterns = urlpatterns  + static(settings.MEDIA_URL,
                                 document_root=settings.MEDIA_ROOT)
