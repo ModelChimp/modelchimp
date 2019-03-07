@@ -12,7 +12,7 @@ services:
     links:
       - web
       - ui
-      - server-websocket
+      - socket
     logging:
       driver: awslogs
       options:
@@ -32,7 +32,7 @@ services:
   web:
     image: modelchimp/modelchimp-server:latest
     restart: always
-    command: ["gunicorn", "--access-logfile", "-", "--workers", "3","-b", "0.0.0.0:8000",  "settings.wsgi:application"]
+    command: ["gunicorn", "--access-logfile", "-", "--workers", "3","-b", "0.0.0.0:8002",  "settings.wsgi:application"]
     ports:
       - "8000:8000"
     links:
@@ -45,7 +45,7 @@ services:
         awslogs-stream-prefix: web
     volumes:
       - /var/run/.env:/code/.env
-  server-websocket:
+  socket:
     image: modelchimp/modelchimp-server:latest
     restart: always
     command: ["daphne", "-b", "0.0.0.0", "-p", "8001", "settings.asgi:application"]
