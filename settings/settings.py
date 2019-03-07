@@ -4,7 +4,7 @@ from decouple import config
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY', default='1')
 MODEL_KEY = 'v9yPXW9JjTdprDBddlJAjwiEkP_DkoylN0oUTj4kID4='
 
 # SECURITY WARNING: don't run with debug turned on in production!
