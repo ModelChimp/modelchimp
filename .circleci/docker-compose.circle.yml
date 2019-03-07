@@ -17,13 +17,8 @@ services:
     container_name: web
     restart: always
     command: ["bash", "./scripts/wait-for-postgres.sh", "db", "bash", "./scripts/wait-for-ui.sh", "bash", "runserver.sh"]
-    env_file:
-      - ../.env
-    environment:
-      - DB_HOST=db
-      - REDIS_HOST=redis
-      - MODELCHIMP_PATH=/code
-      - DOMAIN=127.0.0.1:3000
+    volumes:
+      - ./.env-dev:/code/.env
     ports:
       - "8000:8000"
     depends_on:
@@ -32,9 +27,8 @@ services:
   celery:
     build: ../
     command: ["bash", "./scripts/wait-for-postgres.sh", "db", "bash", "./scripts/wait-for-ui.sh", "celery", "-A", "settings", "worker", "-l", "info", "-B"]
-    environment:
-      - REDIS_HOST=redis
-      - DB_HOST=db
+    volumes:
+      - ./.env-dev:/code/.env
     depends_on:
       - db
       - redis
