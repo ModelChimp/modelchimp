@@ -100,14 +100,14 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [(config('REDIS_HOST'), config('REDIS_PORT', cast=int) )],
+            "hosts": [(config('REDISHOST', default='redis'), 6379)],
         },
     },
 }
 
 # CELERY STUFF
-BROKER_URL = 'redis://' + config('REDIS_HOST')+  ':' + config('REDIS_PORT')
-CELERY_RESULT_BACKEND = 'redis://' + config('REDIS_HOST')+  ':' + config('REDIS_PORT')
+BROKER_URL = 'redis://' + config('REDISHOST', default='redis') +  ':6379'
+CELERY_RESULT_BACKEND = 'redis://' + config('REDISHOST', default='redis') +  ':6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -115,11 +115,11 @@ CELERY_RESULT_SERIALIZER = 'json'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),# Set to empty string for default.
+        'NAME': config('DB_NAME', default=''),
+        'USER': config('DB_USER', default=''),
+        'PASSWORD': config('DB_PASSWORD', default=''),
+        'HOST': config('DB_HOST', default=''),
+        'PORT': config('DBPORT', default=''),# Set to empty string for default.
     }
 }
 

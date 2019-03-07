@@ -1,0 +1,21 @@
+version: 1
+task_definition:
+  services:
+    nginx:
+      cpu_shares: 100
+      mem_limit: 524288000
+    serverhttp:
+      cpu_shares: 100
+      mem_limit: 524288000
+    server-websocket:
+      cpu_shares: 100
+      mem_limit: 524288000
+    celery:
+      cpu_shares: 100
+      mem_limit: 524288000
+    ui:
+      cpu_shares: 100
+      mem_limit: 524288000
+    redis:
+      cpu_shares: 100
+      mem_limit: 524288000

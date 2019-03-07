@@ -16,8 +16,8 @@ from django.contrib.auth.views import (
 
 urlpatterns = [
     url(r'^api/', include('modelchimp.api_urls')),
-    url(r'^hq/accounts/', include('allauth.urls')),
-    url(r'^hq/admin/', admin.site.urls),
+    # url(r'^hq/accounts/', include('allauth.urls')),
+    url(r'^hq/', admin.site.urls),
 
     # Password reset views
     url(r'^password_reset/$', PasswordResetView.as_view(), name='password_reset'),
