@@ -20,7 +20,7 @@ services:
     image: modelchimp/modelchimp-server:latest
     container_name: web
     restart: always
-    command: ["gunicorn", "--access-logfile", "-", "--workers", "3","-b", "0.0.0.0:8002",  "settings.wsgi:application"]
+    command: ["bash", "./scripts/wait-for-postgres.sh", "db", "bash", "runserver.sh"]
     ports:
       - "8002:8002"
     links:
@@ -36,7 +36,7 @@ services:
       - "8001:8001"
     links:
       - redis
-      - db      
+      - db
     volumes:
       - ./.env:/code/.env
   celery:
