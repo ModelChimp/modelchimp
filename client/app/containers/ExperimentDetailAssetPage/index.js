@@ -13,7 +13,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Section from 'components/Section';
-import { Table, Input } from 'antd';
+import { Table, Input, Select } from 'antd';
 import makeSelectExperimentDetailAssetPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -43,6 +43,11 @@ export class ExperimentDetailAssetPage extends React.Component {
         key: 'file_size',
         width: '60vw',
         render: (text, record) => {return filesize(text)}
+      },
+      {
+        title: 'A',
+        dataIndex: 'meta_dict.a',
+        key: 'meta_dict.a',
       },
     ];
 
@@ -77,13 +82,21 @@ export class ExperimentDetailAssetPage extends React.Component {
   }
 
   render() {
-    ;
-//    console.log(this.state);
+
     return (
       <Section name="Assets">
-        <Input placeholder="Basic usage"
+        <Input placeholder="Search"
                 onChange={this.onSearch}
                 style={{width:'30vw', margin:'10px'}}/>
+        <Select
+          mode="multiple"
+          style={{ width: '30vw', float:'right',  margin:'10px' }}
+          placeholder="Please select meta columns"
+          defaultValue={this.props.selectedParamCols}
+          onChange={this.handleParamChange}
+        >
+          <Select.Option key={1}> Hello</Select.Option>
+        </Select>
         <Table columns={this.columns}
                 dataSource={this.filterData(this.props.assetData, this.state.searchText)}
                 rowKey="id"
