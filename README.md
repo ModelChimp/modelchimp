@@ -1,4 +1,5 @@
-![modelchimp-logo](https://docs.modelchimp.com/img/logo.png)
+<img src="https://docs.modelchimp.com/img/logo.png" height=200 style="display:block;margin:auto;r"/>
+
 
 [![CircleCI](https://circleci.com/gh/ModelChimp/modelchimp.svg?style=svg)](https://circleci.com/gh/ModelChimp/modelchimp)
 
