@@ -1,4 +1,5 @@
 *.py[cod]
+nginx.conf
 
 #folders
 media

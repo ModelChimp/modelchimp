@@ -8,5 +8,6 @@ RUN pip install -r requirements.txt
 RUN apt-get update && apt-get install -y postgresql-client
 
 COPY . /code
+RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000

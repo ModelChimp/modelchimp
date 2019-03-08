@@ -13,4 +13,6 @@ COPY . /frontend/
 
 RUN apt-get update && apt-get install libglu1 -y
 
-RUN npm install
+RUN npm install && npm run build
+
+EXPOSE 3000

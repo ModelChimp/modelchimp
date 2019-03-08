@@ -37,14 +37,8 @@ fi
 
 if [ $DEVELOPMENT ]
 then
-  docker-compose up --build --abort-on-container-exit
+  docker-compose -f docker-compose.dev.yml up --build --abort-on-container-exit
   exit
 fi
 
-if [ $TEST ]
-then
-  docker-compose -f docker-compose.hub-test.yml up --build --abort-on-container-exit
-  exit
-fi
-
-docker-compose -f docker-compose.hub.yml up --build --abort-on-container-exit
+docker-compose -f docker-compose.local.yml up --build --abort-on-container-exit

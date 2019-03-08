@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: production_nginx
+    volumes:
+      - ./nginx-dev.conf:/etc/nginx/nginx.conf
+    ports:
+      - 8000:8000
+    links:
+      - web
+      - ui
+      - socket
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+  web:
+    image: modelchimp/modelchimp-server:latest
+    container_name: web
+    restart: always
+    command: ["bash", "./scripts/wait-for-postgres.sh", "db", "bash", "runserver.sh"]
+    ports:
+      - "8002:8002"
+    links:
+      - redis
+      - db
+    volumes:
+      - ./.env:/code/.env
+  socket:
+    image: modelchimp/modelchimp-server:latest
+    restart: always
+    command: ["daphne", "-b", "0.0.0.0", "-p", "8001", "settings.asgi:application"]
+    ports:
+      - "8001:8001"
+    links:
+      - redis
+      - db
+    volumes:
+      - ./.env:/code/.env
+  celery:
+    image: modelchimp/modelchimp-server:latest
+    command: bash ./scripts/wait-for-postgres.sh db celery -A settings worker -l info -B
+    links:
+      - redis
+      - db
+    volumes:
+      - ./.env:/code/.env
+  ui:
+    image: modelchimp/modelchimp-ui:latest
+    command: npm run start:prod
+    ports:
+      - 3000:3000
+  db:
+    image: postgres:10.6
+    restart: always
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432

@@ -13,36 +13,24 @@ services:
     ports:
       - 6379:6379
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile-hub
+    build: .
     container_name: web
     restart: always
-    command: ["bash", "./scripts/wait-for-postgres.sh", "db", "bash", "runserver.sh"]
-    env_file:
-      - .env
-    environment:
-      - DB_HOST=db
-      - REDIS_HOST=redis
-      - MODELCHIMP_PATH=/code
-      - DOMAIN=127.0.0.1:3000
+    command: ["bash", "./scripts/wait-for-postgres.sh", "db", "bash", "runserver_dev.sh"]
     volumes:
       - .:/code
+      - .env:/code/.env
     ports:
       - "8000:8000"
     depends_on:
       - db
       - redis
   celery:
-    build:
-      context: .
-      dockerfile: Dockerfile-hub
+    build: .
     command: bash ./scripts/wait-for-postgres.sh db celery -A settings worker -l info -B
-    environment:
-      - REDIS_HOST=redis
-      - DB_HOST=db
     volumes:
       - .:/code
+      - .env:/code/.env
     depends_on:
       - db
       - redis
