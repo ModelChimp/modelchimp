@@ -4,21 +4,15 @@ import { initialState } from './reducer';
 const selectExperimentDetailAssetPageDomain = state =>
   state.get('experimentDetailAssetPage', initialState);
 
-const makeSelectExperimentDetailAssetPage = () =>
+const makeSelectAssetData = () =>
   createSelector(selectExperimentDetailAssetPageDomain, substate => {
-    // const assetData = substate.get('assetData');
-    // let result = null;
-    //
-    // if (assetData) {
-    //   result = Object.keys(assetData).map((k, i) => ({
-    //     key: i,
-    //     asset: k,
-    //     value: assetData[k],
-    //   }));
-    // }
-
     return substate.get('assetData');
   });
 
-export default makeSelectExperimentDetailAssetPage;
-export { selectExperimentDetailAssetPageDomain };
+const makeSelectAssetField = () =>
+  createSelector(selectExperimentDetailAssetPageDomain, substate => {
+    return substate.get('assetFieldData');
+  });
+
+export default makeSelectAssetData;
+export { selectExperimentDetailAssetPageDomain, makeSelectAssetField };

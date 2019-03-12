@@ -14,10 +14,10 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Section from 'components/Section';
 import { Table, Input, Select } from 'antd';
-import makeSelectExperimentDetailAssetPage from './selectors';
+import makeSelectExperimentDetailAssetPage, {makeSelectAssetField} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { loadExperimentAssetAction } from './actions';
+import { loadExperimentAssetAction, loadExperimentAssetFieldAction } from './actions';
 import filesize from 'filesize';
 
 
@@ -81,8 +81,11 @@ export class ExperimentDetailAssetPage extends React.Component {
 
   }
 
-  render() {
+  generateAssetFieldSelect = (d) => {
+    return d.map( e => <Select.Option key={e.name}>{e.name}</Select.Option> )
+  }
 
+  render() {
     return (
       <Section name="Assets">
         <Input placeholder="Search"
@@ -95,7 +98,7 @@ export class ExperimentDetailAssetPage extends React.Component {
           defaultValue={this.props.selectedParamCols}
           onChange={this.handleParamChange}
         >
-          <Select.Option key={1}> Hello</Select.Option>
+          {this.generateAssetFieldSelect(this.props.assetFieldData)}
         </Select>
         <Table columns={this.columns}
                 dataSource={this.filterData(this.props.assetData, this.state.searchText)}
@@ -114,12 +117,15 @@ ExperimentDetailAssetPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   assetData: makeSelectExperimentDetailAssetPage(),
+  assetFieldData: makeSelectAssetField(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getExperimentAssetData: modelId =>
-      dispatch(loadExperimentAssetAction(modelId)),
+    getExperimentAssetData: modelId =>{
+      dispatch(loadExperimentAssetAction(modelId));
+      dispatch(loadExperimentAssetFieldAction(modelId));
+    },
   };
 }
 
