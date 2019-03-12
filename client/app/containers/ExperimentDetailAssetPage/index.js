@@ -25,7 +25,8 @@ import filesize from 'filesize';
 export class ExperimentDetailAssetPage extends React.Component {
   state = {
     searchText:'',
-    columns:[],
+    baseColumns:[],
+    outputColumns:[],
   }
 
   componentDidMount() {
@@ -35,24 +36,18 @@ export class ExperimentDetailAssetPage extends React.Component {
         title: 'File Name',
         dataIndex: 'file_name',
         key: 'file_name',
-        width: '20vw',
       },
       {
         title: 'Size',
         dataIndex: 'file_size',
         key: 'file_size',
-        width: '60vw',
         render: (text, record) => {return filesize(text)}
-      },
-      {
-        title: 'A',
-        dataIndex: 'meta_dict.a',
-        key: 'meta_dict.a',
       },
     ];
 
     this.setState({
-      columns: this.columns
+      baseColumns: this.columns,
+      outputColumns: this.columns
     })
     this.props.getExperimentAssetData(this.modelId);
   }
@@ -67,7 +62,7 @@ export class ExperimentDetailAssetPage extends React.Component {
   filterData = (data, searchValue) => {
     if(!data) return null;
 
-    let columnKeyList = this.state.columns.map(e=>e.key);
+    let columnKeyList = this.state.outputColumns.map(e=>e.key);
 
     return data.filter( o => {
       for(let k in o){
@@ -75,7 +70,6 @@ export class ExperimentDetailAssetPage extends React.Component {
           if(o[k].toString().includes(searchValue)) return true;
         }
       }
-
       return false;
     });
 
@@ -83,6 +77,19 @@ export class ExperimentDetailAssetPage extends React.Component {
 
   generateAssetFieldSelect = (d) => {
     return d.map( e => <Select.Option key={e.name}>{e.name}</Select.Option> )
+  }
+
+  handleParamChange = (d) => {
+    let fieldColumns = d.map( e => ({
+      title: e,
+      dataIndex: `meta_dict.${e}`,
+      key: `meta_dict.${e}`,
+    }));
+
+    this.setState({
+      outputColumns: [...this.columns, ...fieldColumns],
+    });
+
   }
 
   render() {
@@ -100,7 +107,7 @@ export class ExperimentDetailAssetPage extends React.Component {
         >
           {this.generateAssetFieldSelect(this.props.assetFieldData)}
         </Select>
-        <Table columns={this.columns}
+        <Table columns={this.state.outputColumns}
                 dataSource={this.filterData(this.props.assetData, this.state.searchText)}
                 rowKey="id"
         />
