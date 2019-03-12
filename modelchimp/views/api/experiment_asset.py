@@ -38,5 +38,15 @@ def get_asset_meta_fields(request, model_id):
 	    model_id,
 	)
 	result = execute_query(query)
-    
+
 	return Response(result)
+
+@api_view(['GET'])
+@permission_classes((HasProjectMembership, IsAuthenticated))
+def get_asset_blob(request, model_id, asset_id):
+    '''
+    Get the blob of the asset
+    '''
+
+    asset_obj = ExperimentAsset.objects.get(id=asset_id)
+    return Response({'asset_blob': asset_obj.asset.read()})

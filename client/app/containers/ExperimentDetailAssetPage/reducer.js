@@ -11,12 +11,16 @@ import {
   LOAD_EXPERIMENT_DETAIL_ASSET_ERROR,
   LOAD_ASSET_META_FIELD_SUCCESS,
   LOAD_ASSET_META_FIELD_ERROR,
+  LOAD_ASSET_BLOB_SUCCESS,
+  LOAD_ASSET_BLOB_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
   loading: false,
   error: false,
   assetData: null,
+  assetFieldData: null,
+  assetBlobData: null,
 });
 
 function experimentDetailAssetPageReducer(state = initialState, action) {
@@ -33,6 +37,10 @@ function experimentDetailAssetPageReducer(state = initialState, action) {
     case LOAD_ASSET_META_FIELD_SUCCESS:
       return state.set('assetFieldData', action.assetFieldData).set('loading', false);
     case LOAD_ASSET_META_FIELD_ERROR:
+      return state.set('error', action.error).set('loading', false);
+    case LOAD_ASSET_BLOB_SUCCESS:
+      return state.set('assetBlobData', action.assetBlobData).set('loading', false);
+    case LOAD_ASSET_BLOB_ERROR:
       return state.set('error', action.error).set('loading', false);
     default:
       return state;

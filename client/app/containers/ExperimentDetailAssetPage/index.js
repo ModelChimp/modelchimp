@@ -17,8 +17,11 @@ import { Table, Input, Select, Drawer } from 'antd';
 import makeSelectExperimentDetailAssetPage, {makeSelectAssetField} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { loadExperimentAssetAction, loadExperimentAssetFieldAction } from './actions';
+import { loadExperimentAssetAction, loadExperimentAssetFieldAction, loadAssetBlob } from './actions';
 import filesize from 'filesize';
+import AssetDrawer from './AssetDrawer';
+import { isTextExtension } from 'utils/filePath';
+
 
 
 /* eslint-disable react/prefer-stateless-function */
@@ -29,6 +32,7 @@ export class ExperimentDetailAssetPage extends React.Component {
     outputColumns:[],
     drawerVisible: false,
     assetUrl: '',
+    assetId: null,
   }
 
   componentDidMount() {
@@ -39,13 +43,7 @@ export class ExperimentDetailAssetPage extends React.Component {
         dataIndex: 'file_name',
         key: 'file_name',
         render: (text, record) => {
-          let assetUrl = record.asset;
-
-//          if (text === record.experiment_id) result = text.substring(0, 7);
-
-        //  return <Link to={`/experiment-detail/${record.id}`}>{result}</Link>;
-
-        return <a onClick={() => this.showDrawer(assetUrl)}> {text} </a>
+          return <a onClick={() => this.showDrawer(record.asset, record.id)}> {text} </a>
         },
       },
       {
@@ -63,13 +61,14 @@ export class ExperimentDetailAssetPage extends React.Component {
     this.props.getExperimentAssetData(this.modelId);
   }
 
-  showDrawer = (url) => {
-    console.log(url);
-
+  showDrawer = (assetUrl, assetId) => {
     this.setState({
       drawerVisible: true,
-      assetUrl: url,
+      assetUrl: assetUrl,
+      assetId: assetId
     });
+
+    if(isTextExtension(assetUrl)) this.props.getAssetBlob(this.props.match.params.modelId, assetId);
   };
 
   closeDrawer = () => {
@@ -79,7 +78,6 @@ export class ExperimentDetailAssetPage extends React.Component {
   };
 
   onSearch = e => {
-    console.log(e.target.value);
     this.setState({
       searchText:e.target.value
     });
@@ -176,7 +174,11 @@ export class ExperimentDetailAssetPage extends React.Component {
             onClose={this.closeDrawer}
             visible={this.state.drawerVisible}
           >
-            <img src={this.state.assetUrl } style={{maxWidth: '720px'}}/>
+          <AssetDrawer
+            assetUrl={this.state.assetUrl}
+            assetId={this.state.assetId}
+            modelId={this.props.match.params.modelId}
+            style={{maxWidth: '720px'}} />
         </Drawer>
       </Section>
     );
@@ -200,6 +202,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadExperimentAssetAction(modelId));
       dispatch(loadExperimentAssetFieldAction(modelId));
     },
+    getAssetBlob: (modelId, AssetId) => dispatch(loadAssetBlob(modelId, AssetId)),
   };
 }
 

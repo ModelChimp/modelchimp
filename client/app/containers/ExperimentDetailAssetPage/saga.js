@@ -1,11 +1,16 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import ModelchimpClient from 'utils/modelchimpClient';
-import { LOAD_EXPERIMENT_DETAIL_ASSET, LOAD_ASSET_META_FIELD } from './constants';
+import { LOAD_EXPERIMENT_DETAIL_ASSET,
+        LOAD_ASSET_META_FIELD,
+        LOAD_ASSET_BLOB,
+       } from './constants';
 import {
   loadExperimentAssetSuccessAction,
   loadExperimentAssetErrorAction,
   loadExperimentAssetFieldSuccessAction,
-  loadExperimentAssetFieldErrorAction
+  loadExperimentAssetFieldErrorAction,
+  loadAssetBlobSuccess,
+  loadAssetBlobError,
 } from './actions';
 
 export function* getExperimentAssetData({ modelId }) {
@@ -31,9 +36,20 @@ export function* getExperimentAssetFieldData({ modelId }) {
   }
 }
 
+export function* getExperimentAssetBlobData({ modelId, assetId }) {
+  const requestURL = `experiment-detail/${modelId}/asset/blob/${assetId}`;
+
+  try {
+    const data = yield ModelchimpClient.get(requestURL);
+
+    yield put(loadAssetBlobSuccess(data));
+  } catch (err) {
+    yield put(loadAssetBlobError(err));
+  }
+}
 
 export default function* experimentAssetData() {
   yield takeLatest(LOAD_EXPERIMENT_DETAIL_ASSET, getExperimentAssetData);
   yield takeLatest(LOAD_ASSET_META_FIELD, getExperimentAssetFieldData);
-
+  yield takeLatest(LOAD_ASSET_BLOB, getExperimentAssetBlobData);
 }

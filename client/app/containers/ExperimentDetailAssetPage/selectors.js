@@ -14,5 +14,13 @@ const makeSelectAssetField = () =>
     return substate.get('assetFieldData');
   });
 
+const makeSelectAssetBlob = () =>
+  createSelector(selectExperimentDetailAssetPageDomain, substate => {
+    return substate.get('assetBlobData');
+  });
+
 export default makeSelectAssetData;
-export { selectExperimentDetailAssetPageDomain, makeSelectAssetField };
+export { selectExperimentDetailAssetPageDomain,
+          makeSelectAssetField,
+          makeSelectAssetBlob,
+        };

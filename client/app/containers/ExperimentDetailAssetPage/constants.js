@@ -17,3 +17,10 @@ export const LOAD_ASSET_META_FIELD_SUCCESS =
   'app/ExperimentDetailAssetPage/LOAD_ASSET_META_FIELD_SUCCESS';
 export const LOAD_ASSET_META_FIELD_ERROR =
   'app/ExperimentDetailAssetPage/LOAD_ASSET_META_FIELD_ERROR';
+
+export const LOAD_ASSET_BLOB =
+  'app/ExperimentDetailAssetPage/LOAD_ASSET_BLOB';
+export const LOAD_ASSET_BLOB_SUCCESS =
+  'app/ExperimentDetailAssetPage/LOAD_ASSET_BLOB_SUCCESS';
+export const LOAD_ASSET_BLOB_ERROR =
+  'app/ExperimentDetailAssetPage/LOAD_ASSET_BLOB_ERROR';

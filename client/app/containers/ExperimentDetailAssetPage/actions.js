@@ -11,6 +11,9 @@ import {
   LOAD_ASSET_META_FIELD,
   LOAD_ASSET_META_FIELD_SUCCESS,
   LOAD_ASSET_META_FIELD_ERROR,
+  LOAD_ASSET_BLOB,
+  LOAD_ASSET_BLOB_SUCCESS,
+  LOAD_ASSET_BLOB_ERROR,
 } from './constants';
 
 
@@ -56,3 +59,19 @@ export function loadExperimentAssetFieldErrorAction(error) {
     error,
   };
 }
+
+export const loadAssetBlob = (modelId, assetId) => ({
+    type: LOAD_ASSET_BLOB,
+    modelId,
+    assetId,
+});
+
+export const loadAssetBlobSuccess = (assetBlobData) => ({
+    type: LOAD_ASSET_BLOB_SUCCESS,
+    assetBlobData,
+});
+
+export const loadAssetBlobError = (error) => ({
+    type: LOAD_ASSET_BLOB_ERROR,
+    error,
+});
