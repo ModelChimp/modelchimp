@@ -13,7 +13,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Section from 'components/Section';
-import { Table, Input, Select } from 'antd';
+import { Table, Input, Select, Drawer } from 'antd';
 import makeSelectExperimentDetailAssetPage, {makeSelectAssetField} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -27,6 +27,8 @@ export class ExperimentDetailAssetPage extends React.Component {
     searchText:'',
     baseColumns:[],
     outputColumns:[],
+    drawerVisible: false,
+    assetUrl: '',
   }
 
   componentDidMount() {
@@ -36,6 +38,15 @@ export class ExperimentDetailAssetPage extends React.Component {
         title: 'File Name',
         dataIndex: 'file_name',
         key: 'file_name',
+        render: (text, record) => {
+          let assetUrl = record.asset;
+
+//          if (text === record.experiment_id) result = text.substring(0, 7);
+
+        //  return <Link to={`/experiment-detail/${record.id}`}>{result}</Link>;
+
+        return <a onClick={() => this.showDrawer(assetUrl)}> {text} </a>
+        },
       },
       {
         title: 'Size',
@@ -51,6 +62,21 @@ export class ExperimentDetailAssetPage extends React.Component {
     })
     this.props.getExperimentAssetData(this.modelId);
   }
+
+  showDrawer = (url) => {
+    console.log(url);
+
+    this.setState({
+      drawerVisible: true,
+      assetUrl: url,
+    });
+  };
+
+  closeDrawer = () => {
+    this.setState({
+      drawerVisible: false,
+    });
+  };
 
   onSearch = e => {
     console.log(e.target.value);
@@ -123,6 +149,7 @@ export class ExperimentDetailAssetPage extends React.Component {
   }
 
   render() {
+    console.log(this.props.assetData);
     return (
       <Section name="Assets">
         <Input placeholder="Search"
@@ -141,6 +168,16 @@ export class ExperimentDetailAssetPage extends React.Component {
                 dataSource={this.filterData(this.props.assetData, this.state.searchText)}
                 rowKey="id"
         />
+        <Drawer
+            title="Basic Drawer"
+            placement="right"
+            width={720}
+            closable={false}
+            onClose={this.closeDrawer}
+            visible={this.state.drawerVisible}
+          >
+            <img src={this.state.assetUrl } style={{maxWidth: '720px'}}/>
+        </Drawer>
       </Section>
     );
   }
