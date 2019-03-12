@@ -24,12 +24,17 @@ export class AssetDrawer extends React.Component {
     }
 
     if(isTextExtension(this.props.assetUrl)){
+      const textData = this.props.assetBlobData;
+
       return <textarea style={{
         boxSizing:'border-box',
         width: '100%',
-        height: '100%',
+        height: '100vh',
         fontFamily: 'Menlo, Consolas, monospace'
-      }}>{this.props.assetBlobData.asset_blob}</textarea>;
+      }}
+      value = { textData ? textData.asset_blob: ''}
+      readOnly={true}
+      />;
     }
 
     return <div>The file is corrupted</div>;
