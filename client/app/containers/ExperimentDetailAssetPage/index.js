@@ -76,14 +76,44 @@ export class ExperimentDetailAssetPage extends React.Component {
   }
 
   generateAssetFieldSelect = (d) => {
+    if(!d) return null;
+
     return d.map( e => <Select.Option key={e.name}>{e.name}</Select.Option> )
   }
 
   handleParamChange = (d) => {
+    if(!d) return null;
+
+
     let fieldColumns = d.map( e => ({
       title: e,
       dataIndex: `meta_dict.${e}`,
       key: `meta_dict.${e}`,
+      sorter: (a, b) => {
+        // TODO: Write a better logic for the sort
+
+        // Check if its a string and do string sorting
+        if ( typeof a.meta_dict[e] === 'string'
+            || a.meta_dict[e] instanceof String
+            || typeof b.meta_dict[e] === 'string'
+            || b.meta_dict[e] instanceof String
+          ) {
+            const A = a.meta_dict[e] ? a.meta_dict[e] : '';
+            const B = b.meta_dict[e] ? b.meta_dict[e] : '';
+
+            return A.localeCompare(B);
+          }
+
+        // Do number sorting
+        if (!(e in a.meta_dict)) {
+          return -999999999999;
+        }
+        if (!(e in b.meta_dict)) {
+          return 999999999999;
+        }
+
+        return a.meta_dict[e] - b.meta_dict[e];
+      },
     }));
 
     this.setState({
