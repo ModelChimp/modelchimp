@@ -9,11 +9,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { Table, Tag, Icon, Drawer } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Table, Tag, Icon, Drawer, Button } from 'antd';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { makeSelectAssetBlob } from './selectors';
 import {loadAssetBlob} from './actions';
-import { isTextExtension, isImageExtension } from 'utils/filePath';
+import { isTextExtension, isImageExtension, isModelExtension } from 'utils/filePath';
 
 
 /* eslint-disable react/prefer-stateless-function */
@@ -35,6 +36,16 @@ export class AssetDrawer extends React.Component {
       value = { textData ? textData.asset_blob: ''}
       readOnly={true}
       />;
+    }
+
+    if(isModelExtension(this.props.assetUrl)){
+      return  <div style={{textAlign:'center'}}>
+                  <FontAwesomeIcon icon="file" style={{fontSize:'200px'}}/>
+                  <br />
+                  <a href={this.props.assetUrl} download>
+                    <Button type="primary" style={{margin:'30px'}}>Download</Button>
+                  </a>
+              </div>
     }
 
     return <div>The file is corrupted</div>;

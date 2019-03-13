@@ -33,6 +33,7 @@ export class ExperimentDetailAssetPage extends React.Component {
     drawerVisible: false,
     assetUrl: '',
     assetId: null,
+    assetName: null,
   }
 
   componentDidMount() {
@@ -43,7 +44,7 @@ export class ExperimentDetailAssetPage extends React.Component {
         dataIndex: 'file_name',
         key: 'file_name',
         render: (text, record) => {
-          return <a onClick={() => this.showDrawer(record.asset, record.id)}> {text} </a>
+          return <a onClick={() => this.showDrawer(record.asset, record.id, record.file_name)}> {text} </a>
         },
       },
       {
@@ -61,11 +62,12 @@ export class ExperimentDetailAssetPage extends React.Component {
     this.props.getExperimentAssetData(this.modelId);
   }
 
-  showDrawer = (assetUrl, assetId) => {
+  showDrawer = (assetUrl, assetId, assetName) => {
     this.setState({
       drawerVisible: true,
       assetUrl: assetUrl,
-      assetId: assetId
+      assetId: assetId,
+      assetName: assetName
     });
 
     if(isTextExtension(assetUrl)) this.props.getAssetBlob(this.props.match.params.modelId, assetId);
@@ -147,7 +149,6 @@ export class ExperimentDetailAssetPage extends React.Component {
   }
 
   render() {
-    console.log(this.props.assetData);
     return (
       <Section name="Assets">
         <Input placeholder="Search"
@@ -167,7 +168,7 @@ export class ExperimentDetailAssetPage extends React.Component {
                 rowKey="id"
         />
         <Drawer
-            title="Basic Drawer"
+            title={this.state.assetName}
             placement="right"
             width={720}
             closable={false}
