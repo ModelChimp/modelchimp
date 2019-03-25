@@ -19,6 +19,9 @@ import reducer from './reducer';
 import saga from './saga';
 import { loadExperimentParamAction } from './actions';
 
+import { EXPERIMENT_TAB_PARAMETERS } from '../ExperimentDetail/constants';
+import { onExperimentTabSelect } from '../ExperimentDetail/actions';
+
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailParamPage extends React.Component {
   componentDidMount() {
@@ -38,6 +41,7 @@ export class ExperimentDetailParamPage extends React.Component {
       },
     ];
 
+    this.props.onExperimentTabSelect(EXPERIMENT_TAB_PARAMETERS);
     this.props.getExperimentParamData(this.modelId);
   }
 
@@ -64,7 +68,9 @@ function mapDispatchToProps(dispatch) {
   return {
     getExperimentParamData: modelId =>
       dispatch(loadExperimentParamAction(modelId)),
-  };
+    onExperimentTabSelect: tabKey =>
+      dispatch(onExperimentTabSelect(tabKey)),
+};
 }
 
 const withConnect = connect(

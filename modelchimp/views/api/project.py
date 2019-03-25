@@ -52,7 +52,6 @@ class ProjectAPI(generics.ListCreateAPIView, mixins.UpdateModelMixin):
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
 	def update(self, request, project_id, *args, **kwargs):
-		print(self.request.data)
 		instance = self.get_queryset().get(id=project_id )
 		serializer = self.get_serializer(instance, data=self.request.data, partial=True)
 		serializer.is_valid(raise_exception=True)

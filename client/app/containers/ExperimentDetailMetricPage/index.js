@@ -19,6 +19,9 @@ import reducer from './reducer';
 import saga from './saga';
 import { loadExperimentMetricAction } from './actions';
 
+import { EXPERIMENT_TAB_METRICS } from '../ExperimentDetail/constants';
+import { onExperimentTabSelect } from '../ExperimentDetail/actions';
+
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailMetricPage extends React.Component {
   componentDidMount() {
@@ -40,6 +43,7 @@ export class ExperimentDetailMetricPage extends React.Component {
       },
     ];
 
+    this.props.onExperimentTabSelect(EXPERIMENT_TAB_METRICS);
     this.props.getExperimentMetricData(this.modelId);
   }
 
@@ -66,6 +70,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getExperimentMetricData: modelId =>
       dispatch(loadExperimentMetricAction(modelId)),
+    onExperimentTabSelect: tabKey =>
+      dispatch(onExperimentTabSelect(tabKey)),
   };
 }
 

@@ -22,15 +22,21 @@ import reducer from './reducer';
 import saga from './saga';
 import { loadExperimentChartAction } from './actions';
 
+import { EXPERIMENT_TAB_CHARTS } from '../ExperimentDetail/constants';
+import { onExperimentTabSelect } from '../ExperimentDetail/actions';
+
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailChartPage extends React.Component {
   componentDidMount() {
     this.modelId = this.props.match.params.modelId;
     this.props.getExperimentChartData(this.modelId);
+    this.props.onExperimentTabSelect(EXPERIMENT_TAB_CHARTS);
 
     this.timer = setInterval(() => {
       this.props.getExperimentChartData(this.modelId);
     }, 2000);
+
+
   }
 
   componentWillUnmount() {
@@ -102,6 +108,10 @@ function mapDispatchToProps(dispatch) {
   return {
     getExperimentChartData: modelId =>
       dispatch(loadExperimentChartAction(modelId)),
+    onExperimentTabSelect: tabKey =>
+      dispatch(onExperimentTabSelect(tabKey)),
+    onExperimentTabSelect: tabKey =>
+      dispatch(onExperimentTabSelect(tabKey)),
   };
 }
 

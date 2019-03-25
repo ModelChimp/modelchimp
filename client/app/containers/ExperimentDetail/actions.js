@@ -14,6 +14,7 @@ import {
   DELETE_EXPERIMENT_LABELS,
   DELETE_EXPERIMENT_LABELS_SUCCESS,
   DELETE_EXPERIMENT_LABELS_ERROR,
+  ON_EXPERIMENT_TAB_SELECT,
 } from './constants';
 
 export function loadExperimentDetailAction(modelId) {
@@ -78,5 +79,12 @@ export function deleteExperimentLabelsErrorAction(error) {
   return {
     type: DELETE_EXPERIMENT_LABELS_ERROR,
     error,
+  };
+}
+
+export function onExperimentTabSelect(tabKey) {
+  return {
+    type: ON_EXPERIMENT_TAB_SELECT,
+    tabKey,
   };
 }

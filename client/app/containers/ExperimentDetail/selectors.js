@@ -37,6 +37,11 @@ const makeSelectLabels = () =>
     experimentDetailState.get('labels'),
   );
 
+const makeSelectTab = () =>
+  createSelector(selectExperimentDetail, experimentDetailState =>
+    experimentDetailState.get('tabKey'),
+  );
+
 export {
   selectExperimentDetail,
   makeSelectExperimentDetail,
@@ -44,4 +49,5 @@ export {
   makeSelectShortExperimentId,
   makeSelectExperimentName,
   makeSelectLabels,
+  makeSelectTab,
 };

@@ -16,6 +16,7 @@ from modelchimp.views.api import (project,
                                   experiment_meta,
                                   experiment_code,
                                   experiment_gridsearch,
+                                  experiment_asset,
                                   user)
 from rest_framework.authtoken import views
 
@@ -102,6 +103,15 @@ urlpatterns = [
     url(r'experiment-detail/(?P<model_id>\d+)/gridsearch$',
         experiment_gridsearch.ExperimentGridSearchAPI.as_view({'get': 'retrieve'}),
         name='experiment_gridsearch'),
+    url(r'experiment-detail/(?P<model_id>\d+)/asset$',
+        experiment_asset.ExperimentAssetAPI.as_view(),
+        name='experiment_asset'),
+    url(r'experiment-detail/(?P<model_id>\d+)/asset/meta-fields/$',
+        experiment_asset.get_asset_meta_fields,
+        name='experiment_asset_meta'),
+    url(r'experiment-detail/(?P<model_id>\d+)/asset/blob/(?P<asset_id>\d+)$',
+        experiment_asset.get_asset_blob,
+        name='experiment_asset_blob'),
     url(r'user$',
         user.UserAPI.as_view({'get': 'retrieve', 'post': 'update'}),
          name='user'),

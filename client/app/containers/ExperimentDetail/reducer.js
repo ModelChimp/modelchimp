@@ -7,6 +7,8 @@ import {
   CREATE_EXPERIMENT_LABELS_ERROR,
   DELETE_EXPERIMENT_LABELS_SUCCESS,
   DELETE_EXPERIMENT_LABELS_ERROR,
+  ON_EXPERIMENT_TAB_SELECT,
+  EXPERIMENT_TAB_METRICS,
 } from './constants';
 
 export const initialState = fromJS({
@@ -22,6 +24,7 @@ export const initialState = fromJS({
   shortExperimentId: null,
   experimentName: null,
   labels: null,
+  tabKey: EXPERIMENT_TAB_METRICS,
 });
 
 function experimentDetailReducer(state = initialState, action) {
@@ -52,6 +55,8 @@ function experimentDetailReducer(state = initialState, action) {
       return state.set('labels', action.data);
     case DELETE_EXPERIMENT_LABELS_ERROR:
       return state.set('error', action.error).set('loading', false);
+    case ON_EXPERIMENT_TAB_SELECT:
+      return state.set('tabKey', action.tabKey).set('loading', false);
     default:
       return state;
   }
