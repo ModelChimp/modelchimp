@@ -94,7 +94,7 @@ export class ExperimentDetail extends React.Component {
               </Menu.Item>
               <Menu.Item key="3">
                 <Link to={`${this.props.match.url}/code`}>
-                  <FontAwesomeIcon icon="file-code" /> Code
+                  <FontAwesomeIcon icon="code" /> Code
                 </Link>
               </Menu.Item>
               <Menu.Item key="4">
@@ -114,7 +114,7 @@ export class ExperimentDetail extends React.Component {
               </Menu.Item>
               <Menu.Item key="7">
                 <Link to={`${this.props.match.url}/asset`}>
-                  <FontAwesomeIcon icon="grip-horizontal" /> Asset
+                  <FontAwesomeIcon icon="file" /> Asset
                 </Link>
               </Menu.Item>
             </Menu>
