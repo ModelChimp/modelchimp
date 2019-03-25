@@ -22,13 +22,24 @@ import ExperimentDetailObjectPage from 'containers/ExperimentDetailObjectPage/Lo
 import ExperimentDetailGridSearchPage from 'containers/ExperimentDetailGridSearchPage/Loadable';
 import ExperimentDetailAssetPage from 'containers/ExperimentDetailAssetPage/Loadable';
 
-import { loadExperimentDetailAction } from './actions';
+import {
+  EXPERIMENT_TAB_METRICS,
+  EXPERIMENT_TAB_PARAMETERS,
+  EXPERIMENT_TAB_CODE,
+  EXPERIMENT_TAB_CHARTS,
+  EXPERIMENT_TAB_OBJECTS,
+  EXPERIMENT_TAB_GRIDSEARCH,
+  EXPERIMENT_TAB_ASSET,
+} from './constants';
+
+import { loadExperimentDetailAction, onExperimentTabSelect } from './actions';
 import {
   makeSelectExperimentDetail,
   makeSelectExperimentId,
   makeSelectShortExperimentId,
   makeSelectExperimentName,
   makeSelectLabels,
+  makeSelectTab,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -50,9 +61,11 @@ export class ExperimentDetail extends React.Component {
   }
 
   onMenuSelect = ({ key }) => {
-    this.setState({
-      selectedKey: key,
-    });
+    // this.setState({
+    //   selectedKey: key,
+    // });
+
+    this.props.onExperimentTabSelect(key);
   };
 
   render() {
@@ -76,43 +89,41 @@ export class ExperimentDetail extends React.Component {
           >
             <Menu
               mode="inline"
-              defaultSelectedKeys={['1']}
-              defaultOpenKeys={['sub1']}
               style={{ height: '100%', borderRight: 0 }}
-              selectedKeys={[this.state.selectedKey]}
+              selectedKeys={[this.props.tabKey]}
               onClick={this.onMenuSelect}
             >
-              <Menu.Item key="1">
+              <Menu.Item key={EXPERIMENT_TAB_METRICS}>
                 <Link to={`${this.props.match.url}`}>
                   <FontAwesomeIcon icon="greater-than-equal" /> Metrics
                 </Link>
               </Menu.Item>
-              <Menu.Item key="2">
+              <Menu.Item key={EXPERIMENT_TAB_PARAMETERS}>
                 <Link to={`${this.props.match.url}/param`}>
                   <FontAwesomeIcon icon="list-ol" /> Parameters
                 </Link>
               </Menu.Item>
-              <Menu.Item key="3">
+              <Menu.Item key={EXPERIMENT_TAB_CODE}>
                 <Link to={`${this.props.match.url}/code`}>
                   <FontAwesomeIcon icon="code" /> Code
                 </Link>
               </Menu.Item>
-              <Menu.Item key="4">
+              <Menu.Item key={EXPERIMENT_TAB_CHARTS}>
                 <Link to={`${this.props.match.url}/chart`}>
                   <FontAwesomeIcon icon="chart-line" /> Charts
                 </Link>
               </Menu.Item>
-              <Menu.Item key="5">
+              <Menu.Item key={EXPERIMENT_TAB_OBJECTS}>
                 <Link to={`${this.props.match.url}/object`}>
                   <FontAwesomeIcon icon="database" /> Objects
                 </Link>
               </Menu.Item>
-              <Menu.Item key="6">
+              <Menu.Item key={EXPERIMENT_TAB_GRIDSEARCH}>
                 <Link to={`${this.props.match.url}/gridsearch`}>
                   <FontAwesomeIcon icon="grip-horizontal" /> Grid Search
                 </Link>
               </Menu.Item>
-              <Menu.Item key="7">
+              <Menu.Item key={EXPERIMENT_TAB_ASSET}>
                 <Link to={`${this.props.match.url}/asset`}>
                   <FontAwesomeIcon icon="file" /> Asset
                 </Link>
@@ -206,12 +217,15 @@ const mapStateToProps = createStructuredSelector({
   shortExperimentId: makeSelectShortExperimentId(),
   experimentName: makeSelectExperimentName(),
   labels: makeSelectLabels(),
+  tabKey: makeSelectTab(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     getExperimentMetaData: modelId =>
       dispatch(loadExperimentDetailAction(modelId)),
+    onExperimentTabSelect: tabKey =>
+      dispatch(onExperimentTabSelect(tabKey)),
   };
 }
 

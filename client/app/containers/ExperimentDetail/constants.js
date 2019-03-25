@@ -18,3 +18,14 @@ export const DELETE_EXPERIMENT_LABELS_SUCCESS =
   'app/ExperimentDetail/DELETE_EXPERIMENT_LABELS_SUCCESS';
 export const DELETE_EXPERIMENT_LABELS_ERROR =
   'app/ExperimentDetail/DELETE_EXPERIMENT_LABELS_ERROR';
+
+
+export const ON_EXPERIMENT_TAB_SELECT = 'app/ExperimentDetail/ON_EXPERIMENT_TAB_SELECT';
+
+export const EXPERIMENT_TAB_METRICS = 'app/ExperimentDetail/EXPERIMENT_TAB_METRICS';
+export const EXPERIMENT_TAB_PARAMETERS = 'app/ExperimentDetail/EXPERIMENT_TAB_PARAMETERS';
+export const EXPERIMENT_TAB_CODE = 'app/ExperimentDetail/EXPERIMENT_TAB_CODE';
+export const EXPERIMENT_TAB_CHARTS = 'app/ExperimentDetail/EXPERIMENT_TAB_CHARTS';
+export const EXPERIMENT_TAB_OBJECTS = 'app/ExperimentDetail/EXPERIMENT_TAB_OBJECTS';
+export const EXPERIMENT_TAB_GRIDSEARCH = 'app/ExperimentDetail/EXPERIMENT_TAB_GRIDSEARCH';
+export const EXPERIMENT_TAB_ASSET = 'app/ExperimentDetail/EXPERIMENT_TAB_ASSET';

@@ -36,6 +36,10 @@ import GridSearchTable from './GridSearchTable';
 import loadable from 'loadable-components';
 import LoadingIndicator from 'components/LoadingIndicator';
 
+import { EXPERIMENT_TAB_GRIDSEARCH } from '../ExperimentDetail/constants';
+import { onExperimentTabSelect } from '../ExperimentDetail/actions';
+
+
 const Plot = loadable(() => import('./Plot'), {
   LoadingComponent: LoadingIndicator,
 });
@@ -45,6 +49,7 @@ const Plot = loadable(() => import('./Plot'), {
 export class ExperimentDetailGridSearchPage extends React.Component {
   componentDidMount() {
     this.modelId = this.props.match.params.modelId;
+    this.props.onExperimentTabSelect(EXPERIMENT_TAB_GRIDSEARCH);
     this.props.getExperimentGridSearchData(this.modelId);
   }
 
@@ -133,6 +138,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadExperimentGridSearchAction(modelId)),
     setParamCols: paramCols => dispatch(setParamColsAction(paramCols)),
     setFilter: filter => dispatch(setFilterAction(filter)),
+    onExperimentTabSelect: tabKey =>
+      dispatch(onExperimentTabSelect(tabKey)),    
   };
 }
 

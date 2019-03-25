@@ -20,6 +20,9 @@ import reducer from './reducer';
 import saga from './saga';
 import { loadExperimentObjectAction } from './actions';
 
+import { EXPERIMENT_TAB_OBJECTS } from '../ExperimentDetail/constants';
+import { onExperimentTabSelect } from '../ExperimentDetail/actions';
+
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailObjectPage extends React.Component {
   componentDidMount() {
@@ -38,6 +41,7 @@ export class ExperimentDetailObjectPage extends React.Component {
       },
     ];
 
+    this.props.onExperimentTabSelect(EXPERIMENT_TAB_OBJECTS);
     this.props.getExperimentObjectData(this.modelId);
   }
 
@@ -68,6 +72,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getExperimentObjectData: modelId =>
       dispatch(loadExperimentObjectAction(modelId)),
+    onExperimentTabSelect: tabKey =>
+      dispatch(onExperimentTabSelect(tabKey)),
   };
 }
 

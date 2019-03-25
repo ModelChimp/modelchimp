@@ -22,7 +22,8 @@ import filesize from 'filesize';
 import AssetDrawer from './AssetDrawer';
 import { isTextExtension } from 'utils/filePath';
 
-
+import { EXPERIMENT_TAB_ASSET } from '../ExperimentDetail/constants';
+import { onExperimentTabSelect } from '../ExperimentDetail/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailAssetPage extends React.Component {
@@ -59,6 +60,7 @@ export class ExperimentDetailAssetPage extends React.Component {
       baseColumns: this.columns,
       outputColumns: this.columns
     })
+    this.props.onExperimentTabSelect(EXPERIMENT_TAB_ASSET);
     this.props.getExperimentAssetData(this.modelId);
   }
 
@@ -204,6 +206,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadExperimentAssetFieldAction(modelId));
     },
     getAssetBlob: (modelId, AssetId) => dispatch(loadAssetBlob(modelId, AssetId)),
+    onExperimentTabSelect: tabKey =>
+      dispatch(onExperimentTabSelect(tabKey)),
   };
 }
 

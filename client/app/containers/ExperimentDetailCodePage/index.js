@@ -21,6 +21,10 @@ import { loadExperimentCodeAction } from './actions';
 
 import CodeStyle from './tomorrow-night-eighties.css';
 
+import { EXPERIMENT_TAB_CODE } from '../ExperimentDetail/constants';
+import { onExperimentTabSelect } from '../ExperimentDetail/actions';
+
+
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailCodePage extends React.Component {
   componentDidMount() {
@@ -39,6 +43,8 @@ export class ExperimentDetailCodePage extends React.Component {
         width: '60vw',
       },
     ];
+
+    this.props.onExperimentTabSelect(EXPERIMENT_TAB_CODE);
     this.props.getExperimentCodeData(this.modelId);
   }
 
@@ -75,6 +81,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getExperimentCodeData: modelId =>
       dispatch(loadExperimentCodeAction(modelId)),
+    onExperimentTabSelect: tabKey =>
+      dispatch(onExperimentTabSelect(tabKey)),
   };
 }
 
