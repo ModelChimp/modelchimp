@@ -73,7 +73,7 @@ class LabelForm extends React.Component {
 
 LabelForm.propTypes = {
   form: PropTypes.object,
-  modelId: PropTypes.string,
+  modelId: PropTypes.number,
   dispatch: PropTypes.func,
   style: PropTypes.object,
 };

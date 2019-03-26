@@ -160,6 +160,8 @@ export class ExperimentDetail extends React.Component {
                 <Label
                   style={{ marginTop: '20px' }}
                   labels={this.props.labels}
+                  buttonDisplay={true}
+                  modelId={this.props.experiment.id}
                 />
 
                 <Route

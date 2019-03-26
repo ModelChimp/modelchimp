@@ -11,7 +11,6 @@ import { createStructuredSelector } from 'reselect';
 
 import { Button, Modal, Tag } from 'antd';
 import { deleteExperimentLabelsAction } from './actions';
-import { makeSelectExperimentDetail } from './selectors';
 import LabelItem from './LabelItem';
 import LabelForm from './LabelForm';
 
@@ -40,7 +39,7 @@ export class Label extends React.Component {
   };
 
   handleDelete = label => {
-    const modelId = this.props.experiment.id;
+    const modelId = this.props.modelId;
     this.props.dispatch(deleteExperimentLabelsAction(modelId, label));
   };
 
@@ -61,13 +60,21 @@ export class Label extends React.Component {
       </span>
     ) : null;
 
+
+    const buttonDOM = this.props.buttonDisplay ?
+                        <div>
+                          <Button type="primary" onClick={this.showModal}>
+                            <span>Labels</span>
+                          </Button>
+                          {labelDOM}
+                        </div>
+                        : null;
+
     return (
       <div style={this.props.style}>
-        <Button type="primary" onClick={this.showModal}>
-          <span>Labels</span>
-        </Button>
 
-        {labelDOM}
+
+        {buttonDOM}
 
         <Modal
           title="Labels"
@@ -79,7 +86,7 @@ export class Label extends React.Component {
           <LabelForm
             style={{ marginBottom: '30px' }}
             dispatch={this.props.dispatch}
-            modelId={this.props.experiment.id}
+            modelId={this.props.modelId}
           />
           {this.props.labels &&
             this.props.labels.map((label, i) => {
@@ -101,14 +108,11 @@ export class Label extends React.Component {
 
 Label.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  experiment: PropTypes.object,
+  modelId: PropTypes.number,
   labels: PropTypes.array,
   style: PropTypes.object,
+  buttonDisplay: PropTypes.bool,
 };
-
-const mapStateToProps = createStructuredSelector({
-  experiment: makeSelectExperimentDetail(),
-});
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -117,6 +121,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 )(Label);
