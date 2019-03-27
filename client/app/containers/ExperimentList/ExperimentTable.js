@@ -22,6 +22,8 @@ import {
 import { getDataAction, loadExperimentAction } from './actions';
 import { onMenuSelectionAction } from './ExperimentMenu/actions';
 import { MENU_EXPERIMENT } from './ExperimentMenu/constants';
+import Label from 'containers/Label/Loadable';
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentTable extends React.Component {
@@ -75,16 +77,24 @@ export class ExperimentTable extends React.Component {
         title: 'Tags',
         key: 'labels',
         dataIndex: 'labels',
-        render: tags => {
-          if (!tags) return '';
+        render: (tags,record) => {
+          // if (!tags) return '';
+          // const tagsDOM = tags ?
+          //                   tags.map(tag => (
+          //                       <Tag color="blue" key={tag}>
+          //                         {tag}
+          //                       </Tag>
+          //                   ))
+          //                   : null;
 
           return (
             <span>
-              {tags.map(tag => (
-                <Tag color="blue" key={tag}>
-                  {tag}
-                </Tag>
-              ))}
+              <Label
+                style={{ display: 'inline' }}
+                labels={tags}
+                buttonDisplay={false}
+                modelId={record.id}
+              />
             </span>
           );
         },
