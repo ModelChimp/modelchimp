@@ -24,6 +24,7 @@ import {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
   loadMenuParameterAction,
@@ -41,6 +42,7 @@ import {
 class ExperimentMenu extends React.Component {
   state = {
     visible: false,
+    deleteVisible: true,
   };
 
   componentDidMount() {
@@ -103,6 +105,12 @@ class ExperimentMenu extends React.Component {
     this.props.setTargetMetricKeys(targetMetricKeys);
   };
 
+  handleDelete = () => {
+    this.setState({
+      deleteVisible: !this.state.deleteVisible,
+    });
+  }
+
   render() {
     return (
       <Menu
@@ -125,9 +133,25 @@ class ExperimentMenu extends React.Component {
 
         {this.props.menuKey !== MENU_SETTING ? (
           <Menu.Item key={MENU_CUSTOMIZE_TABLE} style={{ float: 'right' }}>
-            <Button type="primary" onClick={this.showModal}>
-              <span>Customize Table</span>
-            </Button>
+
+            {
+              this.state.deleteVisible ? <div>
+              <Button type="primary" onClick={this.showModal}>
+                <span>Customize Table</span>
+              </Button>
+              <Button type="danger" style={{left:'10px'}} onClick={this.handleDelete}>
+                <FontAwesomeIcon icon="trash" />
+              </Button>
+              </div>
+              : <div>
+              <Button type="danger" >
+                <span>Remove</span>
+              </Button>
+              <Button type="primary" style={{left:'10px'}} onClick={this.handleDelete} >
+                Cancel
+              </Button>
+              </div>
+            }
             <Modal
               title="Columns"
               visible={this.state.visible}
