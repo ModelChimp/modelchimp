@@ -21,6 +21,7 @@ import {
   makeSelectTargetKeys,
   makeSelectTargetMetricKeys,
   makeSelectMenuKey,
+  makeSelectDeleteVisible,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -31,6 +32,7 @@ import {
   setTargetKeysAction,
   setMetricTargetKeysAction,
   onMenuSelectionAction,
+  onDeleteClickAction,
 } from './actions';
 import { setExperimentColumnAction } from '../actions';
 import {
@@ -42,7 +44,6 @@ import {
 class ExperimentMenu extends React.Component {
   state = {
     visible: false,
-    deleteVisible: true,
   };
 
   componentDidMount() {
@@ -106,9 +107,7 @@ class ExperimentMenu extends React.Component {
   };
 
   handleDelete = () => {
-    this.setState({
-      deleteVisible: !this.state.deleteVisible,
-    });
+    this.props.onDeleteClickAction()
   }
 
   render() {
@@ -135,7 +134,7 @@ class ExperimentMenu extends React.Component {
           <Menu.Item key={MENU_CUSTOMIZE_TABLE} style={{ float: 'right' }}>
 
             {
-              this.state.deleteVisible ? <div>
+              this.props.deleteVisible ? <div>
               <Button type="primary" onClick={this.showModal}>
                 <span>Customize Table</span>
               </Button>
@@ -206,6 +205,7 @@ const mapStateToProps = createStructuredSelector({
   menuKey: makeSelectMenuKey(),
   targetKeys: makeSelectTargetKeys(),
   targetMetricKeys: makeSelectTargetMetricKeys(),
+  deleteVisible: makeSelectDeleteVisible(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -218,6 +218,7 @@ function mapDispatchToProps(dispatch) {
     setTargetMetricKeys: targetMetricKeys =>
       dispatch(setMetricTargetKeysAction(targetMetricKeys)),
     onMenuSelection: menuKey => dispatch(onMenuSelectionAction(menuKey)),
+    onDeleteClickAction: () => dispatch(onDeleteClickAction()),
   };
 }
 

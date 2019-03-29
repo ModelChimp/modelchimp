@@ -76,6 +76,11 @@ const makeSelectMenuKey = () =>
     substate.get('menuKey'),
   );
 
+const makeSelectDeleteVisible = () =>
+  createSelector(selectExperimentMenuPageDomain, substate =>
+    substate.get('deleteVisible'),
+  );
+
 export {
   selectExperimentMenuPageDomain,
   makeSelectExperimentMenuParameter,
@@ -83,4 +88,5 @@ export {
   makeSelectTargetMetricKeys,
   makeSelectExperimentMenuMetric,
   makeSelectMenuKey,
+  makeSelectDeleteVisible,
 };

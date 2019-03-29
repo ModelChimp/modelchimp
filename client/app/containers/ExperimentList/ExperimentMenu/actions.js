@@ -5,7 +5,9 @@ import {
   SET_COLUMN_TARGET_KEY,
   SET_COLUMN_TARGET_METRIC_KEY,
   ON_MENU_SELECT,
+  ON_DELETE_CLICK,
 } from './constants';
+
 
 export function loadMenuParameterAction(projectId) {
   return {
@@ -46,5 +48,11 @@ export function onMenuSelectionAction(menuKey) {
   return {
     type: ON_MENU_SELECT,
     menuKey,
+  };
+}
+
+export function onDeleteClickAction() {
+  return {
+    type: ON_DELETE_CLICK,
   };
 }
