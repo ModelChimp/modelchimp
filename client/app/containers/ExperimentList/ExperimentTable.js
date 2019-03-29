@@ -26,6 +26,8 @@ import { getDataAction,
 import { onMenuSelectionAction } from './ExperimentMenu/actions';
 import { MENU_EXPERIMENT } from './ExperimentMenu/constants';
 import Label from 'components/Label/Loadable';
+import { makeSelectDeleteVisible } from './ExperimentMenu/selectors';
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentTable extends React.Component {
@@ -124,14 +126,18 @@ export class ExperimentTable extends React.Component {
     clearInterval(this.timer);
   }
 
-  addOptionalColumns(data) {
+  addOptionalColumns(data, deleteVisible) {
     const opCol = this.props.optionalColumns;
     const opMCol = this.props.optionalMetricColumns;
-
     const result = [];
-
+    const deleteCheckColumn = !deleteVisible ? [{ title: 'Sl',
+                                                key: 'sl',
+                                                render: (text) => {
+                                                  return <input type="checkbox" />;
+                                                }
+                                              }] : [];
     if (this.props.match.params.id !== this.props.optionalColumnsPID)
-      return data;
+      return [...deleteCheckColumn  , ...data];
 
     // Add metric columns
     if (opMCol && opMCol.length > 0) {
@@ -187,15 +193,16 @@ export class ExperimentTable extends React.Component {
       }
     }
 
-    return [...data, ...result];
+    return [...deleteCheckColumn, ...data, ...result, ];
   }
 
   render() {
+
     return this.props.loading ? (
       <LoadingIndicator />
     ) : (
       <Table
-        columns={this.addOptionalColumns(this.columns)}
+        columns={this.addOptionalColumns(this.columns, this.props.deleteVisible)}
         dataSource={this.props.experimentList}
         rowKey="id"
       />
@@ -213,6 +220,7 @@ ExperimentTable.propTypes = {
   optionalMetricColumns: PropTypes.array,
   match: PropTypes.object,
   menuSelection: PropTypes.string,
+  deleteVisible: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -221,6 +229,7 @@ const mapStateToProps = createStructuredSelector({
   optionalColumns: makeSelectExperimentColumns(),
   optionalMetricColumns: makeSelectExperimentMetricColumns(),
   optionalColumnsPID: makeSelectExperimentColumnsPID(),
+  deleteVisible: makeSelectDeleteVisible(),
 });
 
 function mapDispatchToProps(dispatch) {
