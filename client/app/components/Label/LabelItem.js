@@ -6,14 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 /*
 * LabelItem component
 */
-const LabelItem = ({ className, label, deleteFunc }) => (
+const LabelItem = ({ className, label, modelId, deleteFunc }) => (
   <div className={className}>
     <span>{label} </span>
     <span
       className="font-awesome"
       style={{ float: 'right' }}
-      onClick={() => deleteFunc(label)}
-      onKeyDown={() => deleteFunc(label)}
+      onClick={() => deleteFunc(label, modelId)}
+      onKeyDown={() => deleteFunc(label, modelId)}
       role="button"
       tabIndex="0"
     >

@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import { Button, Modal, Tag } from 'antd';
-import { deleteExperimentLabelsAction, loadExperimentLabelsAction } from './actions';
 import LabelItem from './LabelItem';
 import LabelForm from './LabelForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,9 +18,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { createStructuredSelector } from 'reselect';
 
-import reducer from './reducer';
-import saga from './saga';
-import { makeSelectLabels } from './selectors';
 
 /*
 * Main component
@@ -46,19 +42,6 @@ export class Label extends React.Component {
       visible: false,
     });
   };
-
-  handleDelete = label => {
-    const modelId = this.props.modelId;
-    this.props.dispatch(deleteExperimentLabelsAction(modelId, label));
-  };
-
-  // componentDidMount(){
-  // }
-
-  componentDidUpdate(){
-    this.props.dispatch(loadExperimentLabelsAction(this.props.modelId));
-
-  }
 
   render() {
     const labelDOM = this.props.labelData ? (
@@ -108,6 +91,7 @@ export class Label extends React.Component {
             style={{ marginBottom: '30px' }}
             dispatch={this.props.dispatch}
             modelId={this.props.modelId}
+            onLabelSubmit={this.props.onLabelSubmit}
           />
           {this.props.labelData &&
             this.props.labelData.map((label, i) => {
@@ -117,7 +101,8 @@ export class Label extends React.Component {
                 <LabelItem
                   key={index}
                   label={label}
-                  deleteFunc={this.handleDelete}
+                  deleteFunc={this.props.onLabelDelete}
+                  modelId={this.props.modelId}
                 />
               );
             })}
@@ -133,10 +118,11 @@ Label.propTypes = {
   labelData: PropTypes.array,
   style: PropTypes.object,
   buttonDisplay: PropTypes.bool,
+  onLabelDelete: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
-  labelData: makeSelectLabels(),
+  // labelData: makeSelectLabels(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -149,12 +135,12 @@ const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
 );
-
-const withReducer = injectReducer({ key: 'label', reducer });
-const withSaga = injectSaga({ key: 'label', saga });
+//
+// const withReducer = injectReducer({ key: 'label', reducer });
+// const withSaga = injectSaga({ key: 'label', saga });
 
 export default compose(
-  withReducer,
-  withSaga,
+  // withReducer,
+  // withSaga,
   withConnect,
 )(Label);

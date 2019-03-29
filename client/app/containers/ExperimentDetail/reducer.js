@@ -47,14 +47,14 @@ function experimentDetailReducer(state = initialState, action) {
         .set('loading', false);
     case LOAD_EXPERIMENT_DETAIL_ERROR:
       return state.set('error', action.error).set('loading', false);
-    // case CREATE_EXPERIMENT_LABELS_SUCCESS:
-    //   return state.set('labels', action.data);
-    // case CREATE_EXPERIMENT_LABELS_ERROR:
-    //   return state.set('error', action.error).set('loading', false);
-    // case DELETE_EXPERIMENT_LABELS_SUCCESS:
-    //   return state.set('labels', action.data);
-    // case DELETE_EXPERIMENT_LABELS_ERROR:
-    //   return state.set('error', action.error).set('loading', false);
+    case CREATE_EXPERIMENT_LABELS_SUCCESS:
+      return state.set('labels', action.data);
+    case CREATE_EXPERIMENT_LABELS_ERROR:
+      return state.set('error', action.error).set('loading', false);
+    case DELETE_EXPERIMENT_LABELS_SUCCESS:
+      return state.set('labels', action.data);
+    case DELETE_EXPERIMENT_LABELS_ERROR:
+      return state.set('error', action.error).set('loading', false);
     case ON_EXPERIMENT_TAB_SELECT:
       return state.set('tabKey', action.tabKey).set('loading', false);
     default:

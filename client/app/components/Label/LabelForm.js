@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form, Input } from 'antd';
-import { createExperimentLabelsAction } from './actions';
 /*
 * Label Form
 */
@@ -20,8 +19,9 @@ class LabelForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         const { modelId } = this.props;
-        this.props.dispatch(createExperimentLabelsAction(modelId, values));
+        this.props.onLabelSubmit(modelId, values);
         this.props.form.resetFields();
+
       }
     });
   };

@@ -32,7 +32,10 @@ import {
   EXPERIMENT_TAB_ASSET,
 } from './constants';
 
-import { loadExperimentDetailAction, onExperimentTabSelect } from './actions';
+import { loadExperimentDetailAction,
+          onExperimentTabSelect,
+          deleteExperimentLabelsAction,
+          createExperimentLabelsAction } from './actions';
 import {
   makeSelectExperimentDetail,
   makeSelectExperimentId,
@@ -45,7 +48,7 @@ import reducer from './reducer';
 import saga from './saga';
 
 // import Label from './Label';
-import Label from 'containers/Label/Loadable';
+import Label from 'components/Label/Loadable';
 
 const { Sider } = Layout;
 
@@ -68,6 +71,15 @@ export class ExperimentDetail extends React.Component {
 
     this.props.onExperimentTabSelect(key);
   };
+
+  onLabelDelete = (label, modelId) => {
+    this.props.deleteExperimentLabelsAction(modelId, label);
+  }
+
+  onLabelSubmit = (modelId, values) => {
+    this.props.createExperimentLabelsAction(modelId, values);
+  }
+
 
   render() {
     return (
@@ -162,6 +174,9 @@ export class ExperimentDetail extends React.Component {
                   style={{ marginTop: '20px' }}
                   buttonDisplay={true}
                   modelId={this.props.experiment.id}
+                  labelData={this.props.labels}
+                  onLabelDelete={this.onLabelDelete}
+                  onLabelSubmit={this.onLabelSubmit}
                 />
 
                 <Route
@@ -228,6 +243,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(loadExperimentDetailAction(modelId)),
     onExperimentTabSelect: tabKey =>
       dispatch(onExperimentTabSelect(tabKey)),
+    deleteExperimentLabelsAction: (modelId, label) =>
+      dispatch(deleteExperimentLabelsAction(modelId, label)),
+      createExperimentLabelsAction: (modelId, values) =>
+        dispatch(createExperimentLabelsAction(modelId, values)),
   };
 }
 

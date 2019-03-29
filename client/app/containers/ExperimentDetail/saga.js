@@ -3,16 +3,16 @@ import ModelchimpClient from 'utils/modelchimpClient';
 import { mapKeys } from 'lodash';
 import {
   LOAD_EXPERIMENT_DETAIL,
-  // CREATE_EXPERIMENT_LABELS,
-  // DELETE_EXPERIMENT_LABELS,
+  CREATE_EXPERIMENT_LABELS,
+  DELETE_EXPERIMENT_LABELS,
 } from './constants';
 import {
   loadExperimentDetailSuccessAction,
   loadExperimentDetailErrorAction,
-  // createExperimentLabelsSuccessAction,
-  // createExperimentLabelsErrorAction,
-  // deleteExperimentLabelsSuccessAction,
-  // deleteExperimentLabelsErrorAction,
+  createExperimentLabelsSuccessAction,
+  createExperimentLabelsErrorAction,
+  deleteExperimentLabelsSuccessAction,
+  deleteExperimentLabelsErrorAction,
 } from './actions';
 
 export function* getExperimentData({ modelId }) {
@@ -26,34 +26,36 @@ export function* getExperimentData({ modelId }) {
   }
 }
 
-// export function* createLabel({ modelId, labelData }) {
-//   const requestURL = `experiment-label/${modelId}/`;
-//   const formData = new FormData();
-//
-//   mapKeys(labelData, (v, k) => formData.append(k, v));
-//
-//   try {
-//     const data = yield ModelchimpClient.post(requestURL, { body: formData });
-//     yield put(createExperimentLabelsSuccessAction(data));
-//   } catch (err) {
-//     yield put(createExperimentLabelsErrorAction(err));
-//   }
-// }
-//
-// export function* deleteLabel({ modelId, label }) {
-//   const requestURL = `experiment-label/${modelId}/?label=${label}`;
-//
-//   try {
-//     const data = yield ModelchimpClient.delete(requestURL);
-//
-//     if (data) {
-//       yield put(deleteExperimentLabelsSuccessAction(data));
-//     }
-//   } catch (err) {
-//     yield put(deleteExperimentLabelsErrorAction(err));
-//   }
-// }
+export function* createLabel({ modelId, labelData }) {
+  const requestURL = `experiment-label/${modelId}/`;
+  const formData = new FormData();
+
+  mapKeys(labelData, (v, k) => formData.append(k, v));
+
+  try {
+    const data = yield ModelchimpClient.post(requestURL, { body: formData });
+    yield put(createExperimentLabelsSuccessAction(data));
+  } catch (err) {
+    yield put(createExperimentLabelsErrorAction(err));
+  }
+}
+
+export function* deleteLabel({ modelId, label }) {
+  const requestURL = `experiment-label/${modelId}/?label=${label}`;
+  console.log("its getting dispatched");
+  try {
+    const data = yield ModelchimpClient.delete(requestURL);
+
+    if (data) {
+      yield put(deleteExperimentLabelsSuccessAction(data));
+    }
+  } catch (err) {
+    yield put(deleteExperimentLabelsErrorAction(err));
+  }
+}
 
 export default function* experimentData() {
   yield takeLatest(LOAD_EXPERIMENT_DETAIL, getExperimentData);
+  yield takeLatest(CREATE_EXPERIMENT_LABELS, createLabel);
+  yield takeLatest(DELETE_EXPERIMENT_LABELS, deleteLabel);
 }
