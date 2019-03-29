@@ -42,7 +42,7 @@ export function* createLabel({ modelId, labelData }) {
 
 export function* deleteLabel({ modelId, label }) {
   const requestURL = `experiment-label/${modelId}/?label=${label}`;
-  console.log("its getting dispatched");
+
   try {
     const data = yield ModelchimpClient.delete(requestURL);
 

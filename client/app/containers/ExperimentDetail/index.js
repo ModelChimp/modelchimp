@@ -47,7 +47,6 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 
-// import Label from './Label';
 import Label from 'components/Label/Loadable';
 
 const { Sider } = Layout;
@@ -65,10 +64,6 @@ export class ExperimentDetail extends React.Component {
   }
 
   onMenuSelect = ({ key }) => {
-    // this.setState({
-    //   selectedKey: key,
-    // });
-
     this.props.onExperimentTabSelect(key);
   };
 
@@ -245,8 +240,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(onExperimentTabSelect(tabKey)),
     deleteExperimentLabelsAction: (modelId, label) =>
       dispatch(deleteExperimentLabelsAction(modelId, label)),
-      createExperimentLabelsAction: (modelId, values) =>
-        dispatch(createExperimentLabelsAction(modelId, values)),
+    createExperimentLabelsAction: (modelId, values) =>
+      dispatch(createExperimentLabelsAction(modelId, values)),
   };
 }
 

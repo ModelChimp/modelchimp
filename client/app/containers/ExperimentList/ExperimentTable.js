@@ -19,11 +19,13 @@ import {
   makeSelectExperimentColumnsPID,
   makeSelectLoading,
 } from './selectors';
-import { getDataAction, loadExperimentAction } from './actions';
+import { getDataAction,
+  loadExperimentAction,
+  createExperimentLabelsAction,
+  deleteExperimentLabelsAction } from './actions';
 import { onMenuSelectionAction } from './ExperimentMenu/actions';
 import { MENU_EXPERIMENT } from './ExperimentMenu/constants';
-import Label from 'containers/Label/Loadable';
-
+import Label from 'components/Label/Loadable';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentTable extends React.Component {
@@ -78,28 +80,32 @@ export class ExperimentTable extends React.Component {
         key: 'labels',
         dataIndex: 'labels',
         render: (tags,record) => {
-          // if (!tags) return '';
-          // const tagsDOM = tags ?
-          //                   tags.map(tag => (
-          //                       <Tag color="blue" key={tag}>
-          //                         {tag}
-          //                       </Tag>
-          //                   ))
-          //                   : null;
-
           return (
             <span>
               <Label
-                style={{ display: 'inline' }}
-                labels={tags}
+                style={{ marginTop: '20px' }}
                 buttonDisplay={false}
                 modelId={record.id}
+                labelData={tags}
+                onLabelDelete={this.onLabelDelete}
+                onLabelSubmit={this.onLabelSubmit}
               />
             </span>
           );
         },
       },
     ];
+  }
+
+  onLabelSubmit = (modelId, values) => {
+    const projectId = this.props.match.params.id;
+    this.props.createExperimentLabelsAction(modelId, values, projectId);
+  }
+
+  onLabelDelete = (label, modelId, ) => {
+    const projectId = this.props.match.params.id;
+
+    this.props.deleteExperimentLabelsAction(modelId, label, projectId);
   }
 
   componentDidMount() {
@@ -222,7 +228,11 @@ function mapDispatchToProps(dispatch) {
     getExperimentData: projectId => dispatch(loadExperimentAction(projectId)),
     initiateDataFetch: () => dispatch(getDataAction()),
     menuSelection: key => dispatch(onMenuSelectionAction(key)),
-  };
+    deleteExperimentLabelsAction: (modelId, label, projectId) =>
+      dispatch(deleteExperimentLabelsAction(modelId, label, projectId)),
+    createExperimentLabelsAction: (modelId, values, projectId) =>
+      dispatch(createExperimentLabelsAction(modelId, values, projectId)),
+    };
 }
 
 export default connect(
