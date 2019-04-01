@@ -20,6 +20,8 @@ import {
   REMOVE_DELETE_EXPERIMENT_ID,
   CLEAR_DELETE_EXPERIMENTS,
   SUBMIT_DELETE_EXPERIMENTS,
+  SUBMIT_DELETE_EXPERIMENTS_SUCCESS,
+  SUBMIT_DELETE_EXPERIMENTS_ERROR,
 } from './constants';
 
 export function getDataAction() {
@@ -129,8 +131,23 @@ export function clearDeleteExperimentsAction() {
   };
 }
 
-export function submitDeleteExperimentsAction() {
+export function submitDeleteExperimentsAction(projectId) {
+  console.log(projectId);
   return {
     type: SUBMIT_DELETE_EXPERIMENTS,
+    projectId,
+  };
+}
+
+export function submitDeleteExperimentsSuccessAction() {
+  return {
+    type: SUBMIT_DELETE_EXPERIMENTS_SUCCESS,
+  };
+}
+
+export function submitDeleteExperimentsErrorAction(error) {
+  return {
+    type: SUBMIT_DELETE_EXPERIMENTS_ERROR,
+    error,
   };
 }

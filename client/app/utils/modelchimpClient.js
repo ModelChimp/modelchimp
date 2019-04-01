@@ -89,11 +89,12 @@ class ModelchimpClient {
     });
   }
 
-  delete(url) {
+  delete(url, params = {}) {
     const targetURL = this.baseURL + this.apiURL + url;
     return call(request, targetURL, {
       ...this.defaultOptions,
       method: 'DELETE',
+      ...params,
     });
   }
 

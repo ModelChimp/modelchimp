@@ -3,6 +3,7 @@ import ModelchimpClient from 'utils/modelchimpClient';
 import { LOAD_EXPERIMENT_DATA,
   CREATE_EXPERIMENT_LABELS,
   DELETE_EXPERIMENT_LABELS,
+  SUBMIT_DELETE_EXPERIMENTS,
  } from './constants';
 import {
   loadExperimentAction,
@@ -12,10 +13,13 @@ import {
   createExperimentLabelsErrorAction,
   deleteExperimentLabelsSuccessAction,
   deleteExperimentLabelsErrorAction,
+  submitDeleteExperimentsSuccessAction,
+  submitDeleteExperimentsErrorAction,
 } from './actions';
 import {
   makeSelectExperimentColumns,
   makeSelectExperimentMetricColumns,
+  makeSelectDeleteList,
 } from './selectors';
 import { mapKeys } from 'lodash';
 
@@ -74,8 +78,25 @@ export function* deleteLabel({ modelId, label, projectId }) {
   }
 }
 
+export function* deleteExperimentList({ projectId }) {
+  let requestURL = `ml-model/${projectId}/`;
+  const formData = new FormData();
+  const deleteList = yield select(makeSelectDeleteList());
+
+  formData.append('model_ids', deleteList.toJS());
+
+  try {
+    const data = yield ModelchimpClient.delete(requestURL, { body: formData });
+    yield put(submitDeleteExperimentsSuccessAction());
+    yield put(loadExperimentAction(projectId));
+  } catch (err) {
+    yield put(submitDeleteExperimentsErrorAction(err));
+  }
+}
+
 export default function* experimentListSaga() {
   yield takeLatest(LOAD_EXPERIMENT_DATA, getExperimentList);
   yield takeLatest(CREATE_EXPERIMENT_LABELS, createLabel);
   yield takeLatest(DELETE_EXPERIMENT_LABELS, deleteLabel);
+  yield takeLatest(SUBMIT_DELETE_EXPERIMENTS, deleteExperimentList);
 }

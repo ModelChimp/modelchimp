@@ -35,7 +35,9 @@ import {
   onDeleteClickAction,
 } from './actions';
 
-import { setExperimentColumnAction, clearDeleteExperimentsAction } from '../actions';
+import { setExperimentColumnAction,
+          clearDeleteExperimentsAction,
+          submitDeleteExperimentsAction } from '../actions';
 import {
   MENU_EXPERIMENT,
   MENU_SETTING,
@@ -112,6 +114,11 @@ class ExperimentMenu extends React.Component {
     this.props.clearDeleteExperimentsAction();
   }
 
+  handleRemoveSubmit = () => {
+    this.props.submitDeleteExperimentsAction(this.props.projectId);
+    this.props.clearDeleteExperimentsAction();
+  }
+
   render() {
     return (
       <Menu
@@ -145,7 +152,7 @@ class ExperimentMenu extends React.Component {
               </Button>
               </div>
               : <div>
-              <Button type="danger" >
+              <Button type="danger" onClick={this.handleRemoveSubmit}>
                 <span>Remove</span>
               </Button>
               <Button type="primary" style={{left:'10px'}} onClick={this.handleDelete} >
@@ -222,6 +229,7 @@ function mapDispatchToProps(dispatch) {
     onMenuSelection: menuKey => dispatch(onMenuSelectionAction(menuKey)),
     onDeleteClickAction: () => dispatch(onDeleteClickAction()),
     clearDeleteExperimentsAction: () => dispatch(clearDeleteExperimentsAction()),
+    submitDeleteExperimentsAction: (projectId) => dispatch(submitDeleteExperimentsAction(projectId)),
   };
 }
 
