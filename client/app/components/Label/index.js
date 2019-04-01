@@ -7,13 +7,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
 
 import { Button, Modal, Tag } from 'antd';
-import { deleteExperimentLabelsAction } from './actions';
 import LabelItem from './LabelItem';
 import LabelForm from './LabelForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import { createStructuredSelector } from 'reselect';
+
 
 /*
 * Main component
@@ -39,15 +43,10 @@ export class Label extends React.Component {
     });
   };
 
-  handleDelete = label => {
-    const modelId = this.props.modelId;
-    this.props.dispatch(deleteExperimentLabelsAction(modelId, label));
-  };
-
   render() {
-    const labelDOM = this.props.labels ? (
+    const labelDOM = this.props.labelData ? (
       <span style={{ marginLeft: '10px' }}>
-        {this.props.labels.map((tag, i) => {
+        {this.props.labelData.map((tag, i) => {
           const index = `index-${i}`;
 
           return (
@@ -67,10 +66,13 @@ export class Label extends React.Component {
                           </Button>
                           {labelDOM}
                         </div>
-                        : <FontAwesomeIcon
+                        : <div>
+                            {labelDOM}
+                            <FontAwesomeIcon
                             style={{fontSize:'10px'}}
                             icon="edit"
-                            onClick={this.showModal} />;
+                            onClick={this.showModal} />
+                          </div>;
 
     return (
       <div style={this.props.style}>
@@ -89,16 +91,18 @@ export class Label extends React.Component {
             style={{ marginBottom: '30px' }}
             dispatch={this.props.dispatch}
             modelId={this.props.modelId}
+            onLabelSubmit={this.props.onLabelSubmit}
           />
-          {this.props.labels &&
-            this.props.labels.map((label, i) => {
+          {this.props.labelData &&
+            this.props.labelData.map((label, i) => {
               const index = i;
 
               return (
                 <LabelItem
                   key={index}
                   label={label}
-                  deleteFunc={this.handleDelete}
+                  deleteFunc={this.props.onLabelDelete}
+                  modelId={this.props.modelId}
                 />
               );
             })}
@@ -111,10 +115,15 @@ export class Label extends React.Component {
 Label.propTypes = {
   dispatch: PropTypes.func.isRequired,
   modelId: PropTypes.number,
-  labels: PropTypes.array,
+  labelData: PropTypes.array,
   style: PropTypes.object,
   buttonDisplay: PropTypes.bool,
+  onLabelDelete: PropTypes.func,
 };
+
+const mapStateToProps = createStructuredSelector({
+  // labelData: makeSelectLabels(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -122,7 +131,16 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  null,
+const withConnect = connect(
+  mapStateToProps,
   mapDispatchToProps,
+);
+//
+// const withReducer = injectReducer({ key: 'label', reducer });
+// const withSaga = injectSaga({ key: 'label', saga });
+
+export default compose(
+  // withReducer,
+  // withSaga,
+  withConnect,
 )(Label);

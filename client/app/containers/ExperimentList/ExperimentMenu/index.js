@@ -21,17 +21,23 @@ import {
   makeSelectTargetKeys,
   makeSelectTargetMetricKeys,
   makeSelectMenuKey,
+  makeSelectDeleteVisible,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
   loadMenuParameterAction,
   setTargetKeysAction,
   setMetricTargetKeysAction,
   onMenuSelectionAction,
+  onDeleteClickAction,
 } from './actions';
-import { setExperimentColumnAction } from '../actions';
+
+import { setExperimentColumnAction,
+          clearDeleteExperimentsAction,
+          submitDeleteExperimentsAction } from '../actions';
 import {
   MENU_EXPERIMENT,
   MENU_SETTING,
@@ -103,6 +109,16 @@ class ExperimentMenu extends React.Component {
     this.props.setTargetMetricKeys(targetMetricKeys);
   };
 
+  handleDelete = () => {
+    this.props.onDeleteClickAction();
+    this.props.clearDeleteExperimentsAction();
+  }
+
+  handleRemoveSubmit = () => {
+    this.props.submitDeleteExperimentsAction(this.props.projectId);
+    this.props.clearDeleteExperimentsAction();
+  }
+
   render() {
     return (
       <Menu
@@ -125,9 +141,25 @@ class ExperimentMenu extends React.Component {
 
         {this.props.menuKey !== MENU_SETTING ? (
           <Menu.Item key={MENU_CUSTOMIZE_TABLE} style={{ float: 'right' }}>
-            <Button type="primary" onClick={this.showModal}>
-              <span>Customize Table</span>
-            </Button>
+
+            {
+              this.props.deleteVisible ? <div>
+              <Button type="primary" onClick={this.showModal}>
+                <span>Customize Table</span>
+              </Button>
+              <Button type="danger" style={{left:'10px'}} onClick={this.handleDelete}>
+                <FontAwesomeIcon icon="trash" />
+              </Button>
+              </div>
+              : <div>
+              <Button type="danger" onClick={this.handleRemoveSubmit}>
+                <span>Remove</span>
+              </Button>
+              <Button type="primary" style={{left:'10px'}} onClick={this.handleDelete} >
+                Cancel
+              </Button>
+              </div>
+            }
             <Modal
               title="Columns"
               visible={this.state.visible}
@@ -182,6 +214,7 @@ const mapStateToProps = createStructuredSelector({
   menuKey: makeSelectMenuKey(),
   targetKeys: makeSelectTargetKeys(),
   targetMetricKeys: makeSelectTargetMetricKeys(),
+  deleteVisible: makeSelectDeleteVisible(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -194,6 +227,9 @@ function mapDispatchToProps(dispatch) {
     setTargetMetricKeys: targetMetricKeys =>
       dispatch(setMetricTargetKeysAction(targetMetricKeys)),
     onMenuSelection: menuKey => dispatch(onMenuSelectionAction(menuKey)),
+    onDeleteClickAction: () => dispatch(onDeleteClickAction()),
+    clearDeleteExperimentsAction: () => dispatch(clearDeleteExperimentsAction()),
+    submitDeleteExperimentsAction: (projectId) => dispatch(submitDeleteExperimentsAction(projectId)),
   };
 }
 

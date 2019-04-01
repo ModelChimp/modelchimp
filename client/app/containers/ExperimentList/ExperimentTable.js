@@ -19,9 +19,19 @@ import {
   makeSelectExperimentColumnsPID,
   makeSelectLoading,
 } from './selectors';
-import { getDataAction, loadExperimentAction } from './actions';
+import { getDataAction,
+  loadExperimentAction,
+  createExperimentLabelsAction,
+  deleteExperimentLabelsAction,
+  addDeleteExperimentIdAction,
+  removeDeleteExperimentIdAction,
+  clearDeleteExperimentsAction,
+ } from './actions';
 import { onMenuSelectionAction } from './ExperimentMenu/actions';
 import { MENU_EXPERIMENT } from './ExperimentMenu/constants';
+import Label from 'components/Label/Loadable';
+import { makeSelectDeleteVisible } from './ExperimentMenu/selectors';
+
 
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentTable extends React.Component {
@@ -75,21 +85,33 @@ export class ExperimentTable extends React.Component {
         title: 'Tags',
         key: 'labels',
         dataIndex: 'labels',
-        render: tags => {
-          if (!tags) return '';
-
+        render: (tags,record) => {
           return (
             <span>
-              {tags.map(tag => (
-                <Tag color="blue" key={tag}>
-                  {tag}
-                </Tag>
-              ))}
+              <Label
+                style={{ marginTop: '20px' }}
+                buttonDisplay={false}
+                modelId={record.id}
+                labelData={tags}
+                onLabelDelete={this.onLabelDelete}
+                onLabelSubmit={this.onLabelSubmit}
+              />
             </span>
           );
         },
       },
     ];
+  }
+
+  onLabelSubmit = (modelId, values) => {
+    const projectId = this.props.match.params.id;
+    this.props.createExperimentLabelsAction(modelId, values, projectId);
+  }
+
+  onLabelDelete = (label, modelId, ) => {
+    const projectId = this.props.match.params.id;
+
+    this.props.deleteExperimentLabelsAction(modelId, label, projectId);
   }
 
   componentDidMount() {
@@ -106,16 +128,30 @@ export class ExperimentTable extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.timer);
+    this.props.clearDeleteExperimentsAction();
+
   }
 
-  addOptionalColumns(data) {
+  onDeleteCheckbox = (e) => {
+    if(e.target.checked){
+      this.props.addDeleteExperimentIdAction(e.target.value);
+      } else {
+      this.props.removeDeleteExperimentIdAction(e.target.value);
+    }
+  }
+
+  addOptionalColumns(data, deleteVisible) {
     const opCol = this.props.optionalColumns;
     const opMCol = this.props.optionalMetricColumns;
-
     const result = [];
-
+    const deleteCheckColumn = !deleteVisible ? [{ title: 'Sl',
+                                                key: 'sl',
+                                                render: (text, record) => {
+                                                  return <input type="checkbox" value={record.id} onChange={this.onDeleteCheckbox} />;
+                                                }
+                                              }] : [];
     if (this.props.match.params.id !== this.props.optionalColumnsPID)
-      return data;
+      return [...deleteCheckColumn  , ...data];
 
     // Add metric columns
     if (opMCol && opMCol.length > 0) {
@@ -171,16 +207,18 @@ export class ExperimentTable extends React.Component {
       }
     }
 
-    return [...data, ...result];
+    return [...deleteCheckColumn, ...data, ...result, ];
   }
 
   render() {
+
     return this.props.loading ? (
       <LoadingIndicator />
     ) : (
       <Table
-        columns={this.addOptionalColumns(this.columns)}
+        columns={this.addOptionalColumns(this.columns, this.props.deleteVisible)}
         dataSource={this.props.experimentList}
+        addDeleteExperimentIdAction={this.props.addDeleteExperimentIdAction}
         rowKey="id"
       />
     );
@@ -197,6 +235,7 @@ ExperimentTable.propTypes = {
   optionalMetricColumns: PropTypes.array,
   match: PropTypes.object,
   menuSelection: PropTypes.string,
+  deleteVisible: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -205,6 +244,7 @@ const mapStateToProps = createStructuredSelector({
   optionalColumns: makeSelectExperimentColumns(),
   optionalMetricColumns: makeSelectExperimentMetricColumns(),
   optionalColumnsPID: makeSelectExperimentColumnsPID(),
+  deleteVisible: makeSelectDeleteVisible(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -212,7 +252,16 @@ function mapDispatchToProps(dispatch) {
     getExperimentData: projectId => dispatch(loadExperimentAction(projectId)),
     initiateDataFetch: () => dispatch(getDataAction()),
     menuSelection: key => dispatch(onMenuSelectionAction(key)),
-  };
+    deleteExperimentLabelsAction: (modelId, label, projectId) =>
+      dispatch(deleteExperimentLabelsAction(modelId, label, projectId)),
+    createExperimentLabelsAction: (modelId, values, projectId) =>
+      dispatch(createExperimentLabelsAction(modelId, values, projectId)),
+    addDeleteExperimentIdAction: (eid) =>
+      dispatch(addDeleteExperimentIdAction(eid)),
+    removeDeleteExperimentIdAction: (eid) =>
+      dispatch(removeDeleteExperimentIdAction(eid)),
+    clearDeleteExperimentsAction: () => dispatch(clearDeleteExperimentsAction()),
+    };
 }
 
 export default connect(

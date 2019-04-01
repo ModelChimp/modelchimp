@@ -13,6 +13,7 @@ import {
   SET_COLUMN_TARGET_METRIC_KEY,
   ON_MENU_SELECT,
   MENU_EXPERIMENT,
+  ON_DELETE_CLICK,
 } from './constants';
 
 export const initialState = fromJS({
@@ -23,6 +24,7 @@ export const initialState = fromJS({
   targetKeys: false,
   targetMetricKeys: false,
   menuKey: MENU_EXPERIMENT,
+  deleteVisible: true
 });
 
 function experimentDetailMetricPageReducer(state = initialState, action) {
@@ -46,6 +48,8 @@ function experimentDetailMetricPageReducer(state = initialState, action) {
       return state.set('targetMetricKeys', action.targetMetricKeys);
     case ON_MENU_SELECT:
       return state.set('menuKey', action.menuKey);
+    case ON_DELETE_CLICK:
+      return state.set('deleteVisible', !state.get('deleteVisible'));
     default:
       return state;
   }

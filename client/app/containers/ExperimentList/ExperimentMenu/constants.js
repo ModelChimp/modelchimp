@@ -18,3 +18,5 @@ export const ON_MENU_SELECT = 'app/ExperimentMenu/ON_MENU_SELECT';
 export const MENU_EXPERIMENT = 'app/ExperimentMenu/MENU_EXPERIMENT';
 export const MENU_SETTING = 'app/ExperimentMenu/MENU_SETTING';
 export const MENU_CUSTOMIZE_TABLE = 'app/ExperimentMenu/MENU_CUSTOMIZE_TABLE';
+
+export const ON_DELETE_CLICK = 'app/ExperimentMenu/ON_DELETE_CLICK';

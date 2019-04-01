@@ -46,19 +46,27 @@ class MLModelAPI(generics.ListAPIView):
 		return Response(serializer.data, status=st)
 
 	def delete(self, request, project_id):
-		mid = request.data.get('model_id')
-		user = request.user
-		ml_model_obj = MachineLearningModel.objects.get(pk=mid)
+		model_id = request.data.get('model_id')
+		model_ids = request.data.get('model_ids')
+		
+		if model_id:
+			delete_list = [model_id]
+		elif model_ids:
+			delete_list = model_ids.split(',')
+		else:
+			raise ValueError('Experiment ids to delete are not present')
 
-		# Set an owner flag based on project_owner or model owner
-		owner_flag = True if user == ml_model_obj.user or user == ml_model_obj.project.user else False
-		if not owner_flag:
-			return Response(status=status.HTTP_401_UNAUTHORIZED)
+		for elem in delete_list:
+			obj = MachineLearningModel.objects.get(pk=elem)
+			obj.delete()
 
-		ml_model_obj.delete()
+		return Response({}, status=status.HTTP_204_NO_CONTENT)
 
-		return Response(status=status.HTTP_204_NO_CONTENT)
+	def _single_delete(self):
+		pass
 
+	def _multi_delete(self):
+		pass
 
 class CreateExperimentAPI(generics.CreateAPIView):
 	serializer_class = MachineLearningModelSerializer
