@@ -19,6 +19,7 @@ import {
 } from './selectors';
 import { mapKeys } from 'lodash';
 
+
 export function* getExperimentList({ projectId }) {
   let requestURL = `ml-model/${projectId}/`;
   let cols = yield select(makeSelectExperimentColumns());
@@ -41,7 +42,6 @@ export function* getExperimentList({ projectId }) {
     yield put(loadExperimentErrorAction(err));
   }
 }
-
 
 export function* createLabel({ modelId, labelData, projectId }) {
   const requestURL = `experiment-label/${modelId}/`;

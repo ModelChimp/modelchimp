@@ -22,7 +22,11 @@ import {
 import { getDataAction,
   loadExperimentAction,
   createExperimentLabelsAction,
-  deleteExperimentLabelsAction } from './actions';
+  deleteExperimentLabelsAction,
+  addDeleteExperimentIdAction,
+  removeDeleteExperimentIdAction,
+  clearDeleteExperimentsAction,
+ } from './actions';
 import { onMenuSelectionAction } from './ExperimentMenu/actions';
 import { MENU_EXPERIMENT } from './ExperimentMenu/constants';
 import Label from 'components/Label/Loadable';
@@ -124,6 +128,16 @@ export class ExperimentTable extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.timer);
+    this.props.clearDeleteExperimentsAction();
+
+  }
+
+  onDeleteCheckbox = (e) => {
+    if(e.target.checked){
+      this.props.addDeleteExperimentIdAction(e.target.value);
+      } else {
+      this.props.removeDeleteExperimentIdAction(e.target.value);
+    }
   }
 
   addOptionalColumns(data, deleteVisible) {
@@ -132,8 +146,8 @@ export class ExperimentTable extends React.Component {
     const result = [];
     const deleteCheckColumn = !deleteVisible ? [{ title: 'Sl',
                                                 key: 'sl',
-                                                render: (text) => {
-                                                  return <input type="checkbox" />;
+                                                render: (text, record) => {
+                                                  return <input type="checkbox" value={record.id} onChange={this.onDeleteCheckbox} />;
                                                 }
                                               }] : [];
     if (this.props.match.params.id !== this.props.optionalColumnsPID)
@@ -204,6 +218,7 @@ export class ExperimentTable extends React.Component {
       <Table
         columns={this.addOptionalColumns(this.columns, this.props.deleteVisible)}
         dataSource={this.props.experimentList}
+        addDeleteExperimentIdAction={this.props.addDeleteExperimentIdAction}
         rowKey="id"
       />
     );
@@ -241,6 +256,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(deleteExperimentLabelsAction(modelId, label, projectId)),
     createExperimentLabelsAction: (modelId, values, projectId) =>
       dispatch(createExperimentLabelsAction(modelId, values, projectId)),
+    addDeleteExperimentIdAction: (eid) =>
+      dispatch(addDeleteExperimentIdAction(eid)),
+    removeDeleteExperimentIdAction: (eid) =>
+      dispatch(removeDeleteExperimentIdAction(eid)),
+    clearDeleteExperimentsAction: () => dispatch(clearDeleteExperimentsAction()),
     };
 }
 

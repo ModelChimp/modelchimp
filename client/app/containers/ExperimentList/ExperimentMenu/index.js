@@ -34,7 +34,8 @@ import {
   onMenuSelectionAction,
   onDeleteClickAction,
 } from './actions';
-import { setExperimentColumnAction } from '../actions';
+
+import { setExperimentColumnAction, clearDeleteExperimentsAction } from '../actions';
 import {
   MENU_EXPERIMENT,
   MENU_SETTING,
@@ -107,7 +108,8 @@ class ExperimentMenu extends React.Component {
   };
 
   handleDelete = () => {
-    this.props.onDeleteClickAction()
+    this.props.onDeleteClickAction();
+    this.props.clearDeleteExperimentsAction();
   }
 
   render() {
@@ -219,6 +221,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(setMetricTargetKeysAction(targetMetricKeys)),
     onMenuSelection: menuKey => dispatch(onMenuSelectionAction(menuKey)),
     onDeleteClickAction: () => dispatch(onDeleteClickAction()),
+    clearDeleteExperimentsAction: () => dispatch(clearDeleteExperimentsAction()),
   };
 }
 

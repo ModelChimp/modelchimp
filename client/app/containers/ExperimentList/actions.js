@@ -16,6 +16,10 @@ import {
   DELETE_EXPERIMENT_LABELS,
   DELETE_EXPERIMENT_LABELS_SUCCESS,
   DELETE_EXPERIMENT_LABELS_ERROR,
+  ADD_DELETE_EXPERIMENT_ID,
+  REMOVE_DELETE_EXPERIMENT_ID,
+  CLEAR_DELETE_EXPERIMENTS,
+  SUBMIT_DELETE_EXPERIMENTS,
 } from './constants';
 
 export function getDataAction() {
@@ -102,5 +106,31 @@ export function deleteExperimentLabelsErrorAction(error) {
   return {
     type: DELETE_EXPERIMENT_LABELS_ERROR,
     error,
+  };
+}
+
+export function addDeleteExperimentIdAction(eid) {
+  return {
+    type: ADD_DELETE_EXPERIMENT_ID,
+    eid
+  };
+}
+
+export function removeDeleteExperimentIdAction(eid) {
+  return {
+    type: REMOVE_DELETE_EXPERIMENT_ID,
+    eid
+  };
+}
+
+export function clearDeleteExperimentsAction() {
+  return {
+    type: CLEAR_DELETE_EXPERIMENTS,
+  };
+}
+
+export function submitDeleteExperimentsAction() {
+  return {
+    type: SUBMIT_DELETE_EXPERIMENTS,
   };
 }
