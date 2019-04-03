@@ -125,7 +125,7 @@ export class ExperimentDetail extends React.Component {
               </Menu.Item>
               <Menu.Item key={EXPERIMENT_TAB_MATPLOT}>
                 <Link to={`${this.props.match.url}/matplot`}>
-                  <FontAwesomeIcon icon="file" /> MatPlot
+                  <FontAwesomeIcon icon="chart-bar" /> MatPlot
                 </Link>
               </Menu.Item>
               <Menu.Item key={EXPERIMENT_TAB_OBJECTS}>
