@@ -13,7 +13,7 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import Section from 'components/Section';
-import { Table } from 'antd';
+import { Table, Modal } from 'antd';
 import makeSelectExperimentDetailMatPlotPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -22,35 +22,61 @@ import { loadExperimentMatPlotAction } from './actions';
 import { EXPERIMENT_TAB_MATPLOTS } from '../ExperimentDetail/constants';
 import { onExperimentTabSelect } from '../ExperimentDetail/actions';
 
+
 /* eslint-disable react/prefer-stateless-function */
 export class ExperimentDetailMatPlotPage extends React.Component {
+  state = { visible: false };
+
+  showModal = (plotPath) => {
+    this.setState({
+      visible: true,
+      plotPath
+    });
+  };
+
+  handleOk = () => {
+    this.setState({
+      visible: false,
+      plotPath: null,
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+      plotPath: null,
+    });
+  };
+
   componentDidMount() {
     this.modelId = this.props.match.params.modelId;
-    // this.columns = [
-    //   {
-    //     title: 'MatPlot',
-    //     dataIndex: 'matPlot',
-    //     key: 'matPlot',
-    //   },
-    //   {
-    //     title: 'Max',
-    //     dataIndex: 'max',
-    //     key: 'max',
-    //   },
-    //   {
-    //     title: 'Min',
-    //     dataIndex: 'min',
-    //   },
-    // ];
-
     this.props.onExperimentTabSelect(EXPERIMENT_TAB_MATPLOTS);
-    // this.props.getExperimentMatPlotData(this.modelId);
+    this.props.getExperimentMatPlotData(this.modelId);
   }
 
   render() {
+    const plotsDOM = this.props.matPlotData ? (
+      this.props.matPlotData.map(
+        e=> <img src={e.mat_plot_file}
+                  style={{margin:'5px'}}
+                  onClick={() => this.showModal(e.mat_plot_file)}/>
+    )
+    ) : null;
+
     return (
       <Section name="MatPlots">
-        Hello
+      {plotsDOM}
+      <Modal
+        title="Plot"
+        visible={this.state.visible}
+        onOk={this.handleOk}
+        onCancel={this.handleCancel}
+        footer={null}
+        width={'60vw'}
+        style={{textAlign:'center'}}
+      >
+       <img src={this.state.plotPath} style={{maxWidth:'100%'}}/>
+      </Modal>
       </Section>
     );
   }

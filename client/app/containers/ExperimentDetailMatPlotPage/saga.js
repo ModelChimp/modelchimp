@@ -7,9 +7,11 @@ import {
 } from './actions';
 
 export function* getExperimentMatPlotData({ modelId }) {
-  const requestURL = `experiment-detail/${modelId}/matPlot`;
+  const requestURL = `experiment-mat-plot/details/${modelId}/`;
+
   try {
     const matPlotData = yield ModelchimpClient.get(requestURL);
+    console.log(matPlotData);
     yield put(loadExperimentMatPlotSuccessAction(matPlotData));
   } catch (err) {
     yield put(loadExperimentMatPlotErrorAction(err));

@@ -6,19 +6,7 @@ const selectExperimentDetailMatPlotPageDomain = state =>
 
 const makeSelectExperimentDetailMatPlotPage = () =>
   createSelector(selectExperimentDetailMatPlotPageDomain, substate => {
-    const matPlotData = substate.get('matPlotData');
-    let result = null;
-
-    if (matPlotData && matPlotData.summary.length > 0) {
-      result = matPlotData.summary.map((e, i) => ({
-        key: i,
-        matPlot: e.name,
-        max: e.max,
-        min: e.min,
-      }));
-    }
-
-    return result;
+    return substate.get('matPlotData');
   });
 
 export default makeSelectExperimentDetailMatPlotPage;
