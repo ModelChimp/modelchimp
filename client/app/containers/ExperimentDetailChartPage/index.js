@@ -49,11 +49,15 @@ export class ExperimentDetailChartPage extends React.Component {
 
     return (
       <div>
-        <Section name="Metric Chart">
+        <Section name="Metric Chart"
+          description="Visualize metrics captured at epoch level"
+          >
           {mData &&
             mData.metric_list.map((e, i) => this.createMetricChart(e, i))}
         </Section>
-        <Section name="Duration Chart">
+        <Section name="Duration Chart"
+          description="Visualize durations captured at epoch level"
+          >
           {dData &&
             dData.tag_list.map((e, i) => this.createDurationChart(e, i))}
         </Section>

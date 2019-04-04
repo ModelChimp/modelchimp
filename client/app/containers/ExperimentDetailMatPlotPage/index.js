@@ -64,7 +64,9 @@ export class ExperimentDetailMatPlotPage extends React.Component {
     ) : null;
 
     return (
-      <Section name="MatPlots">
+      <Section name="MatPlots"
+        description="Store and view the Matplots generated in an experiment"
+        >
       {plotsDOM}
       <Modal
         title="Plot"

@@ -77,7 +77,9 @@ export class ExperimentDetailGridSearchPage extends React.Component {
     } = this.props;
     const renderHTML =
       gridsearchData && gridsearchData.length > 0 ? (
-        <Section name="GridSearch">
+        <Section name="GridSearch"
+          description="Store and Analyze the sklearn's GridSearchCV"
+          >
           <ChartMenu />
           <Plot
             data={parseChartData(
@@ -100,7 +102,9 @@ export class ExperimentDetailGridSearchPage extends React.Component {
           </Wrapper>
         </Section>
       ) : (
-        <Section name="GridSearch">No Data</Section>
+        <Section name="GridSearch"
+          description="Store and analyze the sklearn's GridSearchCV"
+          >No Data</Section>
       );
 
     return <div>{renderHTML}</div>;
@@ -139,7 +143,7 @@ function mapDispatchToProps(dispatch) {
     setParamCols: paramCols => dispatch(setParamColsAction(paramCols)),
     setFilter: filter => dispatch(setFilterAction(filter)),
     onExperimentTabSelect: tabKey =>
-      dispatch(onExperimentTabSelect(tabKey)),    
+      dispatch(onExperimentTabSelect(tabKey)),
   };
 }
 

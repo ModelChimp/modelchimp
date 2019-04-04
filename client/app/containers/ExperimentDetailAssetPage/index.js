@@ -152,7 +152,9 @@ export class ExperimentDetailAssetPage extends React.Component {
 
   render() {
     return (
-      <Section name="Assets">
+      <Section name="Assets"
+        description="Store assets such as images, text and model files from an experiment along with any meta information associated with it"
+        >
         <Input placeholder="Search"
                 onChange={this.onSearch}
                 style={{width:'30vw', margin:'10px'}}/>

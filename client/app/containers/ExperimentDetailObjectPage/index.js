@@ -47,7 +47,9 @@ export class ExperimentDetailObjectPage extends React.Component {
 
   render() {
     return (
-      <Section name="Objects">
+      <Section name="Objects"
+        description="Store Python objects from an experiment which can be reused later"
+        >
         <Table
           columns={this.columns}
           dataSource={this.props.objectData}
