@@ -21,6 +21,7 @@ import ExperimentDetailChartPage from 'containers/ExperimentDetailChartPage/Load
 import ExperimentDetailObjectPage from 'containers/ExperimentDetailObjectPage/Loadable';
 import ExperimentDetailGridSearchPage from 'containers/ExperimentDetailGridSearchPage/Loadable';
 import ExperimentDetailAssetPage from 'containers/ExperimentDetailAssetPage/Loadable';
+import ExperimentDetailMatPlotPage from 'containers/ExperimentDetailMatPlotPage/Loadable';
 
 import {
   EXPERIMENT_TAB_METRICS,
@@ -30,6 +31,7 @@ import {
   EXPERIMENT_TAB_OBJECTS,
   EXPERIMENT_TAB_GRIDSEARCH,
   EXPERIMENT_TAB_ASSET,
+  EXPERIMENT_TAB_MATPLOTS,
 } from './constants';
 
 import { loadExperimentDetailAction,
@@ -121,6 +123,11 @@ export class ExperimentDetail extends React.Component {
                   <FontAwesomeIcon icon="chart-line" /> Charts
                 </Link>
               </Menu.Item>
+              <Menu.Item key={EXPERIMENT_TAB_MATPLOTS}>
+                <Link to={`${this.props.match.url}/matplot`}>
+                  <FontAwesomeIcon icon="chart-bar" /> MatPlot
+                </Link>
+              </Menu.Item>
               <Menu.Item key={EXPERIMENT_TAB_OBJECTS}>
                 <Link to={`${this.props.match.url}/object`}>
                   <FontAwesomeIcon icon="database" /> Objects
@@ -190,6 +197,10 @@ export class ExperimentDetail extends React.Component {
                 <Route
                   path={`${this.props.match.path}/chart`}
                   component={ExperimentDetailChartPage}
+                />
+                <Route
+                  path={`${this.props.match.path}/matplot`}
+                  component={ExperimentDetailMatPlotPage}
                 />
                 <Route
                   path={`${this.props.match.path}/object`}

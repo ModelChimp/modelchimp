@@ -12,7 +12,7 @@ from modelchimp.api_permissions import HasProjectMembership
 from rest_framework.permissions import IsAuthenticated
 
 
-class ExperimentMatPlotAPI(mixins.CreateModelMixin, mixins.RetrieveModelMixin, generics.GenericAPIView):
+class ExperimentMatPlotAPI(generics.ListCreateAPIView):
     serializer_class = ExperimentMatPlotSerializer
     queryset = ExperimentMatPlot.objects.all()
     permission_classes = (IsAuthenticated, HasProjectMembership)
@@ -23,17 +23,17 @@ class ExperimentMatPlotAPI(mixins.CreateModelMixin, mixins.RetrieveModelMixin, g
 
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-              print(serializer.save())
+              serializer.save()
               return Response(status=status.HTTP_201_CREATED)
 
-        print(serializer.errors)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, project_id, *args, **kwargs):
         return self.create(request, project_id, *args, **kwargs)
 
-    def get(self, request, project_id, *args, **kwargs):
-        return self.retrieve(project_id, *args, **kwargs)
+    def filter_queryset(self, queryset):
+        mid = self.kwargs.get('model_id')
+        return queryset.filter(ml_model=mid)
 
     def _is_uuid4_pattern(self, text):
         pattern =  re.compile(
@@ -48,21 +48,3 @@ class ExperimentMatPlotAPI(mixins.CreateModelMixin, mixins.RetrieveModelMixin, g
         )
 
         return pattern.match(text)
-
-
-class ExperimentMatPlotDetailAPI(mixins.RetrieveModelMixin, generics.ListAPIView):
-    serializer_class = ExperimentMatPlotSerializer
-    queryset = ExperimentMatPlot.objects.all()
-    permission_classes = (IsAuthenticated, HasProjectMembership)
-
-    def list(self, request,model_id):
-        try:
-            ml_model_obj = MachineLearningModel.objects.get(id=model_id)
-        except Exception as e:
-            return Response("Error: %s" % e, status=status.HTTP_400_BAD_REQUEST)
-
-        queryset = self.get_queryset().filter(ml_model_id=model_id)
-
-        serializer = self.serializer_class(queryset, many=True)
-
-        return Response(serializer.data, status=status.HTTP_200_OK)

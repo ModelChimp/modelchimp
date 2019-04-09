@@ -72,7 +72,44 @@ DEFAULT_FROM_EMAIL="noreply@modelchimp.com"
 
 
 ### Production Deployment
-For production deployment, contact Karthik at  karthik@modelchimp.com
+
+1. Modelchimp can be deployed referring the docker-compose.local.yml with the container orchestration of your choice. If you are not using any container orchestration and want to start it manually then you can use the following command
+
+```sh
+docker-compose -f docker-compose.local.yml up --build -d
+```
+
+This will start the containers in daemon mode on the machine where Modelchimp resides. Modelchimp can be accessed from port 8000
+
+2. (Optional) To store the data in an external postgres database. Add the following credentials to the .env file
+
+```sh
+DB_HOST=<DB_HOST>
+DB_NAME=<DB_NAME>
+DB_USER=<DB_USER>
+DB_PASSWORD=<DB_PASSWORD>
+DBPORT=
+```
+
+3. (Optional) To store the file assets in an s3 bucket. Add the following credentials to the .env file
+
+```sh
+AWS_STORAGE_FLAG=True
+AWS_ACCESS_KEY_ID=<ID>
+AWS_SECRET_ACCESS_KEY=<KEY>
+AWS_STORAGE_BUCKET_NAME=<bucket_name>
+```
+
+4. (Optional) To invite team members to a project. Add the following email credentials to the .env file
+
+```sh
+EMAIL_HOST=
+EMAIL_HOST_USER=
+EMAIL_HOST_PASSWORD=
+EMAIL_PORT=587
+DEFAULT_FROM_EMAIL="noreply@modelchimp.com"
+```
+
 
 ## Documentation
 - Getting Started - https://docs.modelchimp.com/#installation

@@ -57,7 +57,9 @@ export class ExperimentDetailCodePage extends React.Component {
 
 
     return (
-      <Section name="Code">
+      <Section name="Code"
+        description="Code of the current experiment"
+        >
         <link rel="stylesheet" href={CodeStyle} />
         {content}
       </Section>

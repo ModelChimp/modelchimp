@@ -49,7 +49,9 @@ export class ExperimentDetailMetricPage extends React.Component {
 
   render() {
     return (
-      <Section name="Metrics">
+      <Section name="Metrics"
+        description="Metrics captured in the experiment"
+        >
         <Table columns={this.columns} dataSource={this.props.metricData} />
       </Section>
     );
