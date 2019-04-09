@@ -29,4 +29,4 @@ export const EXPERIMENT_TAB_CHARTS = 'app/ExperimentDetail/EXPERIMENT_TAB_CHARTS
 export const EXPERIMENT_TAB_OBJECTS = 'app/ExperimentDetail/EXPERIMENT_TAB_OBJECTS';
 export const EXPERIMENT_TAB_GRIDSEARCH = 'app/ExperimentDetail/EXPERIMENT_TAB_GRIDSEARCH';
 export const EXPERIMENT_TAB_ASSET = 'app/ExperimentDetail/EXPERIMENT_TAB_ASSET';
-export const EXPERIMENT_TAB_MATPLOT = 'app/ExperimentDetail/EXPERIMENT_TAB_MATPLOT';
+export const EXPERIMENT_TAB_MATPLOTS = 'app/ExperimentDetail/EXPERIMENT_TAB_MATPLOTS';

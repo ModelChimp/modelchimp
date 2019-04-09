@@ -31,7 +31,7 @@ import {
   EXPERIMENT_TAB_OBJECTS,
   EXPERIMENT_TAB_GRIDSEARCH,
   EXPERIMENT_TAB_ASSET,
-  EXPERIMENT_TAB_MATPLOT,
+  EXPERIMENT_TAB_MATPLOTS,
 } from './constants';
 
 import { loadExperimentDetailAction,
@@ -123,7 +123,7 @@ export class ExperimentDetail extends React.Component {
                   <FontAwesomeIcon icon="chart-line" /> Charts
                 </Link>
               </Menu.Item>
-              <Menu.Item key={EXPERIMENT_TAB_MATPLOT}>
+              <Menu.Item key={EXPERIMENT_TAB_MATPLOTS}>
                 <Link to={`${this.props.match.url}/matplot`}>
                   <FontAwesomeIcon icon="chart-bar" /> MatPlot
                 </Link>
