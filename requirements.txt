@@ -18,4 +18,4 @@ Pygments==2.3.1
 python-decouple==3.1
 redis==3.2.1
 gunicorn==19.9.0
-daphne==2.2.5
+daphne==2.3.0
