@@ -1,7 +1,7 @@
 boto3==1.9.130
 celery==4.3.0
 channels-redis==2.4.0
-Django==2.1.7
+Django==2.2
 django-allauth==0.36.0
 django-compressor==2.2
 django-htmlmin==0.10.0
