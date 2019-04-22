@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from modelchimp.models.user import User
 from modelchimp.models.profile import Profile
 

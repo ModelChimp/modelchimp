@@ -33,8 +33,6 @@ class ExperimentImageFilterAPI(generics.GenericAPIView):
     permission_classes = (IsAuthenticated, HasProjectMembership)
 
     def get(self, request, model_id, *args, **kwargs):
-        ml_obj = MachineLearningModel.objects.get(id=model_id)
-
         metric_query = f'''
         select distinct json_object_keys(metric_dict::json) as metric
         from modelchimp_experimentimage mei

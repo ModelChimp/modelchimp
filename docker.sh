@@ -14,14 +14,6 @@ do
             DEVELOPMENT=1
             shift # past argument
             ;;
-        --test)
-            TEST=1
-            shift # past argument
-            ;;
-        -t)
-            TEST=1
-            shift # past argument
-            ;;
         *)    # unknown option
             POSITIONAL+=("$1") # save it in an array for later
             shift # past argument
