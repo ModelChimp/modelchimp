@@ -5,7 +5,6 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 
 from modelchimp.models.experiment_image import ExperimentImage
-from modelchimp.models.membership import Membership
 from modelchimp.models.machinelearning_model import MachineLearningModel
 from modelchimp.utils.data_utils import execute_query
 from modelchimp.serializers.experiment_image import ExperimentImageSerializer
@@ -21,7 +20,6 @@ class ExperimentImageCreateAPI(generics.CreateAPIView):
 
     def create(self, request, project_id,  *args, **kwargs):
         project_id = request.data.get('project')
-        user = self.request.user
 
         serializer = self.get_serializer(data=self.request.data)
         if serializer.is_valid():
@@ -36,7 +34,6 @@ class ExperimentImageFilterAPI(generics.GenericAPIView):
 
     def get(self, request, model_id, *args, **kwargs):
         ml_obj = MachineLearningModel.objects.get(id=model_id)
-        user = self.request.user
 
         metric_query = f'''
         select distinct json_object_keys(metric_dict::json) as metric
@@ -65,9 +62,6 @@ class ExperimentImageListAPI(generics.GenericAPIView):
     permission_classes = (IsAuthenticated, HasProjectMembership)
 
     def get(self, request, model_id, *args, **kwargs):
-        ml_obj = MachineLearningModel.objects.get(id=model_id)
-        user = self.request.user
-
         params = request.query_params
         draw = params.get('draw')
         start = int(params.get('start'))
@@ -103,7 +97,6 @@ class ExperimentImageListAPI(generics.GenericAPIView):
         }
 
         return Response(result, status=status.HTTP_200_OK)
-
 
     def get_queryset(self, metric_0, metric_1):
         queryset = ExperimentImage.objects.filter(ml_model=self.kwargs['model_id'])

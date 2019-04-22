@@ -1,6 +1,3 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.conf import settings
-from django.contrib.auth import login
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -32,13 +29,10 @@ class InviteAPI(generics.CreateAPIView):
         data['project'] = project.id
         serializer = self.serializer_class(data=data)
         serializer.is_valid()
-        print(serializer.errors)
+
         if serializer.is_valid():
             saved_instance = serializer.save()
-
-            #Check if the from user is member of the project
-            from_user = serializer.validated_data['from_user']
-
+            
             #Create the content for the email
             current_site = get_current_site(request)
             mail_subject = 'ModelChimp: You have been invited to join %s' % (project.name,)

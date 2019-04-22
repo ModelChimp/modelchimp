@@ -3,7 +3,7 @@ import re
 from django.http import HttpResponse
 
 from rest_framework import status
-from rest_framework import generics, mixins, views
+from rest_framework import generics, mixins
 from rest_framework.response import Response
 
 from modelchimp.serializers.experiment_custom_object import ExperimentCustomObjectSerializer
@@ -47,7 +47,6 @@ class ExperimentCustomObjectAPI(mixins.RetrieveModelMixin,
 
     def create(self, request, project_id):
         project_id = request.data.get('project_id')
-        user = self.request.user
         serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():

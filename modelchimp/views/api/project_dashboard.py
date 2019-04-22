@@ -2,7 +2,6 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
-from modelchimp.models.membership import Membership
 from modelchimp.utils.data_utils import execute_query
 
 from modelchimp.api_permissions import HasProjectMembership

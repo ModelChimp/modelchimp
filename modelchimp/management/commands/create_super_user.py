@@ -1,15 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
-from django.db import IntegrityError
-from django.db import connections
-from django.db.utils import OperationalError
-from django.core.files.storage import default_storage
-from django.conf import settings
-from django.core.mail import send_mail
 from modelchimp.models.user import User
 from modelchimp.models.profile import Profile
 
-from uuid import uuid4
-import sys
 
 class Command(BaseCommand):
     help = 'Check connections to external dependencies'

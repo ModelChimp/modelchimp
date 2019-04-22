@@ -1,13 +1,11 @@
-from django.core.management.base import BaseCommand, CommandError
-from django.db import IntegrityError
+from uuid import uuid4
+
+from django.core.management.base import BaseCommand
 from django.db import connections
-from django.db.utils import OperationalError
 from django.core.files.storage import default_storage
 from django.conf import settings
 from django.core.mail import send_mail
 
-from uuid import uuid4
-import sys
 
 class Command(BaseCommand):
     help = 'Check connections to external dependencies'
@@ -26,7 +24,7 @@ class Command(BaseCommand):
 
     def _check_db_connection(self):
         db_conn = connections['default']
-        c = db_conn.cursor()
+        db_conn.cursor()
 
 
     def _check_aws_connection(self):

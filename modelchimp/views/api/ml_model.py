@@ -1,6 +1,5 @@
 import logging
 
-from django.conf import settings
 from django.http import HttpResponse
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -32,7 +31,7 @@ class MLModelAPI(generics.ListAPIView):
 			params = self.request.query_params
 			param_fields = params.getlist('param_fields[]')
 			metric_fields = params.getlist('metric_fields[]')
-		except Exception as e:
+		except Exception:
 		   	logger.info("There are no query parameters")
 
 		# Serialize the data
@@ -82,15 +81,14 @@ class CreateExperimentAPI(generics.CreateAPIView):
 
 		# If the experiment already exists then don't create the experiment
 		try:
-			 exp_obj = MachineLearningModel.objects.get(experiment_id = experiment_id)
-			 return Response({ 'model_id': exp_obj.id }, status=status.HTTP_200_OK)
+			exp_obj = MachineLearningModel.objects.get(experiment_id = experiment_id)
+			return Response({ 'model_id': exp_obj.id }, status=status.HTTP_200_OK)
 		except MachineLearningModel.DoesNotExist:
-            logger.info("Experiment already exists")
+			logger.info("Experiment already exists")
 
 		serializer = self.get_serializer(data=data)
 		serializer.is_valid()
 		exp_obj = serializer.save()
-		headers = self.get_success_headers(serializer.data)
 
 		return Response({ 'model_id': exp_obj.id }, status=status.HTTP_201_CREATED)
 

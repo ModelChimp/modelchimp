@@ -1,7 +1,5 @@
 from rest_framework import status, viewsets
 from rest_framework.response import Response
-from rest_framework.decorators import permission_classes
-from rest_framework import mixins
 
 from modelchimp.serializers.profile import ProfileSerializer
 from modelchimp.models.profile import Profile
@@ -10,7 +8,6 @@ from modelchimp.models.invitation import Invitation
 from modelchimp.models.membership import Membership
 from modelchimp.serializers.user import UserSerializer
 
-from modelchimp.api_permissions import HasProjectMembership
 from rest_framework.permissions import IsAuthenticated
 from rest_auth.views import PasswordResetConfirmView
 
