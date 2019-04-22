@@ -2,8 +2,8 @@
 
 
 [![CircleCI](https://circleci.com/gh/ModelChimp/modelchimp.svg?style=svg)](https://circleci.com/gh/ModelChimp/modelchimp)
-
-[![Join ModelChimp Slack channel](https://i.imgur.com/V7jxjak.png)](https://join.slack.com/t/modelchimp/shared_invite/enQtNDcyNzU0MTQ2MzU0LTYxNDFjZWIwOTE0NjFkMGVlOGQ5YTZhYWQ2MWE1YWVmMDVhMDQ5MmZlYTU0N2UxMWYxYzE0Nzc2NGZlN2FiN2Q)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/87a463d2330f4507a507d0710367ee01)](https://www.codacy.com/app/samzer/modelchimp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ModelChimp/modelchimp&amp;utm_campaign=Badge_Grade)
+![Join ModelChimp Slack channel](https://img.shields.io/badge/chat_on-slack-dark_green.svg)
 
 ![modelchimp-gif](https://media.giphy.com/media/3FiUt4BkCao6VCqRSk/giphy.gif)
 
