@@ -1,17 +1,19 @@
+import logging
+
 from django.conf import settings
 from django.http import HttpResponse
-
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from modelchimp.models.machinelearning_model import MachineLearningModel
 from modelchimp.models.membership import Membership
 from modelchimp.serializers.machinelearning_model import MachineLearningModelSerializer
 from modelchimp.utils.data_utils import execute_query
-
 from modelchimp.api_permissions import HasProjectMembership
-from rest_framework.permissions import IsAuthenticated
+
+logger = logging.getLogger(__name__)
 
 
 class MLModelAPI(generics.ListAPIView):
@@ -31,7 +33,7 @@ class MLModelAPI(generics.ListAPIView):
 			param_fields = params.getlist('param_fields[]')
 			metric_fields = params.getlist('metric_fields[]')
 		except Exception as e:
-		   	pass
+		   	logger.info("There are no query parameters")
 
 		# Serialize the data
 		serializer = MachineLearningModelSerializer(queryset,
@@ -48,7 +50,7 @@ class MLModelAPI(generics.ListAPIView):
 	def delete(self, request, project_id):
 		model_id = request.data.get('model_id')
 		model_ids = request.data.get('model_ids')
-		
+
 		if model_id:
 			delete_list = [model_id]
 		elif model_ids:
@@ -83,7 +85,7 @@ class CreateExperimentAPI(generics.CreateAPIView):
 			 exp_obj = MachineLearningModel.objects.get(experiment_id = experiment_id)
 			 return Response({ 'model_id': exp_obj.id }, status=status.HTTP_200_OK)
 		except MachineLearningModel.DoesNotExist:
-			pass
+            logger.info("Experiment already exists")
 
 		serializer = self.get_serializer(data=data)
 		serializer.is_valid()

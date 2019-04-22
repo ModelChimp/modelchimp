@@ -1,4 +1,5 @@
 import os
+import logging
 
 from urllib import request
 
@@ -7,6 +8,7 @@ from django.core.files import File
 
 from modelchimp.models.user import User
 
+logger = logging.getLogger(__name__)
 
 
 class Profile(models.Model):
@@ -29,4 +31,4 @@ class Profile(models.Model):
                         )
                 self.save()
             except Exception:
-                pass
+                logger.warning('Avatar image could not be saved')

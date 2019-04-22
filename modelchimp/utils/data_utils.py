@@ -1,4 +1,8 @@
+import logging
+
 from django.db import connection
+
+logger = logging.getLogger(__name__)
 
 # Function for getting database connection and then doing query execution
 def execute_query(query_name, group_concat_max_len=None):
@@ -10,7 +14,7 @@ def execute_query(query_name, group_concat_max_len=None):
         description = cursor.description
         rows = cursor.fetchall()
         result = [dict(zip([column[0] for column in description], row)) for row in rows]
-        
+
     return result
 
 
@@ -49,12 +53,12 @@ def dict2native(dict_val):
             result[k] = int(v)
             continue
         except Exception:
-            pass
+            logger.info("Value is not int")
 
         try:
             result[k] = float(v)
             continue
         except Exception:
-            pass
+            logger.info("Value is not float")
 
     return result
