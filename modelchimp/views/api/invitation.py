@@ -32,7 +32,6 @@ class InviteAPI(generics.CreateAPIView):
 
         if serializer.is_valid():
             saved_instance = serializer.save()
-            
             #Create the content for the email
             current_site = get_current_site(request)
             mail_subject = 'ModelChimp: You have been invited to join %s' % (project.name,)
