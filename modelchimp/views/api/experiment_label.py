@@ -1,10 +1,7 @@
-from django.db.models import Q
-
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 
-from modelchimp.models.membership import Membership
 from modelchimp.models.machinelearning_model import MachineLearningModel
 from modelchimp.serializers.experiment_label import ExperimentLabelSerializer
 
@@ -19,7 +16,6 @@ class ExperimentLabelAPI(generics.ListCreateAPIView):
 
     def create(self, request, model_id, *args, **kwargs):
         ml_obj = MachineLearningModel.objects.get(id=model_id)
-        user = self.request.user
         label = request.data.get('label')
         # Preprocess the label field
         label = label.strip()
@@ -35,7 +31,6 @@ class ExperimentLabelAPI(generics.ListCreateAPIView):
 
     def delete(self, request, model_id, *args, **kwargs):
         ml_obj = MachineLearningModel.objects.get(id=model_id)
-        user = self.request.user
         label = request.query_params.get('label')
         label = label.strip()
 
@@ -47,8 +42,6 @@ class ExperimentLabelAPI(generics.ListCreateAPIView):
 
     def list(self, request, model_id, *args, **kwargs):
         ml_obj = MachineLearningModel.objects.get(id=model_id)
-        user = self.request.user
-        label = request.data.get('label')
 
         serializer = ExperimentLabelSerializer(ml_obj)
         return Response(serializer.data, status=status.HTTP_200_OK)

@@ -1,11 +1,9 @@
 import re
 
-from rest_framework import generics, mixins, status
+from rest_framework import generics, status
 from rest_framework.response import Response
 
 from modelchimp.models.experiment_mat_plot import ExperimentMatPlot
-from modelchimp.models.membership import Membership
-from modelchimp.models.machinelearning_model import MachineLearningModel
 from modelchimp.serializers.experiment_mat_plot import ExperimentMatPlotSerializer
 
 from modelchimp.api_permissions import HasProjectMembership
@@ -19,7 +17,6 @@ class ExperimentMatPlotAPI(generics.ListCreateAPIView):
 
     def create(self, request, project_id, *args, **kwargs):
         project_id = request.data.get('project_id')
-        user = self.request.user
 
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():

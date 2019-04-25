@@ -1,4 +1,3 @@
-from modelchimp.models.profile import Profile
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 
 

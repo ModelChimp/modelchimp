@@ -1,7 +1,4 @@
 from django.core.management.base import BaseCommand
-from django.contrib.sites.models import Site
-from allauth.socialaccount.models import SocialApp
-from allauth.socialaccount.providers.google.provider import GoogleProvider
 from django.core.files.storage import default_storage
 from decouple import config
 
@@ -21,7 +18,6 @@ class Command(BaseCommand):
             return
 
         modelchimp_path = config('MODELCHIMP_PATH')
-        media_folder = 'media'
         folder_name = options['folder']
 
         local_folder_path = f"{modelchimp_path}/media/{folder_name}"

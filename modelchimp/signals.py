@@ -1,5 +1,3 @@
-from decouple import config
-
 from allauth.exceptions import ImmediateHttpResponse
 from allauth.account.signals import user_signed_up
 from allauth.socialaccount.signals import pre_social_login

@@ -44,12 +44,11 @@ class ProjectStatusConsumer(AsyncWebsocketConsumer):
 
     # Receive message from WebSocket
     async def receive(self, text_data):
-        text_data_json = json.loads(text_data)
+        #text_data_json = json.loads(text_data)
         pass
 
     # Receive message from room group
     async def project_message_send(self, event):
-        message = event['message']
         experiment_data = await self.get_project_experiment_status(self.project.id)
 
         # Send message to WebSocket

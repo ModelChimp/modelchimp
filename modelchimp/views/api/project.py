@@ -2,10 +2,8 @@ from uuid import uuid4
 
 from rest_framework import generics, status, mixins
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
 
 from modelchimp.models.project import Project
-from modelchimp.models.membership import Membership
 from modelchimp.serializers.project import ProjectSerializer
 
 
@@ -33,7 +31,6 @@ class ProjectAPI(generics.ListCreateAPIView, mixins.UpdateModelMixin):
 		serializer.is_valid(raise_exception = True)
 
 		serializer.save(user_id = self.request.user.id)
-		headers = self.get_success_headers(serializer.data)
 
 		return self.list(request, st=status.HTTP_201_CREATED)
 

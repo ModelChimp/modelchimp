@@ -2,9 +2,9 @@ from rest_framework import serializers
 
 from modelchimp.models.user import User
 from modelchimp.models.profile import Profile
-from modelchimp.serializers.profile import ProfileSerializer
 
 from django.db import transaction
+
 
 class UserSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(required=False)
