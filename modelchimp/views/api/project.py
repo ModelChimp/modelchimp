@@ -2,9 +2,12 @@ from uuid import uuid4
 
 from rest_framework import generics, status, mixins
 from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from modelchimp.models.project import Project
 from modelchimp.serializers.project import ProjectSerializer
+from modelchimp.api_permissions import HasProjectMembership
 
 
 class ProjectAPI(generics.ListCreateAPIView, mixins.UpdateModelMixin):
@@ -57,3 +60,82 @@ class ProjectAPI(generics.ListCreateAPIView, mixins.UpdateModelMixin):
 
 	def put(self, request, *args, **kwargs):
 	    return self.update(request, *args, **kwargs)
+
+
+@api_view(['GET'])
+@permission_classes((HasProjectMembership, IsAuthenticated))
+def param_metric_meta(request, project_id):
+	'''
+	List of model parameters as columns to be shown on customize menu
+	'''
+
+	try:
+	    project_id = int(project_id)
+	except Exception as e:
+	    return Response("Error: %s" % e, status=status.HTTP_400_BAD_REQUEST)
+
+	# Check the user has permission for the project
+	try:
+	    Membership.objects.get(user=request.user, project=project_id)
+	except Membership.DoesNotExist:
+	    return Response(status=status.HTTP_403_FORBIDDEN)
+
+	result = dict()
+	query = '''
+	select distinct json_object_keys(model_parameters::json) as name
+	from modelchimp_machinelearningmodel ml
+	where json_typeof(model_parameters::json) = 'object'
+	and project_id = %s
+	'''
+
+	query = query % (
+	    project_id,
+	)
+	result['parameter'] = execute_query(query)
+
+	query = '''
+	select distinct value as name
+	from modelchimp_machinelearningmodel ml,
+	jsonb_array_elements(ml.evaluation_parameters::jsonb -> 'metric_list')
+	where project_id = %s
+	order by name
+	'''
+
+	query = query % (
+	    project_id,
+	)
+	result_metric = execute_query(query)
+
+	result['metric'] = []
+	for metric in result_metric:
+		result['metric'].append({'name': f"{metric['name']}$0"})
+		result['metric'].append({'name': f"{metric['name']}$1"})
+
+	return Response(result, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@permission_classes((HasProjectMembership, IsAuthenticated))
+def param_metric_data(request, project_id):
+	'''
+	Send the data of the model parameters to be displayed in the table
+	'''
+	try:
+	    param_fields = request.data.getlist('param_fields[]')
+	except Exception as e:
+	    return Response("Error: %s" % e, status=status.HTTP_400_BAD_REQUEST)
+
+	query = '''
+	select distinct id,key,value
+	from modelchimp_machinelearningmodel ml, json_each_text(model_parameters::json)
+	where json_typeof(model_parameters::json) = 'object'
+	and project_id = %s
+	and key in (%s)
+	'''
+	query = query % (
+	    project_id,
+		",".join([ "'" + param + "'" for param in param_fields])
+	)
+	result_raw = execute_query(query)
+
+	return Response(result_raw, status=status.HTTP_200_OK)

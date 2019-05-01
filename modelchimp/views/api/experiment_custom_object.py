@@ -22,7 +22,7 @@ class ExperimentCustomObjectAPI(mixins.RetrieveModelMixin,
     queryset = ExperimentCustomObject.objects.all()
     permission_classes = (IsAuthenticated, HasProjectMembership)
 
-    def retrieve(self, project_id):
+    def retrieve(self, model_id):
         try:
             # Get the filter parameters from the request
             params = self.request.query_params
@@ -45,8 +45,7 @@ class ExperimentCustomObjectAPI(mixins.RetrieveModelMixin,
 
         return response
 
-    def create(self, request, project_id):
-        project_id = request.data.get('project_id')
+    def create(self, request, model_id):
         serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
@@ -58,8 +57,8 @@ class ExperimentCustomObjectAPI(mixins.RetrieveModelMixin,
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-    def get(self, request, project_id, *args, **kwargs):
-        return self.retrieve(project_id, *args, **kwargs)
+    def get(self, request, model_id, *args, **kwargs):
+        return self.retrieve(model_id, *args, **kwargs)
 
     def _is_uuid4_pattern(self, text):
         pattern =  re.compile(

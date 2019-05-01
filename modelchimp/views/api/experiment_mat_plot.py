@@ -15,9 +15,7 @@ class ExperimentMatPlotAPI(generics.ListCreateAPIView):
     queryset = ExperimentMatPlot.objects.all()
     permission_classes = (IsAuthenticated, HasProjectMembership)
 
-    def create(self, request, project_id, *args, **kwargs):
-        project_id = request.data.get('project_id')
-
+    def create(self, request, model_id, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
               serializer.save()
