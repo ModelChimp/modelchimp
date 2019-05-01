@@ -14,7 +14,7 @@ import {
 } from './actions';
 
 export function* getExperimentAssetData({ modelId }) {
-  const requestURL = `experiment-detail/${modelId}/asset`;
+  const requestURL = `experiment/${modelId}/asset/`;
 
   try {
     const assetData = yield ModelchimpClient.get(requestURL);
@@ -25,7 +25,7 @@ export function* getExperimentAssetData({ modelId }) {
 }
 
 export function* getExperimentAssetFieldData({ modelId }) {
-  const requestURL = `experiment-detail/${modelId}/asset/meta-fields/`;
+  const requestURL = `experiment/${modelId}/asset/meta-fields/`;
 
   try {
     const data = yield ModelchimpClient.get(requestURL);
@@ -37,7 +37,7 @@ export function* getExperimentAssetFieldData({ modelId }) {
 }
 
 export function* getExperimentAssetBlobData({ modelId, assetId }) {
-  const requestURL = `experiment-detail/${modelId}/asset/blob/${assetId}`;
+  const requestURL = `experiment/${modelId}/asset/${modelId}/`;
 
   try {
     const data = yield ModelchimpClient.get(requestURL);

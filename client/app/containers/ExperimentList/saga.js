@@ -25,7 +25,7 @@ import { mapKeys } from 'lodash';
 
 
 export function* getExperimentList({ projectId }) {
-  let requestURL = `ml-model/${projectId}/`;
+  let requestURL = `experiment/list/${projectId}/`;
   let cols = yield select(makeSelectExperimentColumns());
   let metricCols = yield select(makeSelectExperimentMetricColumns());
 
@@ -48,7 +48,7 @@ export function* getExperimentList({ projectId }) {
 }
 
 export function* createLabel({ modelId, labelData, projectId }) {
-  const requestURL = `experiment-label/${modelId}/`;
+  const requestURL = `experiment/${modelId}/label/`;
   const formData = new FormData();
 
   mapKeys(labelData, (v, k) => formData.append(k, v));
@@ -64,7 +64,7 @@ export function* createLabel({ modelId, labelData, projectId }) {
 }
 
 export function* deleteLabel({ modelId, label, projectId }) {
-  const requestURL = `experiment-label/${modelId}/?label=${label}`;
+  const requestURL = `experiment/${modelId}/label/?label=${label}`;
 
   try {
     const data = yield ModelchimpClient.delete(requestURL);
@@ -79,7 +79,7 @@ export function* deleteLabel({ modelId, label, projectId }) {
 }
 
 export function* deleteExperimentList({ projectId }) {
-  let requestURL = `ml-model/${projectId}/`;
+  let requestURL = `experiment/delete/${projectId}/`;
   const formData = new FormData();
   const deleteList = yield select(makeSelectDeleteList());
 

@@ -37,7 +37,7 @@ class InviteAPI(generics.CreateAPIView):
             mail_subject = 'ModelChimp: You have been invited to join %s' % (project.name,)
             message = render_to_string('email/invitation_email.html', {
                 'domain': current_site,
-                'invite_id': urlsafe_base64_encode(force_bytes(saved_instance.id)).decode('utf-8'),
+                'invite_id': urlsafe_base64_encode(force_bytes(saved_instance.id)),
                 'project_name' : project.name
             })
             to_email = serializer.validated_data['to_email']

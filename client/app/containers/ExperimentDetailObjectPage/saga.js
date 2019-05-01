@@ -7,7 +7,7 @@ import {
 } from './actions';
 
 export function* getExperimentObjectData({ modelId }) {
-  const requestURL = `experiment-detail/${modelId}/object`;
+  const requestURL = `experiment/${modelId}/object/`;
 
   try {
     const objectData = yield ModelchimpClient.get(requestURL);

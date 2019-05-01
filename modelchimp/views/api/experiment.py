@@ -7,7 +7,6 @@ from rest_framework.permissions import IsAuthenticated
 from modelchimp.models.machinelearning_model import MachineLearningModel
 from modelchimp.models.membership import Membership
 from modelchimp.serializers.machinelearning_model import MachineLearningModelSerializer
-from modelchimp.utils.data_utils import execute_query
 from modelchimp.api_permissions import HasProjectMembership
 
 logger = logging.getLogger(__name__)
@@ -48,7 +47,7 @@ class ListExperimentAPI(generics.ListAPIView):
 class DeleteExperimentAPI(generics.DestroyAPIView):
 	permission_classes = (IsAuthenticated, HasProjectMembership)
 
-	def delete(self, request, model_id):
+	def delete(self, request, project_id):
 		model_id = request.data.get('model_id')
 		model_ids = request.data.get('model_ids')
 

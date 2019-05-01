@@ -16,7 +16,7 @@ import {
 } from './actions';
 
 export function* getExperimentData({ modelId }) {
-  const requestURL = `experiment-detail/${modelId}/meta`;
+  const requestURL = `experiment/${modelId}/meta/`;
 
   try {
     const experiment = yield ModelchimpClient.get(requestURL);
@@ -27,7 +27,7 @@ export function* getExperimentData({ modelId }) {
 }
 
 export function* createLabel({ modelId, labelData }) {
-  const requestURL = `experiment-label/${modelId}/`;
+  const requestURL = `experiment/${modelId}/label/`;
   const formData = new FormData();
 
   mapKeys(labelData, (v, k) => formData.append(k, v));
@@ -41,7 +41,7 @@ export function* createLabel({ modelId, labelData }) {
 }
 
 export function* deleteLabel({ modelId, label }) {
-  const requestURL = `experiment-label/${modelId}/?label=${label}`;
+  const requestURL = `experiment/${modelId}/label/?label=${label}`;
 
   try {
     const data = yield ModelchimpClient.delete(requestURL);

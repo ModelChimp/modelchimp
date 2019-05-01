@@ -28,7 +28,7 @@ urlpatterns = [
     path(r'project/key/<int:project_id>/', project_key.ProjectKeyAPI.as_view({'get': 'retrieve'}), name='project_dashboard_parameter_metric_filter'),
     path(r'project/key/decode/', project_key.decode_key, name='decode-key'),
 
-    path(r'experiment/delete/<int:model_id>/', experiment.DeleteExperimentAPI.as_view(), name='delete_experiment'),
+    path(r'experiment/delete/<int:project_id>/', experiment.DeleteExperimentAPI.as_view(), name='delete_experiment'),
     path(r'experiment/list/<int:project_id>/', experiment.ListExperimentAPI.as_view(), name='list_experiment'),
     path(r'experiment/create/<int:project_id>/', experiment.CreateExperimentAPI.as_view(), name='create_experiment'),
     path(r'experiment/<int:model_id>/comment/', comment.CommentAPI.as_view(), name='comment_api'),

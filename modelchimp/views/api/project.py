@@ -8,6 +8,8 @@ from rest_framework.permissions import IsAuthenticated
 from modelchimp.models.project import Project
 from modelchimp.serializers.project import ProjectSerializer
 from modelchimp.api_permissions import HasProjectMembership
+from modelchimp.models.membership import Membership
+from modelchimp.utils.data_utils import execute_query
 
 
 class ProjectAPI(generics.ListCreateAPIView, mixins.UpdateModelMixin):

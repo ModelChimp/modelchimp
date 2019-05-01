@@ -7,7 +7,7 @@ import {
 } from './actions';
 
 export function* getExperimentGridSearchData({ modelId }) {
-  const requestURL = `experiment-detail/${modelId}/gridsearch`;
+  const requestURL = `experiment/${modelId}/gridsearch/`;
 
   try {
     const gridsearchData = yield ModelchimpClient.get(requestURL);
