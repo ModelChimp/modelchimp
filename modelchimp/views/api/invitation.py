@@ -47,7 +47,6 @@ class InviteAPI(generics.CreateAPIView):
             try:
                 email.send()
             except Exception as e:
-                print(e)
                 saved_instance.delete()
 
             return Response({}, status=status.HTTP_201_CREATED)
