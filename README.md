@@ -4,6 +4,7 @@
 [![CircleCI](https://circleci.com/gh/ModelChimp/modelchimp.svg?style=svg)](https://circleci.com/gh/ModelChimp/modelchimp)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/87a463d2330f4507a507d0710367ee01)](https://www.codacy.com/app/samzer/modelchimp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ModelChimp/modelchimp&amp;utm_campaign=Badge_Grade)
 ![Join ModelChimp Slack channel](https://img.shields.io/badge/chat_on-slack-dark_green.svg)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FModelChimp%2Fmodelchimp.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FModelChimp%2Fmodelchimp?ref=badge_shield)
 
 ![modelchimp-gif](https://media.giphy.com/media/3FiUt4BkCao6VCqRSk/giphy.gif)
 
@@ -119,3 +120,7 @@ DEFAULT_FROM_EMAIL="noreply@modelchimp.com"
   - Pytorch: https://docs.modelchimp.com/pytorch/
   - Keras: https://docs.modelchimp.com/keras/
   - PySpark: https://docs.modelchimp.com/pyspark/
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FModelChimp%2Fmodelchimp.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FModelChimp%2Fmodelchimp?ref=badge_large)
