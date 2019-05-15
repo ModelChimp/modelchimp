@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 from django.utils import timezone
 
-class MachineLearningModelSerializer(serializers.ModelSerializer):
+class ExperimentSerializer(serializers.ModelSerializer):
     date_created_epoch = serializers.SerializerMethodField('to_epoch_date')
     comment_count = serializers.SerializerMethodField()
     submitted_by = serializers.SerializerMethodField()
@@ -12,7 +12,7 @@ class MachineLearningModelSerializer(serializers.ModelSerializer):
     duration = serializers.SerializerMethodField()
 
     class Meta:
-        model = MachineLearningModel
+        model = Experiment
         fields = '__all__'
         extra_kwargs = {
             'features': {'write_only': True},

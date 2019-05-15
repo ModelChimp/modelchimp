@@ -4,17 +4,17 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 from modelchimp.models.membership import Membership
-from modelchimp.serializers.machinelearning_model import MachineLearningModelSerializer
+from modelchimp.serializers.experiment import ExperimentSerializer
 from modelchimp.api_permissions import HasProjectMembership
 
 logger = logging.getLogger(__name__)
 
 
 class ListExperimentAPI(generics.ListAPIView):
-	serializer_class = MachineLearningModelSerializer
-	queryset = MachineLearningModel.objects.select_related('user__profile').all()
+	serializer_class = ExperimentSerializer
+	queryset = Experiment.objects.select_related('user__profile').all()
 	permission_classes = (IsAuthenticated, HasProjectMembership)
 
 	def list(self, request,model_id=None, project_id=None, st=None):
@@ -32,7 +32,7 @@ class ListExperimentAPI(generics.ListAPIView):
 		   	logger.info("There are no query parameters")
 
 		# Serialize the data
-		serializer = MachineLearningModelSerializer(queryset,
+		serializer = ExperimentSerializer(queryset,
 												many=True,
 												context={
 												'param_fields':param_fields,
@@ -59,15 +59,15 @@ class DeleteExperimentAPI(generics.DestroyAPIView):
 			raise ValueError('Experiment ids to delete are not present')
 
 		for elem in delete_list:
-			obj = MachineLearningModel.objects.get(pk=elem)
+			obj = Experiment.objects.get(pk=elem)
 			obj.delete()
 
 		return Response({}, status=status.HTTP_204_NO_CONTENT)
 
 
 class CreateExperimentAPI(generics.CreateAPIView):
-	serializer_class = MachineLearningModelSerializer
-	queryset = MachineLearningModel.objects.all()
+	serializer_class = ExperimentSerializer
+	queryset = Experiment.objects.all()
 	permission_classes = (IsAuthenticated, HasProjectMembership)
 
 	def create(self, request, *args, **kwargs):
@@ -77,9 +77,9 @@ class CreateExperimentAPI(generics.CreateAPIView):
 
 		# If the experiment already exists then don't create the experiment
 		try:
-			exp_obj = MachineLearningModel.objects.get(experiment_id = experiment_id)
+			exp_obj = Experiment.objects.get(experiment_id = experiment_id)
 			return Response({ 'model_id': exp_obj.id }, status=status.HTTP_200_OK)
-		except MachineLearningModel.DoesNotExist:
+		except Experiment.DoesNotExist:
 			logger.info("Experiment already exists")
 
 		serializer = self.get_serializer(data=data)

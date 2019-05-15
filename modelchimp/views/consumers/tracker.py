@@ -11,7 +11,7 @@ from channels.auth import login
 from channels.generic.websocket import AsyncWebsocketConsumer
 
 from modelchimp.models.membership import Membership
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 from modelchimp.enum import ClientEvent, ExperimentStatus
 
 
@@ -93,9 +93,9 @@ class TrackerConsumer(AsyncWebsocketConsumer):
         the project
         '''
         try:
-            experiment = MachineLearningModel.objects.get(experiment_id=experiment_id)
-        except MachineLearningModel.DoesNotExist:
-            experiment = MachineLearningModel.objects.create(experiment_id=experiment_id,
+            experiment = Experiment.objects.get(experiment_id=experiment_id)
+        except Experiment.DoesNotExist:
+            experiment = Experiment.objects.create(experiment_id=experiment_id,
                 project = self.project,
                 user = self.user,
                 name = experiment_id,

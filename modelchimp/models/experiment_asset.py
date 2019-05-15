@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.postgres.fields import JSONField
 
 from modelchimp.models.project import Project
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 
 
 class ExperimentAsset(models.Model):
@@ -14,7 +14,7 @@ class ExperimentAsset(models.Model):
     project = models.ForeignKey(Project,
                                 on_delete=models.CASCADE,
                                 related_name='asset_project')
-    ml_model = models.ForeignKey(MachineLearningModel,
+    ml_model = models.ForeignKey(Experiment,
                                     related_name='asset_experiment',
                                     on_delete=models.CASCADE)
 

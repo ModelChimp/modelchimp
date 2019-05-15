@@ -28,7 +28,7 @@ def experiment_metric_chart(request, project_id):
 
             metric_query = '''
 select distinct value as metric
-from modelchimp_machinelearningmodel ml,
+from modelchimp_experiment ml,
 jsonb_array_elements(ml.evaluation_parameters::jsonb -> 'metric_list')
 where project_id = %s
         	'''
@@ -55,7 +55,7 @@ from (select
         END as short_name,
       value ->> 'epoch' as epoch,
       value ->> 'value' as value
-from modelchimp_machinelearningmodel ml,
+from modelchimp_experiment ml,
 jsonb_array_elements(ml.evaluation_parameters::jsonb -> 'evaluation' -> '%s')
 where project_id = %s ) a
 group by id, name, short_name
@@ -83,7 +83,7 @@ def experiment_metric_filter(request, project_id):
 
             param_query = '''
 select distinct json_object_keys(model_parameters::json) as param
-from modelchimp_machinelearningmodel ml
+from modelchimp_experiment ml
 where json_typeof(model_parameters::json) = 'object'
 and project_id = %s
         	'''
@@ -100,7 +100,7 @@ and project_id = %s
 
     query = '''
 select distinct value as metric
-from modelchimp_machinelearningmodel ml,
+from modelchimp_experiment ml,
 jsonb_array_elements(ml.evaluation_parameters::jsonb -> 'metric_list')
 where project_id = %s %s
 order by metric
@@ -129,7 +129,7 @@ def experiment_duration_chart(request, project_id):
 
             tag_query = '''
 select distinct value as tag
-from modelchimp_machinelearningmodel ml,
+from modelchimp_experiment ml,
 jsonb_array_elements(ml.epoch_durations::jsonb -> 'tag_list')
 where project_id = %s
         	'''
@@ -156,7 +156,7 @@ from (select
         END as short_name,
       value ->> 'epoch' as epoch,
       value ->> 'value' as value
-from modelchimp_machinelearningmodel ml,
+from modelchimp_experiment ml,
 json_array_elements(ml.epoch_durations::json -> 'duration' -> '%s')
 where project_id = %s ) a
 group by id, name, short_name
@@ -177,7 +177,7 @@ group by id, name, short_name
 def experiment_duration_filter(request, project_id):
     query = '''
 select distinct value as tag
-from modelchimp_machinelearningmodel ml,
+from modelchimp_experiment ml,
 jsonb_array_elements(ml.epoch_durations::jsonb -> 'tag_list')
 where project_id = %s
 order by tag
@@ -212,7 +212,7 @@ def experiment_parameter_metric_chart(request, project_id):
 
             metric_query = '''
 select distinct value as metric
-from modelchimp_machinelearningmodel ml,
+from modelchimp_experiment ml,
 jsonb_array_elements(ml.evaluation_parameters::jsonb -> 'metric_list')
 where project_id = %s
         	'''
@@ -228,7 +228,7 @@ where project_id = %s
 
             param_query = '''
 select distinct json_object_keys(model_parameters::json) as param
-from modelchimp_machinelearningmodel ml
+from modelchimp_experiment ml
 where json_typeof(model_parameters::json) = 'object'
 and project_id = %s
         	'''
@@ -259,7 +259,7 @@ from (select
       value ->> 'epoch' as epoch,
       value -> 'value' as value,
       row_number() OVER (PARTITION BY model_parameters->>'{param}' ORDER BY value -> 'value' {max_sql}) as max_rank
-from modelchimp_machinelearningmodel ml,
+from modelchimp_experiment ml,
       jsonb_array_elements(ml.evaluation_parameters::jsonb -> 'evaluation' -> '{metric}')
 where project_id = {project_id}
  and model_parameters->>'{param}' is not null) a
@@ -275,7 +275,7 @@ where max_rank = 1
 def experiment_parameter_metric_filter(request, project_id):
     query = '''
 select distinct json_object_keys(model_parameters::json) as param
-from modelchimp_machinelearningmodel ml
+from modelchimp_experiment ml
 where json_typeof(model_parameters::json) = 'object'
 and project_id = %s
 	'''

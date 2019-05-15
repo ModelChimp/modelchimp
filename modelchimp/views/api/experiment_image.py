@@ -5,7 +5,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 
 from modelchimp.models.experiment_image import ExperimentImage
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 from modelchimp.utils.data_utils import execute_query
 from modelchimp.serializers.experiment_image import ExperimentImageSerializer
 

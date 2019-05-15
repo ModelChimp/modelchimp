@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from modelchimp.serializers.experiment_custom_object import ExperimentCustomObjectSerializer
 from modelchimp.models.experiment_custom_object import ExperimentCustomObject
 from modelchimp.models.membership import Membership
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 
 from modelchimp.api_permissions import HasProjectMembership
 from rest_framework.permissions import IsAuthenticated
@@ -82,7 +82,7 @@ class ExperimentCustomObjectDetailAPI(mixins.RetrieveModelMixin, generics.ListAP
 
     def list(self, request, model_id):
         try:
-            ml_model_obj = MachineLearningModel.objects.get(id=model_id)
+            ml_model_obj = Experiment.objects.get(id=model_id)
         except Exception as e:
             return Response("Error: %s" % e, status=status.HTTP_400_BAD_REQUEST)
 

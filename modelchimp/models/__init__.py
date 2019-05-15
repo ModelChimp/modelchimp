@@ -1,6 +1,6 @@
 from modelchimp.models.project  import Project
 from modelchimp.models.membership import Membership
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 from modelchimp.models.comment import Comment
 from modelchimp.models.profile import Profile
 from modelchimp.models.user import User

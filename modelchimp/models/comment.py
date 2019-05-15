@@ -1,13 +1,13 @@
 from django.db import models
 
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 from modelchimp.models.project import Project
 from modelchimp.models.user import User
 
 
 class Comment(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE,)
-	ml_model = models.ForeignKey(MachineLearningModel, related_name='comment_ml_model', on_delete=models.CASCADE,)
+	ml_model = models.ForeignKey(Experiment, related_name='comment_ml_model', on_delete=models.CASCADE,)
 	project = models.ForeignKey(Project,
 								on_delete=models.CASCADE,)
 

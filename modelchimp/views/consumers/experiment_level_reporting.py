@@ -6,7 +6,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 
 from modelchimp.enum import ClientEvent, ServerEvent
 from modelchimp.models.membership import Membership
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 from modelchimp.utils.data_utils import execute_query
 
 
@@ -154,9 +154,9 @@ class ExperimentLevelReportingConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def get_experiment(self, id):
         try:
-            result = MachineLearningModel.objects.get(experiment_id=id)
+            result = Experiment.objects.get(experiment_id=id)
             return result
-        except MachineLearningModel.DoesNotExist:
+        except Experiment.DoesNotExist:
             pass
 
         return None
@@ -166,7 +166,7 @@ class ExperimentLevelReportingConsumer(AsyncWebsocketConsumer):
         metric_query = '''
             select value ->> 'epoch' as epoch,
             		value ->> 'value' as value
-            from modelchimp_machinelearningmodel ml,
+            from modelchimp_experiment ml,
             json_array_elements(ml.evaluation_parameters::json -> 'evaluation' -> '%s')
             where id = %s
     	'''
@@ -182,7 +182,7 @@ class ExperimentLevelReportingConsumer(AsyncWebsocketConsumer):
         duration_query = '''
             select value ->> 'epoch' as epoch,
             		value ->> 'value' as value
-            from modelchimp_machinelearningmodel ml,
+            from modelchimp_experiment ml,
             json_array_elements(ml.epoch_durations::json -> 'duration' -> '%s')
             where id = %s
     	'''

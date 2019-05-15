@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from modelchimp.models.experiment_asset import ExperimentAsset
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 
 
 class ExperimentAssetSerializer(serializers.ModelSerializer):
@@ -10,7 +10,7 @@ class ExperimentAssetSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         mid = self.context['request'].parser_context['kwargs']['model_id']
-        model_obj = MachineLearningModel.objects.get(id=mid)
+        model_obj = Experiment.objects.get(id=mid)
 
         instance = ExperimentAsset.objects.create(
          ml_model=model_obj,

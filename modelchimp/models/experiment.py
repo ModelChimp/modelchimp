@@ -8,7 +8,8 @@ from modelchimp.models.project import Project
 from modelchimp.utils.generate_uid import generate_uid
 from marshmallow import Schema, fields
 
-class MachineLearningModel(models.Model):
+
+class Experiment(models.Model):
     '''
     Experiments table that store the experiments conducted in each project.
 

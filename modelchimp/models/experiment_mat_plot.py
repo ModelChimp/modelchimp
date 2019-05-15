@@ -2,7 +2,7 @@ from uuid import uuid4
 from django.db import models
 
 from modelchimp.models.project import Project
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 
 
 class ExperimentMatPlot(models.Model):
@@ -13,7 +13,7 @@ class ExperimentMatPlot(models.Model):
     project = models.ForeignKey(Project,
                                 on_delete=models.CASCADE,
                                 related_name='mat_plot_project')
-    ml_model = models.ForeignKey(MachineLearningModel,
+    ml_model = models.ForeignKey(Experiment,
                                     related_name='mat_plot_experiment',
                                     on_delete=models.CASCADE,)
     mat_plot_id = models.CharField(max_length=50, default=None)
