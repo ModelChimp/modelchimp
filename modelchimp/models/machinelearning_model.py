@@ -6,7 +6,7 @@ from modelchimp.enum import PlatformLibraryType, ExperimentStatus
 from modelchimp.models.user import User
 from modelchimp.models.project import Project
 from modelchimp.utils.generate_uid import generate_uid
-
+from marshmallow import Schema, fields
 
 class MachineLearningModel(models.Model):
     '''
@@ -77,7 +77,7 @@ class MachineLearningModel(models.Model):
     labels = JSONField(null=True)
 
     features = JSONField(null=True)
-    model_parameters = JSONField(null=True, default=dict)
+    model_parameters = JSONField(null=True, default=dict) # Simple dict
     evaluation_parameters = JSONField(null=True)
     epoch_durations = JSONField(null=True)
     grid_search = JSONField(null=True)
@@ -105,3 +105,7 @@ class MachineLearningModel(models.Model):
 
     def __str__(self):
         return "%s" % (self.name,)
+
+
+class MetricSchema(Schema):
+    pass
