@@ -57,16 +57,16 @@ class Experiment(models.Model):
     #         - time
 
     name = models.CharField(max_length=200, blank=True, default='', null=True)
-    algorithm = models.CharField(max_length=200, blank=True, default='', null=True)
+    algorithm = models.CharField(max_length=200, blank=True, default='', null=True) # Remove
     platform = models.CharField(max_length=200,
 								blank=True, default='',
 								choices=PlatformType.CHOICES,
-                                null=True)
+                                null=True) # Remove
     platform_library = models.CharField(max_length=5,
 										blank=True,
 										default='',
 										choices=PlatformLibraryType.CHOICES,
-                                        null=True)
+                                        null=True) # Remove
     experiment_id = models.CharField(max_length=70, unique=True, default=generate_uid)
     dataset_id = models.CharField(max_length=100, default='', null=True)
     status = models.CharField(max_length=5,
@@ -77,7 +77,7 @@ class Experiment(models.Model):
     comment_count = models.IntegerField(default=0)
     labels = JSONField(null=True)
 
-    features = JSONField(null=True)
+    features = JSONField(null=True) #Remove
     model_parameters = JSONField(null=True, default=dict) # Simple dict
     evaluation_parameters = JSONField(null=True)
     epoch_durations = JSONField(null=True)
