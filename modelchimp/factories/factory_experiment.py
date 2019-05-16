@@ -16,9 +16,9 @@ class ExperimentFactory(factory.DjangoModelFactory):
     status = ExperimentStatus.COMPLETED
     labels = factory.Faker("words", nb=3, unique=True)
 
-    model_parameters = parameters_data
-    evaluation_parameters = metrics_data
-    epoch_durations = duration_data
+    parameters = parameters_data
+    metrics = metrics_data
+    durations = duration_data
     grid_search = grid_search_data
 
     user = factory.SubFactory(UserFactory)
