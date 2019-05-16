@@ -21,6 +21,8 @@ class ExperimentFactory(factory.DjangoModelFactory):
     durations = duration_data
     grid_search = grid_search_data
 
+    code_file = factory.django.FileField(filename='modelchimp/tests/sample_code.py')
+
     user = factory.SubFactory(UserFactory)
     project = factory.SubFactory(ProjectFactory)
 

@@ -1,4 +1,5 @@
-from django.test import TestCase, Client
+from django.test import TestCase
+from rest_framework.test import APIClient
 
 from modelchimp.factories.factory_user import UserFactory
 from modelchimp.factories.factory_profile import ProfileFactory
@@ -10,7 +11,7 @@ from modelchimp.factories.factory_experiment import ExperimentFactory
 class BaseTest(TestCase):
     def setUp(self):
         self._data_setup()
-        self.client = Client()
+        self.client = APIClient()
         self.login = self.client.login(username='admin@modelchimp.com', password='modelchimp123')
 
     def _data_setup(self):
