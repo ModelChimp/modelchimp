@@ -29,7 +29,7 @@ def experiment_metric_chart(request, project_id):
             metric_query = '''
 select distinct value as metric
 from modelchimp_experiment ml,
-jsonb_array_elements(ml.evaluation_parameters::jsonb -> 'metric_list')
+jsonb_array_elements(ml.metrics::jsonb -> 'metric_list')
 where project_id = %s
         	'''
 
@@ -56,7 +56,7 @@ from (select
       value ->> 'epoch' as epoch,
       value ->> 'value' as value
 from modelchimp_experiment ml,
-jsonb_array_elements(ml.evaluation_parameters::jsonb -> 'evaluation' -> '%s')
+jsonb_array_elements(ml.metrics::jsonb -> 'evaluation' -> '%s')
 where project_id = %s ) a
 group by id, name, short_name
 	'''
@@ -82,9 +82,9 @@ def experiment_metric_filter(request, project_id):
             param = str(params['param'])
 
             param_query = '''
-select distinct json_object_keys(model_parameters::json) as param
+select distinct json_object_keys(parameters::json) as param
 from modelchimp_experiment ml
-where json_typeof(model_parameters::json) = 'object'
+where json_typeof(parameters::json) = 'object'
 and project_id = %s
         	'''
 
@@ -101,14 +101,14 @@ and project_id = %s
     query = '''
 select distinct value as metric
 from modelchimp_experiment ml,
-jsonb_array_elements(ml.evaluation_parameters::jsonb -> 'metric_list')
+jsonb_array_elements(ml.metrics::jsonb -> 'metric_list')
 where project_id = %s %s
 order by metric
 	'''
 
     query = query % (
         project_id,
-        "and model_parameters->>'%s' is not null" % (param, ) if param else ''
+        "and parameters->>'%s' is not null" % (param, ) if param else ''
     )
 
     result_raw = execute_query(query)
@@ -130,7 +130,7 @@ def experiment_duration_chart(request, project_id):
             tag_query = '''
 select distinct value as tag
 from modelchimp_experiment ml,
-jsonb_array_elements(ml.epoch_durations::jsonb -> 'tag_list')
+jsonb_array_elements(ml.durations::jsonb -> 'tag_list')
 where project_id = %s
         	'''
 
@@ -157,7 +157,7 @@ from (select
       value ->> 'epoch' as epoch,
       value ->> 'value' as value
 from modelchimp_experiment ml,
-json_array_elements(ml.epoch_durations::json -> 'duration' -> '%s')
+json_array_elements(ml.durations::json -> 'duration' -> '%s')
 where project_id = %s ) a
 group by id, name, short_name
 	'''
@@ -178,7 +178,7 @@ def experiment_duration_filter(request, project_id):
     query = '''
 select distinct value as tag
 from modelchimp_experiment ml,
-jsonb_array_elements(ml.epoch_durations::jsonb -> 'tag_list')
+jsonb_array_elements(ml.durations::jsonb -> 'tag_list')
 where project_id = %s
 order by tag
 	'''
@@ -213,7 +213,7 @@ def experiment_parameter_metric_chart(request, project_id):
             metric_query = '''
 select distinct value as metric
 from modelchimp_experiment ml,
-jsonb_array_elements(ml.evaluation_parameters::jsonb -> 'metric_list')
+jsonb_array_elements(ml.metrics::jsonb -> 'metric_list')
 where project_id = %s
         	'''
 
@@ -227,9 +227,9 @@ where project_id = %s
             param = str(params['param'])
 
             param_query = '''
-select distinct json_object_keys(model_parameters::json) as param
+select distinct json_object_keys(parameters::json) as param
 from modelchimp_experiment ml
-where json_typeof(model_parameters::json) = 'object'
+where json_typeof(parameters::json) = 'object'
 and project_id = %s
         	'''
 
@@ -255,14 +255,14 @@ from (select
       CASE WHEN name = experiment_id THEN SUBSTRING(name,0,8)
         ELSE name
       END as short_name,
-      model_parameters->>'{param}' as param,
+      parameters->>'{param}' as param,
       value ->> 'epoch' as epoch,
       value -> 'value' as value,
-      row_number() OVER (PARTITION BY model_parameters->>'{param}' ORDER BY value -> 'value' {max_sql}) as max_rank
+      row_number() OVER (PARTITION BY parameters->>'{param}' ORDER BY value -> 'value' {max_sql}) as max_rank
 from modelchimp_experiment ml,
-      jsonb_array_elements(ml.evaluation_parameters::jsonb -> 'evaluation' -> '{metric}')
+      jsonb_array_elements(ml.metrics::jsonb -> 'evaluation' -> '{metric}')
 where project_id = {project_id}
- and model_parameters->>'{param}' is not null) a
+ and parameters->>'{param}' is not null) a
 where max_rank = 1
 	'''
     result_raw = execute_query(query)
@@ -274,9 +274,9 @@ where max_rank = 1
 @permission_classes((HasProjectMembership, IsAuthenticated))
 def experiment_parameter_metric_filter(request, project_id):
     query = '''
-select distinct json_object_keys(model_parameters::json) as param
+select distinct json_object_keys(parameters::json) as param
 from modelchimp_experiment ml
-where json_typeof(model_parameters::json) = 'object'
+where json_typeof(parameters::json) = 'object'
 and project_id = %s
 	'''
 

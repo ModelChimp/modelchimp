@@ -31,7 +31,7 @@ class ExperimentPullParamAPI(mixins.RetrieveModelMixin, generics.GenericAPIView)
         except Membership.DoesNotExist:
             return Response(status=status.HTTP_403_FORBIDDEN)
 
-        ml_obj.model_parameters = dict2native(ml_obj.model_parameters)
+        ml_obj.parameters = dict2native(ml_obj.parameters)
         serializer = self.serializer_class(ml_obj)
 
         return Response(serializer.data, status=status.HTTP_200_OK)

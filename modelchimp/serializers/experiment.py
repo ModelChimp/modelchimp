@@ -16,9 +16,9 @@ class ExperimentSerializer(serializers.ModelSerializer):
         fields = '__all__'
         extra_kwargs = {
             'features': {'write_only': True},
-            'model_parameters': {'write_only': True},
-            'evaluation_parameters': {'write_only': True},
-            'epoch_durations': {'write_only': True},
+            'parameters': {'write_only': True},
+            'metrics': {'write_only': True},
+            'durations': {'write_only': True},
             'deep_learning_parameters': {'write_only': True},
             'ml_model_file': {'write_only': True},
         }
@@ -38,11 +38,11 @@ class ExperimentSerializer(serializers.ModelSerializer):
     def get_param_fields(self, obj):
         param_list = self.context.get("param_fields", [])
         result = dict()
-        if not isinstance(obj.model_parameters, dict):
+        if not isinstance(obj.parameters, dict):
             return result
 
         for param in param_list:
-            param_value = obj.model_parameters.get(param, None)
+            param_value = obj.parameters.get(param, None)
             if param_value:
                 result[param] = param_value
 
@@ -52,20 +52,20 @@ class ExperimentSerializer(serializers.ModelSerializer):
         metric_list = self.context.get("metric_fields", [])
         result = dict()
 
-        if not isinstance(obj.evaluation_parameters, dict) or len(metric_list) == 0:
+        if not isinstance(obj.metrics, dict) or len(metric_list) == 0:
             return result
 
         for metric in metric_list:
             metric_name = metric.split("$")[0]
             max_flag = metric.split("$")[1]
 
-            if metric_name not in obj.evaluation_parameters['metric_list']:
+            if metric_name not in obj.metrics['metric_list']:
                 continue
 
             # Get the max and min value
             max = 0
             min = 0
-            for i,m in enumerate(obj.evaluation_parameters['evaluation'][metric_name]):
+            for i,m in enumerate(obj.metrics['evaluation'][metric_name]):
                 current_value = m['value']
 
                 if i == 0:

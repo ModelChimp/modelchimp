@@ -77,15 +77,15 @@ class ExperimentLevelReportingConsumer(AsyncWebsocketConsumer):
         asyncio.sleep(1)
         self.experiment_obj.refresh_from_db()
 
-        if (not self.experiment_obj.evaluation_parameters
-            or isinstance(self.experiment_obj.evaluation_parameters, list)):
+        if (not self.experiment_obj.metrics
+            or isinstance(self.experiment_obj.metrics, list)):
             await self.send(text_data=json.dumps({
                 'type': ServerEvent.NO_FILTER_EXPERIMENT_LEVEL_METRIC,
             }))
             return
 
-        if 'metric_list' in self.experiment_obj.evaluation_parameters.keys():
-            result = self.experiment_obj.evaluation_parameters['metric_list']
+        if 'metric_list' in self.experiment_obj.metrics.keys():
+            result = self.experiment_obj.metrics['metric_list']
         else:
             await self.send(text_data=json.dumps({
                 'type': ServerEvent.NO_FILTER_EXPERIMENT_LEVEL_METRIC,
@@ -113,13 +113,13 @@ class ExperimentLevelReportingConsumer(AsyncWebsocketConsumer):
     async def send_experiment_level_duration_filters(self, event):
         asyncio.sleep(1)
         self.experiment_obj.refresh_from_db()
-        if not self.experiment_obj.epoch_durations:
+        if not self.experiment_obj.durations:
             await self.send(text_data=json.dumps({
                 'type': ServerEvent.NO_FILTER_EXPERIMENT_LEVEL_DURATION,
             }))
             return
 
-        result = self.experiment_obj.epoch_durations['tag_list']
+        result = self.experiment_obj.durations['tag_list']
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
@@ -167,7 +167,7 @@ class ExperimentLevelReportingConsumer(AsyncWebsocketConsumer):
             select value ->> 'epoch' as epoch,
             		value ->> 'value' as value
             from modelchimp_experiment ml,
-            json_array_elements(ml.evaluation_parameters::json -> 'evaluation' -> '%s')
+            json_array_elements(ml.metrics::json -> 'evaluation' -> '%s')
             where id = %s
     	'''
 
@@ -183,7 +183,7 @@ class ExperimentLevelReportingConsumer(AsyncWebsocketConsumer):
             select value ->> 'epoch' as epoch,
             		value ->> 'value' as value
             from modelchimp_experiment ml,
-            json_array_elements(ml.epoch_durations::json -> 'duration' -> '%s')
+            json_array_elements(ml.durations::json -> 'duration' -> '%s')
             where id = %s
     	'''
 

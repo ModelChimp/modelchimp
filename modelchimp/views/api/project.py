@@ -84,9 +84,9 @@ def param_metric_meta(request, project_id):
 
 	result = dict()
 	query = '''
-	select distinct json_object_keys(model_parameters::json) as name
+	select distinct json_object_keys(parameters::json) as name
 	from modelchimp_experiment ml
-	where json_typeof(model_parameters::json) = 'object'
+	where json_typeof(parameters::json) = 'object'
 	and project_id = %s
 	'''
 
@@ -98,7 +98,7 @@ def param_metric_meta(request, project_id):
 	query = '''
 	select distinct value as name
 	from modelchimp_experiment ml,
-	jsonb_array_elements(ml.evaluation_parameters::jsonb -> 'metric_list')
+	jsonb_array_elements(ml.metrics::jsonb -> 'metric_list')
 	where project_id = %s
 	order by name
 	'''
@@ -129,8 +129,8 @@ def param_metric_data(request, project_id):
 
 	query = '''
 	select distinct id,key,value
-	from modelchimp_experiment ml, json_each_text(model_parameters::json)
-	where json_typeof(model_parameters::json) = 'object'
+	from modelchimp_experiment ml, json_each_text(parameters::json)
+	where json_typeof(parameters::json) = 'object'
 	and project_id = %s
 	and key in (%s)
 	'''

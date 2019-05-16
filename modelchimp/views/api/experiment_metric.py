@@ -18,8 +18,8 @@ class ExperimentMetricAPI(mixins.RetrieveModelMixin,
 
         result = dict()
         result['summary'] = []
-        result['metric'] = instance.evaluation_parameters
-        result['duration'] = instance.epoch_durations
+        result['metric'] = instance.metrics
+        result['duration'] = instance.durations
 
         if not result['metric']:
             return Response(result, status=status.HTTP_200_OK)

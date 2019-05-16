@@ -86,4 +86,6 @@ class CreateExperimentAPI(generics.CreateAPIView):
 		serializer.is_valid()
 		exp_obj = serializer.save()
 
-		return Response({ 'model_id': exp_obj.id }, status=status.HTTP_201_CREATED)
+		return Response({ 'model_id': exp_obj.id
+							,'experiment_id' : exp_obj.experiment_id
+		 				}, status=status.HTTP_201_CREATED)

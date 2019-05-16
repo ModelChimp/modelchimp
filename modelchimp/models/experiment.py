@@ -14,8 +14,8 @@ class Experiment(models.Model):
     Experiments table that store the experiments conducted in each project.
 
     - JSON Fields -
-    model_parameters: dict
-    evaluation_parameters: # 0.1 version
+    parameters: dict
+    metrics: # 0.1 version
          evaluation:
             <metric_name>:
                 - epoch: int
@@ -24,7 +24,7 @@ class Experiment(models.Model):
          metric_list:
             - metric_name 1
             - metric_name 2
-    epoch_durations:
+    durations:
          duration:
             <tag_name>:
                 - epoch: int

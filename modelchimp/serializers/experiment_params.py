@@ -5,4 +5,4 @@ from modelchimp.models.experiment import Experiment
 class ExperimentParamsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Experiment
-        fields = ('model_parameters', )
+        fields = ('parameters', )

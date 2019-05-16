@@ -53,9 +53,9 @@ class TrackerConsumer(AsyncWebsocketConsumer):
         self.experiment_obj = await self.register_experiment(self.experiment_id)
 
         if message['type'] == ClientEvent.MODEL_PARAM:
-            await self.add_model_parameters(message['value'])
+            await self.add_parameters(message['value'])
         elif message['type'] == ClientEvent.EVAL_PARAM:
-            await self.add_evaluation_parameters(message['value'], message['epoch'])
+            await self.add_metrics(message['value'], message['epoch'])
             await self.channel_layer.group_send('experiment_' + str(self.experiment_obj.id),
                                 {"type": "send_new_metric_notification"}
             )
@@ -105,34 +105,34 @@ class TrackerConsumer(AsyncWebsocketConsumer):
         return experiment
 
     @database_sync_to_async
-    def add_model_parameters(self, value):
+    def add_parameters(self, value):
         '''
         Add the model parameter event to the experiment in the db
         '''
-        if( isinstance(self.experiment_obj.model_parameters, dict)):
-            self.experiment_obj.model_parameters = {**self.experiment_obj.model_parameters,
+        if( isinstance(self.experiment_obj.parameters, dict)):
+            self.experiment_obj.parameters = {**self.experiment_obj.parameters,
             **value}
         else:
-            self.experiment_obj.model_parameters = value
+            self.experiment_obj.parameters = value
 
 
         self.experiment_obj.save()
 
     @database_sync_to_async
-    def add_evaluation_parameters(self, value, epoch=None):
+    def add_metrics(self, value, epoch=None):
         '''
         Add the evaluation parameters event to the experiment in the db
         '''
 
-        if not isinstance(self.experiment_obj.evaluation_parameters, dict):
-            self.experiment_obj.evaluation_parameters = {
+        if not isinstance(self.experiment_obj.metrics, dict):
+            self.experiment_obj.metrics = {
                 'evaluation' : {},
                 'metric_list' : []
             }
 
         metric_keys = value.keys()
-        existing_metric_list = self.experiment_obj.evaluation_parameters['metric_list']
-        metric_data = self.experiment_obj.evaluation_parameters['evaluation']
+        existing_metric_list = self.experiment_obj.metrics['metric_list']
+        metric_data = self.experiment_obj.metrics['evaluation']
 
         for metric in metric_keys:
             if metric in existing_metric_list:
@@ -162,24 +162,24 @@ class TrackerConsumer(AsyncWebsocketConsumer):
         Add durations at every epoch to the db
         '''
 
-        if not isinstance(self.experiment_obj.epoch_durations, dict):
-            self.experiment_obj.epoch_durations = {
+        if not isinstance(self.experiment_obj.durations, dict):
+            self.experiment_obj.durations = {
                 'duration' : {},
                 'tag_list' : []
             }
 
         duration_keys = value.keys()
-        existing_tag_list = self.experiment_obj.epoch_durations['tag_list']
+        existing_tag_list = self.experiment_obj.durations['tag_list']
 
         for duration in duration_keys:
             if duration not in existing_tag_list:
                 existing_tag_list.append(duration)
-                self.experiment_obj.epoch_durations['duration'][duration] = [{
+                self.experiment_obj.durations['duration'][duration] = [{
                     'epoch': epoch,
                     'value': value[duration]
                 }]
             else:
-                self.experiment_obj.epoch_durations['duration'][duration] += [{
+                self.experiment_obj.durations['duration'][duration] += [{
                     'epoch': epoch,
                     'value': value[duration]
                 }]
@@ -213,7 +213,7 @@ class TrackerConsumer(AsyncWebsocketConsumer):
         Add the dataset id of the experiment
         '''
         self.experiment_obj.dataset_id = value
-        self.experiment_obj.model_parameters['dataset_id'] = value
+        self.experiment_obj.parameters['dataset_id'] = value
         self.experiment_obj.save()
 
     @database_sync_to_async
