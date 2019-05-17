@@ -7,7 +7,7 @@ from rest_framework import status
 import json
 
 
-class UserSerializerTest(BaseTest):
+class UserModelTest(BaseTest):
     model_class = User
     factory_class = UserFactory
     data = {

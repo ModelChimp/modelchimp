@@ -59,11 +59,10 @@ class Experiment(models.Model):
     name = models.CharField(max_length=200, blank=True, default='', null=True)
     experiment_id = models.CharField(max_length=70, unique=True, default=generate_uid)
     dataset_id = models.CharField(max_length=100, default='', null=True)
-    status = models.CharField(max_length=5,
-										blank=True,
-										default=ExperimentStatus.COMPLETED,
-										choices=ExperimentStatus.CHOICES,
-                                        null=True)
+    status = models.IntegerField(blank=True,
+    								default=ExperimentStatus.COMPLETED,
+    								choices=ExperimentStatus.CHOICES,
+                                    null=True)
     comment_count = models.IntegerField(default=0)
     labels = JSONField(null=True)
 
