@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.postgres.fields import JSONField
 
-from modelchimp.enum import PlatformType
-from modelchimp.enum import PlatformLibraryType, ExperimentStatus
+from modelchimp.enum import ExperimentStatus
 from modelchimp.models.user import User
 from modelchimp.models.project import Project
 from modelchimp.utils.generate_uid import generate_uid

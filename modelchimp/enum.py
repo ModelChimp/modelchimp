@@ -1,23 +1,3 @@
-class PlatformType(object):
-    PYTHON = 'PYTHON'
-    R = 'R'
-    JULIA = 'JULIA'
-    EXCEL = 'EXCEL'
-    CHOICES = (
-        (PYTHON, 'Python'),
-        (R, 'R'),
-        (JULIA, 'Julia'),
-        (EXCEL, 'Excel')
-    )
-
-class PlatformLibraryType(object):
-    SKLEARN = '1'
-    KERAS = '2'
-    CHOICES = (
-        (SKLEARN, 'Sklearn'),
-        (KERAS, 'Keras')
-    )
-
 class EvaluationMetric(object):
     # Classification
     ACCURACY = 1
@@ -120,3 +100,6 @@ class ExperimentStatus(object):
     CHOICES = (
         (IN_PROCESS, 'In Process'),
         (COMPLETED, 'Completed'))
+
+class Constants(object):
+    API_V2 = 'api/v2'
