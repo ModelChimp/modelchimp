@@ -23,8 +23,8 @@ class ExperimentMatPlotAPI(generics.ListCreateAPIView):
 
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
-    def post(self, request, project_id, *args, **kwargs):
-        return self.create(request, project_id, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
     def filter_queryset(self, queryset):
         mid = self.kwargs.get('model_id')
