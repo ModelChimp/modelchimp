@@ -94,5 +94,5 @@ class Experiment(models.Model):
         return "%s" % (self.name,)
 
 
-class MetricSchema(Schema):
-    pass
+# class MetricSchema(Schema):
+#     pass
