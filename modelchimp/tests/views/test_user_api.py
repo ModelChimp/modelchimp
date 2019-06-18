@@ -1,7 +1,5 @@
 from django.test import TestCase, Client
-from django.urls import reverse
 
-from modelchimp.models.user import User
 from modelchimp.factories.factory_user import UserFactory
 from modelchimp.factories.factory_profile import ProfileFactory
 

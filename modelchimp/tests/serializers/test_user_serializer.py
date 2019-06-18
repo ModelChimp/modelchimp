@@ -4,9 +4,6 @@ from modelchimp.factories.factory_user import UserFactory
 from modelchimp.serializers.user import UserSerializer
 from modelchimp.models.user import User
 
-from rest_framework import status
-import json
-
 
 class UserSerializerTest(BaseTest):
     serializer_class = UserSerializer

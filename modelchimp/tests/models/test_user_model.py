@@ -3,9 +3,6 @@ from modelchimp.tests import BaseTest
 from modelchimp.factories.factory_user import UserFactory
 from modelchimp.models.user import User
 
-from rest_framework import status
-import json
-
 
 class UserModelTest(BaseTest):
     model_class = User

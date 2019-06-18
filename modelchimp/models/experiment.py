@@ -5,7 +5,6 @@ from modelchimp.enum import ExperimentStatus
 from modelchimp.models.user import User
 from modelchimp.models.project import Project
 from modelchimp.utils.generate_uid import generate_uid
-from marshmallow import Schema, fields
 
 
 class Experiment(models.Model):

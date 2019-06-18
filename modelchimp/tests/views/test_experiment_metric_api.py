@@ -1,13 +1,11 @@
-import json
-
 from rest_framework import status
 
 from modelchimp.tests import BaseTest
-from modelchimp.enum import ExperimentStatus, Constants
+from modelchimp.enum import Constants
 
 
 class ExperimentParamApiTest(BaseTest):
-    
+
     def setUp(self):
         super().setUp()
         self.url = '/{}/experiment/{}/metric/'.format(Constants.API_V2

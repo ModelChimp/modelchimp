@@ -3,9 +3,6 @@ from modelchimp.tests import BaseTest
 from modelchimp.serializers.experiment import ExperimentSerializer
 from modelchimp.models.experiment import Experiment
 
-from rest_framework import status
-import json
-
 
 class ExperimentSerializerTest(BaseTest):
     serializer_class = ExperimentSerializer

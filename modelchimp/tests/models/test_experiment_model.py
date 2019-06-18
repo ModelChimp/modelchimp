@@ -3,8 +3,6 @@ from modelchimp.tests import BaseTest
 from modelchimp.factories.factory_experiment import ExperimentFactory
 from modelchimp.models.experiment import Experiment
 
-from rest_framework import status
-import json
 
 
 class ExperimentModelTest(BaseTest):

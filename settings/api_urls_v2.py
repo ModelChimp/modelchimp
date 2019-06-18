@@ -1,4 +1,4 @@
-from django.conf.urls import include, url
+from django.conf.urls import include
 from django.urls import path, re_path
 from modelchimp.views.api import (project,
                                   experiment,
@@ -7,7 +7,6 @@ from modelchimp.views.api import (project,
                                   experiment_custom_object,
                                   experiment_mat_plot,
                                   project_key,
-                                  experiment_pull_params,
                                   experiment_image,
                                   experiment_label,
                                   experiment_param,

@@ -1,9 +1,7 @@
-import json
-
 from rest_framework import status
 
 from modelchimp.tests import BaseTest
-from modelchimp.enum import ExperimentStatus, Constants
+from modelchimp.enum import Constants
 from modelchimp.factories.factory_experiment_matplot import ExperimentMatPlotFactory
 
 

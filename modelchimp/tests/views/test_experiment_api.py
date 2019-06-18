@@ -1,12 +1,8 @@
-from modelchimp.tests import BaseTest
+from rest_framework import status
 
-from modelchimp.models.user import User
-from modelchimp.factories.factory_user import UserFactory
-from modelchimp.factories.factory_profile import ProfileFactory
+from modelchimp.tests import BaseTest
 from modelchimp.enum import ExperimentStatus
 
-from rest_framework import status
-import json
 
 class ExperimentApiTest(BaseTest):
     EXPECTED_KEYS = {
@@ -61,7 +57,7 @@ class ExperimentApiTest(BaseTest):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), self.project.ml_model_project.count())
 
-        for i,e in enumerate(response.data):
+        for _,e in enumerate(response.data):
             for k in self.EXPECTED_KEYS:
                 self.assertTrue(k in e.keys())
 

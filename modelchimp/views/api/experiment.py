@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 from modelchimp.models.experiment import Experiment
-from modelchimp.models.membership import Membership
 from modelchimp.serializers.experiment import ExperimentSerializer
 from modelchimp.api_permissions import HasProjectMembership
 
