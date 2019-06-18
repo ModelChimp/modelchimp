@@ -47,8 +47,8 @@ class DeleteExperimentAPI(generics.DestroyAPIView):
 	permission_classes = (IsAuthenticated, HasProjectMembership)
 
 	def delete(self, request, project_id):
-		model_id = request.data.get('model_id')
-		model_ids = request.data.get('model_ids')
+		model_id = self.request.data.get('model_id')
+		model_ids = self.request.data.get('model_ids')
 
 		if model_id:
 			delete_list = [model_id]
