@@ -9,13 +9,13 @@ from django.dispatch import receiver
 
 from modelchimp.models.comment import Comment
 from modelchimp.models.profile import Profile
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 
 
 @receiver(post_save, sender=Comment)
 def update_comment_count(sender, instance, created, **kwargs):
     if created:
-        obj = MachineLearningModel.objects.get(pk = instance.ml_model.id)
+        obj = Experiment.objects.get(pk = instance.ml_model.id)
         obj.comment_count += 1
         obj.save()
 

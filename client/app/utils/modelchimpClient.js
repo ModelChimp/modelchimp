@@ -8,7 +8,7 @@ import { call } from 'redux-saga/effects';
 class ModelchimpClient {
   constructor(baseURL = '/') {
     this.tokenName = 'token';
-    this.apiURL = 'api/';
+    this.apiURL = 'api/v2/';
 
     if (!ModelchimpClient.instance) {
       this.defaultOptions = {

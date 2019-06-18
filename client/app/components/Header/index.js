@@ -9,7 +9,9 @@ class Header extends React.Component {
   render() {
     return (
       <Layout.Header style={{ position: 'fixed', zIndex: 300, width: '100vw' }}>
-        <img src={Logo} style={{ height: '30px' }} alt="" />
+        <Link to="/projects">
+          <img src={Logo} style={{ height: '30px' }} alt="" />
+        </Link>
 
         <Menu
           theme="dark"

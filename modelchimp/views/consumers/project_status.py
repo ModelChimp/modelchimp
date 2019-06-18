@@ -6,7 +6,7 @@ from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 
 from modelchimp.models.membership import Membership
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 
 
 class ProjectStatusConsumer(AsyncWebsocketConsumer):
@@ -69,7 +69,7 @@ class ProjectStatusConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def get_project_experiment_status(self, project_id):
         try:
-            result = MachineLearningModel.objects.filter(project=project_id)
+            result = Experiment.objects.filter(project=project_id)
             return result
         except Membership.DoesNotExist:
             pass

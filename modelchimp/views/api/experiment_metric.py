@@ -2,7 +2,7 @@ from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework import mixins
 
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 
 from modelchimp.api_permissions import HasProjectMembership
 from rest_framework.permissions import IsAuthenticated
@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 
 class ExperimentMetricAPI(mixins.RetrieveModelMixin,
                                 viewsets.GenericViewSet):
-    queryset = MachineLearningModel.objects.all()
+    queryset = Experiment.objects.all()
     permission_classes = (IsAuthenticated, HasProjectMembership)
 
     def retrieve(self, request, model_id,  *args, **kwargs):
@@ -18,8 +18,8 @@ class ExperimentMetricAPI(mixins.RetrieveModelMixin,
 
         result = dict()
         result['summary'] = []
-        result['metric'] = instance.evaluation_parameters
-        result['duration'] = instance.epoch_durations
+        result['metric'] = instance.metrics
+        result['duration'] = instance.durations
 
         if not result['metric']:
             return Response(result, status=status.HTTP_200_OK)

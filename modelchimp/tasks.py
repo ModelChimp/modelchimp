@@ -5,7 +5,7 @@ from django.utils import timezone
 from celery.decorators import periodic_task
 from celery.utils.log import get_task_logger
 
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 from modelchimp.enum import ExperimentStatus
 
 logger = get_task_logger(__name__)
@@ -13,7 +13,7 @@ logger = get_task_logger(__name__)
 
 @periodic_task(run_every=5, name="close_dead_experiments")
 def close_dead_experiments():
-    in_process_experiments = MachineLearningModel.objects.filter(status=ExperimentStatus.IN_PROCESS)
+    in_process_experiments = Experiment.objects.filter(status=ExperimentStatus.IN_PROCESS)
 
     for exp in in_process_experiments:
         time_diff = datetime.datetime.utcnow() - exp.last_heart_beat.replace(tzinfo=None)

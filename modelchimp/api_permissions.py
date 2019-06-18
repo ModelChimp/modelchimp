@@ -1,7 +1,7 @@
 from rest_framework.permissions import BasePermission
 
 from modelchimp.models.membership import Membership
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 
 class HasProjectMembership(BasePermission):
     def has_permission(self, request, view):
@@ -20,9 +20,9 @@ class HasProjectMembership(BasePermission):
 
     def _check_membership_with_mid(self, request, mid):
         try:
-            ml_obj = MachineLearningModel.objects.get(id=mid)
-            Membership.objects.get(user=request.user, project=ml_obj.project.id)
-        except (Membership.DoesNotExist, MachineLearningModel.DoesNotExist):
+            exp_obj = Experiment.objects.get(id=mid)
+            Membership.objects.get(user=request.user, project=exp_obj.project.id)
+        except (Membership.DoesNotExist, Experiment.DoesNotExist):
             return False
 
         return True

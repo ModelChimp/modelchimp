@@ -2,14 +2,14 @@ from rest_framework import generics, mixins, status
 from rest_framework.response import Response
 
 from modelchimp.models.membership import Membership
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 from modelchimp.serializers.experiment_params import ExperimentParamsSerializer
 from modelchimp.utils.data_utils import dict2native
 
 
 class ExperimentPullParamAPI(mixins.RetrieveModelMixin, generics.GenericAPIView):
     serializer_class = ExperimentParamsSerializer
-    queryset = MachineLearningModel.objects.all()
+    queryset = Experiment.objects.all()
 
     def retrieve(self):
         try:
@@ -20,7 +20,7 @@ class ExperimentPullParamAPI(mixins.RetrieveModelMixin, generics.GenericAPIView)
             # Check if the experiment id exists
             if 'experiment-id' in params:
                 experiment_id = params['experiment-id']
-                ml_obj = MachineLearningModel.objects.get(experiment_id = experiment_id)
+                ml_obj = Experiment.objects.get(experiment_id = experiment_id)
             else:
                 raise Exception("experiment-id required")
         except Exception as e:
@@ -31,7 +31,7 @@ class ExperimentPullParamAPI(mixins.RetrieveModelMixin, generics.GenericAPIView)
         except Membership.DoesNotExist:
             return Response(status=status.HTTP_403_FORBIDDEN)
 
-        ml_obj.model_parameters = dict2native(ml_obj.model_parameters)
+        ml_obj.parameters = dict2native(ml_obj.parameters)
         serializer = self.serializer_class(ml_obj)
 
         return Response(serializer.data, status=status.HTTP_200_OK)

@@ -7,7 +7,7 @@ import {
 } from './actions';
 
 export function* getExperimentMetricData({ modelId }) {
-  const requestURL = `experiment-detail/${modelId}/metric`;
+  const requestURL = `experiment/${modelId}/metric/`;
   try {
     const metricData = yield ModelchimpClient.get(requestURL);
     yield put(loadExperimentMetricSuccessAction(metricData));

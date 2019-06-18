@@ -15,9 +15,7 @@ class ExperimentMatPlotAPI(generics.ListCreateAPIView):
     queryset = ExperimentMatPlot.objects.all()
     permission_classes = (IsAuthenticated, HasProjectMembership)
 
-    def create(self, request, project_id, *args, **kwargs):
-        project_id = request.data.get('project_id')
-
+    def create(self, request, model_id, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
               serializer.save()
@@ -25,8 +23,8 @@ class ExperimentMatPlotAPI(generics.ListCreateAPIView):
 
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
-    def post(self, request, project_id, *args, **kwargs):
-        return self.create(request, project_id, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
     def filter_queryset(self, queryset):
         mid = self.kwargs.get('model_id')

@@ -4,7 +4,7 @@ from rest_framework import status
 
 from modelchimp.serializers.comment import CommentSerializer
 from modelchimp.models.comment import Comment
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 from modelchimp.api_permissions import HasProjectMembership
 from rest_framework.permissions import IsAuthenticated
 
@@ -15,7 +15,7 @@ class CommentAPI(generics.ListCreateAPIView):
 	permission_classes = (IsAuthenticated, HasProjectMembership)
 
 	def list(self, request, model_id, st=None):
-		ml_model_obj = MachineLearningModel.objects.get(pk=model_id)
+		ml_model_obj = Experiment.objects.get(pk=model_id)
 
 		queryset = self.get_queryset().filter(ml_model=ml_model_obj)
 		serializer = CommentSerializer(queryset, many=True)
@@ -29,7 +29,7 @@ class CommentAPI(generics.ListCreateAPIView):
 		data = request.data.copy()
 		data['user'] = self.request.user.id
 
-		ml_model_obj = MachineLearningModel.objects.get(pk=model_id)
+		ml_model_obj = Experiment.objects.get(pk=model_id)
 		data['ml_model'] = model_id
 		data['project'] = ml_model_obj.project.id
 

@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from modelchimp.models.machinelearning_model import MachineLearningModel
+from modelchimp.models.experiment import Experiment
 
 
 class ExperimentParamsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = MachineLearningModel
-        fields = ('model_parameters', )
+        model = Experiment
+        fields = ('parameters', )
