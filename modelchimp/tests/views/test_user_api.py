@@ -1,13 +1,12 @@
 from modelchimp.tests import BaseTest
 
-from modelchimp.factories.factory_user import UserFactory
 from modelchimp.factories.factory_profile import ProfileFactory
 
 from rest_framework import status
 import json
 
 
-class UserApiTest(TestCase):
+class UserApiTest(BaseTest):
     def setUp(self):
         super().setUp()
 
