@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from modelchimp.tests import BaseTest
 
 from modelchimp.factories.factory_user import UserFactory
 from modelchimp.factories.factory_profile import ProfileFactory
@@ -6,12 +6,10 @@ from modelchimp.factories.factory_profile import ProfileFactory
 from rest_framework import status
 import json
 
+
 class UserApiTest(TestCase):
     def setUp(self):
-        self.user = UserFactory(email='admin@modelchimp.com')
-        self.profile = ProfileFactory(user=self.user)
-        self.client = Client()
-        self.login = self.client.login(username='admin@modelchimp.com', password='modelchimp123')
+        super().setUp()
 
     def test_profile_retrieve(self):
         response = self.client.get('/api/v2/user',)

@@ -1,3 +1,4 @@
+from faker import Faker
 from django.test import TestCase
 from rest_framework.test import APIClient
 
@@ -7,10 +8,11 @@ from modelchimp.factories.factory_project import ProjectFactory
 from modelchimp.factories.factory_membership import MembershipFactory
 from modelchimp.factories.factory_experiment import ExperimentFactory
 
+fake = Faker()
 
 class BaseTest(TestCase):
-    uname = 'admin@modelchimp.com'
-    password = 'modelchimp123'
+    uname = fake.email()
+    password = fake.password()
 
     def setUp(self):
         self._data_setup()
