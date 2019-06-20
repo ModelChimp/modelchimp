@@ -1,4 +1,4 @@
-boto3==1.9.170
+boto3==1.9.173
 celery==4.3.0
 channels-redis==2.4.0
 Django==2.2.2
