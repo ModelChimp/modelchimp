@@ -13,8 +13,8 @@ furl==2.0.0
 future==0.17.1
 factory-boy
 jsmin==2.2.2
-marshmallow==2.19.2
 Pillow==6.1.0
+marshmallow==2.19.5
 psycopg2==2.8.3
 Pygments==2.4.2
 python-decouple==3.1
