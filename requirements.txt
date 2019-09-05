@@ -13,7 +13,7 @@ furl==2.0.0
 future==0.17.1
 factory-boy==2.12.0
 jsmin==2.2.2
-marshmallow==2.19.5
+marshmallow==3.0.3
 Pillow==6.0.0
 psycopg2==2.8.3
 Pygments==2.4.2
