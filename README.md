@@ -1,9 +1,9 @@
-NOTE: 
-This repo is no longer actively maintained. Following are some open source alternatives
+**NOTE: **
+**This repo is no longer actively maintained. Following are some open source alternatives **
   - mlflow : https://github.com/mlflow/mlflow
   - polyaxxon : https://github.com/polyaxon/polyaxon
  
- Following are some Saas options
+** Following are some Saas options **
   - cometml: https://www.comet.ml/
   - weights and biases: https://www.wandb.com/
 
