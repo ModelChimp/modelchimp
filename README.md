@@ -1,4 +1,4 @@
-#ModelChimp
+# ModelChimp
 
 
 [![CircleCI](https://circleci.com/gh/ModelChimp/modelchimp.svg?style=svg)](https://circleci.com/gh/ModelChimp/modelchimp)
