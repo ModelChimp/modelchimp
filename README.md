@@ -1,4 +1,4 @@
-<img src="https://drive.google.com/file/d/1Wrsk_9mrfLS-G2Qf61H24pS93ezBoPfk/view?usp=sharing" height=200 style="display:block;margin:auto;r"/>
+#ModelChimp
 
 
 [![CircleCI](https://circleci.com/gh/ModelChimp/modelchimp.svg?style=svg)](https://circleci.com/gh/ModelChimp/modelchimp)
