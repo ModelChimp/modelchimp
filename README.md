@@ -1,5 +1,13 @@
 # ModelChimp
 
+**NOTE**
+**This repo is no longer actively maintained. Following are some open source alternatives**
+  - mlflow : https://github.com/mlflow/mlflow
+  - polyaxxon : https://github.com/polyaxon/polyaxon
+
+**Following are some Saas options**
+  - cometml: https://www.comet.ml/
+  - weights and biases: https://www.wandb.com/
 
 [![CircleCI](https://circleci.com/gh/ModelChimp/modelchimp.svg?style=svg)](https://circleci.com/gh/ModelChimp/modelchimp)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/87a463d2330f4507a507d0710367ee01)](https://www.codacy.com/app/samzer/modelchimp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ModelChimp/modelchimp&amp;utm_campaign=Badge_Grade)
