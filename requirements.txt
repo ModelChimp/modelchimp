@@ -7,7 +7,7 @@ django-compressor==2.3
 django-htmlmin==0.11.0
 django-storages==1.7.1
 django-cors-headers==3.0.2
-djangorestframework==3.9.4
+djangorestframework==3.11.2
 django-rest-auth==0.9.5
 furl==2.0.0
 future==0.17.1
