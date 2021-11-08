@@ -1,5 +1,5 @@
 boto3==1.9.182
-celery==4.3.0
+celery==5.2.0
 channels-redis==2.4.0
 Django==2.2.3
 django-allauth==0.39.1
