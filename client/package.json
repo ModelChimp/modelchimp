@@ -82,7 +82,7 @@
     "ip": "1.1.5",
     "loadable-components": "2.2.3",
     "lodash": "^4.17.11",
-    "minimist": "1.2.0",
+    "minimist": "1.2.6",
     "moment": "^2.23.0",
     "npm": "^6.5.0",
     "plotly.js": "^1.44.4",
