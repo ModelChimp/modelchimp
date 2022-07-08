@@ -83,7 +83,7 @@
     "loadable-components": "2.2.3",
     "lodash": "^4.17.11",
     "minimist": "1.2.0",
-    "moment": "^2.23.0",
+    "moment": "^2.29.4",
     "npm": "^6.5.0",
     "plotly.js": "^1.44.4",
     "plotly.js-gl2d-dist": "^1.44.4",
